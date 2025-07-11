@@ -1,0 +1,155 @@
+// UIGuildBBS.ipp
+#include "UIGuildBBS.hpp"
+
+// CUIGuildBBS::MoveEmoticon
+__SUB_CLASS_THIS(003C3030, __thiscall, 70344,  CUIGuildBBS, void, int32_t) {
+	_ASM_PLACEHOLDER(003C3030, 70344)
+}
+// CUIGuildBBS::LoadViewTextBox
+__SUB_CLASS_THIS0(003C4C00, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C4C00, 70334)
+}
+// CUIGuildBBS::OnRegister
+__SUB_CLASS_THIS(003C4250, __thiscall, 70343,  CUIGuildBBS, void, int32_t, int32_t) {
+	_ASM_PLACEHOLDER(003C4250, 70343)
+}
+// CUIGuildBBS::OnEntryNotFound
+__SUB_CLASS_THIS0(003C6970, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C6970, 70334)
+}
+// CUIGuildBBS::OnButtonClicked
+__SUB_CLASS_THIS(003C80A0, __thiscall, 70339,  CUIGuildBBS, void, uint32_t) {
+	_ASM_PLACEHOLDER(003C80A0, 70339)
+}
+// CUIGuildBBS::ClearToolTip
+__SUB_CLASS_THIS0(003C3EB0, __thiscall, 70341,  IUIMsgHandler, void) {
+	_ASM_PLACEHOLDER(003C3EB0, 70341)
+}
+// CUIGuildBBS::OnCancel
+__SUB_CLASS_THIS0(003C6510, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C6510, 70334)
+}
+// CUIGuildBBS::ShowDeleteCommentButtons
+__SUB_CLASS_THIS0(003C34B0, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C34B0, 70334)
+}
+// CUIGuildBBS::OnViewEntryResult
+__SUB_CLASS_THIS(003C6630, __thiscall, 70345,  CUIGuildBBS, void, CInPacket&) {
+	_ASM_PLACEHOLDER(003C6630, 70345)
+}
+// CUIGuildBBS::OnWrite
+__SUB_CLASS_THIS(003C63F0, __thiscall, 70343,  CUIGuildBBS, void, int32_t, int32_t) {
+	_ASM_PLACEHOLDER(003C63F0, 70343)
+}
+// CUIGuildBBS::IsKindOf
+__SUB_CLASS_THIS(003C3EE0, __thiscall, 70355,  CUIGuildBBS, int32_t, const CRTTI*) {
+	_ASM_PLACEHOLDER(003C3EE0, 70355)
+}
+// CUIGuildBBS::OnGuildBBSPacket
+__SUB_CLASS_THIS(003C8260, __thiscall, 70345,  CUIGuildBBS, void, CInPacket&) {
+	_ASM_PLACEHOLDER(003C8260, 70345)
+}
+// CUIGuildBBS::SendLoadListRequest
+__SUB_CLASS_THIS0(003C3680, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C3680, 70334)
+}
+// CUIGuildBBS::OnCommentDelete
+__SUB_CLASS_THIS(003C3B70, __thiscall, 70344,  CUIGuildBBS, void, int32_t) {
+	_ASM_PLACEHOLDER(003C3B70, 70344)
+}
+// CUIGuildBBS::LoadWriteTextBox
+__SUB_CLASS_THIS(003C5A10, __thiscall, 70343,  CUIGuildBBS, void, int32_t, int32_t) {
+	_ASM_PLACEHOLDER(003C5A10, 70343)
+}
+// CUIGuildBBS::OnDestroy
+__SUB_CLASS_THIS0(003C2FC0, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C2FC0, 70334)
+}
+// CUIGuildBBS::SetScrollBar
+__SUB_CLASS_THIS0(003C2FE0, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C2FE0, 70334)
+}
+// CUIGuildBBS::Draw
+__SUB_CLASS_THIS(003C82B0, __thiscall, 70340,  CUIGuildBBS, void, const tagRECT*) {
+	_ASM_PLACEHOLDER(003C82B0, 70340)
+}
+// CUIGuildBBS::OnDelete
+__SUB_CLASS_THIS0(003C6520, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C6520, 70334)
+}
+// CUIGuildBBS::IsGuildBBSAdmin
+__SUB_CLASS_THIS0(003C30A0, __thiscall, 70346,  CUIGuildBBS, int32_t) {
+	_ASM_PLACEHOLDER(003C30A0, 70346)
+}
+// CUIGuildBBS::FormatShortDate
+__SUB_CLASS_THIS(003C4B50, __thiscall, 70352,  CUIGuildBBS, void, const _FILETIME&, ZXString<char>&) {
+	_ASM_PLACEHOLDER(003C4B50, 70352)
+}
+// CUIGuildBBS::OnComment
+__SUB_CLASS_THIS0(003C4530, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C4530, 70334)
+}
+// CUIGuildBBS::SendViewEntryRequest
+__SUB_CLASS_THIS0(003C3710, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C3710, 70334)
+}
+// CUIGuildBBS::OnLoadListResult
+__SUB_CLASS_THIS(003C46C0, __thiscall, 70345,  CUIGuildBBS, void, CInPacket&) {
+	_ASM_PLACEHOLDER(003C46C0, 70345)
+}
+// CUIGuildBBS::GetRTTI
+__SUB_CLASS_THIS0(003C3EC0, __thiscall, 70354,  CUIGuildBBS, const CRTTI*) {
+	_ASM_PLACEHOLDER(003C3EC0, 70354)
+}
+// CUIGuildBBS::ENTRYLIST::~ENTRYLIST
+__SUB_CLASS_THIS0(003C37A0, __thiscall, 70514,  CUIGuildBBS::ENTRYLIST, void) {
+	_ASM_PLACEHOLDER(003C37A0, 70514)
+}
+// CUIGuildBBS::OnChildNotify
+__SUB_CLASS_THIS(003C38E0, __thiscall, 70342,  CUIGuildBBS, void, uint32_t, uint32_t, uint32_t) {
+	_ASM_PLACEHOLDER(003C38E0, 70342)
+}
+// CUIGuildBBS::OnCreate
+__SUB_CLASS_THIS(003C69F0, __thiscall, 70335,  CUIGuildBBS, void, void*) {
+	_ASM_PLACEHOLDER(003C69F0, 70335)
+}
+// CUIGuildBBS::CUIGuildBBS
+__SUB_CLASS_THIS0(003C3CB0, __thiscall, 70332,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C3CB0, 70332)
+}
+// CUIGuildBBS::CURENTRY::~CURENTRY
+__SUB_CLASS_THIS0(003C4A80, __thiscall, 70445,  CUIGuildBBS::CURENTRY, void) {
+	_ASM_PLACEHOLDER(003C4A80, 70445)
+}
+// CUIGuildBBS::OnMouseMove
+__SUB_CLASS_THIS(003C2E40, __thiscall, 70338,  IUIMsgHandler, int32_t, long, long) {
+	_ASM_PLACEHOLDER(003C2E40, 70338)
+}
+// CUIGuildBBS::COMMENT::~COMMENT
+__SUB_CLASS_THIS0(003C3800, __thiscall, 70378,  CUIGuildBBS::COMMENT, void) {
+	_ASM_PLACEHOLDER(003C3800, 70378)
+}
+// CUIGuildBBS::~CUIGuildBBS
+__SUB_CLASS_THIS0(003C3F10, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C3F10, 70334)
+}
+// CUIGuildBBS::OnKey
+__SUB_CLASS_THIS(003C2E30, __thiscall, 70336,  IUIMsgHandler, void, uint32_t, uint32_t) {
+	_ASM_PLACEHOLDER(003C2E30, 70336)
+}
+// CUIGuildBBS::DrawList
+__SUB_CLASS_THIS(003C7550, __thiscall, 70350,  CUIGuildBBS, void, ZRef<CUIGuildBBS::ENTRYLIST>&, _x_com_ptr<IWzCanvas>&, long) {
+	_ASM_PLACEHOLDER(003C7550, 70350)
+}
+// CUIGuildBBS::FormatDate
+__SUB_CLASS_THIS(003C4B00, __thiscall, 70352,  CUIGuildBBS, void, const _FILETIME&, ZXString<char>&) {
+	_ASM_PLACEHOLDER(003C4B00, 70352)
+}
+// CUIGuildBBS::DestroyPreviousControls
+__SUB_CLASS_THIS0(003C2E80, __thiscall, 70334,  CUIGuildBBS, void) {
+	_ASM_PLACEHOLDER(003C2E80, 70334)
+}
+// CUIGuildBBS::OnMouseButton
+__SUB_CLASS_THIS(003C3980, __thiscall, 70337,  IUIMsgHandler, void, uint32_t, uint32_t, long, long) {
+	_ASM_PLACEHOLDER(003C3980, 70337)
+}

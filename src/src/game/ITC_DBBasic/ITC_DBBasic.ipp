@@ -1,0 +1,19 @@
+// ITC_DBBasic.ipp
+#include "ITC_DBBasic.hpp"
+
+// ITCITEM::ITCITEM
+__SUB_CLASS_THIS0(001752B0, __thiscall, 6054,  ITCITEM, void) {
+	_ASM_PLACEHOLDER(001752B0, 6054)
+}
+// ITCITEM::Decode
+__SUB(00175710, __cdecl, 6057,  ZRef<ITCITEM>, CInPacket&) {
+	_ASM_PLACEHOLDER(00175710, 6057)
+}
+// ITCITEM::~ITCITEM
+__SUB_CLASS_THIS0(00175310, __thiscall, 6059,  ITCITEM, void) {
+	_ASM_PLACEHOLDER(00175310, 6059)
+}
+// IsITCTradeLimitItem
+__SUB(001753D0, __cdecl, 141922,  int32_t, const GW_ItemSlotBase*) {
+	_ASM_PLACEHOLDER(001753D0, 141922)
+}
