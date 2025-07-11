@@ -45,10 +45,10 @@ public:
         long nEnd{};
 
     public:
-        ZXString<unsigned short> sTabNameNormal;
+        ZXString16 sTabNameNormal;
 
     public:
-        ZXString<unsigned short> sTabNameSelected;
+        ZXString16 sTabNameSelected;
 
     public:
         _x_com_ptr<IWzCanvas> pCanvasNormal;
@@ -181,7 +181,7 @@ protected:
     void RelocateTabPos();
 
 protected:
-    static void __cdecl GetTabBaseUOL(long type, ZXString<unsigned short>& sUOL);
+    static void __cdecl GetTabBaseUOL(long type, ZXString16& sUOL);
     CLASS_RTTI_(CCtrlTab, CCtrlWnd);
 
 public:

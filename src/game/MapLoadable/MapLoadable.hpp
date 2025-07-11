@@ -276,7 +276,7 @@ protected:
 	uint32_t m_unWeatherSoundCookie{};
 
 protected:
-	ZXString<unsigned short> m_sChangedBgmUOL;
+	ZXString16 m_sChangedBgmUOL;
 
 protected:
 	_x_com_ptr<IWzProperty> m_pPropFieldInfo;
@@ -487,16 +487,16 @@ protected:
 	void MakeCloud();
 
 protected:
-	void TransientLayer_Weather(const ZXString<unsigned short> &arg0, long arg1, long arg2, long arg3);
+	void TransientLayer_Weather(const ZXString16 &arg0, long arg1, long arg2, long arg3);
 
 protected:
-	void TransientLayer_FireCracker(ZXString<unsigned short> sPath);
+	void TransientLayer_FireCracker(ZXString16 sPath);
 
 protected:
 	void WeatherLayer_RemoveAll();
 
 protected:
-	void TransientLayer_NewYear(ZXString<unsigned short> sPath);
+	void TransientLayer_NewYear(ZXString16 sPath);
 
 protected:
 	void TransientLayer_Clear();

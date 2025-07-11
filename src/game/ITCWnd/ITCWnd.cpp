@@ -119,7 +119,7 @@ int32_t CITCWnd_Char::OnSetFocus(int32_t bFocus) {
 void CITCWnd_Char::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {
 	__sub_001803D0(this, nullptr, msg, wParam, rx, ry);
 }
-void CITCWnd_Char::OnKey(uint32_t wParam, uint32_t lParam) {
+void CITCWnd_Char::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00180B40(this, nullptr, wParam, lParam);
 }
 void CITCWnd_Char::OnDefaultAvatar() {

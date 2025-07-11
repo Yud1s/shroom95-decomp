@@ -33,7 +33,7 @@ void CUIKarmaDlg::Draw(const tagRECT* pRect) {
 void CUIKarmaDlg::OnButtonClicked(uint32_t nId) {
 	__sub_003D8130(this, nullptr, nId);
 }
-void CUIKarmaDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIKarmaDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003D7D80(this, nullptr, wParam, lParam);
 }
 int32_t CUIKarmaDlg::OnMouseMove(long rx, long ry) {

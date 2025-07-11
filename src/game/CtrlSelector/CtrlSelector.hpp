@@ -139,10 +139,10 @@ public:
 	void SetCurSel(long nCurSel);
 
 public:
-	long GetCurSel();
+	long GetCurSel() const;
 
 public:
-	long GetCount();
+	long GetCount() const;
 
 protected:
 	void ResetVisible();

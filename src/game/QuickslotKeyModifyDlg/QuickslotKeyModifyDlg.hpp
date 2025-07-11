@@ -37,7 +37,7 @@ public:
 		void _ctor_0();
 
 	public:
-		virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 	public:
 		CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey &operator=(const CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey &arg0);
@@ -92,7 +92,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);
@@ -122,7 +122,7 @@ protected:
 	void GetSlotPos(long nIdx, long &nleft, long &nTop);
 
 protected:
-	void ModifyQuickslotKeyMap(uint32_t wParam, uint32_t lParam);
+	void ModifyQuickslotKeyMap(uint32_t wParam, int32_t lParam);
 
 protected:
 	int32_t CheckAbaliableKey(long nKeyIdx);

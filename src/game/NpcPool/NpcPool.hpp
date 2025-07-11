@@ -94,13 +94,13 @@ public:
 
 public:
 	CNpc *FindNpc(const tagPOINT &pt, long nRadius);
-	CNpc *FindNpc_0(const tagPOINT &pt, long nRadius) {
+	CNpc *FindNpc_1(const tagPOINT &pt, long nRadius) {
 		return FindNpc(pt, nRadius);
 	}
 
 public:
 	CNpc *FindNpc(const tagPOINT &pt);
-	CNpc *FindNpc_1(const tagPOINT &pt) {
+	CNpc *FindNpc_0(const tagPOINT &pt) {
 		return FindNpc(pt);
 	}
 

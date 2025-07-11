@@ -1066,7 +1066,7 @@ __asm {
  Block14:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block15:
@@ -1635,7 +1635,7 @@ __asm {
 }
 // GetJobIcon
 _SUB_EXCEPTION_HANDLER(3AEDD0)
-__SUB(003AEDD0, __cdecl, 87300,  ZXString<unsigned short>, long, int32_t) {
+__SUB(003AEDD0, __cdecl, 87300,  ZXString16, long, int32_t) {
 __asm {
 
  Block0:
@@ -1663,12 +1663,12 @@ __asm {
 	push offset _S_UIUIWINDOW2IMGUS__150
 	push eax
 	mov dword ptr [esp+0x24],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0x10
 	push eax
 	mov ecx,esi
 	mov dword ptr [esi],0
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x20]
 	mov dword ptr [esp+8],1
 	mov byte ptr [esp+0x14],0
@@ -1678,7 +1678,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -2464,7 +2464,7 @@ __asm {
 }
 // TabExpedition::AttachButton
 _SUB_EXCEPTION_HANDLER(3AEA80)
-__SUB_CLASS_THIS(003AEA80, __thiscall, 40841,  TabExpedition, void, TabExpedition::ENUM_CTRL_ID, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(003AEA80, __thiscall, 40841,  TabExpedition, void, TabExpedition::ENUM_CTRL_ID, NakedParam<ZXString16>) {
 __asm {
 
  Block0:
@@ -2552,7 +2552,7 @@ __asm {
  Block9:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block10:
@@ -2878,7 +2878,7 @@ __asm {
 	mov dword ptr [esp+0x58],esp
 	push edx
 	mov dword ptr [ecx],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	push ecx
 	mov ecx,dword ptr [esp+0x40]
 	mov eax,esp
@@ -2964,12 +2964,12 @@ __asm {
 	push eax
 	push offset _S_UIUIWINDOW2IMGUS__150
 	push edx
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0x10
 	push eax
 	lea ecx,[esp+0x54]
 	mov dword ptr [esp+0x54],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x4C]
 	mov byte ptr [esp+0x28],6
 	cmp eax,ebx
@@ -2978,7 +2978,7 @@ __asm {
  Block37:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block38:
@@ -2991,7 +2991,7 @@ __asm {
 	mov dword ptr [esp+0x60],esp
 	push eax
 	mov dword ptr [ecx],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	push ecx
 	mov ecx,dword ptr [esp+0x40]
 	mov eax,esp
@@ -3018,7 +3018,7 @@ __asm {
  Block41:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block42:
@@ -3030,7 +3030,7 @@ __asm {
  Block43:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block44:
@@ -3736,7 +3736,7 @@ __asm {
  Block43:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block44:
@@ -5170,7 +5170,7 @@ __asm {
 }
 }
 // CCtrlSelectQuest::GetBackUOL
-__SUB_CLASS_THIS0(003AE4B0, __thiscall, 87287,  CCtrlSelectQuest, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(003AE4B0, __thiscall, 87287,  CCtrlSelectQuest, ZXString16) {
 __asm {
 
  Block0:
@@ -5212,13 +5212,13 @@ __asm {
 	push 0
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	pop esi
 
  Block6:
@@ -5284,13 +5284,13 @@ __asm {
 	push 0x32
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x32
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xE
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5303,13 +5303,13 @@ __asm {
 	push 0x32
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x32
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xF
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5322,13 +5322,13 @@ __asm {
 	push 0x38
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x38
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x10
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5341,13 +5341,13 @@ __asm {
 	push 0x30
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x30
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x11
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5360,13 +5360,13 @@ __asm {
 	push 0x33
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x33
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x12
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5379,13 +5379,13 @@ __asm {
 	push 0x32
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x32
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x13
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5398,13 +5398,13 @@ __asm {
 	push 0x36
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x36
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x14
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5417,13 +5417,13 @@ __asm {
 	push 0x34
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x34
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x15
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5436,13 +5436,13 @@ __asm {
 	push 0
 	push 0x30
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x30
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x16
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5460,13 +5460,13 @@ __asm {
 	push 0x23
 	mov ecx,edi
 	mov dword ptr [edi],eax
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x23
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xC
 	mov ecx,esi
 	call TabExpedition::AttachButton
@@ -5479,13 +5479,13 @@ __asm {
 	push 0x24
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x24
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xD
 	mov ecx,esi
 	call TabExpedition::AttachButton

@@ -87,7 +87,7 @@ public:
 		uint32_t wParam{};
 
 	public:
-		uint32_t lParam{};
+		int32_t lParam{};
 		// Methods
 	};
 
@@ -174,7 +174,7 @@ public:
 	void _ctor_0(CRand32 &RndMan);
 
 public:
-	uint32_t GetRandom();
+	uint32_t GetRandom() const;
 
 public:
 	void PreventRollback();
@@ -874,19 +874,19 @@ public:
 	unsigned char GetLevel();
 
 public:
-	unsigned long GetFieldID();
+	unsigned long GetFieldID() const;
 
 public:
-	int32_t IsSit();
+	int32_t IsSit() const;
 
 public:
-	int32_t IsPreparingSkill();
+	int32_t IsPreparingSkill() const;
 
 public:
-	int32_t IsRepeatSkill();
+	int32_t IsRepeatSkill() const;
 
 public:
-	long GetRepeatSkillPoint();
+	long GetRepeatSkillPoint() const;
 
 public:
 	int32_t IsImmovable();
@@ -937,7 +937,7 @@ public:
 	virtual void SetDamaged(long nDamage, long vx, long vy, unsigned long dwObstacleData, CMob *pMob, long nAttackIdx, long nDir, long nPowerGuard, int32_t bCheckHitRemain, int32_t bSendPacket);
 
 public:
-	void ShowCounterDamage(long nSeatID);
+	void ShowCounterDamage(long nDamage);
 
 public:
 	long GetProperBulletPosition(const SKILLENTRY *pSkill, long nSLV, long *pnItemID, long *pnCashItemPos, long *pnCashItemID);
@@ -985,10 +985,10 @@ public:
 	virtual void ClearToolTip();
 
 public:
-	int32_t PreprocessOnKey(uint32_t &wParam, uint32_t &lParam);
+	int32_t PreprocessOnKey(uint32_t &wParam, int32_t& lParam);
 
 public:
-	void OnKey(uint32_t wParam, uint32_t lParam);
+	void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
@@ -1135,7 +1135,7 @@ public:
 	int32_t IsWeaponDisabled();
 
 public:
-	int32_t IsKeyDownSkillUsing();
+	int32_t IsKeyDownSkillUsing() const;
 
 public:
 	int32_t IsDashing();
@@ -1192,7 +1192,7 @@ public:
 	void SetPassiveTransferField(int32_t arg0);
 
 public:
-	int32_t IsPassiveTransferField();
+	int32_t IsPassiveTransferField() const;
 
 public:
 	void OnVengeanceSkillApply(CInPacket &iPacket);
@@ -1219,10 +1219,10 @@ protected:
 	void SetShoeAttr();
 
 public:
-	int32_t UseFuncKeyMapped(uint32_t lParam);
+	int32_t UseFuncKeyMapped(int32_t lParam);
 
 public:
-	int32_t UseFuncKeyMappedUpKey(uint32_t lParam);
+	int32_t UseFuncKeyMappedUpKey(int32_t lParam);
 
 protected:
 	void CheckPortal_Collision();
@@ -1294,7 +1294,7 @@ protected:
 	void TryDoingSmoothingMovingShootAttack();
 
 protected:
-	void TryLeaveDirectionMode(long nSeatID);
+	void TryLeaveDirectionMode(long tCur);
 
 protected:
 	void SetDirectionMode(int32_t bSet);
@@ -1351,7 +1351,7 @@ public:
 	int32_t SendSkillUseRequest(const SKILLENTRY *pSkill, long nSLV, unsigned long dwAffectedMemberBitmap, long nMobCount, unsigned long *adwMobID, long nSpiritJavelinItemID, long nPelletPOS);
 
 public:
-	void SendSkillCancelRequest(long nSeatID);
+	void SendSkillCancelRequest(long skillId);
 
 public:
 	void SendSkillEffectRequest(long nAttr, long nImpact, int32_t bLeft);
@@ -1402,16 +1402,16 @@ public:
 	void SendRepeatEffectRemoveRequest();
 
 protected:
-	int32_t DoActiveSkill_MeleeAttack(const SKILLENTRY *arg0, long arg1);
+	int32_t DoActiveSkill_MeleeAttack(const SKILLENTRY *pSkill, long nSLV);
 
 protected:
-	int32_t DoActiveSkill_ShootAttack(const SKILLENTRY *arg0, long arg1);
+	int32_t DoActiveSkill_ShootAttack(const SKILLENTRY *pSkill, long nSLV);
 
 protected:
 	int32_t DoActiveSkill_VehicleShootAttack(const SKILLENTRY *arg0, long arg1);
 
 protected:
-	int32_t DoActiveSkill_MagicAttack(const SKILLENTRY *arg0, long arg1);
+	int32_t DoActiveSkill_MagicAttack(const SKILLENTRY *pSkill, long nSLV);
 
 protected:
 	int32_t DoActiveSkill_WeaponBooster(const SKILLENTRY *pSkill, long nSLV, long nWT1, long nWT2, long nWT3, long nWT4);
@@ -1420,7 +1420,7 @@ protected:
 	int32_t DoActiveSkill_Teleport(const SKILLENTRY *arg0, long arg1);
 
 protected:
-	int32_t DoActiveSkill_Heal(const SKILLENTRY *arg0, long arg1);
+	int32_t DoActiveSkill_Heal(const SKILLENTRY *pSkill, long nSLV);
 
 protected:
 	int32_t DoActiveSkill_TownPortal(const SKILLENTRY *arg0, long arg1);
@@ -1432,7 +1432,7 @@ protected:
 	int32_t DoActiveSkill_Prepare(const SKILLENTRY *pSkill, long nSLV, uint32_t nScanCode);
 
 protected:
-	int32_t DoActiveSkill_Summon(const SKILLENTRY *arg0, long arg1);
+	int32_t DoActiveSkill_Summon(const SKILLENTRY *pSkill, long nSLV);
 
 protected:
 	int32_t DoActiveSkill_StatChange(const SKILLENTRY *pSkill, long nSLV, unsigned long dwTargetFlag);
@@ -1513,10 +1513,10 @@ protected:
 	void TryDoingPreparedSkill();
 
 protected:
-	void TryDoingRepeatSkill(long nSeatID);
+	void TryDoingRepeatSkill(long tCur);
 
 protected:
-	void TryDoingSiege(long nSeatID);
+	void TryDoingSiege(long tCur);
 
 protected:
 	void TryDoingRocketBooster();
@@ -1585,7 +1585,7 @@ protected:
 	void SendBanMapByMobRequest(unsigned long dwMobTemplateID);
 
 protected:
-	void CheckBoobyTrapPickUpRequest(uint32_t lParam);
+	void CheckBoobyTrapPickUpRequest(int32_t lParam);
 
 protected:
 	virtual void ThrowGrenade(long nSkillID, long nSLV, long tKeyDown);
@@ -1638,7 +1638,7 @@ private:
 	CLASS_RTTI_(CUserLocal, CUser);
 
 public:
-	void RemoveTutor(long nSeatID);
+	void RemoveTutor(long nSKillId);
 
 public:
 	void RequestIncCombo();
@@ -1650,7 +1650,7 @@ public:
 	long GetCombo();
 
 public:
-	void SetCombo(long nSeatID);
+	void SetCombo(long nCombo);
 
 public:
 	void ClearCombo();
@@ -1683,10 +1683,10 @@ public:
 	long GetConsumeItemUsingLastTime();
 
 public:
-	void SetConsumeItemUsingLastTime(long nSeatID);
+	void SetConsumeItemUsingLastTime(long t);
 
 private:
-	void UpdateClientTimer(long nSeatID);
+	void UpdateClientTimer(long tCur);
 
 private:
 	void SetClientTimer(long nSkillID, long tTime);
@@ -1722,7 +1722,7 @@ public:
 	void GetTeslaCoilSummonedID(ZArray<unsigned long> &ldwTeslaCoilSummonedID);
 
 public:
-	void ChangeTeslaCoilEndTime(long nSeatID);
+	void ChangeTeslaCoilEndTime(long tNew);
 
 public:
 	void ChangeTeslaTriangle();

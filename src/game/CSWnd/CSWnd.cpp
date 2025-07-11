@@ -54,10 +54,10 @@ int32_t CCSWnd_Char::OnSetFocus(int32_t bFocus) {
 void CCSWnd_Char::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {
 	__sub_000BC380(this, nullptr, msg, wParam, rx, ry);
 }
-void CCSWnd_Char::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCSWnd_Char::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_000C5D20(this, nullptr, wParam, lParam);
 }
-int32_t CCSWnd_Char::OnKeyRet(uint32_t wParam, uint32_t lParam) {
+int32_t CCSWnd_Char::OnKeyRet(uint32_t wParam, int32_t lParam) {
 	return __sub_000BFCC0(this, nullptr, wParam, lParam);
 }
 void CCSWnd_Char::OnTabChanged(long nTab) {
@@ -179,7 +179,7 @@ void CCSWnd_Char::CreateFloatNotice(const char* arg0, long arg1) {
 void CCSWnd_Char::DeleteFloatNotice() {
 	__sub_000BCB10(this, nullptr);
 }
-void CCSWnd_Char::TransientLayer_Weather(ZXString<unsigned short> arg0, long arg1, long arg2, long arg3) {
+void CCSWnd_Char::TransientLayer_Weather(ZXString16 arg0, long arg1, long arg2, long arg3) {
 	__sub_000C0F30(this, nullptr, CreateNakedParam(arg0), arg1, arg2, arg3);
 }
 void CCSWnd_Char::TransientLayer_Clear() {

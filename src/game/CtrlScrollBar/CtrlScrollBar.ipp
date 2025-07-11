@@ -90,7 +90,7 @@ __SUB_CLASS_THIS(000E9F80, __thiscall, 12464,  IUIMsgHandler, void, uint32_t, ui
 	_ASM_PLACEHOLDER(000E9F80, 12464)
 }
 // CCtrlScrollBar::GetScrollBarBaseUOL
-__SUB(000EA0F0, __cdecl, 12479,  void, long, long, ZXString<unsigned short>&) {
+__SUB(000EA0F0, __cdecl, 12479,  void, long, long, ZXString16&) {
 	_ASM_PLACEHOLDER(000EA0F0, 12479)
 }
 // CCtrlScrollBar::SetScrollBarSize

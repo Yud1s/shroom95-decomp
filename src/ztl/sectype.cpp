@@ -24,12 +24,12 @@ void SECPOINT::_ctor_default() {
     new(this) SECPOINT();
 }
 
-SECPOINT &SECPOINT::op_assign_0(const SECPOINT &other) {
+SECPOINT &SECPOINT::op_assign_1(const SECPOINT &other) {
     *this = other;
     return *this;
 }
 
-SECPOINT &SECPOINT::op_assign_1(const tagPOINT &pt) {
+SECPOINT &SECPOINT::op_assign_0(const tagPOINT &pt) {
     *this = pt;
     return *this;
 }

@@ -418,7 +418,7 @@ je Block27
  Block24:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block25:
@@ -494,7 +494,7 @@ je Block27
  Block29:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block30:
@@ -731,7 +731,7 @@ __asm {
 	call CInPacket::Decode4
 	mov dword ptr [esi+0x28],eax
 	xor edi,edi
-	int 3// TODO: 	mov dword ptr [esp+0x80],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x80],0
 	mov dword ptr [esp+0x88],edi
 	mov dword ptr [esp+0x8C],edi
 	mov dword ptr [esp+0x90],edi
@@ -868,7 +868,7 @@ __asm {
  Block24:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block25:
@@ -1965,7 +1965,7 @@ __asm {
  Block165:
 	lea ecx,[esp+0x80]
 	mov byte ptr [esp+0x9C],0
-	int 3// TODO: 	mov dword ptr [esp+0x80],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x80],0
 	call ZList<ZRef<CStaticFoothold>>::RemoveAll
 	lea ecx,[esp+0x58]
 	mov dword ptr [esp+0x9C],0xFFFFFFFF
@@ -2335,7 +2335,7 @@ __asm {
 
  Block1:
 	mov ebp,eax
-	int 3// TODO: 	mov dword ptr [esp+0x68],offset ZList<CPet *>::`vftable'
+	mov dword ptr [esp+0x68],0
 	mov dword ptr [esp+0x70],ebx
 	mov dword ptr [esp+0x74],ebx
 	mov dword ptr [esp+0x78],ebx
@@ -2753,7 +2753,7 @@ __asm {
  Block62:
 	lea ecx,[esp+0x68]
 	mov dword ptr [esp+0x88],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x68],offset ZList<CPet *>::`vftable'
+	mov dword ptr [esp+0x68], 0
 	call ZList<CPet *>::RemoveAll
 
  Block63:
@@ -3117,7 +3117,7 @@ je Block130
  Block42:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block43:

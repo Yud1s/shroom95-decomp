@@ -37,7 +37,7 @@ void CClientSocket::_ctor_0()
 
 void CClientSocket::ConnectLogin()
 {
-    static ZInetAddr g_loginDefaultAddr(DEFAULT_LOGIN_IP, DEFAULT_LOGIN_PORT);
+    static ZInetAddr g_loginDefaultAddr("192.9.175.32", DEFAULT_LOGIN_PORT);
     auto app = CWvsApp::GetInstance();
     m_hWnd = app->GetMainWindow();
     CONNECTCONTEXT ctx;

@@ -12,7 +12,7 @@
 
 static ZRef<CStage> FAKE_ZREF_STAGE{};
 
-static ZMap<ZXString<unsigned short>, ZXString<unsigned short>, ZXString<unsigned short>> FAKE_ZMapStr16{};
+static ZMap<ZXString16, ZXString16, ZXString16> FAKE_ZMapStr16{};
 
 static ZRefCounted_AllocHelper<ZRefCountedDummy<MonsterBookStr>>
 FAKE_ZRefCounted_AllocHelper_ZRefCountedDummy_MonsterBookStr{};

@@ -27,6 +27,11 @@ class TSingleton
             ms_pInstance = nullptr;
         }
 
+        static T* _S()
+        {
+            return ms_pInstance;
+        }
+
         static T* GetInstance()
         {
             return ms_pInstance;

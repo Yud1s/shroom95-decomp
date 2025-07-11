@@ -77,7 +77,6 @@ IVecCtrlOwner& IVecCtrlOwner::_op_assign_12(IVecCtrlOwner* pThis, const IVecCtrl
 
 CLife::~CLife()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CLife::_dtor_0()
@@ -116,7 +115,15 @@ long CLife::MakeNameTag(const char* sName, _x_com_ptr<IWzGr2DLayer> pOverlay, _x
 
 void CLife::ShowNameTag(int32_t bShow)
 {
-    __sub_001CF3E0(this, nullptr, bShow);
+    //__sub_001CF3E0(this, nullptr, bShow);
+    auto color = bShow ? 0xFFFFFFFF : 0;
+    for (auto& nameTag : m_pLayerNameTag)
+    {
+        if (nameTag)
+        {
+            nameTag->Putcolor(color);
+        }
+    }
 }
 
 CLife& CLife::operator=(const CLife& arg0)

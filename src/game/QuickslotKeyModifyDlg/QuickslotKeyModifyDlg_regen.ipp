@@ -2896,13 +2896,13 @@ __asm {
 	push esi
 	push 0x39
 	lea ecx,[esp+0x3C]
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x39
 	lea ecx,[esp+0x30]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -2997,13 +2997,13 @@ __asm {
 	push 0
 	push 0x2F
 	lea ecx,[esp+0x3C]
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x2F
 	lea ecx,[esp+0x30]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -3101,13 +3101,13 @@ __asm {
 	push 0
 	push 0x33
 	lea ecx,[esp+0x3C]
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x33
 	lea ecx,[esp+0x30]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -3196,7 +3196,7 @@ __asm {
  Block43:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block44:

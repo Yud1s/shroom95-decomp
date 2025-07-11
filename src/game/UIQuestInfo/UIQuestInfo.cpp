@@ -129,7 +129,27 @@ CCtrlButtonQuestAlarmAuto& CCtrlButtonQuestAlarmAuto::_op_assign_9(CCtrlButtonQu
 
 CUIQuestAlarm::~CUIQuestAlarm()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    auto head = m_mQuestLastUpdateTime.GetHeadPosition();
+    while (head)
+    {
+        unsigned long val{};
+        m_mQuestLastUpdateTime.GetNext(head, &val);
+        if (isAllConditionsSatisfied(val))
+        {
+            int i = 0;
+            for (auto& quest : m_aQuestID)
+            {
+                if (quest == val)
+                {
+                    RemoveQuestByIndex(i);
+                }
+
+                ++i;
+            }
+        }
+
+        ms_pInstance = nullptr;
+    }
 }
 
 void CUIQuestAlarm::_dtor_0()
@@ -178,7 +198,7 @@ void CUIQuestAlarm::OnCreate(void* pData)
 
 
     auto uol = m_bMaximized ? L"UI/UIWindow2.img/QuestAlarm/backgrndmax" : L"UI/UIWindow2.img/QuestAlarm/backgrndmin";
-    CUIWnd::OnCreate(pData, ZXString((unsigned short*)uol), false);
+    CUIWnd::OnCreate(pData, ZXString16(uol), false);
 
     m_pFontTitle = get_basic_font(FONT_SMALL_WHITE);
     m_pFontTitleSkyBlue = get_basic_font(FONT_SMALL_SKYBLUE_B);
@@ -195,7 +215,7 @@ void CUIQuestAlarm::OnCreate(void* pData)
     ZRef btnAuto((CCtrlButton*)new CCtrlButtonWithAniState(), true);
     CCtrlButton::CREATEPARAM paramsAuto{};
     paramsAuto.bAcceptFocus = true;
-    paramsAuto.sUOL = (unsigned short*)L"UI/UIWindow2.img/QuestAlarm/BtAuto";
+    paramsAuto.sUOL = L"UI/UIWindow2.img/QuestAlarm/BtAuto";
     btnAuto->CreateCtrl(this, 2007, 118, 4, 0, &paramsAuto);
     m_pBtAuto = btnAuto;
 
@@ -203,7 +223,7 @@ void CUIQuestAlarm::OnCreate(void* pData)
     m_pBtAuto->SetEnable(m_bUseAutoRegister);
 
     ZRef btnQ(new CCtrlButtonWithAniState(), true);
-    paramsAuto.sUOL = (unsigned short*)L"UI/UIWindow2.img/QuestAlarm/BtQ";
+    paramsAuto.sUOL = L"UI/UIWindow2.img/QuestAlarm/BtQ";
     btnQ->CreateCtrl(this, 2008, 4, 4, 0, &paramsAuto);
     m_pBtQ = btnQ;
 
@@ -211,7 +231,7 @@ void CUIQuestAlarm::OnCreate(void* pData)
     m_pBackgrndCenter = get_rm()->GetObjectT<IWzCanvas>(L"UI/UIWindow2.img/QuestAlarm/backgrndcenter");
     m_pBackgrndBottom = get_rm()->GetObjectT<IWzCanvas>(L"UI/UIWindow2.img/QuestAlarm/backgrndbottom");
 
-    for (auto& del: m_apBtDelete)
+    for (auto& del : m_apBtDelete)
     {
         del = 0;
     }
@@ -557,7 +577,7 @@ CUIQuestInfo::~CUIQuestInfo()
 
 void CUIQuestInfo::_dtor_0()
 {
- this->~CUIQuestInfo();
+    this->~CUIQuestInfo();
 }
 
 CUIQuestInfo::CUIQuestInfo(const CUIQuestInfo& arg0)
@@ -603,14 +623,12 @@ void CUIQuestInfo::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2)
             return;
         }
     }
-    else if ( nId == 2001 && param1 >= 0x12C && param1 <= 0x130 )
+    else if (nId == 2001 && param1 >= 0x12C && param1 <= 0x130)
     {
         InvalidateRect(nullptr);
     }
 
     CWnd::OnChildNotify(nId, param1, param2);
-
-
 }
 
 int32_t CUIQuestInfo::OnMouseMove(long rx, long ry)
@@ -827,9 +845,9 @@ void CUIQuestInfo::SetButton()
     //__sub_005CCC30(this, nullptr);
     this->m_pBtShowOnlyWorthyQuests->SetShow(0);
     this->m_pBtShowAllQuests->SetShow(0);
-    if ( !this->m_nTab )
+    if (!this->m_nTab)
     {
-        if ( (this->m_nOption & 0xF0000000) == 0x10000000 )
+        if ((this->m_nOption & 0xF0000000) == 0x10000000)
         {
             this->m_pBtShowAllQuests->SetShow(1);
             this->m_pBtShowAllQuests->SetAbove(0);
@@ -837,7 +855,7 @@ void CUIQuestInfo::SetButton()
         }
         else
         {
-            this->m_pBtShowOnlyWorthyQuests->SetShow( 1);
+            this->m_pBtShowOnlyWorthyQuests->SetShow(1);
             this->m_pBtShowOnlyWorthyQuests->SetAbove(0);
             this->m_pBtShowAllQuests->SetShow(0);
         }
@@ -889,7 +907,6 @@ void CUIQuestInfo::SyncScrollBarWithSelected()
     //__sub_005CCC30(this, nullptr);
     auto sel = m_nSelect <= 8 ? 0 : m_nSelect;
     m_pSBList->SetCurPos(sel);
-
 }
 
 long CUIQuestInfo::GetQuestIdxFromMousePos(long rx, long ry)

@@ -132,7 +132,6 @@ public:
     }
 };
 
-//    typename std::enable_if<std::is_base_of<ZRefCounted, U>::value, T*>::type GetRaw()
 template <class T>
 typename std::enable_if<std::is_base_of<ZRefCounted, T>::value, T*>::type
 ZRefCounted_Alloc()
@@ -151,7 +150,7 @@ ZRefCounted_Alloc()
 template <typename T>
 struct ZRefCounted_AllocHelper
 {
-    static T *call(T *a)
+    static T * __cdecl call(void* p)
     {
         return ZRefCounted_Alloc<T>();
     }
@@ -206,7 +205,7 @@ public:
     ZRef(const ZRef &other, bool add_ref)
     {
         _p = other._p;
-        if (add_ref)
+        if (add_ref && _p)
         {
             _AddRef();
         }
@@ -276,14 +275,32 @@ public:
         return this->_p;
     }
 
-    const T *operator->() const
+    explicit operator T&()
     {
-        return this->_p;
+        return *this->_p;
+    }
+
+    explicit operator const T& () const
+    {
+        return *this->_p;
     }
 
     T *operator->()
     {
         return this->_p;
+    }
+
+    const T *operator->() const
+    {
+        return this->_p;
+    }
+
+    T& operator*() {
+        return *_p;
+    }
+
+    const T& operator*() const {
+        return *_p;
     }
 
     ZRef &operator=(const ZRef &other)
@@ -397,6 +414,7 @@ private:
             {
                 _Delete();
             }
+            _p = nullptr;
         }
     }
 

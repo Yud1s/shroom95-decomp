@@ -12,7 +12,7 @@ __asm {
 }
 }
 // get_server_string
-__SUB0(004DCCB0, __cdecl, 83043,  ZXString<unsigned short>) {
+__SUB0(004DCCB0, __cdecl, 83043,  ZXString16) {
 __asm {
 
  Block0:
@@ -24,13 +24,13 @@ __asm {
 	mov ecx,esi
 	mov dword ptr [esp+0x10],0
 	mov dword ptr [esi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x15
 	mov ecx,esi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov eax,esi
 	pop ecx
 	ret
@@ -65,13 +65,13 @@ __asm {
 	push 0
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov eax,dword ptr [esp+0x58]
 	push eax
 	mov ecx,esi
@@ -203,7 +203,7 @@ __asm {
  Block13:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block14:
@@ -852,7 +852,7 @@ __asm {
 	push eax
 	lea edx,[esp+0x2C]
 	push edx
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov ecx,dword ptr [esp+0x2C]
 	add esp,0x14
 	cmp ecx,ebx
@@ -871,7 +871,7 @@ __asm {
  Block10:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block11:
@@ -883,7 +883,7 @@ __asm {
  Block12:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block13:
@@ -895,7 +895,7 @@ __asm {
  Block14:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block15:
@@ -912,7 +912,7 @@ __asm {
  Block16:
 	add esi,0xFFFFFFF4
 	push esi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block17:

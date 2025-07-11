@@ -51,7 +51,7 @@ void CCtrlMLEdit::SetScrollbar(ZRef<CCtrlScrollBar> pScrollbar) {
 void CCtrlMLEdit::UpdateScrollbar() {
 	__sub_000E8560(this, nullptr);
 }
-void CCtrlMLEdit::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCtrlMLEdit::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_000E95F0(this, nullptr, wParam, lParam);
 }
 int32_t CCtrlMLEdit::OnSetFocus(int32_t bFocus) {

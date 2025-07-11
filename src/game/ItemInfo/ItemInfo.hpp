@@ -1704,7 +1704,7 @@ public:
 		int32_t IsAbleToStickWithWeapon(long nTamingMobID);
 
 	public:
-		int32_t IsItemSuitedForPet(long nTamingMobID);
+		int32_t IsItemSuitedForPet(long nPetTemplateID);
 
 	public:
 		long PickLevelUpType();
@@ -1832,7 +1832,7 @@ public:
 		long nSetCompleteCount{};
 
 	public:
-		ZXString<unsigned short> sCompleteEffectLink;
+		ZXString16 sCompleteEffectLink;
 
 	public:
 		ZMap<long, ZXString<char>, long> mCategoryName;
@@ -2595,7 +2595,7 @@ public:
 	int32_t IsEquipItem(long nItemId);
 
 public:
-	long GetKnockbockProp(long arg0);
+	long GetKnockbockProp(long nItemId);
 
 public:
 	int32_t IsScannableItem(long nItemID, int32_t IsFromItemIgnore);
@@ -2635,7 +2635,7 @@ public:
 public:
 	int32_t IsTradeBlockItem(GW_ItemSlotBase *pItem);
 	// TODO
-	int32_t IsTradeBlockItem_0(GW_ItemSlotBase *pItem)
+	int32_t IsTradeBlockItem_1(GW_ItemSlotBase *pItem)
 	{
 		return IsTradeBlockItem(pItem->nItemID);
 	}
@@ -2643,7 +2643,7 @@ public:
 public:
 	int32_t IsTradeBlockItem(long nItemId);
 
-	int32_t IsTradeBlockItem_1(long nItemId)
+	int32_t IsTradeBlockItem_0(long nItemId)
 	{
 		return IsTradeBlockItem(nItemId);
 	}
@@ -2665,14 +2665,14 @@ public:
 
 public:
 	int32_t IsAccountSharableItem(GW_ItemSlotBase *pItem);
-	int32_t IsAccountSharableItem_0(GW_ItemSlotBase *pItem)
+	int32_t IsAccountSharableItem_1(GW_ItemSlotBase *pItem)
 	{
-		return IsAccountSharableItem(pItem->nItemID);
+		return IsAccountSharableItem(pItem);
 	}
 
 public:
 	int32_t IsAccountSharableItem(long nItemId);
-	int32_t IsAccountSharableItem_1(long nItemId)
+	int32_t IsAccountSharableItem_0(long nItemId)
 	{
 		return IsAccountSharableItem(nItemId);
 	}
@@ -3061,6 +3061,9 @@ public:
 protected:
 	void IterateDamageByEquipUpgrade();
 
+private:
+	int32_t GetIntItemProp(int itemId, int spCode, int defaultValue = 0);
+
 public:
 	CItemInfo &operator=(const CItemInfo &arg0);
 
@@ -3146,8 +3149,8 @@ void __cdecl ZSort_ZPair_long_long__PairSecondLess_(ZArray<ZPair<long, long>> &a
 void __cdecl ZSort_ZPair_long_long__PairSecondLess_(ZArray<ZPair<long, long>> &a, __POSITION *posFrom, __POSITION *posTo, none comp);
 ZXString<char> __cdecl get_weapon_category_name(long nItemID);
 void __cdecl DownHeap_ZPair_long_long__PairSecondLess_(ZArray<ZPair<long, long>> &a, int32_t nIdx, int32_t nLen, int32_t nFrom, none &comp);
-ZXString<unsigned short> __cdecl get_weekly_data_path(long nItemID, uint16_t wDayOfWeek);
+ZXString16 __cdecl get_weekly_data_path(long nItemID, uint16_t wDayOfWeek);
 uint32_t __fastcall _ZtlSecureTear_int_(int32_t arg0, int32_t *arg1);
 int32_t __cdecl Partition_ZPair_long_long__PairSecondLess_(ZArray<ZPair<long, long>> &a, int32_t nFrom, int32_t nTo, const ZPair<long, long> &pivot, none &comp);
-ZXString<unsigned short> __cdecl get_equip_data_path(long nItemID);
+ZXString16 __cdecl get_equip_data_path(long nItemID);
 void __cdecl ZSort_ZPair_long_long__PairFirstLess_(ZArray<ZPair<long, long>> &a, none comp);

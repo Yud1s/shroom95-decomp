@@ -207,7 +207,7 @@ bool is_shooting_weapon(int nWeaponItemid);
 
 bool is_vehicle(int itemId);
 
-int __cdecl is_event_vehicle_type2(long param_1);
+int __cdecl is_event_vehicle_type2(long nItemID);
 
 bool is_wildhunter_jaguar_vehicle(int nVehicleID);
 bool is_wildhunter_jaguar_vehicle_0(int nVehicleID);

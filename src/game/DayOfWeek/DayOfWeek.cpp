@@ -15,12 +15,12 @@ void CDayOfWeek::_ctor_1( const CDayOfWeek& arg0) {
 	UNIMPLEMENTED;
 }
  CDayOfWeek::CDayOfWeek() {
-	//UNIMPLEMENTED; //_ctor_0();
 }
 void CDayOfWeek::_ctor_0() {
 	new (this) CDayOfWeek();
 }
-uint16_t CDayOfWeek::GetCurrentDay() {
+uint16_t CDayOfWeek::GetCurrentDay() const
+{
 	if(m_bPassiveMode) {
 		return m_wDayOfWeek;
 	}

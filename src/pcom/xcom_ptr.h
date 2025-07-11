@@ -53,7 +53,7 @@ public:
             return _x_com_ptr<To>(p);
         }
 
-        UNIMPLEMENTED;
+        return {};
     }
 
 

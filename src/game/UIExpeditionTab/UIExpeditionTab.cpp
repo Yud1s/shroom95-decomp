@@ -60,7 +60,7 @@ void TabDlgInterface::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long
 void TabDlgInterface::OnMoveWnd(long l, long t) {
 	__sub_003AD750(this, nullptr, l, t);
 }
-void TabDlgInterface::OnKey(uint32_t wParam, uint32_t lParam) {
+void TabDlgInterface::OnKey(uint32_t wParam, int32_t lParam) {
 	//__sub_003AD760(this, nullptr, wParam, lParam);
 }
 void TabDlgInterface::DoAction(long nAction, long nOption) {
@@ -164,7 +164,7 @@ void CCtrlPQuestItem::Draw(long rx, long ry, const tagRECT* pRect) {
 void CCtrlPQuestItem::CreateCtrl(CWnd* pParent, uint32_t nId, long l, long t, ZRef<PartyQuestInfo> pInfo, int32_t bSelected) {
 	__sub_0058F180(this, nullptr, pParent, nId, l, t, CreateNakedParam(pInfo), bSelected);
 }
-ZXString<unsigned short> CCtrlPQuestItem::GetBackUOL() {
+ZXString16 CCtrlPQuestItem::GetBackUOL() {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
 }
@@ -243,7 +243,7 @@ void TabExpedition::AttachStatic(TabExpedition::ENUM_CTRL_ID nID, long x, long y
 void TabExpedition::AttachBanner(TabExpedition::ENUM_CTRL_ID nID, long x, long y, long width, long height, ZRef<PartyQuestInfo> pInfo, int32_t bSelected) {
 	__sub_003AEC00(this, nullptr, nID, x, y, width, height, CreateNakedParam(pInfo), bSelected);
 }
-void TabExpedition::AttachButton(TabExpedition::ENUM_CTRL_ID nID, ZXString<unsigned short> sUOL) {
+void TabExpedition::AttachButton(TabExpedition::ENUM_CTRL_ID nID, ZXString16 sUOL) {
 	__sub_003AEA80(this, nullptr, nID, CreateNakedParam(sUOL));
 }
 void TabExpedition::SetControlEnable(TabExpedition::ENUM_CTRL_ID nID, int32_t bEnable) {
@@ -333,7 +333,7 @@ void CCtrlSelectQuest::_ctor_0() {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
 }
-ZXString<unsigned short> CCtrlSelectQuest::GetBackUOL() {
+ZXString16 CCtrlSelectQuest::GetBackUOL() {
 	return __sub_003AE4B0(this, nullptr);
 }
 CCtrlSelectQuest& CCtrlSelectQuest::operator=(const CCtrlSelectQuest& arg0) {
@@ -344,6 +344,6 @@ CCtrlSelectQuest& CCtrlSelectQuest::_op_assign_4(CCtrlSelectQuest* pThis, const 
 	UNIMPLEMENTED;
 }
 
-ZXString<unsigned short> __cdecl GetJobIcon(long bOnline, int32_t arg1) {
+ZXString16 __cdecl GetJobIcon(long bOnline, int32_t arg1) {
 	return __sub_003AEDD0(bOnline, arg1);
 }

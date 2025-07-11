@@ -35,7 +35,7 @@ void CUILogoutGift::OnCreate(void* pData) {
 void CUILogoutGift::OnDestory() {
 	__sub_003DE0C0(this, nullptr);
 }
-void CUILogoutGift::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUILogoutGift::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003DE0B0(this, nullptr, wParam, lParam);
 }
 void CUILogoutGift::OnButtonClicked(uint32_t nId) {

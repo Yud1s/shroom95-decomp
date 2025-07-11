@@ -54,7 +54,7 @@ void CAdminShopDlg::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long r
 void CAdminShopDlg::OnMouseEnter(int32_t bEnter) {
 	__sub_00029750(this, nullptr, bEnter);
 }
-void CAdminShopDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CAdminShopDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00029770(this, nullptr, wParam, lParam);
 }
 void CAdminShopDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {

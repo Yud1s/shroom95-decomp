@@ -20,7 +20,7 @@ CStage::~CStage()
 
 void CStage::_dtor_0()
 {
-    return __sub_00318A50(this, nullptr);
+    this->~CStage();
 }
 
 CStage::CStage(const CStage& arg0)
@@ -125,8 +125,6 @@ void CStage::OnSetField(CInPacket& pkt)
     }
 
 
-
-
     ZRef<CharacterData> charData;
 
     if (hasCharData)
@@ -147,7 +145,7 @@ void CStage::OnSetField(CInPacket& pkt)
     {
         auto revive = pkt.Decode1();
         auto userLocal = CUserLocal::GetInstance();
-        if (userLocal->IsDead() ||  revive)
+        if (userLocal->IsDead() || revive)
             ctx->OnRevive();
 
         charData = ctx->GetCharacterData();
@@ -170,7 +168,6 @@ void CStage::OnSetField(CInPacket& pkt)
     {
         set_stage(new CInterStage(), nullptr);
     }
-
 
 
     CField::INITPARAM param;
@@ -241,7 +238,7 @@ void CStage::OnSetField(CInPacket& pkt)
     if (notifCount)
     {
         ZXString<char> notifMsg;
-        for (auto& notif: notifContent)
+        for (auto& notif : notifContent)
         {
             notifMsg._Cat("\r\n\r\n");
             notifMsg._Cat(notif.c_str());
@@ -321,13 +318,17 @@ void __cdecl set_stage(CStage* pStage, void* pParam)
     anim->RemoveAll();
 
 
+    auto oldStage = _D_G_PSTAGE.op_arrow();
     _D_G_PSTAGE = 0;
+    if (oldStage && oldStage->ref_count.GetRefCount() != 0)
+    {
+        oldStage->Close();
+    }
 
     if (!pStage)
     {
         if (auto cd = ctx->GetCharacterData())
         {
-            cd->ClearVisitorLog();
             ctx->OnLeaveGame();
         }
         return;
@@ -335,29 +336,21 @@ void __cdecl set_stage(CStage* pStage, void* pParam)
 
 
     auto isField = pStage->IsKindOf(&CField::ms_RTTI_CField);
-
     if (pStage->IsKindOf(&CInterStage::ms_RTTI_CInterStage))
     {
         if (auto cd = ctx->GetCharacterData())
         {
             ctx->OnGameStageChanged();
         }
-        goto L28;
     }
-
-    if (isField || pStage->IsKindOf(&CCashShop::ms_RTTI_CCashShop) || pStage->IsKindOf(&CITC::ms_RTTI_CITC))
+    else if (isField || pStage->IsKindOf(&CCashShop::ms_RTTI_CCashShop) || pStage->IsKindOf(&CITC::ms_RTTI_CITC))
     {
         if (isField)
         {
             ctx->SetScreenResolution(ctx->IsLargeScreen(), false);
         }
 
-        auto cd = ctx->GetCharacterData();
-        if (cd)
-        {
-            cd->ClearVisitorLog();
-        }
-        else
+        if (auto cd = ctx->GetCharacterData(); !cd)
         {
             ctx->OnEnterGame();
         }
@@ -366,12 +359,10 @@ void __cdecl set_stage(CStage* pStage, void* pParam)
     {
         if (auto cd = ctx->GetCharacterData())
         {
-            cd->ClearVisitorLog();
             ctx->OnLeaveGame();
         }
     }
 
-L28:
     if (pStage->IsKindOf(&CLogo::ms_RTTI_CLogo) || pStage->IsKindOf(&CLogin::ms_RTTI_CLogin)
         || pStage->IsKindOf(&CCashShop::ms_RTTI_CCashShop) || pStage->IsKindOf(&CITC::ms_RTTI_CITC))
     {

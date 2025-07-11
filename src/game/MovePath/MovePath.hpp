@@ -256,7 +256,7 @@ public:
 	int32_t IsTimeForFlush(int32_t bFly, int32_t bDynamicFoothold);
 
 public:
-	int32_t Flush(COutPacket &oPacket, int32_t bFly, CMovePath &oPath);
+	int32_t Flush(COutPacket &oPacket, int32_t bFly, CMovePath *oPath);
 
 public:
 	void SetKeyPadState(int32_t bLeftKeyPressed, int32_t bRightKeyPressed, int32_t bUpKeyPressed, int32_t bDownKeyPressed);
@@ -265,7 +265,7 @@ public:
 	void SetKeyPadStateByFoothold(int32_t bLeftKeyPressed, int32_t bRightKeyPressed, int32_t bUpKeyPressed, int32_t bDownKeyPressed);
 
 public:
-	long GetGatherDuration();
+	long GetGatherDuration() const;
 
 public:
 	int32_t CalcPassivePos(double &h3, double &h4, double &h1, double &xn, short &h2, long &arg5, int64_t &arg6, double &arg7, double &arg8);
@@ -280,13 +280,13 @@ public:
 	long GetPassiveRemain();
 
 public:
-	const CMovePath::ELEM &GetElemLast();
+	const CMovePath::ELEM &GetElemLast() const;
 
 public:
-	uint16_t GetRandCnt();
+	uint16_t GetRandCnt() const;
 
 public:
-	uint16_t GetActualRandCnt();
+	uint16_t GetActualRandCnt() const;
 
 public:
 	void SetRandCnt(uint16_t arg0);

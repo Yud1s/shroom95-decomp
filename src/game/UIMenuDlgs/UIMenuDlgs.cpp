@@ -49,7 +49,7 @@ void CUIGameMenu::OnCreate(void* pData)
     __sub_003EED60(this, nullptr, pData);
 }
 
-void CUIGameMenu::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIGameMenu::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_003EE660(this, nullptr, wParam, lParam);
 }
@@ -171,7 +171,7 @@ void CUIShortCutMenu::OnCreate(void* pData)
     __sub_003EF480(this, nullptr, pData);
 }
 
-void CUIShortCutMenu::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIShortCutMenu::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_003EE810(this, nullptr, wParam, lParam);
 }

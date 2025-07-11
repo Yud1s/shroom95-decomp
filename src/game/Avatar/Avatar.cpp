@@ -112,10 +112,10 @@ void AvatarLook::Load(const GW_CharacterStat& cs, const ZRef<GW_ItemSlotBase>* a
     for (auto i = 1; i < 60; ++i)
     {
         // Skip weapon
-        if (i == 11)
+        /*if (i == 11)
         {
             continue;
-        }
+        }*/
 
         if (auto item = apEquipped[i])
         {
@@ -522,12 +522,17 @@ void CAvatar::SetMoveAction(long nMA, int32_t bReload)
 
 void CAvatar::SetLayerZ(const long z) const
 {
-    m_pLayerUnderFace->Putz(z);
+    if (m_pLayerUnderFace)
+    {
+        m_pLayerUnderFace->Putz(z);
+    }
     //__sub_00060120(this, nullptr, z);
 }
 
 long CAvatar::GetLayerZ() const
 {
+    if (!m_pLayerUnderFace)
+        return 0;
     return m_pLayerUnderFace->Getz();
     //return __sub_00060170(this, nullptr);
 }
@@ -1628,12 +1633,12 @@ long CAvatar::ConvertCharacterAction(long nAction) const
 
 long CAvatar::GetCurCharacterAction(long* pnDir)
 {
-    const auto act = MoveAction2RawAction(this->m_nMoveAction, pnDir);
+    /*const auto act = MoveAction2RawAction(this->m_nMoveAction, pnDir);
     const auto oneTime = GetOneTimeAction();
     if (oneTime <= -1)
         return ConvertCharacterAction(act);
-    return ConvertCharacterAction(oneTime);
-    //return __sub_000608E0(this, nullptr, pnDir);
+    return ConvertCharacterAction(oneTime);*/
+    return __sub_000608E0(this, nullptr, pnDir);
 }
 
 long CAvatar::GetCurTamingMobAction()

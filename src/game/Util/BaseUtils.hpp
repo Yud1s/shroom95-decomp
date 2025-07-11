@@ -33,7 +33,7 @@ int __cdecl is_fieldtype_upgradetomb_usable(long nFieldType, long nFieldID);
 
 int calculate_parbolic_motion_duration(int32_t y1, int32_t y2, int32_t bDropExplosiveNoOwn);
 
-long _anon_calc_evar(long arg1, long arg2, long arg3, long arg4, long arg5);
+long _anon_calc_evar(long nEVA, long nMobACC, long nTargetLevel, long nAttackLevel, long nEr);
 
 void GetModuleFolderName(char *sDir);
 
@@ -41,7 +41,7 @@ ZXString<char> format_comma_integer(int32_t i);
 
 int _anon_FindGrade_(int grade);
 
-void DecSpeed(double *v, double f, double m, double vMax, double tSec);
+void __cdecl DecSpeed(double *v, double f, double m, double vMax, double tSec);
 
 int DecMPVal(int nJob);
 
@@ -51,11 +51,11 @@ int IncHPVal(int nJob);
 
 int IncMPVal(int nJob);
 
-void get_damage_adjusted_by_elemAttr_0(double damage, SKILLENTRY const *pSkill,
+double get_damage_adjusted_by_elemAttr_0(double damage, SKILLENTRY const *pSkill,
                                        int32_t const *aDamagedElemAttr, int32_t nSLV,
                                        double dAdjustByBuff, double dBoost);
 
-int get_damage_adjusted_by_elemAttr_1(double damage, int32_t nAttr, double dAdjust, double dBoost);
+double get_damage_adjusted_by_elemAttr_1(double damage, int32_t nAttr, double dAdjust, double dBoost);
 
 int get_next_level_exp(int level);
 
@@ -69,50 +69,50 @@ void clear_basic_font();
 void ResetLSP();
 void MSLoop_Remove();
 
-bool IsAbleTamingMobOneTimeAction(int32_t nAction, int32_t nVehicleID);
+bool __cdecl IsAbleTamingMobOneTimeAction(int32_t nAction, int32_t nVehicleID);
 
-bool IsAbleTamingMobAction(int32_t nAction, int32_t nVehicleID);
+bool __cdecl IsAbleTamingMobAction(int32_t nAction, int32_t nVehicleID);
 
-bool is_shoot_morph_action(int action);
+bool __cdecl is_shoot_morph_action(int action);
 
-bool is_alert_back_action(int action);
+bool __cdecl is_alert_back_action(int action);
 
 
-bool is_pronestab_action(int action);
+bool __cdecl is_pronestab_action(int action);
 
-bool is_shoot_action(int action);
+bool __cdecl is_shoot_action(int action);
 
-bool is_stand_action(int action);
+bool __cdecl is_stand_action(int action);
 
 
 int get_action_from_act_dir(int l);
 
-bool is_magic_attack_action(int action);
+bool __cdecl is_magic_attack_action(int action);
 
 
 // Utils
 
-bool is_sticker_bodypart(int bodyPart);
+bool __cdecl is_sticker_bodypart(int bodyPart);
 
 double get_damage_adjusted_by_assist_charged_elemAttr(double damage, long const *aDamagedElemAttr,
                                                           SecondaryStat const *ss, CharacterData const *cd);
 
-bool is_correct_magic_attack(int32_t nAttackActionType, int32_t nWT, int32_t nAction,
+bool __cdecl is_correct_magic_attack(int32_t nAttackActionType, int32_t nWT, int32_t nAction,
                                     SKILLENTRY const *pSkill, int32_t nSLV);
 
 
-bool is_correct_siege_attack(int32_t nAction, int skillId);
+bool __cdecl is_correct_siege_attack(int32_t nAction, int skillId);
 
-bool is_town_field_id(int fieldId);
+bool __cdecl is_town_field_id(int fieldId);
 
 ZXString<char> get_bodyaprt_name(int bodyPart);
 
 
 int GetParcelTax(int money);
 
-bool is_final_action(int action);
+bool __cdecl is_final_action(int action);
 
-int get_shield_mastery(CharacterData *cd);
+int __cdecl get_shield_mastery(const CharacterData &cd);
 
 int32_t
 get_attack_speed_degree(int32_t nDegree, int32_t nSkillID, int32_t nWeaponBooster, int32_t nPartyBooster,
@@ -122,7 +122,7 @@ ZXString<char> GetChannelName(int channel);
 
 
 
-bool is_treat_singly_1(GW_ItemSlotBase &item);
+bool __cdecl is_treat_singly_1(GW_ItemSlotBase &item);
 ZXString<char> get_labeled_string_0(_x_com_ptr<IWzProperty> param_1, long param_2, Ztl_bstr_t param_3);
 
 ZXString<char> get_labeled_string_1(_x_com_ptr<IWzProperty> pProp, char* s, Ztl_bstr_t key);

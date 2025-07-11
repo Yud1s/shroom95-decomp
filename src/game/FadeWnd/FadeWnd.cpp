@@ -32,9 +32,8 @@ void CFadeWnd::_ctor_1(const CFadeWnd &arg0) const
 }
 
 CFadeWnd::CFadeWnd() {
-    m_bOK = 1;
+    m_bOK = true;
     m_nType = -1;
-    //UNIMPLEMENTED; //_ctor_0();
 }
 
 void CFadeWnd::_ctor_0() {
@@ -64,8 +63,7 @@ void CFadeWnd::CreateFadeWnd(long nWidth, long nHeight, const wchar_t *sUOL, lon
     }
 
     CreateWnd(m_pt0.x, m_pt0.y, nWidth, nHeight, nZ, bScreenCoord, pData, bSetFocus, org);
-    auto layer = GetLayer();
-    auto alpha = layer->Getalpha();
+    auto alpha = GetLayer()->Getalpha();
     alpha->RelMove(m_a0, 0, vtMissing, vtMissing);
     ResetTime();
     //__sub_00123F90(this, nullptr, nWidth, nHeight, sUOL, nZ, bScreenCoord, pData, bSetFocus, org);
@@ -100,7 +98,7 @@ void CFadeWnd::Update() {
             }
             break;
         case FW_PRE_FADEIN:
-            if ((t - m_tTimeOver) > 0) {
+            if (t - m_tPhase > 0) {
                 m_nPhase = FW_FADEIN;
             }
             break;
@@ -112,11 +110,11 @@ void CFadeWnd::Update() {
                 if (!m_bOK) {
                     SendCloseMessage();
                 }
-                Fade(1);
+                Fade(true);
             }
             break;
         case FW_GENERAL:
-            if ((t - m_tPhase) > 0) {
+            if (t - m_tPhase > 0) {
                 m_nPhase = FW_FADEOUT;
             }
             break;
@@ -145,17 +143,14 @@ int32_t CFadeWnd::HitTest(long rx, long ry, CCtrlWnd **ppCtrl) {
 }
 
 void CFadeWnd::Delete() {
-    //__sub_00123A70(this, nullptr);
 }
 
 void CFadeWnd::OnPreFadeIn() {
     Fade(0);
-    //__sub_00123500(this, nullptr);
 }
 
 void CFadeWnd::OnPostFadeOut() {
     m_nPhase = FW_POST_FADEOUT;
-    //__sub_00122D30(this, nullptr);
 }
 
 void CFadeWnd::SendCloseMessage() {
@@ -187,7 +182,7 @@ CUIFadeYesNo::~CUIFadeYesNo() {
 
 void CUIFadeYesNo::_dtor_0() const
 {
-    //return __sub_00123BC0(this, nullptr);
+    this->~CUIFadeYesNo();
 }
 
 CUIFadeYesNo::CUIFadeYesNo(const CUIFadeYesNo &arg0) {
@@ -222,7 +217,28 @@ void CUIFadeYesNo::OnButtonClicked(uint32_t nId) {
 }
 
 void CUIFadeYesNo::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {
-    __sub_00123900(this, nullptr, msg, wParam, rx, ry);
+    //__sub_00123900(this, nullptr, msg, wParam, rx, ry);
+    auto ctx = CWvsContext::GetInstance();
+    auto dirMode = ctx->GetDirectionMode();
+    if (dirMode || msg != 514)
+        return;
+
+
+    ZRef pWnd(this, true);
+    if (m_nType == 7)
+    {
+        if (ctx->IsTopFadeWnd(pWnd))
+        {
+            if (ctx->GetQuestState(m_usQuestID) == 1)
+            {
+                ctx->ShowQuestInfoDetail(true, m_usQuestID);
+            }
+            Close(true);
+        }
+
+    }
+
+    ctx->SetTopFadeWnd(pWnd);
 }
 
 void CUIFadeYesNo::Delete() {
@@ -245,10 +261,9 @@ void CUIFadeYesNo::Delete() {
 
 int32_t CUIFadeYesNo::OnSetFocus(int32_t bFocus) {
     return 1;
-    //return __sub_00123B90(this, nullptr, bFocus);
 }
 
-void CUIFadeYesNo::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIFadeYesNo::OnKey(uint32_t wParam, int32_t lParam) {
     if(CWvsContext::GetInstance()->GetDirectionMode()) {
         return;
     }
@@ -342,7 +357,7 @@ long CUIFadeYesNo::GetType() const
 }
 
 unsigned long CUIFadeYesNo::GetFriendID() {
-    return __sub_00123BA0(this, nullptr);
+    return m_dwFriendID;
 }
 
 uint16_t CUIFadeYesNo::GetQuestID() const {
@@ -379,7 +394,7 @@ unsigned long CUIFadeYesNo::GetNewYearCardSN() const
 void CUIFadeYesNo::MoveWndPosition() {
     m_pt.y += 5;
     m_pt1.y += 5;
-    MoveWnd(m_pt0.x, m_pt0.y + 5);
+    MoveWnd(m_pt0.x, m_pt0.y);
     //__sub_00123510(this, nullptr);
 }
 

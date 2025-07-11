@@ -11,7 +11,6 @@
 //#include "BookDlg/BookDlg.hpp"
 
 
-
 class CtrlWnd;
 struct AvatarLook;
 class CAvatar;
@@ -29,607 +28,616 @@ class CUtilDlgEx;
 
 class CTextAnalyzer : public ZRefCounted
 {
-	// Nested
+    // Nested
 public:
-	enum MOB_
-{
-	MOB_NAME = 77,
-	MOB_BONUS_EXP = 120
+    enum MOB_
+    {
+        MOB_NAME = 77,
+        MOB_BONUS_EXP = 120
+    };
+
+    enum QUEST_
+    {
+        QUEST_NAME = 121,
+        QUEST_PROGRESS = 117
+    };
+
+    // Fields
+private:
+    long m_nMargin{};
+
+private:
+    long m_nWidth{};
+    // Methods
+public:
+    virtual ~CTextAnalyzer();
+
+public:
+    void _dtor_0();
+
+public:
+    CTextAnalyzer(const CTextAnalyzer& arg0);
+
+public:
+    void _ctor_1(const CTextAnalyzer& arg0);
+
+public:
+    CTextAnalyzer(long arg0, long arg1);
+
+public:
+    void _ctor_0(long arg0, long arg1);
+
+public:
+    long AnalyzeText(ZXString<char> arg0, ZArray<CT_INFO>& arg1, ZArray<_x_com_ptr<IWzFont>>& arg2, int32_t bWhiteBased,
+                     uint16_t usQuestId, int32_t bSkipListIcon);
+
+private:
+    long GetParameterNo(ZXString<char> sPhrase);
+
+private:
+    void GetPhrase(ZXString<char>& sText, ZXString<char>& sPhrase);
+
+private:
+    void GetCharacter(ZXString<char>& sText, ZXString<char>& sChar, int32_t bRemove);
+
+private:
+    void GetPhrase_Sharp(ZXString<char>& sText, ZXString<char>& sPhrase);
+
+private:
+    void GetPhrase_Gen(ZXString<char>& sText, ZXString<char>& sPhrase);
+
+private:
+    void SeparateLineText(long nIdx, ZXString<char> sCur, ZXString<char> sNext, ZArray<CT_INFO>& aCT);
+
+private:
+    void SeparateLineIcon(long nIdx, ZArray<CT_INFO>& aCT);
+
+private:
+    void GetLine(long nLine, long& nStart, long& nEnd, long& nHeightMax, ZArray<CT_INFO>& aCT);
+
+private:
+    void AdjustHeight(long nStart, long nEnd, long nTop, long nHeightMax, ZArray<CT_INFO>& aCT);
+
+private:
+    int32_t IsDilimiter(ZXString<char> target);
+
+private:
+    int32_t IsSuffix(ZXString<char> target);
+
+private:
+    long GetPhraseType(ZXString<char> sPhrase);
+
+private:
+    _x_com_ptr<IWzCanvas> GetOutlineCanvas(_x_com_ptr<IWzCanvas> pIcon);
+
+private:
+    long CheckSecretItemID(long nParam);
+
+public:
+    CTextAnalyzer& operator=(const CTextAnalyzer& arg0);
+
+public:
+    static CTextAnalyzer& _op_assign_18(CTextAnalyzer* pThis, const CTextAnalyzer& arg0);
 };
-enum QUEST_
-{
-	QUEST_NAME = 121,
-	QUEST_PROGRESS = 117
-};
-	// Fields
-private:
-	long m_nMargin{};
 
-private:
-	long m_nWidth{};
-	// Methods
-public:
-	virtual ~CTextAnalyzer();
-
-public:
-	void _dtor_0();
-
-public:
-	CTextAnalyzer(const CTextAnalyzer &arg0);
-
-public:
-	void _ctor_1( const CTextAnalyzer &arg0);
-
-public:
-	CTextAnalyzer(long arg0, long arg1);
-
-public:
-	void _ctor_0( long arg0, long arg1);
-
-public:
-	long AnalyzeText(ZXString<char> arg0, ZArray<CT_INFO> &arg1, ZArray<_x_com_ptr<IWzFont>> &arg2, int32_t arg3, uint16_t arg4, int32_t arg5);
-
-private:
-	long GetParameterNo(ZXString<char> sPhrase);
-
-private:
-	void GetPhrase(ZXString<char> &sText, ZXString<char> &sPhrase);
-
-private:
-	void GetCharacter(ZXString<char> &sText, ZXString<char> &sChar, int32_t bRemove);
-
-private:
-	void GetPhrase_Sharp(ZXString<char> &sText, ZXString<char> &sPhrase);
-
-private:
-	void GetPhrase_Gen(ZXString<char> &sText, ZXString<char> &sPhrase);
-
-private:
-	void SeparateLineText(long nIdx, ZXString<char> sCur, ZXString<char> sNext, ZArray<CT_INFO> &aCT);
-
-private:
-	void SeparateLineIcon(long nIdx, ZArray<CT_INFO> &aCT);
-
-private:
-	void GetLine(long nLine, long &nStart, long &nEnd, long &nHeightMax, ZArray<CT_INFO> &aCT);
-
-private:
-	void AdjustHeight(long nStart, long nEnd, long nTop, long nHeightMax, ZArray<CT_INFO> &aCT);
-
-private:
-	int32_t IsDilimiter(ZXString<char> target);
-
-private:
-	int32_t IsSuffix(ZXString<char> target);
-
-private:
-	long GetPhraseType(ZXString<char> sPhrase);
-
-private:
-	_x_com_ptr<IWzCanvas> GetOutlineCanvas(_x_com_ptr<IWzCanvas> pIcon);
-
-private:
-	long CheckSecretItemID(long nParam);
-
-public:
-	CTextAnalyzer &operator=(const CTextAnalyzer &arg0);
-
-public:
-	static CTextAnalyzer &_op_assign_18(CTextAnalyzer *pThis, const CTextAnalyzer &arg0);
-};
 STATIC_ASSERT_SIZE(CTextAnalyzer, 20);
+
 class CUtilDlgEx : public CDialog
 {
 public:
-	static ZList<CUtilDlgEx *> ms_lDialog;
-	// Nested
+    static ZList<CUtilDlgEx*> ms_lDialog;
+    // Nested
 public:
-	struct PET_INFO
-	{
-		// Nested
-		// Fields
-	public:
-		unsigned long dwTempletID{};
+    struct PET_INFO
+    {
+        // Nested
+        // Fields
+    public:
+        unsigned long dwTempletID{};
 
-	public:
-		ZXString<char> sName;
+    public:
+        ZXString<char> sName;
 
-	public:
-		long nLevel{};
+    public:
+        long nLevel{};
 
-	public:
-		long nTameness{};
+    public:
+        long nTameness{};
 
-	public:
-		int32_t bIsDead{};
-		// Methods
-	public:
-		~PET_INFO();
+    public:
+        int32_t bIsDead{};
+        // Methods
+    public:
+        ~PET_INFO();
 
-	public:
-		void _dtor_0();
+    public:
+        void _dtor_0();
 
-	public:
-		PET_INFO(const CUtilDlgEx::PET_INFO &arg0);
+    public:
+        PET_INFO(const CUtilDlgEx::PET_INFO& arg0);
 
-	public:
-		void _ctor_1( const CUtilDlgEx::PET_INFO &arg0);
+    public:
+        void _ctor_1(const CUtilDlgEx::PET_INFO& arg0);
 
-	public:
-		PET_INFO();
+    public:
+        PET_INFO();
 
-	public:
-		void _ctor_0();
+    public:
+        void _ctor_0();
 
-	public:
-		CUtilDlgEx::PET_INFO &operator=(const CUtilDlgEx::PET_INFO &arg0);
+    public:
+        CUtilDlgEx::PET_INFO& operator=(const CUtilDlgEx::PET_INFO& arg0);
 
-	public:
-		static CUtilDlgEx::PET_INFO &_op_assign_3(CUtilDlgEx::PET_INFO *pThis, const CUtilDlgEx::PET_INFO &arg0);
-	};
-
-public:
-	enum ID_CTRL_
-{
-	ID_CTRL_EDIT_UDLGEX_INPUT = 1000,
-	ID_CTRL_SCROLLBAR = 1001,
-	ID_CTRL_COMBOBOX = 1002,
-	ID_CTRL_EDIT_UDLGEX_MLINPUT = 1003
-};
-	// Fields
-public:
-	int32_t m_bMsgImage{};
+    public:
+        static CUtilDlgEx::PET_INFO& _op_assign_3(CUtilDlgEx::PET_INFO* pThis, const CUtilDlgEx::PET_INFO& arg0);
+    };
 
 public:
-	long m_bMsgImage_Img{};
+    enum ID_CTRL_
+    {
+        ID_CTRL_EDIT_UDLGEX_INPUT = 1000,
+        ID_CTRL_SCROLLBAR = 1001,
+        ID_CTRL_COMBOBOX = 1002,
+        ID_CTRL_EDIT_UDLGEX_MLINPUT = 1003
+    };
 
+    // Fields
+public:
+    int32_t m_bMsgImage{};
+
+public:
+    long m_bMsgImage_Img{};
+
 protected:
-	long m_dlgType{};
+    long m_dlgType{};
 
 protected:
-	long m_ctLeft{};
+    long m_ctLeft{};
 
 protected:
-	long m_ctTop{};
+    long m_ctTop{};
 
 protected:
-	long m_ctHeight{};
+    long m_ctHeight{};
 
 protected:
-	long m_scrHeight{};
+    long m_scrHeight{};
 
 protected:
-	long m_nScrollPos{};
+    long m_nScrollPos{};
 
 protected:
-	int32_t m_bScrollBar{};
+    int32_t m_bScrollBar{};
 
 protected:
-	long m_wndWidth{};
+    long m_wndWidth{};
 
 protected:
-	long m_wndHeight{};
+    long m_wndHeight{};
 
 protected:
-	long m_nTemplateID{};
+    long m_nTemplateID{};
 
 protected:
-	int32_t m_bNoNPC{};
+    int32_t m_bNoNPC{};
 
 protected:
-	int32_t m_bQuest{};
+    int32_t m_bQuest{};
 
 protected:
-	int32_t m_bTextPrev{};
+    int32_t m_bTextPrev{};
 
 protected:
-	int32_t m_bTextNext{};
+    int32_t m_bTextNext{};
 
 protected:
-	int32_t m_bImagePrev{};
+    int32_t m_bImagePrev{};
 
 protected:
-	int32_t m_bImageNext{};
+    int32_t m_bImageNext{};
 
 protected:
-	ZArray<ZXString<char>> m_aImageList;
+    ZArray<ZXString<char>> m_aImageList;
 
 protected:
-	uint16_t m_usCurImage{};
+    uint16_t m_usCurImage{};
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerImage;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerImage;
 
 protected:
-	ZXString<char> m_sInputDefault;
+    ZXString<char> m_sInputDefault;
 
 protected:
-	long m_nInputLen{};
+    long m_nInputLen{};
 
 protected:
-	long m_nInputNo_Min{};
+    long m_nInputNo_Min{};
 
 protected:
-	long m_nInputNo_Max{};
+    long m_nInputNo_Max{};
 
 protected:
-	long m_nInputNo_Result{};
+    long m_nInputNo_Result{};
 
 protected:
-	long m_nInputStr_Min{};
+    long m_nInputStr_Min{};
 
 protected:
-	long m_nInputCol{};
+    long m_nInputCol{};
 
 protected:
-	long m_nInputLine{};
+    long m_nInputLine{};
 
 protected:
-	ZXString<char> m_sInputStr_Result;
+    ZXString<char> m_sInputStr_Result;
 
 protected:
-	int32_t m_bInputStr_Passwd{};
+    int32_t m_bInputStr_Passwd{};
 
 protected:
-	int32_t m_bKoreanBaseLen{};
+    int32_t m_bKoreanBaseLen{};
 
 protected:
-	long m_nSelect{};
+    long m_nSelect{};
 
 protected:
-	long m_nSelectPrev{};
+    long m_nSelectPrev{};
 
 protected:
-	long m_nListFocus{};
+    long m_nListFocus{};
 
 protected:
-	ZArray<CT_INFO *> m_apListCT;
+    ZArray<CT_INFO*> m_apListCT;
 
 protected:
-	ZArray<long> m_aAvatarCandidate;
+    ZArray<long> m_aAvatarCandidate;
 
 protected:
-	long m_nAvatarType{};
+    long m_nAvatarType{};
 
 protected:
-	long m_nAvatarIndex{};
+    long m_nAvatarIndex{};
 
 protected:
-	int32_t m_bEquipPreview{};
+    int32_t m_bEquipPreview{};
 
 protected:
-	_x_com_ptr<IWzCanvas> m_pCanvasLine;
+    _x_com_ptr<IWzCanvas> m_pCanvasLine;
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerNPC;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerNPC;
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerNameTag;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerNameTag;
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerNPCNameTag;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerNPCNameTag;
 
 protected:
-	ZRef<AvatarLook> m_pAvatarLook;
+    ZRef<AvatarLook> m_pAvatarLook;
 
 protected:
-	ZRef<CAvatar> m_pAvatar;
+    ZRef<CAvatar> m_pAvatar;
 
 protected:
-	ZRef<CharacterData> m_pCharacterData;
+    ZRef<CharacterData> m_pCharacterData;
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerQDeliveryIcon;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerQDeliveryIcon;
 
 protected:
-	ZArray<CUtilDlgEx::PET_INFO> m_aPetInfo;
+    ZArray<CUtilDlgEx::PET_INFO> m_aPetInfo;
 
 protected:
-	long m_nPetIndex{};
+    long m_nPetIndex{};
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerPet;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerPet;
 
 protected:
-	_x_com_ptr<IWzGr2DLayer> m_pLayerPetInfo;
+    _x_com_ptr<IWzGr2DLayer> m_pLayerPetInfo;
 
 protected:
-	CUIToolTip m_uiToolTip;
+    CUIToolTip m_uiToolTip;
 
 protected:
-	ZRef<CCtrlButton> m_pBtUIClose;
+    ZRef<CCtrlButton> m_pBtUIClose;
 
 protected:
-	ZRef<CCtrlEdit> m_pEditInput;
+    ZRef<CCtrlEdit> m_pEditInput;
 
 protected:
-	ZRef<CCtrlMLEdit> m_pMLEditInput;
+    ZRef<CCtrlMLEdit> m_pMLEditInput;
 
 protected:
-	ZRef<CCtrlScrollBar> m_pScrollBar;
+    ZRef<CCtrlScrollBar> m_pScrollBar;
 
 protected:
-	ZRef<CCtrlComboBox> m_pCombobox;
+    ZRef<CCtrlComboBox> m_pCombobox;
 
 protected:
-	std::array<ZRef<CCtrlButton>, 7> m_apButton;
+    std::array<ZRef<CCtrlButton>, 7> m_apButton;
 
 protected:
-	ZArray<ZRef<CCtrlButton>> m_apBtnFocus;
+    ZArray<ZRef<CCtrlButton>> m_apBtnFocus;
 
 protected:
-	ZArray<CT_INFO> m_aCT;
+    ZArray<CT_INFO> m_aCT;
 
 protected:
-	ZArray<_x_com_ptr<IWzFont>> m_apFont;
+    ZArray<_x_com_ptr<IWzFont>> m_apFont;
 
 protected:
-	_x_com_ptr<IWzFont> m_pFontPet;
+    _x_com_ptr<IWzFont> m_pFontPet;
 
 protected:
-	long m_nCurDisplayItemIndex{};
+    long m_nCurDisplayItemIndex{};
 
 protected:
-	long m_nCurDisplayTextItemPos{};
+    long m_nCurDisplayTextItemPos{};
 
 protected:
-	long m_bFinishShow{};
+    long m_bFinishShow{};
 
 protected:
-	long m_nBtnFocus{};
+    long m_nBtnFocus{};
 
 protected:
-	int32_t m_bParam{};
+    int32_t m_bParam{};
 
 protected:
-	int32_t m_bSpeakerOnRight{};
+    int32_t m_bSpeakerOnRight{};
 
 private:
-	CLayoutMan m_lm;
-	// Methods
+    CLayoutMan m_lm;
+    // Methods
 public:
-	virtual ~CUtilDlgEx();
+    virtual ~CUtilDlgEx();
 
 public:
-	void _dtor_0();
+    void _dtor_0();
 
 public:
-	CUtilDlgEx(const CUtilDlgEx &arg0);
+    CUtilDlgEx(const CUtilDlgEx& arg0);
 
 public:
-	void _ctor_1( const CUtilDlgEx &arg0);
+    void _ctor_1(const CUtilDlgEx& arg0);
 
 public:
-	CUtilDlgEx();
+    CUtilDlgEx();
 
 public:
-	void _ctor_0();
+    void _ctor_0();
 
 public:
-	virtual void OnCreate(void *pData);
+    virtual void OnCreate(void* pData);
 
 public:
-	virtual void OnDestroy();
+    virtual void OnDestroy();
 
 public:
-	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
+    virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual int32_t OnMouseMove(long rx, long ry);
+    virtual int32_t OnMouseMove(long rx, long ry);
 
 public:
-	virtual void OnMouseEnter(int32_t bEnter);
+    virtual void OnMouseEnter(int32_t bEnter);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+    virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
-	virtual void OnButtonClicked(uint32_t nId);
+    virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
+    virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 
 public:
-	virtual void SetRet(long nRet);
+    virtual void SetRet(long nRet);
 
 public:
-	virtual void Draw(const tagRECT *arg0);
+    virtual void Draw(const tagRECT* arg0);
 
 public:
-	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);
+    virtual int32_t HitTest(long rx, long ry, CCtrlWnd** ppCtrl);
 
 public:
-	virtual void ClearToolTip();
+    virtual void ClearToolTip();
 
 public:
-	void CreateUtilDlgEx();
+    void CreateUtilDlgEx();
 
 public:
-	void SetUtilDlgEx(long dlgType, long nTemplateID, ZXString<char> sText, int32_t bNoNpc, int32_t bQuest);
-	void SetUtilDlgEx_1(long dlgType, long nTemplateID, ZXString<char> sText, int32_t bNoNpc, int32_t bQuest)
-	{
-		SetUtilDlgEx(dlgType, nTemplateID, sText, bNoNpc, bQuest);
-	}
+    void SetUtilDlgEx(long dlgType, long nTemplateID, ZXString<char> sText, int32_t bNoNpc, int32_t bQuest);
+
+    void SetUtilDlgEx_1(long dlgType, long nTemplateID, ZXString<char> sText, int32_t bNoNpc, int32_t bQuest)
+    {
+        SetUtilDlgEx(dlgType, nTemplateID, sText, bNoNpc, bQuest);
+    }
 
 public:
-	void SetUtilDlgEx(long dlgType, long nTemplateID, int32_t bNoNpc, int32_t bQuest);
-	void SetUtilDlgEx_0(long dlgType, long nTemplateID, int32_t bNoNpc, int32_t bQuest)
-	{
-		SetUtilDlgEx(dlgType, nTemplateID, bNoNpc, bQuest);
-	}
+    void SetUtilDlgEx(long dlgType, long nTemplateID, int32_t bNoNpc, int32_t bQuest);
+
+    void SetUtilDlgEx_0(long dlgType, long nTemplateID, int32_t bNoNpc, int32_t bQuest)
+    {
+        SetUtilDlgEx(dlgType, nTemplateID, bNoNpc, bQuest);
+    }
 
 public:
-	void SetUtilDlgEx_Param(unsigned char arg0);
+    void SetUtilDlgEx_Param(unsigned char arg0);
 
 public:
-	void SetUtilDlgEx_TEXT(int32_t bPrev, int32_t bNext);
+    void SetUtilDlgEx_TEXT(int32_t bPrev, int32_t bNext);
 
 public:
-	void SetUtilDlgEx_IMAGE(int32_t bPrev, int32_t bNext);
+    void SetUtilDlgEx_IMAGE(int32_t bPrev, int32_t bNext);
 
 public:
-	void SetUtilDlgEx_YESNO();
+    void SetUtilDlgEx_YESNO();
 
 public:
-	void SetUtilDlgEx_INPUT_NO(long nIntDefault, long nIntMin, long nIntMax, long nStrMin, long nStrMax, int32_t bPasswd);
+    void SetUtilDlgEx_INPUT_NO(long nIntDefault, long nIntMin, long nIntMax, long nStrMin, long nStrMax,
+                               int32_t bPasswd);
 
 public:
-	void SetUtilDlgEx_INPUT_STR(const char *sStrDefault, long nStrMin, long nStrMax, int32_t bPasswd, int32_t bKoreanBaseLen);
+    void SetUtilDlgEx_INPUT_STR(const char* sStrDefault, long nStrMin, long nStrMax, int32_t bPasswd,
+                                int32_t bKoreanBaseLen);
 
 public:
-	void SetUtilDlgEx_INPUT_MLSTR(const char *sStrDefault, long nCol, long nLine);
+    void SetUtilDlgEx_INPUT_MLSTR(const char* sStrDefault, long nCol, long nLine);
 
 public:
-	void SetUtilDlgEx_COMBOBOX(ZList<ZXString<char>> &lItems);
+    void SetUtilDlgEx_COMBOBOX(ZList<ZXString<char>>& lItems);
 
 public:
-	void SetUtilDlgEx_LIST(int32_t bReset);
+    void SetUtilDlgEx_LIST(int32_t bReset);
 
 public:
-	void SetUtilDlgEx_AVATAR(ZArray<long> &aCandidate, ZRef<CharacterData> pCharacterData);
+    void SetUtilDlgEx_AVATAR(ZArray<long>& aCandidate, ZRef<CharacterData> pCharacterData);
 
 public:
-	void SetUtilDlgEx_Pet(ZArray<ZRef<GW_ItemSlotPet>> &apDeadPet);
+    void SetUtilDlgEx_Pet(ZArray<ZRef<GW_ItemSlotPet>>& apDeadPet);
 
 public:
-	long GetInputNo_Result();
+    long GetInputNo_Result();
 
 public:
-	ZXString<char> GetInputStr_Result();
+    ZXString<char> GetInputStr_Result();
 
 public:
-	long GetList_Result();
+    long GetList_Result();
 
 public:
-	long GetAvatar_Result();
+    long GetAvatar_Result();
 
 public:
-	long GetPet_Result();
+    long GetPet_Result();
 
 public:
-	ZXString<char> GetComboBoxStr();
+    ZXString<char> GetComboBoxStr();
 
 public:
-	void ApplyComboBoxItemList(ZList<ZXString<char>> &lsItem);
+    void ApplyComboBoxItemList(ZList<ZXString<char>>& lsItem);
 
 public:
-	void AddImageList(ZXString<char> sPath);
+    void AddImageList(ZXString<char> sPath);
 
 public:
-	static void __cdecl ForcedRet();
+    static void __cdecl ForcedRet();
 
 protected:
-	void OnCreate_TEXT();
+    void OnCreate_TEXT();
 
 protected:
-	void OnCreate_YESNO();
+    void OnCreate_YESNO();
 
 protected:
-	void OnCreate_INPUT();
+    void OnCreate_INPUT();
 
 protected:
-	void OnCreate_INPUT1();
+    void OnCreate_INPUT1();
 
 protected:
-	void OnCreate_MLINPUT();
+    void OnCreate_MLINPUT();
 
 protected:
-	void OnCreate_COMBOBOX_EDITABLE();
+    void OnCreate_COMBOBOX_EDITABLE();
 
 protected:
-	void OnCreate_LIST();
+    void OnCreate_LIST();
 
 protected:
-	void OnCreate_AVATAR();
+    void OnCreate_AVATAR();
 
 protected:
-	void OnCreate_PET();
+    void OnCreate_PET();
 
 protected:
-	void OnCreate_IMAGE();
+    void OnCreate_IMAGE();
 
 protected:
-	void Layout_GEN(int32_t bAvatar);
+    void Layout_GEN(int32_t bAvatar);
 
 protected:
-	void Layout_INPUT();
+    void Layout_INPUT();
 
 protected:
-	void Layout_MLINPUT();
+    void Layout_MLINPUT();
 
 protected:
-	void CheckMousePoint(long rx, long ry);
+    void CheckMousePoint(long rx, long ry);
 
 protected:
-	long GetWndWidth();
+    long GetWndWidth();
 
 protected:
-	long GetWndHeight();
+    long GetWndHeight();
 
 protected:
-	long GetBasicCTWidth();
+    long GetBasicCTWidth();
 
 protected:
-	long GetCTHeight_Max();
+    long GetCTHeight_Max();
 
 protected:
-	long GetCTHeight_Min();
+    long GetCTHeight_Min();
 
 protected:
-	long GetBasicCTMargin();
+    long GetBasicCTMargin();
 
 protected:
-	void ValidateScroll(CT_INFO *pCti);
+    void ValidateScroll(CT_INFO* pCti);
 
 protected:
-	void SetAvatar(ZRef<AvatarLook> pAvatarLook);
+    void SetAvatar(ZRef<AvatarLook> pAvatarLook);
 
 protected:
-	void MakeAvatar(ZRef<AvatarLook> pAvatarLook);
+    void MakeAvatar(ZRef<AvatarLook> pAvatarLook);
 
 protected:
-	void MakePet();
+    void MakePet();
 
 protected:
-	void MakeImage();
+    void MakeImage();
 
 protected:
-	void UpdateImage();
+    void UpdateImage();
 
 protected:
-	void SetNPC();
+    void SetNPC();
 
 protected:
-	virtual void Update();
+    virtual void Update();
 
 protected:
-	void SetKeyFocus(long nIdx);
+    void SetKeyFocus(long nIdx);
 
 protected:
-	void SetBackground();
+    void SetBackground();
 
 protected:
-	void MakeBorder();
+    void MakeBorder();
 
 protected:
-	void MakeInnerBorder(long arg0, long arg1, long arg2, long arg3);
+    void MakeInnerBorder(long arg0, long arg1, long arg2, long arg3);
 
 protected:
-	const wchar_t *MakeUOLByUIType(ZXString<unsigned short> &sOut, const wchar_t *sUOL, const wchar_t *sUOL2);
+    const wchar_t* MakeUOLByUIType(ZXString16& sOut, const wchar_t* sUOL, const wchar_t* sUOL2);
 
 public:
-	CUtilDlgEx &operator=(const CUtilDlgEx &arg0);
+    CUtilDlgEx& operator=(const CUtilDlgEx& arg0);
 
 public:
-	static CUtilDlgEx &_op_assign_71(CUtilDlgEx *pThis, const CUtilDlgEx &arg0);
+    static CUtilDlgEx& _op_assign_71(CUtilDlgEx* pThis, const CUtilDlgEx& arg0);
 };
+
 STATIC_ASSERT_SIZE(CUtilDlgEx, 3152);
-
-
 
 
 // 874018 8
 static ZRef<CUtilDlgEx> _D_PPREVIOUSDLG{};
 
 ZXString<char> __cdecl ask_SPW();
-int32_t __cdecl ask_guildname(ZXString<char> &sGuildName);
+int32_t __cdecl ask_guildname(ZXString<char>& sGuildName);

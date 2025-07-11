@@ -3,7 +3,7 @@
 #include "UIPartyAdverTab.hpp"
 
 // CCtrlSelectPartyQuest::GetBackUOL
-__SUB_CLASS_THIS0(00414020, __thiscall, 86078,  CCtrlSelectPartyQuest, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(00414020, __thiscall, 86078,  CCtrlSelectPartyQuest, ZXString16) {
 __asm {
 
  Block0:
@@ -45,13 +45,13 @@ __asm {
 	push 0
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	pop esi
 
  Block6:
@@ -122,7 +122,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -148,7 +148,7 @@ __asm {
  Block3:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block4:
@@ -174,7 +174,7 @@ __asm {
  Block5:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block6:
@@ -1523,13 +1523,13 @@ __asm {
 	push 0x35
 	mov ecx,edi
 	mov dword ptr [edi],eax
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x35
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x21
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1542,13 +1542,13 @@ __asm {
 	push 0x34
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x34
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x22
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1640,13 +1640,13 @@ __asm {
 	push 0x34
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x34
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x10
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1659,13 +1659,13 @@ __asm {
 	push 0x34
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x34
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x11
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1678,13 +1678,13 @@ __asm {
 	push 0x37
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x37
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x12
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1697,13 +1697,13 @@ __asm {
 	push 0x35
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x35
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x13
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1716,13 +1716,13 @@ __asm {
 	push 0
 	push 0x35
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x35
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x14
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1735,13 +1735,13 @@ __asm {
 	push 0x33
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x33
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x15
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1754,13 +1754,13 @@ __asm {
 	push 0x23
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x23
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xE
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1773,13 +1773,13 @@ __asm {
 	push 0x24
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x24
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0xF
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -1986,13 +1986,13 @@ __asm {
 	push 0x33
 	mov ecx,edi
 	mov dword ptr [edi],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x33
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push ebx
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -2005,13 +2005,13 @@ __asm {
 	push 0x23
 	mov ecx,edi
 	mov dword ptr [edi],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x23
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 1
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -2024,13 +2024,13 @@ __asm {
 	push 0x24
 	mov ecx,edi
 	mov dword ptr [edi],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x24
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 2
 	mov ecx,esi
 	call TabPartyAdver::AttachButton
@@ -4842,7 +4842,7 @@ __asm {
 }
 // TabPartyAdver::AttachButton
 _SUB_EXCEPTION_HANDLER(414230)
-__SUB_CLASS_THIS(00414230, __thiscall, 85990,  TabPartyAdver, void, TabPartyAdver::ENUM_CTRL_ID, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(00414230, __thiscall, 85990,  TabPartyAdver, void, TabPartyAdver::ENUM_CTRL_ID, NakedParam<ZXString16>) {
 __asm {
 
  Block0:
@@ -4930,7 +4930,7 @@ __asm {
  Block9:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block10:
@@ -5406,13 +5406,13 @@ __asm {
 	push 0x22
 	mov ecx,esi
 	mov dword ptr [esi],ebp
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x22
 	mov ecx,esi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push ecx
 	mov ecx,dword ptr [esp+0x60]
 	mov eax,esp
@@ -5457,13 +5457,13 @@ __asm {
  Block19:
 	push ebp
 	push 0x22
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x22
 	mov ecx,esi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push ecx
 	mov ecx,dword ptr [esp+0x60]
 	mov eax,esp

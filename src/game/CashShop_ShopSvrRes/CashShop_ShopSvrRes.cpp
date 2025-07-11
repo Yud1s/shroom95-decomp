@@ -46,7 +46,7 @@ void CCashShop::Close()
 {
 	__sub_00094A20(this, nullptr);
 }
-void CCashShop::OnKey(uint32_t wParam, uint32_t lParam)
+void CCashShop::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_0007F7C0(this, nullptr, wParam, lParam);
 }

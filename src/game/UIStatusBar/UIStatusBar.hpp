@@ -91,7 +91,7 @@ public:
 		// Nested
 		// Fields
 	public:
-		ZXString<unsigned short> m_sChat;
+		ZXString16 m_sChat;
 
 	public:
 		std::array<long, 2> _ZtlSecureTear_m_nType{};
@@ -127,10 +127,10 @@ public:
 		void _ctor_1(const CUIStatusBar::CChatLog &arg0);
 
 	public:
-		CChatLog(ZXString<unsigned short> sChat, long nType, long nBack, long nChannelID, int32_t bWhisperIcon, int32_t bFirstLine, ZRef<GW_ItemSlotBase> pItem);
+		CChatLog(ZXString16 sChat, long nType, long nBack, long nChannelID, int32_t bWhisperIcon, int32_t bFirstLine, ZRef<GW_ItemSlotBase> pItem);
 
 	public:
-		void _ctor_0(ZXString<unsigned short> sChat, long nType, long nBack, long nChannelID, int32_t bWhisperIcon, int32_t bFirstLine, ZRef<GW_ItemSlotBase> pItem);
+		void _ctor_0(ZXString16 sChat, long nType, long nBack, long nChannelID, int32_t bWhisperIcon, int32_t bFirstLine, ZRef<GW_ItemSlotBase> pItem);
 
 	public:
 		long __fastcall _ZtlSecureGet_m_nType() const;
@@ -139,7 +139,7 @@ public:
 		long __fastcall _ZtlSecurePut_m_nType(long arg0);
 
 	public:
-		int32_t IsFiltered(unsigned long dwFilterFlag);
+		int32_t IsFiltered(unsigned long dwFilterFlag) const;
 
 	public:
 		CUIStatusBar::CChatLog &operator=(const CUIStatusBar::CChatLog &arg0);
@@ -248,7 +248,7 @@ public:
 		_x_com_ptr<IWzGr2DLayer> m_pLayerSkillCooltime;
 
 	private:
-		std::array<_x_com_ptr<IWzCanvas>, 16> m_aCanvasSkillCooltime;
+		std::array<_x_com_ptr<IWzCanvas>, 16> m_aCanvasSkillCooltime{};
 
 	private:
 		std::array<long, 8> m_aFuncKeyMappedSkillCooltime{};
@@ -260,7 +260,7 @@ public:
 		long m_nConsumeItemCoolTimeState{};
 
 	private:
-		std::array<CUIStatusBar::CQuickSlot::FuncKeyMappedInfo, 8> m_aFuncKeyMappedInfo;
+		std::array<CUIStatusBar::CQuickSlot::FuncKeyMappedInfo, 8> m_aFuncKeyMappedInfo{};
 		// Methods
 		CTOR_DEFAULT(CQuickSlot)
 	public:
@@ -451,7 +451,7 @@ protected:
 	_x_com_ptr<IWzFont> m_pFontWhite;
 
 protected:
-	std::array<_x_com_ptr<IWzFont>, 27> m_pFontChatLog;
+	std::array<_x_com_ptr<IWzFont>, 27> m_pFontChatLog{};
 
 protected:
 	_x_com_ptr<IWzFont> m_pFontJobCategory;
@@ -538,7 +538,7 @@ protected:
 	_x_com_ptr<IWzGr2DLayer> m_pLayerChatCover;
 
 protected:
-	std::array<_x_com_ptr<IWzGr2DLayer>, 4> m_pLayerButtonAni;
+	std::array<_x_com_ptr<IWzGr2DLayer>, 4> m_pLayerButtonAni{};
 
 protected:
 	std::array<long, 4> m_bButtonAniPlayTime{};
@@ -574,7 +574,7 @@ private:
 	CLayoutMan m_lm;
 
 private:
-	std::array<ZRef<CCtrlOriginButton>, 6> m_apBtChatFilter;
+	std::array<ZRef<CCtrlOriginButton>, 6> m_apBtChatFilter{};
 
 private:
 	unsigned long m_dwChatFilterFlag{};
@@ -610,7 +610,7 @@ public:
 	virtual int32_t OnMouseMove(long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnMouseEnter(int32_t bEnter);
@@ -712,7 +712,7 @@ public:
 	ZArray<ZXString<char>> GetChatLog();
 
 public:
-	ZXString<unsigned short> ConvertWhisperToNormal(ZXString<unsigned short> sChatLine);
+	ZXString16 ConvertWhisperToNormal(ZXString16 sChatLine);
 
 public:
 	void EnableButtons(int32_t bEnable);
@@ -733,6 +733,8 @@ protected:
 	void ProcessToolTip(long rx, long ry);
 
 protected:
+	bool IsChatLogFiltered(long ty);
+	void DrawChatItem(IWzCanvas* canvas, CChatLog* chat, int ix);
 	void ChatLogDraw();
 
 protected:
@@ -817,4 +819,4 @@ public:
 };
 STATIC_ASSERT_SIZE(CUIStatusBar, 6496);
 
-ZXString<unsigned short> __cdecl ExtractCharacterName_ZXString_unsignedshort__(ZXString<unsigned short> sChat);
+ZXString16 __cdecl ExtractCharacterName_ZXString_unsignedshort__(ZXString16 sChat);

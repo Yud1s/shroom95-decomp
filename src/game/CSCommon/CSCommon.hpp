@@ -34,6 +34,20 @@ public:
 
 	public:
 		tagPOINT ptMove{};
+
+		PIECE() =default;
+
+		PIECE(long action, long frameIdx, long frameDelay, int32_t showFace, int32_t flip, long rotate, long ptX, long ptY)
+		{
+			nAction = action;
+			nFrameIdx = frameIdx;
+			tFrameDelay = frameDelay;
+			bShowFace = showFace;
+			bFlip = flip;
+			nRotate = rotate;
+			ptMove.x = ptX;
+			ptMove.y = ptY;
+		}
 		// Methods
 	};
 	// Fields
@@ -62,6 +76,19 @@ public:
 	void _dtor_0();
 
 public:
+
+	ACTIONDATA(int32_t bZigZag, int32_t bPieced, long eventDelay, Ztl_bstr_t bsName, std::initializer_list<PIECE> pieces):
+		bsName(bsName), bZigZag(bZigZag), bPieced(bPieced), tEventDelay(eventDelay)
+	{
+
+		for (auto& piece: pieces)
+		{
+			aPiece.Insert(piece);
+			tTotalDelay += piece.tFrameDelay;
+		}
+
+
+	}
 	ACTIONDATA()
 	{
 	}

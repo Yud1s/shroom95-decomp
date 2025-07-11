@@ -1,10 +1,13 @@
 // SequencedKeyMan.cpp
 #include "SequencedKeyMan.hpp"
+
+#include <complex>
+#include <skills_ids.h>
+
 #include "SequencedKeyMan_regen.ipp"
 
 KeySequence::~KeySequence()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void KeySequence::_dtor_0()
@@ -44,6 +47,11 @@ KeySequence& KeySequence::_op_assign_3(KeySequence* pThis, const KeySequence& ar
     UNIMPLEMENTED;
 }
 
+void KeySequence::AddElem(KeySequenceElement* seq)
+{
+    m_apSequence.InsertBefore() = ZRef(seq, true);
+}
+
 CSequencedKeyMan::~CSequencedKeyMan()
 {
 }
@@ -72,7 +80,7 @@ CSequencedKeyMan::CSequencedKeyMan()
 
 void CSequencedKeyMan::_ctor_0()
 {
-    return __sub_002DF680(this, nullptr);
+    new(this) CSequencedKeyMan();
 }
 
 void CSequencedKeyMan::Clear()
@@ -82,13 +90,217 @@ void CSequencedKeyMan::Clear()
 
 void CSequencedKeyMan::Restore()
 {
-    //TODO(game) __sub_002E11F0(this, nullptr);
+    //__sub_002E11F0(this, nullptr);
+    auto ctx = CWvsContext::GetInstance();
+    auto cd = ctx->GetCharacterData();
+    auto fMap = CFuncKeyMappedMan::GetInstance();
+    auto skillInfo = CSkillInfo::GetInstance();
+
+
+    m_mSequence.RemoveAll();
+    m_aCandidatePool.RemoveAll();
+    m_lActiveCandidate.RemoveAll();
+
+    auto nNormalAttack = 0;
+    auto nFinishAttack = 0;
+    for (auto i = 0; i < 89; ++i)
+    {
+        auto& v6 = fMap->FuncKeyMapped(i);
+        if (v6.nType == 1)
+        {
+            if (v6.nID == 32001001)
+                nFinishAttack = i;
+        }
+        else if (v6.nType == 5 && v6.nID == 52)
+        {
+            nNormalAttack = i;
+        }
+    }
+
+
+
+    {
+        auto elem = m_mSequence.InsertPtrValue(0, nullptr);
+        elem->AddElem(new KeySequenceElement(75, 300, true));
+        elem->AddElem(new KeySequenceElement(75, 0, false));
+        elem->AddElem(new CDashTrigger(75));
+        elem->AddElem(new KeySequenceElement(75, 0, false));
+    }
+
+    {
+        auto elem = m_mSequence.InsertPtrValue(1, nullptr);
+        elem->AddElem(new KeySequenceElement(77, 300, true));
+        elem->AddElem(new KeySequenceElement(77, 0, false));
+        elem->AddElem(new CDashTrigger(77));
+        elem->AddElem(new KeySequenceElement(77, 0, false));
+    }
+
+
+    auto elem2 = m_mSequence.InsertPtrValue(2, nullptr);
+    elem2->AddElem(new KeySequenceElement(nNormalAttack, 480, true));
+    elem2->AddElem(new KeySequenceElement(nNormalAttack, 0, false));
+    elem2->AddElem(new CDoubleAttack(nNormalAttack));
+    elem2->AddElem(new KeySequenceElement(nNormalAttack, 0, false));
+
+    if (skillInfo->GetSkillLevel(*cd.op_arrow(), ARAN2_TRIPLE_SWING, nullptr) > 0 || skillInfo->GetSkillLevel(
+        *cd.op_arrow(), ARAN2_TRIPLE_SWING, nullptr))
+    {
+        elem2->m_anNextSequenceID.Insert(3);
+    }
+
+    auto elem3 = m_mSequence.InsertPtrValue(3, nullptr);
+    elem3->AddElem(new CTripleAttack(nNormalAttack));
+    elem3->AddElem(new KeySequenceElement(nNormalAttack, 0, false));
+
+    auto elem4 = m_mSequence.InsertPtrValue(4, nullptr);
+    elem4->AddElem(new KeySequenceElementIgnoreUp(75, 600, true));
+    elem4->AddElem(new CFinalCharge(nNormalAttack, true));
+    elem4->AddElem(new KeySequenceElementIgnoreUp(77, 600, true));
+
+    auto elem5 = m_mSequence.InsertPtrValue(5, nullptr);
+    elem5->AddElem(new KeySequenceElementIgnoreUp(77, 600, true));
+    elem5->AddElem(new CFinalCharge(nNormalAttack, false));
+    elem5->AddElem(new KeySequenceElementIgnoreUp(80, 300, true));
+
+    auto elem6 = m_mSequence.InsertPtrValue(6, nullptr);
+    elem6->AddElem(new KeySequenceElementIgnoreUp(80, 300, true));
+    elem6->AddElem(new CFinalBlow(nNormalAttack));
+
+    auto elem7 = m_mSequence.InsertPtrValue(7, nullptr);
+    elem7->AddElem(new KeySequenceElementIgnoreUp(72, 300, true));
+    elem7->AddElem(new CFinalToss(nNormalAttack));
+
+    auto elem8 = m_mSequence.InsertPtrValue(8, nullptr);
+    elem8->AddElem(new KeySequenceElement(72, 700, true));
+    elem8->AddElem(new KeySequenceElement(72, 0, false));
+    elem8->AddElem(new KeySequenceElement(72, 0, true));
+    elem8->AddElem(new CWhirlWind(nNormalAttack));
+
+    auto elem9 = m_mSequence.InsertPtrValue(9, nullptr);
+    elem9->AddElem(new KeySequenceElementIgnoreUp(80, 600, true));
+    elem9->AddElem(new KeySequenceElementIgnoreUp(75, 0, true));
+    elem9->AddElem(new CComboSmash(nNormalAttack, true));
+
+    auto elem10 = m_mSequence.InsertPtrValue(10, nullptr);
+    elem10->AddElem(new KeySequenceElementIgnoreUp(80, 600, true));
+    elem10->AddElem(new KeySequenceElementIgnoreUp(77, 0, true));
+    elem10->AddElem(new CComboSmash(nNormalAttack, false));
+
+    auto elem11 = m_mSequence.InsertPtrValue(11, nullptr);
+    elem11->AddElem(new KeySequenceElement(80, 600, true));
+    elem11->AddElem(new KeySequenceElement(80, 0, false));
+    elem11->AddElem(new KeySequenceElementIgnoreUp(80, 0, true));
+    elem11->AddElem(new CComboDrain(nNormalAttack));
+
+    auto elem12 = m_mSequence.InsertPtrValue(12, nullptr);
+    elem12->AddElem(new KeySequenceElement(75, 300, true));
+    elem12->AddElem(new KeySequenceElement(75, 0, false));
+    elem11->AddElem(new CCombatStepTrigger(75));
+    elem12->AddElem(new KeySequenceElement(75, 0, false));
+
+    auto elem13 = m_mSequence.InsertPtrValue(13, nullptr);
+    elem13->AddElem(new KeySequenceElement(77, 300, true));
+    elem13->AddElem(new KeySequenceElement(77, 0, false));
+    elem11->AddElem(new CCombatStepTrigger(77));
+    elem13->AddElem(new KeySequenceElement(77, 0, false));
+
+
+    auto elem14 = m_mSequence.InsertPtrValue(14, nullptr);
+    elem14->AddElem(new KeySequenceElementIgnoreUp(80, 300, true));
+    elem14->AddElem(new KeySequenceElementIgnoreUp(72, 0, true));
+    elem14->AddElem(new CMassacre(nNormalAttack));
+
+    auto elem15 = m_mSequence.InsertPtrValue(15, nullptr);
+    elem15->AddElem(new KeySequenceElement(nFinishAttack, 480, true));
+    elem15->AddElem(new CFinishAttack(nFinishAttack, -1));
+
+
+    if (auto user = CUserLocal::GetInstance())
+    {
+        auto p_m_aCandidatePool = &m_aCandidatePool;
+        auto v190 = p_m_aCandidatePool;
+        auto& cd_ = *cd.op_arrow();
+        if (skillInfo->GetSkillLevel(cd_, PIRATE_DASH, nullptr) <= 0
+            && skillInfo->GetSkillLevel(cd_, TB1_DASH, nullptr) <= 0
+            && skillInfo->GetSkillLevel(cd_, DB3_TORNADO_SPIN, nullptr) <= 0
+            && skillInfo->GetSkillLevel(cd_, BEGINNER_SPACE_DASH_1, nullptr) <= 0
+            && skillInfo->GetSkillLevel(cd_, NOBLESSE_SPACE_DASH_1, nullptr) <= 0
+            && skillInfo->GetSkillLevel(cd_, LEGEND_SPACE_DASH, nullptr) <= 0
+            && skillInfo->GetSkillLevel(cd_, EVANBEGINNER_SPACE_DASH, nullptr) <= 0)
+        {
+            v190 = p_m_aCandidatePool;
+        }
+        else
+        {
+            v190 = p_m_aCandidatePool;
+            v190->InsertBefore() = 0;
+            v190->InsertBefore() = 1;
+        }
+
+        auto job = user->GetJobCode();
+        if ((job / 100 == 21 || job == 2000) && get_weapon_type(user->GetWeaponItemID()) == 44)
+        {
+            if (skillInfo->GetSkillLevel(cd_, ARAN1_DOUBLE_SWING, 0) > 0
+                || skillInfo->GetSkillLevel(cd_, LEGEND_TUTORIAL_SKILL, 0) > 0)
+            {
+                v190->InsertBefore() = 2;
+            }
+            if (skillInfo->GetSkillLevel(cd_, ARAN2_FINAL_CHARGE, 0) > 0)
+            {
+                v190->InsertBefore() = 4;
+                v190->InsertBefore() = 5;
+            }
+            if (skillInfo->GetSkillLevel(cd_, ARAN4_FINAL_BLOW, 0) > 0
+                || skillInfo->GetSkillLevel(cd_, LEGEND_TUTORIAL_SKILL_2, 0) > 0)
+            {
+                v190->InsertBefore() = 6;
+            }
+            if (skillInfo->GetSkillLevel(cd_, ARAN3_FINAL_TOSS, 0) > 0)
+                v190->InsertBefore() = 7;
+            if (skillInfo->GetSkillLevel(cd_, ARAN3_ROLLING_SPIN, 0) > 0)
+                v190->InsertBefore() = 8;
+            if (skillInfo->GetSkillLevel(cd_, ARAN2_COMBO_SMASH, 0) > 0)
+            {
+                v190->InsertBefore() = 9;
+                v190->InsertBefore() = 10;
+            }
+            if (skillInfo->GetSkillLevel(cd_, ARAN2_COMBO_DRAIN, 0) > 0)
+                v190->InsertBefore() = 11;
+        }
+
+        auto slvl = 0;
+        if (job / 100 == 21 || job == 2000)
+        {
+            slvl = skillInfo->GetSkillLevel(cd_, ARAN1_COMBAT_STEP, 0);
+        }
+        else
+        {
+            if (job / 100 != 35)
+            {
+            LABEL_456:
+                v190->InsertBefore() = 14;
+                if (job / 100 == 32
+                    && get_weapon_type(user->GetWeaponItemID()) == 38
+                    && skillInfo->GetSkillLevel(cd_, THE_FINISHER, 0) > 0)
+                {
+                    v190->InsertBefore() = 15;
+                }
+                return;
+            }
+            slvl = skillInfo->GetSkillLevel(cd_, CITIZEN_MECHANIC_DASH, 0);
+        }
+        if (slvl > 0)
+        {
+            v190->InsertBefore() = 12;
+            v190->InsertBefore() = 13;
+        }
+        goto LABEL_456;
+    }
 }
 
 int32_t CSequencedKeyMan::Process(long nScancode, int32_t bDown)
 {
-    //TODO(game) return __sub_002E3400(this, nullptr, nScancode, bDown);
-    return 1;
+    return __sub_002E3400(this, nullptr, nScancode, bDown);
 }
 
 void CSequencedKeyMan::ReserveAction(ZRef<KeySequenceElement> pAction, int32_t bForcedReserve)
@@ -104,7 +316,7 @@ long CSequencedKeyMan::GetReservedCount()
 
 void CSequencedKeyMan::Update()
 {
-    //TODO(game) __sub_002DF980(this, nullptr);
+    __sub_002DF980(this, nullptr);
 }
 
 CSequencedKeyMan& CSequencedKeyMan::operator=(const CSequencedKeyMan& arg0)
@@ -120,13 +332,11 @@ CSequencedKeyMan& CSequencedKeyMan::_op_assign_9(CSequencedKeyMan* pThis, const 
 
 KeySequenceElement::~KeySequenceElement()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void KeySequenceElement::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~KeySequenceElement();
 }
 
 KeySequenceElement::KeySequenceElement(const KeySequenceElement& arg0)
@@ -142,22 +352,25 @@ void KeySequenceElement::_ctor_1(const KeySequenceElement& arg0)
 
 KeySequenceElement::KeySequenceElement(long scancode, long expire, int32_t down)
 {
-    _ctor_0(scancode, expire, down);
+    nScancode = scancode;
+    bDown = down;
+    tExpire = expire;
+    dwStartTick = timeGetTime();
 }
 
 void KeySequenceElement::_ctor_0(long scancode, long expire, int32_t down)
 {
-    return __sub_002DE400(this, nullptr, scancode, expire, down);
+    new(this) KeySequenceElement(scancode, expire, down);
 }
 
 int32_t KeySequenceElement::Check(long scancode, int32_t down)
 {
-    return __sub_002DE470(this, nullptr, scancode, down);
+    return this->nScancode == scancode && this->bDown == down;
 }
 
 int32_t KeySequenceElement::DoAction(int32_t bNoReserve)
 {
-    return __sub_002DE490(this, nullptr, bNoReserve);
+    return 0;
 }
 
 int32_t KeySequenceElement::NeedIgnore(long scancode, int32_t down)
@@ -167,12 +380,12 @@ int32_t KeySequenceElement::NeedIgnore(long scancode, int32_t down)
 
 long KeySequenceElement::GetSkillID(int32_t bDummy)
 {
-    return __sub_002DE4D0(this, nullptr, bDummy);
+    return 0;
 }
 
 int32_t KeySequenceElement::CheckPreOrderSkill(long nPreSkillID)
 {
-    return __sub_002DE4E0(this, nullptr, nPreSkillID);
+    return 1;
 }
 
 unsigned long KeySequenceElement::GetCreatedTime()
@@ -182,7 +395,7 @@ unsigned long KeySequenceElement::GetCreatedTime()
 
 unsigned long KeySequenceElement::GetValidDuration()
 {
-    return __sub_002DE4F0(this, nullptr);
+    return 1000;
 }
 
 KeySequenceElement& KeySequenceElement::operator=(const KeySequenceElement& arg0)
@@ -198,7 +411,6 @@ KeySequenceElement& KeySequenceElement::_op_assign_10(KeySequenceElement* pThis,
 
 CCombatStepTrigger::~CCombatStepTrigger()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CCombatStepTrigger::_dtor_0()
@@ -218,15 +430,13 @@ void CCombatStepTrigger::_ctor_1(const CCombatStepTrigger& arg0)
     UNIMPLEMENTED;
 }
 
-CCombatStepTrigger::CCombatStepTrigger(long arg0)
+CCombatStepTrigger::CCombatStepTrigger(long arg0): KeySequenceElement(arg0, 0, true)
 {
-    _ctor_0(arg0);
 }
 
 void CCombatStepTrigger::_ctor_0(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) CCombatStepTrigger(arg0);
 }
 
 int32_t CCombatStepTrigger::DoAction(int32_t bNoReserve)
@@ -247,7 +457,6 @@ CCombatStepTrigger& CCombatStepTrigger::_op_assign_4(CCombatStepTrigger* pThis, 
 
 CFinalBlow::~CFinalBlow()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CFinalBlow::_dtor_0()
@@ -267,9 +476,8 @@ void CFinalBlow::_ctor_1(const CFinalBlow& arg0)
     UNIMPLEMENTED;
 }
 
-CFinalBlow::CFinalBlow(long scancode)
+CFinalBlow::CFinalBlow(long scancode): KeySequenceElement(scancode, 0, true)
 {
-    _ctor_0(scancode);
 }
 
 void CFinalBlow::_ctor_0(long scancode)
@@ -305,7 +513,6 @@ CFinalBlow& CFinalBlow::_op_assign_6(CFinalBlow* pThis, const CFinalBlow& arg0)
 
 CFinalToss::~CFinalToss()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CFinalToss::_dtor_0()
@@ -325,9 +532,9 @@ void CFinalToss::_ctor_1(const CFinalToss& arg0)
     UNIMPLEMENTED;
 }
 
-CFinalToss::CFinalToss(long scancode)
+CFinalToss::CFinalToss(long scancode): KeySequenceElement(scancode, 0, true)
 {
-    _ctor_0(scancode);
+    m_nSkillID = ARAN3_FINAL_TOSS;
 }
 
 void CFinalToss::_ctor_0(long scancode)
@@ -363,7 +570,6 @@ CFinalToss& CFinalToss::_op_assign_6(CFinalToss* pThis, const CFinalToss& arg0)
 
 KeySequenceElementIgnoreUp::~KeySequenceElementIgnoreUp()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void KeySequenceElementIgnoreUp::_dtor_0()
@@ -383,9 +589,9 @@ void KeySequenceElementIgnoreUp::_ctor_1(const KeySequenceElementIgnoreUp& arg0)
     UNIMPLEMENTED;
 }
 
-KeySequenceElementIgnoreUp::KeySequenceElementIgnoreUp(long arg0, long arg1, int32_t arg2)
+KeySequenceElementIgnoreUp::KeySequenceElementIgnoreUp(long arg0, long arg1, int32_t arg2): KeySequenceElement(
+    arg0, arg1, arg2)
 {
-    _ctor_0(arg0, arg1, arg2);
 }
 
 void KeySequenceElementIgnoreUp::_ctor_0(long arg0, long arg1, int32_t arg2)
@@ -413,7 +619,6 @@ KeySequenceElementIgnoreUp& KeySequenceElementIgnoreUp::_op_assign_4(KeySequence
 
 CFinishAttack::~CFinishAttack()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CFinishAttack::_dtor_0()
@@ -433,9 +638,10 @@ void CFinishAttack::_ctor_1(const CFinishAttack& arg0)
     UNIMPLEMENTED;
 }
 
-CFinishAttack::CFinishAttack(long scancode, long nAction)
+CFinishAttack::CFinishAttack(long scancode, long nAction): KeySequenceElement(scancode, 1000, false)
+
 {
-    _ctor_0(scancode, nAction);
+    m_nAction = nAction;
 }
 
 void CFinishAttack::_ctor_0(long scancode, long nAction)
@@ -481,7 +687,6 @@ CFinishAttack& CFinishAttack::_op_assign_8(CFinishAttack* pThis, const CFinishAt
 
 CFinalCharge::~CFinalCharge()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CFinalCharge::_dtor_0()
@@ -501,9 +706,9 @@ void CFinalCharge::_ctor_1(const CFinalCharge& arg0)
     UNIMPLEMENTED;
 }
 
-CFinalCharge::CFinalCharge(long scancode, int32_t bLeft)
+CFinalCharge::CFinalCharge(long scancode, int32_t bLeft): KeySequenceElement(scancode, 0, true)
 {
-    _ctor_0(scancode, bLeft);
+    m_bLeft = bLeft;
 }
 
 void CFinalCharge::_ctor_0(long scancode, int32_t bLeft)
@@ -539,7 +744,6 @@ CFinalCharge& CFinalCharge::_op_assign_6(CFinalCharge* pThis, const CFinalCharge
 
 CTripleAttack::~CTripleAttack()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CTripleAttack::_dtor_0()
@@ -559,9 +763,8 @@ void CTripleAttack::_ctor_1(const CTripleAttack& arg0)
     UNIMPLEMENTED;
 }
 
-CTripleAttack::CTripleAttack(long scancode)
+CTripleAttack::CTripleAttack(long scancode): KeySequenceElement(scancode, 660, true)
 {
-    _ctor_0(scancode);
 }
 
 void CTripleAttack::_ctor_0(long scancode)
@@ -597,7 +800,6 @@ CTripleAttack& CTripleAttack::_op_assign_6(CTripleAttack* pThis, const CTripleAt
 
 CDoubleAttack::~CDoubleAttack()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CDoubleAttack::_dtor_0()
@@ -617,9 +819,8 @@ void CDoubleAttack::_ctor_1(const CDoubleAttack& arg0)
     UNIMPLEMENTED;
 }
 
-CDoubleAttack::CDoubleAttack(long scancode)
+CDoubleAttack::CDoubleAttack(long scancode): KeySequenceElement(scancode, 420, true)
 {
-    _ctor_0(scancode);
 }
 
 void CDoubleAttack::_ctor_0(long scancode)
@@ -655,7 +856,6 @@ CDoubleAttack& CDoubleAttack::_op_assign_6(CDoubleAttack* pThis, const CDoubleAt
 
 CDashTrigger::~CDashTrigger()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CDashTrigger::_dtor_0()
@@ -675,9 +875,8 @@ void CDashTrigger::_ctor_1(const CDashTrigger& arg0)
     UNIMPLEMENTED;
 }
 
-CDashTrigger::CDashTrigger(long arg0)
+CDashTrigger::CDashTrigger(long arg0): KeySequenceElement(arg0, 0, true)
 {
-    _ctor_0(arg0);
 }
 
 void CDashTrigger::_ctor_0(long arg0)
@@ -704,7 +903,6 @@ CDashTrigger& CDashTrigger::_op_assign_4(CDashTrigger* pThis, const CDashTrigger
 
 CComboSmash::~CComboSmash()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CComboSmash::_dtor_0()
@@ -724,9 +922,9 @@ void CComboSmash::_ctor_1(const CComboSmash& arg0)
     UNIMPLEMENTED;
 }
 
-CComboSmash::CComboSmash(long arg0, int32_t arg1)
+CComboSmash::CComboSmash(long arg0, int32_t arg1): KeySequenceElementIgnoreUp(arg0, 0, true)
 {
-    _ctor_0(arg0, arg1);
+    m_bLeft = arg1;
 }
 
 void CComboSmash::_ctor_0(long arg0, int32_t arg1)
@@ -753,7 +951,6 @@ CComboSmash& CComboSmash::_op_assign_4(CComboSmash* pThis, const CComboSmash& ar
 
 CComboDrain::~CComboDrain()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CComboDrain::_dtor_0()
@@ -773,9 +970,8 @@ void CComboDrain::_ctor_1(const CComboDrain& arg0)
     UNIMPLEMENTED;
 }
 
-CComboDrain::CComboDrain(long arg0)
+CComboDrain::CComboDrain(long arg0): KeySequenceElementIgnoreUp(arg0, 0, true)
 {
-    _ctor_0(arg0);
 }
 
 void CComboDrain::_ctor_0(long arg0)
@@ -802,7 +998,6 @@ CComboDrain& CComboDrain::_op_assign_4(CComboDrain* pThis, const CComboDrain& ar
 
 CWhirlWind::~CWhirlWind()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CWhirlWind::_dtor_0()
@@ -822,9 +1017,8 @@ void CWhirlWind::_ctor_1(const CWhirlWind& arg0)
     UNIMPLEMENTED;
 }
 
-CWhirlWind::CWhirlWind(long arg0)
+CWhirlWind::CWhirlWind(long arg0): KeySequenceElementIgnoreUp(arg0, 0, false)
 {
-    _ctor_0(arg0);
 }
 
 void CWhirlWind::_ctor_0(long arg0)
@@ -851,7 +1045,6 @@ CWhirlWind& CWhirlWind::_op_assign_4(CWhirlWind* pThis, const CWhirlWind& arg0)
 
 CMassacre::~CMassacre()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CMassacre::_dtor_0()
@@ -871,9 +1064,8 @@ void CMassacre::_ctor_1(const CMassacre& arg0)
     UNIMPLEMENTED;
 }
 
-CMassacre::CMassacre(long arg0)
+CMassacre::CMassacre(long arg0): KeySequenceElementIgnoreUp(arg0, 0, true)
 {
-    _ctor_0(arg0);
 }
 
 void CMassacre::_ctor_0(long arg0)

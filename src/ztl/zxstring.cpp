@@ -133,7 +133,8 @@ char *ZStrUtil::_ConvA(const wchar_t *w, char *m, int nChars) {
 
 int ZStrUtil::_ConvReqSizeW(const wchar_t *w, char *__formal, int nChars) {
 #ifdef WIN32
-    return WideCharToMultiByte(0, 0, w, nChars, nullptr, 0, nullptr, nullptr);
+    auto sz =  WideCharToMultiByte(0, 0, w, nChars, nullptr, 0, nullptr, nullptr);
+    return  sz > 1 ? sz : 0;
 
 #else
     return -1; // TODO
@@ -142,7 +143,8 @@ int ZStrUtil::_ConvReqSizeW(const wchar_t *w, char *__formal, int nChars) {
 
 int ZStrUtil::_ConvReqSizeA(const char *m, wchar_t *__formal, int nChars) {
 #ifdef WIN32
-    return MultiByteToWideChar(0, 0, m, nChars, nullptr, 0) * 2;
+    auto sz = MultiByteToWideChar(0, 0, m, nChars, nullptr, 0);
+    return  sz > 1 ? sz * 2 : 0;
 #else
     return -1; // TODO
 #endif

@@ -245,7 +245,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
@@ -413,7 +413,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
@@ -428,7 +428,7 @@ protected:
 	void SetKeyFocus(long nIdx);
 
 protected:
-	int32_t IsRequestValid();
+	int32_t IsRequestValid() const;
 
 protected:
 	_x_com_ptr<IWzGr2DLayer> MakeBalloon(long nWidth, long nHeight, int32_t bArrowType);

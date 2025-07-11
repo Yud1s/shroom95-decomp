@@ -642,7 +642,7 @@ __asm {
 }
 }
 // CUIRaisePieceWnd::CUIRaisePieceWnd
-__SUB_CLASS_THIS(0043BBA0, __thiscall, 59381,  CUIRaisePieceWnd, void, long, long, long, ZXString<unsigned short>&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
+__SUB_CLASS_THIS(0043BBA0, __thiscall, 59381,  CUIRaisePieceWnd, void, long, long, long, ZXString16&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
 __asm {
 
  Block0:
@@ -1066,7 +1066,7 @@ __asm {
 	push eax
 	lea ecx,[esp+0x58]
 	mov byte ptr [esp+0x74],6
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x14]
 	mov byte ptr [esp+0x70],bl
 	cmp eax,ebp
@@ -1075,7 +1075,7 @@ __asm {
  Block32:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block33:
@@ -1166,7 +1166,7 @@ __asm {
  Block43:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block44:
@@ -1526,7 +1526,7 @@ __asm {
  Block30:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block31:
@@ -2294,7 +2294,7 @@ __asm {
 }
 // CUIRaiseWndBase::CUIRaiseWndBase
 _SUB_EXCEPTION_HANDLER(43B7C0)
-__SUB_CLASS_THIS(0043B7C0, __thiscall, 59306,  CUIRaiseWndBase, void, long, long, long, ZXString<unsigned short>&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
+__SUB_CLASS_THIS(0043B7C0, __thiscall, 59306,  CUIRaiseWndBase, void, long, long, long, ZXString16&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
 __asm {
 
  Block0:
@@ -2328,7 +2328,7 @@ __asm {
 	push edx
 	mov dword ptr [esp+0x34],ebp
 	mov dword ptr [ecx],ebp
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x48]
 	lea ecx,[esi+0x8C]
 	push eax
@@ -3269,7 +3269,7 @@ __asm {
  Block9:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block10:
@@ -3509,7 +3509,7 @@ __asm {
 	lea eax,[ebp-0x20]
 	push eax
 	lea ecx,[esi+0x88]
-	call ZXString<unsigned short>::op_add_0
+	call ZXString16::op_add_0
 	mov esi,eax
 	mov ecx,dword ptr [ebp+0xC]
 	push 0xA
@@ -3522,7 +3522,7 @@ __asm {
 	lea edx,[ebp-0x14]
 	push edx
 	mov ecx,esi
-	call ZXString<unsigned short>::op_add_0
+	call ZXString16::op_add_0
 	mov eax,dword ptr [ebp-0x20]
 	mov byte ptr [ebp-4],3
 	test eax,eax
@@ -3531,7 +3531,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -3737,7 +3737,7 @@ __asm {
  Block31:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block32:
@@ -3923,7 +3923,7 @@ __asm {
  Block11:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block12:
@@ -5927,7 +5927,7 @@ __asm {
 	push eax
 	lea ecx,[ebp+0x4C]
 	mov dword ptr [ebp+0x4C],ebx
-	call ZXString<unsigned short>::Assign
+	call ZXString16::Assign
 	mov byte ptr [ebp-4],6
 	cmp word ptr [ebp-0x3C],di
 	jne Block18
@@ -5967,7 +5967,7 @@ __asm {
  Block22:
 	add edi,0xFFFFFFF4
 	push edi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block23:
@@ -6737,7 +6737,7 @@ __asm {
 
  Block115:
 	mov byte ptr [ebp-4],0
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	mov eax,dword ptr [ebp+0x6C]
 	add esp,4
 	mov dword ptr [ebp-4],0xFFFFFFFF
@@ -6961,7 +6961,7 @@ __asm {
 }
 }
 // CUIRaiseWnd::CUIRaiseWnd
-__SUB_CLASS_THIS(0043BAD0, __thiscall, 59359,  CUIRaiseWnd, void, long, long, long, long, ZXString<unsigned short>&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
+__SUB_CLASS_THIS(0043BAD0, __thiscall, 59359,  CUIRaiseWnd, void, long, long, long, long, ZXString16&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
 __asm {
 
  Block0:

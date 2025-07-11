@@ -89,7 +89,7 @@ void CCtrlEdit::MoveCaret(int32_t nCode)
     //__sub_000E2E90(this, nullptr, nCode);
 }
 
-void CCtrlEdit::OnKey(uint32_t wParam, uint32_t lParam)
+void CCtrlEdit::OnKey(uint32_t wParam, int32_t lParam)
 {
     if (lParam >= 0 && (wParam - 8) <= 0x73)
     {

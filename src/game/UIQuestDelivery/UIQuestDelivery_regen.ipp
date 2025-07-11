@@ -156,7 +156,7 @@ __asm {
  Block10:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block11:
@@ -262,7 +262,7 @@ __asm {
  Block4:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block5:
@@ -334,7 +334,7 @@ __asm {
  Block10:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block11:
@@ -382,7 +382,7 @@ __asm {
  Block15:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block16:
@@ -2043,7 +2043,7 @@ __asm {
 	push eax
 
  Block11:
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov esi,dword ptr [ZImports::_VariantInit]
 	add esp,8
 	lea ecx,[esp+0x60]
@@ -2301,7 +2301,7 @@ __asm {
  Block45:
 	add ebp,0xFFFFFFF4
 	push ebp
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block46:

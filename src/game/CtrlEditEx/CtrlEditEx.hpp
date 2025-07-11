@@ -21,7 +21,7 @@ class CCtrlEditEx: public CCtrlEdit {
 	public:    CCtrlEditEx();
 		public: void _ctor_0();
 	public:  virtual void Update();
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 		public:  virtual void OnIMEResult(const char* sComp);
 		public:  virtual ZXString<char> FilterString(ZXString<char> sInput);

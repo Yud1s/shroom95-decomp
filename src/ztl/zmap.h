@@ -221,7 +221,7 @@ public:
         return !_count;
     }
 
-    Value *GetAt(const Key &key, Value *value)
+    Value *GetAt(const Key &key, Value *value) const
     {
         if (auto p = _table.FindPair(key))
         {
@@ -285,6 +285,8 @@ public:
 
     bool RemoveKey(const Key &key)
     {
+        if (!this->_table._p)
+            return false;
         auto ix = GetBucketIx(key);
         Pair *cur = _table._p[ix];
         Pair *prev = nullptr;
@@ -304,6 +306,8 @@ public:
 
     bool RemoveAt(POSITION *p)
     {
+        if (!this->_table._p)
+            return false;
         auto pair = static_cast<Pair *>(p);
         auto ix = GetBucketIx(pair->key);
         Pair *cur = this->_table._p[ix];

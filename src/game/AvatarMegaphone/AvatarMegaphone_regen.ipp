@@ -965,7 +965,7 @@ __asm {
 	lea ebx,[esi+0x2A4]
 	push eax
 	mov ecx,ebx
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	mov ebp,dword ptr [ZImports::_VariantClear]
 	mov byte ptr [esp+0x60],0
 	cmp word ptr [esp+0x38],di
@@ -3071,7 +3071,7 @@ __asm {
  Block21:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block22:

@@ -40,7 +40,7 @@ public: struct CREATEPARAM {
 	public:  virtual void CreateCtrl(CWnd* pParent, uint32_t nId, long l, long t, long length, void* pData);
 		public:  virtual int32_t OnMouseMove(long rx, long ry);
 		public:  virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  virtual void OnMouseEnter(int32_t bEnter);
 		public:  virtual void Draw(long rx, long ry, const tagRECT* pRect);
 		public:   long GetCurPos();

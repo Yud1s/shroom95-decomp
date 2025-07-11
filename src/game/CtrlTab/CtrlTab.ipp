@@ -26,7 +26,7 @@ __SUB_CLASS_THIS0(000EE7F0, __thiscall, 38098,  CCtrlTab, void) {
 	_ASM_PLACEHOLDER(000EE7F0, 38098)
 }
 // CCtrlTab::GetTabBaseUOL
-__SUB(000EEC30, __cdecl, 38111,  void, long, ZXString<unsigned short>&) {
+__SUB(000EEC30, __cdecl, 38111,  void, long, ZXString16&) {
 	_ASM_PLACEHOLDER(000EEC30, 38111)
 }
 // CCtrlTab::OnSetFocus

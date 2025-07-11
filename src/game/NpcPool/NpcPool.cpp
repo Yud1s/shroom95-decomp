@@ -8,14 +8,13 @@ static ZRef<CStage> FAKE_ZREF_STAGE{};
 
 CNpcPool::~CNpcPool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CNpcPool::_dtor_0()
 {
     //return __sub_00279110(this, nullptr);
     this->~CNpcPool();
-
 }
 
 CNpcPool::CNpcPool(const CNpcPool& arg0)
@@ -53,30 +52,95 @@ CNpc* CNpcPool::FindNpc(const tagPOINT& pt)
 void CNpcPool::Update()
 {
     __sub_00278AF0(this, nullptr);
+    /*auto t = (this->m_nTickCount + 1) % 33;
+    auto bUpdateScript = false;
+    this->m_nTickCount = t;
+    if (!t)
+    {
+        auto field = get_field();
+        auto correctTime = field->GetCorrectTime();
+        if ( correctTime.wDay != this->m_wDay )
+        {
+            bUpdateScript = true;
+            this->m_wDay = correctTime.wDay;
+        }
+    }
+    for (auto& npc: m_lNpc)
+    {
+        npc.pNpc->Update();
+        if (bUpdateScript)
+        {
+            npc.pNpc->UpdateScript()
+        }
+    }*/
 }
 
 void CNpcPool::OnPacket(long nType, CInPacket& iPacket)
 {
-    __sub_00279770(this, nullptr, nType, iPacket);
+    //__sub_00279770(this, nullptr, nType, iPacket);
+    switch (nType)
+    {
+    case 84:
+        this->OnNpcImitateData(iPacket);
+        break;
+    case 85:
+        this->OnUpdateLimitedDisableInfo(iPacket);
+        break;
+    case 311:
+        this->OnNpcEnterField(iPacket);
+        break;
+    case 312:
+        this->OnNpcLeaveField(iPacket);
+        break;
+    case 313:
+        this->OnNpcChangeController(iPacket);
+        break;
+    default:
+        if ((nType - 314) <= 2)
+            this->OnNpcPacket(nType, iPacket);
+        if (nType == 317)
+            this->OnNpcTemplatePacket(317, iPacket);
+        break;
+    }
 }
 
 void CNpcPool::OnNpcPacket(long nType, CInPacket& iPacket)
 {
-    __sub_00279260(this, nullptr, nType, iPacket);
+    //__sub_00279260(this, nullptr, nType, iPacket);
+    auto v4 = iPacket.Decode4();
+    auto npc = CNpcPool::GetNpc(v4);
+    if (npc)
+    {
+        switch (nType)
+        {
+        case 314:
+            npc->OnMove(iPacket);
+            break;
+        case 315:
+            npc->OnUpdateLimitedInfo(iPacket);
+            break;
+        case 316:
+            npc->OnSetSpecialAction(iPacket);
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void CNpcPool::OnNpcTemplatePacket(long nType, CInPacket& iPacket)
 {
-    __sub_00278610(this, nullptr, nType, iPacket);
+    if ( nType == 317 )
+        CNpcTemplate::OnSetNpcScript(iPacket);
 }
 
 void CNpcPool::OnNpcEnterField(CInPacket& iPacket)
 {
     //TODO(npcgame)
     __sub_00279680(this, nullptr, iPacket);
-   /* auto id = iPacket.Decode4();
-    uint32_t npc = 0;
-    if (m_mNpc.GetAt(id, &))*/
+    /* auto id = iPacket.Decode4();
+     uint32_t npc = 0;
+     if (m_mNpc.GetAt(id, &))*/
 }
 
 void CNpcPool::OnNpcLeaveField(CInPacket& iPacket)
@@ -87,6 +151,12 @@ void CNpcPool::OnNpcLeaveField(CInPacket& iPacket)
 void CNpcPool::OnNpcChangeController(CInPacket& iPacket)
 {
     //TODO(pkt) __sub_00279730(this, nullptr, iPacket);
+    auto set = iPacket.Decode1();
+    auto id = iPacket.Decode4();
+    if (set)
+        SetLocalNpc(id, iPacket);
+    else
+        SetRemoteNpc(id);
 }
 
 void CNpcPool::OnNpcImitateData(CInPacket& iPacket)
@@ -128,12 +198,19 @@ CNpcPool::NPCENTRY* CNpcPool::GetNpcEntry(unsigned long arg0)
 
 CNpc* CNpcPool::FindNpcByTemplateID(unsigned long dwTemplateID)
 {
-    return __sub_00278BD0(this, nullptr, dwTemplateID);
+    //return __sub_00278BD0(this, nullptr, dwTemplateID);
+    for (auto& npc: m_lNpc)
+    {
+        if (npc.pNpc->GetTemplateID() == dwTemplateID)
+            return npc.pNpc.op_arrow();
+    }
+    return nullptr;
 }
 
 int32_t CNpcPool::IsNpcEnabled(unsigned long dwTemplateID)
 {
-    return __sub_00278C10(this, nullptr, dwTemplateID);
+    //return __sub_00278C10(this, nullptr, dwTemplateID);
+    return m_mDisabledNpc.GetAt(dwTemplateID, nullptr) == nullptr;
 }
 
 CNpcPool& CNpcPool::operator=(const CNpcPool& arg0)
@@ -149,7 +226,7 @@ CNpcPool& CNpcPool::_op_assign_21(CNpcPool* pThis, const CNpcPool& arg0)
 
 CNpcPool::NPCENTRY::~NPCENTRY()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    pNpc = 0;
 }
 
 void CNpcPool::NPCENTRY::_dtor_0()

@@ -195,6 +195,15 @@ public:
         return UIntN(*this) |= other;
     }
 
+    UIntN operator~() const
+    {
+        UIntN result;
+        for(auto i = 0; i < BLOCKS; i++) {
+            result._data[i] = ~_data[i];
+        }
+        return result;
+    }
+
     // Comparison
     friend auto operator<=>(const UIntN& u1, const UIntN& u2) {
         auto cmp = u1.compareTo(u2);

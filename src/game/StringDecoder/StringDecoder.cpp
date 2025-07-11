@@ -39,7 +39,7 @@ StringPool &__cdecl StringPool::GetInstance()
 {
 	return __sub_003466A0();
 }
-ZXString<unsigned short> StringPool::GetStringW_(uint32_t nIdx, wchar_t __formal)
+ZXString16 StringPool::GetStringW_(uint32_t nIdx, wchar_t __formal)
 {
     ZFatalSectionGuard lock(m_lock);
     auto& str = m_apZWString[nIdx];
@@ -48,11 +48,11 @@ ZXString<unsigned short> StringPool::GetStringW_(uint32_t nIdx, wchar_t __formal
     }
 
     ZXString<char> strA = GetString(nIdx);
-    str = new ZXString<unsigned short>();
+    str = new ZXString16();
     str->AssignCharStr(static_cast<const char*>(strA));
     return *str;
 
-    //ZXString<unsigned short> result;
+    //ZXString16 result;
 	//return *__sub_00346880(this, nullptr, &result, nIdx, __formal);
 }
 ZXString<char> StringPool::GetString(uint32_t nIdx, char __formal)
@@ -84,16 +84,16 @@ ZXString<char> StringPool::GetStringA(uint32_t nIdx)
    // ZXString<char> ret;
 	//return *__sub_00003B30(this, nullptr, &ret, nIdx);
 }
-ZXString<unsigned short> StringPool::GetStringW(uint32_t nIdx)
+ZXString16 StringPool::GetStringW(uint32_t nIdx)
 {
     return GetStringW_(nIdx, 0);
-    //ZXString<unsigned short> result;
+    //ZXString16 result;
 	//return *__sub_00003B60(this, nullptr, &result, nIdx);
 }
 Ztl_bstr_t StringPool::GetBSTR(uint32_t nIdx)
 {
 
-    return Ztl_bstr_t(static_cast<const unsigned short*>(GetStringW(nIdx)));
+    return Ztl_bstr_t(GetStringW(nIdx).op_c_str());
 	//return *__sub_00004BB0(this, nullptr, &result, nIdx);
 }
 StringPool &StringPool::operator=(const StringPool &arg0)
@@ -106,7 +106,7 @@ StringPool &StringPool::_op_assign_10(StringPool *pThis, const StringPool &arg0)
 	UNIMPLEMENTED;
 }
 
-ZXString<unsigned short> StringPool::GetString_2(uint32_t nIdx, wchar_t __formal) {
+ZXString16 StringPool::GetString_2(uint32_t nIdx, wchar_t __formal) {
     return GetStringW_(nIdx, __formal);
 
 }
@@ -115,8 +115,24 @@ ZXString<char> StringPool::GetString_1(uint32_t nIdx, char __formal) {
     return GetString(nIdx, __formal);
 }
 
+ZXString16 _GetStrW(uint32_t nIdx)
+{
+    return StringPool::GetInstance().GetStringW(nIdx);
+}
+
+ZXString<char> _GetStr(uint32_t nIdx)
+{
+    return StringPool::GetInstance().GetString(nIdx);
+}
+
+Ztl_bstr_t _GetBSTR(uint32_t nIdx)
+{
+    return StringPool::GetInstance().GetBSTR(nIdx);
+}
+
 ZXString<char> StringPool::GetString_0(uint32_t nIdx) {
-    return GetString(nIdx, 0);
+    auto res = GetString(nIdx, 0);
+    return res;
 }
 
 StringPool::Key::~Key()

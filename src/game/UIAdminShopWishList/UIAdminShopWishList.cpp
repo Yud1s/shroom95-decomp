@@ -142,7 +142,7 @@ void CUIAdminShopWishList::OnMoveWnd(long l, long t) {
 void CUIAdminShopWishList::OnButtonClicked(uint32_t nId) {
 	__sub_00372670(this, nullptr, nId);
 }
-void CUIAdminShopWishList::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIAdminShopWishList::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00372770(this, nullptr, wParam, lParam);
 }
 void CUIAdminShopWishList::Update() {

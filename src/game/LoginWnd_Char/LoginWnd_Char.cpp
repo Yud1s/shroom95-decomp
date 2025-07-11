@@ -195,19 +195,188 @@ void CUIAvatar::OnCreate(void* pData)
     __sub_001EBE10(this, nullptr, pData);
 }
 
-void CUIAvatar::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIAvatar::OnKey(uint32_t wParam, int32_t lParam)
 {
-    __sub_001ECEA0(this, nullptr, wParam, lParam);
+    //__sub_001ECEA0(this, nullptr, wParam, lParam);
+    if (!lParam)
+        return;
+    auto selectedIx = m_pLogin->GetCharSelected();
+    int v11 = 0;
+    switch (wParam)
+    {
+    case VK_TAB:
+        if (m_pLayerBallon)
+        {
+            m_nBallonDestroyTime = get_update_time() + 1000;
+            m_pLayerBallon->Getalpha()->RelMove(0, 255, Ztl_variant_t(1), vtMissing);
+        }
+        if (auto wndMan = CWndMan::GetInstance())
+        {
+            if (auto charSelect = CUICharSelect::GetInstance())
+                wndMan->SetFocus(charSelect);
+        }
+        break;
+    case VK_RETURN:
+        if (selectedIx >= 0)
+        {
+            if (selectedIx >= m_nCharCount)
+            {
+                if (selectedIx < m_nCharCount + m_nBuyCharCount)
+                {
+                    m_pLogin->OnNewCharStep(true);
+                }
+            }
+            else
+            {
+                m_pLogin->SendSelectCharPacket();
+            }
+        }
+
+        break;
+    case VK_ESCAPE:
+        m_pLogin->GotoTitle(true, this);
+        break;
+    case VK_LEFT:
+        if (selectedIx == -1)
+        {
+            SelectCharacter(selectedIx);
+        }
+        else
+        {
+            if (selectedIx - 1 >= 0)
+                SelectCharacter(selectedIx - 1);
+        }
+        break;
+    case VK_RIGHT:
+        v11  = selectedIx + 1;
+        if (v11 < m_nSlotCount && v11 < m_nCharCount + m_nBuyCharCount)
+        {
+            SelectCharacter(v11);
+        }
+        break;
+    default:
+        break;;
+    }
 }
+
+
+tagRECT rtPREV{
+    0x1e, 0x0a, 0x6e, 0x32
+};
+
+tagRECT rtNEXT{
+    0x1d6, 0x0a, 0x226, 0x32
+};
 
 void CUIAvatar::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_001ED130(this, nullptr, msg, wParam, rx, ry);
+    //__sub_001ED130(this, nullptr, msg, wParam, rx, ry);
+
+    tagPOINT pt{rx, ry};
+
+    if (msg == 513)
+    {
+        auto ix = GetPageSize() + 1;
+        if (ix > 1)
+        {
+            if (PtInRect(&rtPREV, pt))
+            {
+                auto max = m_nBuyCharCount + m_nCharCount;
+                auto v10 = 3
+                    * ((GetPageSize() + this->m_nPageIndex)
+                        % (GetPageSize() + 1));
+                auto v9 = 2;
+                auto v11 = v10 + 2;
+                do
+                {
+                    if (v11 < max)
+                        break;
+                    --v9;
+                    --v11;
+                }
+                while (v9 >= 0);
+                SelectCharacter(v9 + v10);
+                return;
+            }
+
+            if (PtInRect(&rtNEXT, pt))
+            {
+                SelectCharacter(3 * ((this->m_nPageIndex + 1) % ix));
+                return;
+            }
+        }
+
+
+        if (const auto selIx = GetSelectedIdx(pt); selIx >= 0)
+            SelectCharacter(selIx);
+    }
+    else if (msg == 515)
+    {
+        if (auto selIx = GetSelectedIdx(pt); selIx >= 0)
+        {
+            if (selIx < m_nPageIndex)
+            {
+                m_pLogin->SendSelectCharPacket();
+            }
+            else if (selIx < m_nPageIndex + m_nCharCount)
+            {
+                m_pLogin->OnNewCharStep(true);
+            }
+        }
+    }
 }
 
 int32_t CUIAvatar::OnMouseMove(long rx, long ry)
 {
-    return __sub_001E07B0(this, nullptr, rx, ry);
+    //return __sub_001E07B0(this, nullptr, rx, ry);
+    tagPOINT pt{rx, ry};
+    if (GetPageSize() + 1  > 1)
+    {
+        if (PtInRect(&rtPREV, pt))
+        {
+            auto alpha = m_pLayerPrev->Getalpha();
+            alpha->RelMove(0, 0, vtMissing, vtMissing);
+
+            auto alphaNext = m_pLayerNext->Getalpha();
+            alphaNext->RelMove(255, 0, vtMissing, vtMissing);
+
+            auto alphaPrevOver = m_pLayerPrev_over->Getalpha();
+            alphaPrevOver->RelMove(255, 0, vtMissing, vtMissing);
+
+            auto alphaNextOver = m_pLayerPrev_over->Getalpha();
+            alphaNextOver->RelMove(0, 0, vtMissing, vtMissing);
+        }
+        else if (PtInRect(&rtNEXT, pt))
+        {
+            auto alpha = m_pLayerPrev->Getalpha();
+            alpha->RelMove(255, 0, vtMissing, vtMissing);
+
+            auto alphaNext = m_pLayerNext->Getalpha();
+            alphaNext->RelMove(0, 0, vtMissing, vtMissing);
+
+            auto alphaPrevOver = m_pLayerPrev_over->Getalpha();
+            alphaPrevOver->RelMove(0, 0, vtMissing, vtMissing);
+
+            auto alphaNextOver = m_pLayerPrev_over->Getalpha();
+            alphaNextOver->RelMove(255, 0, vtMissing, vtMissing);
+        }
+        else
+        {
+            auto alpha = m_pLayerPrev->Getalpha();
+            alpha->RelMove(255, 0, vtMissing, vtMissing);
+
+            auto alphaNext = m_pLayerNext->Getalpha();
+            alphaNext->RelMove(255, 0, vtMissing, vtMissing);
+
+            auto alphaPrevOver = m_pLayerPrev_over->Getalpha();
+            alphaPrevOver->RelMove(0, 0, vtMissing, vtMissing);
+
+            auto alphaNextOver = m_pLayerPrev_over->Getalpha();
+            alphaNextOver->RelMove(0, 0, vtMissing, vtMissing);
+        }
+    }
+
+    return 0;
 }
 
 int32_t CUIAvatar::OnSetFocus(int32_t bFocus)
@@ -220,7 +389,7 @@ int32_t CUIAvatar::OnSetFocus(int32_t bFocus)
 void CUIAvatar::Update()
 {
     //__sub_001E1AF0(this, nullptr);
-    for (auto& avatar: m_apAvatar)
+    for (auto& avatar : m_apAvatar)
     {
         if (avatar)
             avatar->Update();
@@ -350,7 +519,7 @@ void CUIAvatar::ResetCharacter(const long nIdx, const AvatarData& ad, int32_t bB
         DrawNameTag(nIdx, false);
 
         auto job = ad.characterStat._ZtlSecureGet_nJob();
-        ZXString<unsigned short> jobName;
+        ZXString16 jobName;
         auto& sp = StringPool::GetInstance();
         if (is_cygnus_job(job))
         {
@@ -428,8 +597,7 @@ long CUIAvatar::GetSelectedIdx(tagPOINT pt)
 
 long CUIAvatar::GetPageSize() const
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return (m_nSlotCount + 3) / 3;
 }
 
 long CUIAvatar::GetRealIndex(long arg0) const
@@ -509,7 +677,12 @@ void CUICharDetail::Draw(const tagRECT* arg0)
 
 void CUICharDetail::Delete()
 {
-    __sub_001E02B0(this, nullptr);
+    //__sub_001E02B0(this, nullptr);
+    if (auto charDetail = ms_pInstance)
+    {
+        charDetail->Destroy();
+        delete charDetail;
+    }
 }
 
 void CUICharDetail::OnPreFadeIn()
@@ -521,7 +694,7 @@ void CUICharDetail::OnPreFadeIn()
         auto aniState = m_pLayerAni->GetanimationState();
         if (aniState == 0)
         {
-            OnPreFadeIn();
+            CFadeWnd::OnPreFadeIn();
             m_bCheck = false;
         }
     }
@@ -530,32 +703,32 @@ void CUICharDetail::OnPreFadeIn()
         auto& sp = StringPool::GetInstance();
         auto uolFmt = sp.GetStringW(0xBCD);
         auto rankNum = m_bRankInfo ? 2 : 0;
-        auto uol = ZXString<unsigned short>::FromFmt(uolFmt.c_str(), rankNum);
+        auto uol = ZXString16::FromFmt(uolFmt.c_str(), rankNum);
 
         auto layer = GetLayer();
         auto layerVec = layer.Cast<IWzVector2D>();
 
-        auto animLayer = CAnimationDisplayer::LoadLayer(
-            reinterpret_cast<const wchar_t*>(uol.c_str()),
+        m_pLayerAni = CAnimationDisplayer::LoadLayer(
+            uol.c_str(),
             0,
             layerVec,
             -20,
             -25,
             layer,
             -1,
-            0xff,
+            255,
             0);
-        animLayer->Animate(GA_STOP, vtMissing, vtMissing);
+        Z_CHECK_HR(m_pLayerAni->Animate(GA_STOP, vtMissing, vtMissing));
 
 
         play_ui_sound_str(0x4FF);
+        m_bCheck = true;
     }
 }
 
 long CUICharDetail::GetIdx() const
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_nIdx;
 }
 
 CUICharDetail& CUICharDetail::operator=(const CUICharDetail& arg0)
@@ -674,7 +847,7 @@ void CUICharSelect::OnButtonClicked(uint32_t nId)
     }
 }
 
-void CUICharSelect::OnKey(uint32_t wParam, uint32_t lParam)
+void CUICharSelect::OnKey(uint32_t wParam, int32_t lParam)
 {
     spdlog::info("Handling char select key");
     if (wParam == VK_F11)
@@ -687,7 +860,19 @@ void CUICharSelect::OnKey(uint32_t wParam, uint32_t lParam)
 
 int32_t CUICharSelect::OnSetFocus(int32_t bFocus)
 {
-    return __sub_001E0530(this, nullptr, bFocus);
+    //return __sub_001E0530(this, nullptr, bFocus);
+    if (bFocus)
+    {
+        SetKeyFocus(m_nBtIdx);
+        m_pLogin->SetFocusedUI(this);
+    }
+    else
+    {
+        SetKeyFocus(-1);
+    }
+
+
+    return CWnd::OnSetFocus(bFocus);
 }
 
 void CUICharSelect::MakeAdvice()
@@ -718,9 +903,9 @@ void CUICharSelect::SetKeyFocus(long nIdx)
     }
 }
 
-int32_t CUICharSelect::IsRequestValid()
+int32_t CUICharSelect::IsRequestValid() const
 {
-    return __sub_001E00D0(this, nullptr);
+    return !m_pLogin->IsRequestSent() && m_pLogin->GetLoginStep() == 2;
 }
 
 _x_com_ptr<IWzGr2DLayer> CUICharSelect::MakeBalloon(long nWidth, long nHeight, int32_t bArrowType)
@@ -805,5 +990,6 @@ CUICharDetailVAC& CUICharDetailVAC::_op_assign_7(CUICharDetailVAC* pThis, const 
 
 int32_t __cdecl _anon__PtInRect(tagRECT& rt, tagPOINT& pt)
 {
-    return __sub_001E0100(rt, pt);
+    //return __sub_001E0100(rt, pt);
+    return PtInRect(&rt, pt);
 }

@@ -14,7 +14,7 @@ __SUB_CLASS_THIS0(0058F070, __thiscall, 80093,  CFontContainer, void) {
 	_ASM_PLACEHOLDER(0058F070, 80093)
 }
 // DoDraw
-__SUB(00590180, __cdecl, 80201,  void, const PartyQuestInfo*, NakedParam<_x_com_ptr<IWzCanvas>>, long, long, int32_t, NakedParam<ZXString<unsigned short>>) {
+__SUB(00590180, __cdecl, 80201,  void, const PartyQuestInfo*, NakedParam<_x_com_ptr<IWzCanvas>>, long, long, int32_t, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(00590180, 80201)
 }
 // CFontContainer::CFontContainer

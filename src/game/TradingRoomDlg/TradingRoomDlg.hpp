@@ -132,7 +132,7 @@ public:
 	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnMouseMove(long rx, long ry);

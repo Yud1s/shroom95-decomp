@@ -317,7 +317,7 @@ private:
 	int32_t ClearCurrentStep(long nStep);
 
 private:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 private:
 	void GetSelectedAL_1(AvatarLook &al);

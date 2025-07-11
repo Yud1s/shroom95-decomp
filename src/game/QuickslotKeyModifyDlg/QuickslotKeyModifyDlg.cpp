@@ -24,7 +24,7 @@ void CQuickslotKeyModifyDlg::_ctor_0() {
 void CQuickslotKeyModifyDlg::OnCreate(void* pData) {
 	__sub_002C6800(this, nullptr, pData);
 }
-void CQuickslotKeyModifyDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CQuickslotKeyModifyDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_002C7F00(this, nullptr, wParam, lParam);
 }
 void CQuickslotKeyModifyDlg::OnButtonClicked(uint32_t nId) {
@@ -55,7 +55,7 @@ void CQuickslotKeyModifyDlg::ClearAllFocus() {
 void CQuickslotKeyModifyDlg::GetSlotPos(long nIdx, long& nleft, long& nTop) {
 	__sub_002C6190(this, nullptr, nIdx, nleft, nTop);
 }
-void CQuickslotKeyModifyDlg::ModifyQuickslotKeyMap(uint32_t wParam, uint32_t lParam) {
+void CQuickslotKeyModifyDlg::ModifyQuickslotKeyMap(uint32_t wParam, int32_t lParam) {
 	__sub_002C7E40(this, nullptr, wParam, lParam);
 }
 int32_t CQuickslotKeyModifyDlg::CheckAbaliableKey(long nKeyIdx) {
@@ -92,7 +92,7 @@ void CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey::_ctor_0() {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
 }
-void CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey::OnKey(uint32_t wParam, uint32_t lParam) {
+void CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_002C67C0(this, nullptr, wParam, lParam);
 }
 CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey& CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey::operator=(const CQuickslotKeyModifyDlg::CCtrlButtonDisableSpaceKey& arg0) {

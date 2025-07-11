@@ -989,7 +989,7 @@ __asm {
 	push eax
 	lea edx,[esp+0x30]
 	push edx
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x38]
 	add esp,0xC
 	mov byte ptr [esp+0x20],bl
@@ -999,7 +999,7 @@ __asm {
  Block18:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block19:
@@ -1041,7 +1041,7 @@ __asm {
  Block22:
 	add edi,0xFFFFFFF4
 	push edi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block23:
@@ -12787,7 +12787,7 @@ __asm {
  Block3:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block4:
@@ -13056,7 +13056,7 @@ __asm {
  Block41:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block42:
@@ -13254,7 +13254,7 @@ __asm {
  Block67:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block68:
@@ -13449,7 +13449,7 @@ __asm {
  Block93:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block94:
@@ -13546,7 +13546,7 @@ __asm {
  Block105:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block106:
@@ -13643,7 +13643,7 @@ __asm {
  Block117:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block118:
@@ -13741,7 +13741,7 @@ __asm {
  Block129:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block130:
@@ -13839,7 +13839,7 @@ __asm {
  Block141:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block142:
@@ -20719,12 +20719,12 @@ __asm {
 	lea edx,[esp+0x48]
 	push edx
 	mov byte ptr [esp+0x40],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0x10
 	push eax
 	lea ecx,[esp+0x18]
 	mov dword ptr [esp+0x18],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x3C]
 	mov byte ptr [esp+0x30],3
 	cmp eax,ebx
@@ -20733,7 +20733,7 @@ __asm {
  Block24:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block25:
@@ -20745,7 +20745,7 @@ __asm {
  Block26:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block27:
@@ -20825,12 +20825,12 @@ __asm {
 	lea edx,[esp+0x20]
 	push edx
 	mov byte ptr [esp+0x40],7
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0x10
 	push eax
 	lea ecx,[esp+0x40]
 	mov dword ptr [esp+0x40],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x14]
 	mov byte ptr [esp+0x30],9
 	cmp eax,ebx
@@ -20839,7 +20839,7 @@ __asm {
  Block34:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block35:
@@ -20852,7 +20852,7 @@ __asm {
  Block36:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block37:
@@ -20916,7 +20916,7 @@ __asm {
 	push edx
 	lea ecx,[esp+0x64]
 	mov byte ptr [esp+0x58],0xD
-	call ZXString<unsigned short>::op_add_0
+	call ZXString16::op_add_0
 	mov ecx,dword ptr [esi+0x5B8]
 	mov eax,dword ptr [eax]
 	mov byte ptr [esp+0x50],0xE
@@ -20935,7 +20935,7 @@ __asm {
  Block40:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block41:
@@ -20948,7 +20948,7 @@ __asm {
 	push ebp
 
  Block43:
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block44:

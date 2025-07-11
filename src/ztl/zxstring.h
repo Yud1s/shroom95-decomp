@@ -327,11 +327,14 @@ public:
 
         if (!hdr) {
             _p = newHdr->_data;
+            if (len)
+                _p[0] = 0;
             return _p;
         }
 
-        if (retain) {
-            std::memmove(&newHdr->_data, &hdr->_data, hdr->_byte_len);
+        if (retain && len) {
+            std::memmove(&newHdr->_data, &hdr->_data, hdr->_byte_len + sizeof(T));
+            newHdr->_byte_len = hdr->_byte_len;
         }
 
         // Release the old header
@@ -357,7 +360,7 @@ public:
     }
 
     ZXString &FormatV(const T *fmt, va_list args) {
-        auto buf_len = 128;//TODO decrease buffer len
+        auto buf_len = 256;//TODO decrease buffer len
         while (true) {
             if (buf_len > 1024) {
                 break;
@@ -577,7 +580,19 @@ public:
     }
 
     size_t Find__0(const T *pat, const size_t start = 0, const bool treat_mb_as_char = false) const {
-        return Find(pat, start, treat_mb_as_char);
+        if (!_p)
+        {
+            if (!pat || !*pat)
+                return 0;
+            return SIZE_MAX;
+        }
+
+        if (!pat || !*pat)
+            return GetLength();
+
+        auto res = ZCharTraits<T>::find(_p + start, pat, treat_mb_as_char);
+        return res != SIZE_MAX ? res + start : res;
+        //return Find(pat, start, treat_mb_as_char);
     }
 
     size_t Find__1(T c, const size_t start) {
@@ -714,11 +729,11 @@ public:
     }
 
     [[nodiscard]] bool op_eq(const ZXString &other) const {
-        return CompareOther(other);
+        return CompareOther(other) == 0;
     }
 
     [[nodiscard]] bool op_eq_0(const ZXString &other) const {
-        return CompareOther(other);
+        return CompareOther(other) == 0;
     }
 
     ZXString op_add_0(const T *s) const {
@@ -746,21 +761,21 @@ public:
         return *this;
     }
 
-    // void __thiscall ZXString<unsigned short>::Assign<char>(class ZXString<unsigned short>* this, char const* s, int32_t n)
+    // void __thiscall ZXString16::Assign<char>(class ZXString16* this, char const* s, int32_t n)
     void AssignCharStr(const char *s, size_t len = SIZE_MAX);
 
     // void __thiscall ZXString<uint16_t,char>::Assign<uint16_t>(ZXString<uint16_t,char>* this, uint16_t const* arg2, int32_t arg3)
     void AssignWideStr(const wchar_t *s, size_t len = SIZE_MAX);
 
     // public: __thiscall ZXString<char>::D::D(char const *,int),     _m_pStr = 0; ZXString<char>::Assign(this, t, n);
-    // public: __thiscall ZXString<unsigned short>::D::D(char const *,int) ZXString<unsigned short>::Assign<char>
+    // public: __thiscall ZXString16::D::D(char const *,int) ZXString16::Assign<char>
     ZXString &CreateFromCharStr(const char *s, size_t len = SIZE_MAX) {
         new(this) ZXString();
         AssignCharStr(s, len);
         return *this; //TODO mayber also required for Assign
     }
 
-    // public: __thiscall ZXString<unsigned short>::G::G(unsigned short const *,int), _m_pStr = 0;ZXString<unsigned short>::Assign(this, t, n);
+    // public: __thiscall ZXString16::G::G(unsigned short const *,int), _m_pStr = 0;ZXString16::Assign(this, t, n);
     // public: __thiscall ZXString<char>::G::G(unsigned short const *,int)
     ZXString &CreateFromCStr(const wchar_t *s, size_t len = SIZE_MAX) {
         new(this) ZXString();
@@ -768,18 +783,22 @@ public:
         return *this;
     }
 
-    // ZXString<unsigned short>* __thiscall ZXString<unsigned short>::operator=<unsigned short>(class ZXString<unsigned short>* this, wchar16 const* s)
+    // ZXString16* __thiscall ZXString16::operator=<unsigned short>(class ZXString16* this, wchar16 const* s)
     // class ZXString<char>* __thiscall ZXString<char>::operator=<char>(class ZXString<char>* this, char const* s)
     void AssignCStr(const T *s) {
         Assign(s);
     }
 
-    // __thiscall ZXString<unsigned short>::operator unsigned short const *
+    // __thiscall ZXString16::operator unsigned short const *
     const T *op_c_str() {
         return c_str(); // TODO naming
     }
 
     // char const* __thiscall ZXString<char>(* this)
+    const T *const_c_str() const {
+        return _p;
+    }
+
     const T *c_str() {
         return _p;
     }
@@ -900,3 +919,7 @@ namespace Util {
 }
 
 static_assert(sizeof(ZXString<char>) == sizeof(void *), "ZXString is the wrong size");
+
+
+typedef ZXString<wchar_t> ZXString16;
+typedef ZXString<char> ZXString8;

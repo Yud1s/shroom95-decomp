@@ -89,13 +89,13 @@ public:
             {
                 auto cur  = m_lList.GetNext(head);
                 if(cur->Update(tCur)) {
-                    m_lList.RemoveAt(head);
+                    m_lList.RemoveAt(cur);
                 }
             }
 		}
 
         T& Add() {
-            return m_lList.Add();
+            return m_lList.AddTail();
         }
 
         void RemoveAll() {
@@ -127,10 +127,10 @@ public:
 		tagRECT rtStart{};
 
 	public:
-		tagSIZE szOffset0;
+		tagSIZE szOffset0{};
 
 	public:
-		tagSIZE szOffset1;
+		tagSIZE szOffset1{};
 
 	public:
 		long z{};
@@ -705,7 +705,7 @@ public:
 		long tEnd{};
 
 	public:
-		ZXString<unsigned short> sSoundUOL;
+		ZXString16 sSoundUOL;
 
 	public:
 		uint32_t uNewYearCookie{};
@@ -750,10 +750,10 @@ public:
 		long nType{};
 
 	public:
-		ZXString<unsigned short> sVisual;
+		ZXString16 sVisual;
 
 	public:
-		ZXString<unsigned short> sSound;
+		ZXString16 sSound;
 
 	public:
 		long tStart{};
@@ -789,7 +789,7 @@ public:
 		unsigned long dwField{};
 
 	public:
-		std::array<ZRef<GW_ItemSlotBase>, 60> aEquipped;
+		std::array<ZRef<GW_ItemSlotBase>, 60> aEquipped{};
 
 	public:
 		Ztl_bstr_t sActionName;
@@ -833,7 +833,7 @@ public:
 		_x_com_ptr<IWzProperty> pVisual;
 
 	public:
-		ZXString<unsigned short> sSound;
+		ZXString16 sSound;
 
 	public:
 		double dX{};
@@ -1510,7 +1510,7 @@ public:
 	void RemoveNewYearAnimation();
 
 public:
-	void RegisterNewYearAnimation(const wchar_t *sUOL, ZXString<unsigned short> sSoundUOL, const tagRECT &rcArea, long tUpdateInterval, long nUpdateCount, long tUpdateNext, long tDuration);
+	void RegisterNewYearAnimation(const wchar_t *sUOL, ZXString16 sSoundUOL, const tagRECT &rcArea, long tUpdateInterval, long nUpdateCount, long tUpdateNext, long tDuration);
 
 public:
 	void RegisterFootHoldAnimation(const wchar_t *sUOL, const tagRECT &rcArea, long tStartDelay, long tDuration, long a0, long a1, int32_t bRandomPos);
@@ -1597,7 +1597,7 @@ public:
 	void Effect_Reserved(const wchar_t *arg0, long arg1, long arg2, long arg3);
 
 public:
-	void Effect_Squib(_x_com_ptr<IWzProperty> pVisual, double dX, double dY, long width, long height, ZXString<unsigned short> sSound, long duration, double probability, long z);
+	void Effect_Squib(_x_com_ptr<IWzProperty> pVisual, double dX, double dY, long width, long height, ZXString16 sSound, long duration, double probability, long z);
 
 public:
 	void Effect_SkillUse(const wchar_t *sEffect, int32_t bFlip, _x_com_ptr<IWzVector2D> pOrigin, _x_com_ptr<IWzGr2DLayer> pOverlay, long nDelayRate, long nLast, long z, long x, long y, int32_t bAutoFlip);
@@ -1651,7 +1651,7 @@ public:
 	void Effect_CashItemGachapon(int32_t bFlip, _x_com_ptr<IWzVector2D> pOrigin, _x_com_ptr<IWzGr2DLayer> pOverlay, int32_t bJackpotAni);
 
 public:
-	void Effect_FullChargedAngerGauge(ZXString<unsigned short> sUOL, _x_com_ptr<IWzVector2D> pOrigin, _x_com_ptr<IWzGr2DLayer> pOverlay);
+	void Effect_FullChargedAngerGauge(ZXString16 sUOL, _x_com_ptr<IWzVector2D> pOrigin, _x_com_ptr<IWzGr2DLayer> pOverlay);
 
 public:
 	_x_com_ptr<IWzGr2DLayer> Effect_Transformed(_x_com_ptr<IWzProperty> pEffect, double x, double y, _x_com_ptr<IWzGr2DLayer> pOverlay, long z, double scale, double angle);
@@ -1672,6 +1672,7 @@ public:
 	static CAnimationDisplayer &_op_assign_74(CAnimationDisplayer *pThis, const CAnimationDisplayer &arg0);
 };
 STATIC_ASSERT_SIZE(CAnimationDisplayer, 480);
+STATIC_ASSERT_SIZE(CAnimationDisplayer::MagicBullet, 0x4c);
 
 CField *__cdecl get_field();
 double __cdecl get_double(Ztl_variant_t &v, double dDefault);

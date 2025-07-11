@@ -69,10 +69,10 @@ public:
 	void _ctor_0();
 
 public:
-	bool IsSwimMap();
+	bool IsSwimMap() const;
 
 public:
-	bool IsUserFlyMap();
+	bool IsUserFlyMap() const;
 
 public:
 	void SetSwimMap();
@@ -197,7 +197,7 @@ public:
 	void _ctor_0();
 
 public:
-	const tagRECT &GetMBR();
+	const tagRECT &GetMBR() const;
 
 public:
 	long GetBaseZMass();

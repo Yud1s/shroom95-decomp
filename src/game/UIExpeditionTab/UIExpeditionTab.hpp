@@ -76,7 +76,7 @@ public:
 	virtual void OnMoveWnd(long l, long t);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void DoAction(long nAction, long nOption);
@@ -197,7 +197,7 @@ public:
 	virtual void CreateCtrl(CWnd *pParent, uint32_t nId, long l, long t, ZRef<PartyQuestInfo> pInfo, int32_t bSelected);
 
 protected:
-	virtual ZXString<unsigned short> GetBackUOL();
+	virtual ZXString16 GetBackUOL();
 
 public:
 	CCtrlPQuestItem &operator=(const CCtrlPQuestItem &arg0);
@@ -362,7 +362,7 @@ private:
 	void AttachBanner(TabExpedition::ENUM_CTRL_ID nID, long x, long y, long width, long height, ZRef<PartyQuestInfo> pInfo, int32_t bSelected);
 
 private:
-	void AttachButton(TabExpedition::ENUM_CTRL_ID nID, ZXString<unsigned short> sUOL);
+	void AttachButton(TabExpedition::ENUM_CTRL_ID nID, ZXString16 sUOL);
 
 private:
 	void SetControlEnable(TabExpedition::ENUM_CTRL_ID nID, int32_t bEnable);
@@ -452,7 +452,7 @@ public:
 	void _ctor_0();
 
 private:
-	virtual ZXString<unsigned short> GetBackUOL();
+	virtual ZXString16 GetBackUOL();
 
 public:
 	CCtrlSelectQuest &operator=(const CCtrlSelectQuest &arg0);
@@ -462,7 +462,7 @@ public:
 };
 STATIC_ASSERT_SIZE(CCtrlSelectQuest, 64);
 
-ZXString<unsigned short> __cdecl GetJobIcon(long bOnline, int32_t arg1);
+ZXString16 __cdecl GetJobIcon(long bOnline, int32_t arg1);
 
 
 template<>

@@ -577,7 +577,7 @@ je Block57
 	push edi
 	lea ecx,[eax+4]
 	mov dword ptr [eax],3
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	jmp Block26
 
  Block59:
@@ -1192,7 +1192,7 @@ __asm {
 }
 // CWebWnd::OnCreate
 _SUB_EXCEPTION_HANDLER(5A5250)
-__SUB_CLASS_THIS(005A5250, __thiscall, 39727,  CWebWnd, void, void*, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(005A5250, __thiscall, 39727,  CWebWnd, void, void*, NakedParam<ZXString16>) {
 __asm {
 
  Block0:
@@ -1221,7 +1221,7 @@ __asm {
 	push eax
 	mov dword ptr [ebp-4],0
 	mov dword ptr [ecx],0
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov ecx,dword ptr [ebp+8]
 	push ecx
 	mov ecx,esi
@@ -1366,7 +1366,7 @@ __asm {
  Block11:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block12:
@@ -1716,7 +1716,7 @@ __asm {
 	push ecx
 	lea ecx,[eax+4]
 	mov dword ptr [eax],3
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	mov eax,dword ptr [esp+8]
 	add dword ptr [eax+4],0xFFFFFFFF
 	jne Block2

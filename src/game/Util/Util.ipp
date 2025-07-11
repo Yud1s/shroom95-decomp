@@ -30,7 +30,7 @@ __SUB(005652A0, __cdecl, 80884,  void, ZXString<char>&, long, NakedParam<_x_com_
 	_ASM_PLACEHOLDER(005652A0, 80884)
 }
 // DrawImage
-__SUB(0055EE20, __cdecl, 80869,  void, NakedParam<_x_com_ptr<IWzCanvas>>, NakedParam<ZXString<unsigned short>>, long, long) {
+__SUB(0055EE20, __cdecl, 80869,  void, NakedParam<_x_com_ptr<IWzCanvas>>, NakedParam<ZXString16>, long, long) {
 	_ASM_PLACEHOLDER(0055EE20, 80869)
 }
 // DrawTextA
@@ -82,11 +82,11 @@ __SUB(00568330, __cdecl, 80912,  void, long) {
 	_ASM_PLACEHOLDER(00568330, 80912)
 }
 // DrawGrayImage
-__SUB(0055F080, __cdecl, 80871,  void, NakedParam<_x_com_ptr<IWzCanvas>>, NakedParam<ZXString<unsigned short>>, long, long, long) {
+__SUB(0055F080, __cdecl, 80871,  void, NakedParam<_x_com_ptr<IWzCanvas>>, NakedParam<ZXString16>, long, long, long) {
 	_ASM_PLACEHOLDER(0055F080, 80871)
 }
 // UOL_Index
-__SUB(00565FB0, __cdecl, 80894,  ZXString<unsigned short>, long, long) {
+__SUB(00565FB0, __cdecl, 80894,  ZXString16, long, long) {
 	_ASM_PLACEHOLDER(00565FB0, 80894)
 }
 // separate_string_by_line
@@ -166,7 +166,7 @@ __SUB(0055D660, __cdecl, 80858,  _x_com_ptr<IWzProperty>, NakedParam<_x_com_ptr<
 	_ASM_PLACEHOLDER(0055D660, 80858)
 }
 // format_string
-__SUB(00566080, __cdecl, 80896,  int32_t, ZXString<unsigned short>&, NakedParam<_x_com_ptr<IWzFont>>, long) {
+__SUB(00566080, __cdecl, 80896,  int32_t, ZXString16&, NakedParam<_x_com_ptr<IWzFont>>, long) {
 	_ASM_PLACEHOLDER(00566080, 80896)
 }
 // separate_string_by_width

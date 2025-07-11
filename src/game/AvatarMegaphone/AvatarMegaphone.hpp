@@ -42,7 +42,7 @@ public:
 	long m_nScreenWidth{};
 
 public:
-	ZXString<unsigned short> m_sPath;
+	ZXString16 m_sPath;
 
 public:
 	ZXString<char> m_sName;
@@ -105,7 +105,7 @@ public:
 	virtual int32_t OnMouseMove(long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	void ByeAvatarMegaphone();

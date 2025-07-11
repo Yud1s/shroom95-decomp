@@ -47,7 +47,7 @@ EMPLOYEEENTRY& EMPLOYEEENTRY::_op_assign_3(EMPLOYEEENTRY* pThis, const EMPLOYEEE
 
 CEmployeePool::~CEmployeePool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CEmployeePool::_dtor_0()

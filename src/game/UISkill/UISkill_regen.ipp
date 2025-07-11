@@ -3566,7 +3566,7 @@ __asm {
  Block118:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block119:
@@ -4677,13 +4677,13 @@ __asm {
 	push 0x24
 	mov ecx,edi
 	mov dword ptr [edi],ebp
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x24
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov eax,dword ptr [esp+0x84]
 	push eax
 	mov ecx,esi
@@ -4915,7 +4915,7 @@ __asm {
 	lea ecx,[esp+0x5C]
 	mov dword ptr [esp+0x78],3
 	mov dword ptr [esp+0x50],ebp
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	mov dword ptr [esp+0x7C],ebp
 	mov ebp,0x71
 	lea edi,[esi+0xB20]
@@ -5952,7 +5952,7 @@ __asm {
  Block179:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block180:
@@ -6958,7 +6958,7 @@ __asm {
  Block97:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block98:
@@ -8145,7 +8145,7 @@ __asm {
 	push offset _S_UIUIWINDOW2IMGSK__21
 	push edx
 	mov byte ptr [ebp-4],0x19
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [eax]
 	add esp,0xC
 	push ebx
@@ -8212,7 +8212,7 @@ __asm {
  Block147:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block148:
@@ -10470,7 +10470,7 @@ __asm {
 	push offset _S_UIUIWINDOWIMGARA
 	push ecx
 	mov byte ptr [esp+0x70],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov edi,dword ptr [ZImports::_VariantInit]
 	add esp,0xC
 	lea edx,[esp+0x3C]
@@ -10736,7 +10736,7 @@ __asm {
  Block36:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block37:

@@ -169,7 +169,7 @@ public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);

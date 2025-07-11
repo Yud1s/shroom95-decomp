@@ -30,7 +30,7 @@ int32_t CCtrlSlider::OnMouseMove(long rx, long ry) {
 void CCtrlSlider::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {
 	__sub_000ED3A0(this, nullptr, msg, wParam, rx, ry);
 }
-void CCtrlSlider::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCtrlSlider::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_000ECEE0(this, nullptr, wParam, lParam);
 }
 void CCtrlSlider::OnMouseEnter(int32_t bEnter) {

@@ -182,7 +182,7 @@ public:
 		ZXString<char> sToolTip;
 
 	public:
-		ZXString<unsigned short> sLinkMap;
+		ZXString16 sLinkMap;
 
 	public:
 		_x_com_ptr<IWzCanvas> pLinkImg;
@@ -205,6 +205,7 @@ public:
 	public:
 		void _ctor_0();
 
+
 	public:
 		CWorldMapDlg::WORLDMAP_LINK &operator=(const CWorldMapDlg::WORLDMAP_LINK &arg0);
 
@@ -219,7 +220,7 @@ public:
 	};
 	// Fields
 protected:
-	ZXString<unsigned short> m_sShallowerWorldMap;
+	ZXString16 m_sShallowerWorldMap;
 
 protected:
 	ZRef<CCtrlButton> m_pBtUIClose;
@@ -298,6 +299,10 @@ public:
 
 public:
 	void _ctor_0();
+	void _ctor_default()
+	{
+		_ctor_0();
+	}
 
 public:
 	virtual void OnCreate(void *pData);
@@ -315,7 +320,7 @@ public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);

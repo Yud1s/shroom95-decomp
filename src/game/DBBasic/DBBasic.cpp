@@ -104,7 +104,8 @@ ZXString<char> CharacterData::GetQuestEx(uint16_t usQuestID, ZXString<char>& sKe
 
 ZXString<char> CharacterData::GetQuestExRawStr(uint16_t usQuestRecordKey)
 {
-    UNIMPLEMENTED;
+    //UNIMPLEMENTED;
+    return mQuestRecordEx.GetAt(usQuestRecordKey, nullptr)->GetRawString();
 }
 
 ZXString<char>* CharacterData::SetQuest(uint16_t usQRKey, const ZXString<char>& sQRValue)
@@ -205,10 +206,10 @@ ZRef<GW_ItemSlotBase> CharacterData::GetItem_(long arg0, long arg1, _LARGE_INTEG
 
 ZRef<GW_ItemSlotBase> CharacterData::GetItem(long nTI, long nPos)
 {
-    /*ZRef<GW_ItemSlotBase> ret;
-    return *__sub_0002B990(this, nullptr, &ret, nTI, nPos);*/
+    ZRef<GW_ItemSlotBase> ret;
+    return *__sub_0002B990(this, nullptr, &ret, nTI, nPos);
 
-    if (nTI < 1 || nTI > 5)
+    /*if (nTI < 1 || nTI > 5)
     {
         return {};
     }
@@ -257,12 +258,64 @@ ZRef<GW_ItemSlotBase> CharacterData::GetItem(long nTI, long nPos)
 
     //TODO
 
-    return {};
+    return {};*/
 }
 
 int32_t CharacterData::SetItem(long nTI, long nPos, ZRef<GW_ItemSlotBase> pItem)
 {
     return __sub_000946C0(this, nullptr, nTI, nPos, CreateNakedParam(pItem));
+    /*if (nTI - 1 > 4)
+    {
+        return 0;
+    }
+
+    if (nTI == 1)
+    {
+        if (nPos < 0)
+        {
+            //TODO(game) fix slot
+            if ( (-nPos - 1000) <= 3 )
+            {
+                aDragonEquipped[-nPos] = pItem;
+                return 1;
+            }
+
+            if ( (-nPos - 1000) <= 3 )
+            {
+                aMechanicEquipped[-nPos] = pItem;
+                return 1;
+            }
+        }
+
+        if (nPos != 0 && (nPos >= -59 || nPos < -100) && nPos <= GetItemSlotCount(1) && nPos >= -159)
+        {
+            if (nPos >= -100)
+            {
+                if (nPos >= 0)
+                    aaItemSlot[1][nPos] = pItem;
+                else
+                    aEquipped[-nPos] = pItem;
+            }
+            else
+            {
+                //TODO
+                aEquipped2[-nPos] = pItem;
+            }
+            return 1;
+        }
+    }
+    else if (nPos > 0)
+    {
+        auto& inv = aaItemSlot[nTI];
+        //TODO in theory check smaller
+        if (nPos <= inv.GetCount())
+        {
+            inv[nPos] = pItem;;
+            return 1;
+        }
+
+
+    }*/
 }
 
 GW_ItemSlotPet* CharacterData::GetActiveItemSlotPet(long nIndex)
@@ -272,9 +325,307 @@ GW_ItemSlotPet* CharacterData::GetActiveItemSlotPet(long nIndex)
     return pos > 0 ? (GW_ItemSlotPet*)aaItemSlot[5][pos].op_arrow() : nullptr;
 }
 
-uint64_t CharacterData::Decode(CInPacket& iPacket, int32_t bBackwardUpdate)
+uint64_t CharacterData::Decode(CInPacket& pkt, int32_t bBackwardUpdate)
 {
-    return __sub_000FCCE0(this, nullptr, iPacket, bBackwardUpdate);
+    return __sub_000FCCE0(this, nullptr, pkt, bBackwardUpdate);
+
+    /*auto flag = pkt.Decode8();
+
+    nCombatOrders = pkt.Decode1();
+
+    ZArray<int64_t> rmSN{};
+    if (pkt.Decode1())
+    {
+        pkt.Decode1();
+        auto n = pkt.Decode4();
+        for (auto i = 0; i < n; ++i)
+        {
+            rmSN.Insert(pkt.Decode8());
+        }
+
+        n = pkt.Decode4();
+        for (auto i = 0; i < n; ++i)
+        {
+            pkt.Decode8();
+        }
+    }
+
+    if (flag & 1)
+    {
+        characterStat.Decode(pkt, bBackwardUpdate);
+        nFriendMax = pkt.Decode1();
+        if (pkt.Decode1())
+        {
+            sLinkedCharacter = pkt.DecodeStr();
+        }
+    }
+
+    if (flag & 2)
+    {
+        characterStat.DecodeMoney(pkt);
+    }
+
+
+    ZArray<CashItemEntry> cashItems;
+    if (bBackwardUpdate)
+    {
+        if (flag & 4)
+        {
+            //TODO verify
+            for (int i = 1; i < 60; ++i)
+            {
+                auto pos = -i;
+                if (aEquipped[i] && aEquipped[i]->IsCashItem())
+                {
+                    auto& entry = cashItems.InsertBefore();
+                    entry.Set(aEquipped[i], pos);
+                }
+
+                if (aEquipped2[i] && aEquipped2[i]->IsCashItem())
+                {
+                    auto& entry = cashItems.InsertBefore();
+                    entry.Set(aEquipped2[i], pos);
+                }
+            }
+        }
+
+        //TODO more
+    }
+
+    //TODO mroe items
+
+    if (flag & 0x100000)
+    {
+        aEquipExtExpire[0] = pkt.DecodeFT();
+    }
+
+    if (flag & 4)
+    {
+        for (auto& eq : aEquipped)
+            eq = 0;
+
+        while (true)
+        {
+            auto slot = pkt.Decode2();
+            if (!slot)
+                break;
+            //TODO
+            auto item = GW_ItemSlotBase::Decode(pkt);
+        }
+    }
+
+
+    for (auto i = 0; i < 5; ++i)
+    {
+        auto tiFlag = 0;
+        switch ( i )
+        {
+        case 0u:
+            tiFlag = 4;
+            break;
+        case 1u:
+            tiFlag = 8;
+            break;
+        case 2u:
+            tiFlag = 16;
+            break;
+        case 3u:
+            tiFlag = 32;
+            break;
+        case 4u:
+            tiFlag = 64;
+            break;
+        default:
+            tiFlag = 0;
+            break;
+        }
+
+        if (flag & tiFlag == 0)
+        {
+            continue;
+        }
+
+
+        auto& inv = aaItemSlot[i];
+        while (true)
+        {
+            auto slot = pkt.Decode1();
+            if (!slot)
+                break;
+            if (slot <  1 || slot < inv.GetCount())
+                continue;
+
+            inv[slot] = GW_ItemSlotBase::Decode(pkt);
+            if (bBackwardUpdate && inv[slot]->IsCashItem())
+            {
+                //TODO add to aaCashItem2
+            }
+
+        }
+
+    }
+
+    if (flag & 0x100)
+    {
+        auto n = pkt.Decode2();
+        if (n)
+        {
+            mSkillRecord.RemoveAll();
+            for (auto i = 0; i < n; ++i)
+            {
+                auto id = pkt.Decode4();
+                auto lvl = pkt.Decode4();
+                auto expire = pkt.DecodeFT();
+
+                mSkillRecord.Insert(id, lvl);
+                mSkillExpired.Insert(id, expire);
+
+                if (is_skill_need_master_level(id))
+                {
+                    auto master = pkt.Decode4();
+                    mSkillMasterLev.Insert(id, master);
+                }
+            }
+        }
+    }
+
+    if (flag & 0x8000)
+    {
+        mSkillCooltime.RemoveAll();
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto id = pkt.Decode4();
+            auto cd = pkt.Decode2();
+            mSkillCooltime.Insert(id, cd);
+        }
+    }
+
+    if (flag & 0x200)
+    {
+        RemoveAllQuest();
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto id = pkt.Decode2();
+            auto qr = pkt.DecodeStr();
+            SetQuest(id, qr);
+        }
+    }
+
+    if (flag & 0x4000)
+    {
+        mQuestComplete.RemoveAll();
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto id = pkt.Decode4();
+            auto done = pkt.DecodeFT();
+            mQuestComplete.Insert(id, done);
+        }
+    }
+
+    if (flag & 0x400)
+    {
+
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            ZRef<GW_MiniGameRecord> mini(ZAllocHelper(1));
+            mini->Decode(pkt);
+            mMiniGameRecord.Insert(mini->nGameID, mini);
+        }
+    }
+
+    if (flag & 0x800)
+    {
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            lCoupleRecord.AddTail().Decode(pkt);
+        }
+
+        n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            lFriendRecord.AddTail().Decode(pkt);
+        }
+
+        n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            lMarriageRecord.AddTail().Decode(pkt);
+        }
+    }
+
+
+    if (flag & 0x1000)
+    {
+        for (auto& m: adwMapTransfer)
+            m = pkt.Decode4();
+        for (auto& m: adwMapTransferEx)
+            m = pkt.Decode4();
+    }
+
+    if (bBackwardUpdate)
+    {
+        //TODO apply item updated
+    }
+
+    if (flag & 0x40000)
+    {
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto& record = lNewYearCardRecord.AddTail();
+            record.Decode(pkt);
+        }
+    }
+
+    if (flag & 0x80000)
+    {
+        auto n = pkt.Decode2();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto id = pkt.Decode2();
+            auto qr = pkt.DecodeStr();
+            InitQuestExFromRawStr(id, qr);
+        }
+    }
+
+    if (flag & 0x200000 && is_wildhunter_job(characterStat._ZtlSecureGet_nJob()))
+    {
+        auto wh = GetWildHunterInfo();
+        wh->Decode(pkt);
+    }
+
+    if (flag & 0x400000)
+    {
+        auto n = pkt.Decode2();
+        mQuestCompleteOld.RemoveAll();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto id = pkt.Decode2();
+            auto end = pkt.DecodeFT();
+            mQuestCompleteOld.Insert(id, end);
+        }
+    }
+
+    InitAdditionalItemEffect();
+
+    if (flag & 0x800000)
+    {
+        auto n = pkt.Decode2();
+        m_mVisitorQuestLog.RemoveAll();
+        for (auto i = 0; i < n; ++i)
+        {
+            auto id = pkt.Decode2();
+            auto val = pkt.Decode2();
+            m_mVisitorQuestLog.Insert(id, val);
+        }
+    }
+
+    return flag;*/
 }
 
 void CharacterData::Encode(COutPacket& arg0, uint64_t arg1, int32_t arg2, TRADEINFO* arg3, int32_t arg4)
@@ -301,7 +652,8 @@ long CharacterData::GetItemCount(long nTI, long nItemID)
 
 long CharacterData::GetItemSlotCount(long nTI)
 {
-    return __sub_0002A480(this, nullptr, nTI);
+    //return __sub_0002A480(this, nullptr, nTI);
+    return aaItemSlot[nTI].GetCount();
 }
 
 long CharacterData::GetEmptySlotCount(long nTI)
@@ -309,7 +661,7 @@ long CharacterData::GetEmptySlotCount(long nTI)
     //return __sub_00100170(this, nullptr, nTI);
     auto slotCount = aaItemSlot[nTI].GetCount();
     auto count = 0;
-    for (auto i = 1; i <= slotCount; ++i)
+    for (auto i = 1; i < slotCount; ++i)
     {
         if (!aaItemSlot[nTI][i])
         {
@@ -350,14 +702,27 @@ long CharacterData::FindCashItemSlotPosition(long nTI, _LARGE_INTEGER liSN)
     return __sub_0007E2C0(this, nullptr, nTI, liSN);
 }
 
-int32_t CharacterData::IsEquipSlotExpired(long nPos, const _FILETIME& ftNow)
+int32_t CharacterData::IsEquipSlotExpired(long nPos, const _FILETIME& ftNow) const
 {
-    return __sub_0007CE20(this, nullptr, nPos, ftNow);
+    //return __sub_0007CE20(this, nullptr, nPos, ftNow);
+    return nPos == 59 && CompareFileTime(&aEquipExtExpire[0], &ftNow) < 0;
 }
 
 int32_t CharacterData::IsEquiped(long nItemID)
 {
-    return __sub_00101040(this, nullptr, nItemID);
+    for (auto& eq : aEquipped)
+        if (eq->nItemID.GetData() == nItemID)
+            return true;
+
+    for (auto& eq : aDragonEquipped)
+        if (eq->nItemID.GetData() == nItemID)
+            return true;
+
+    for (auto& eq : aMechanicEquipped)
+        if (eq->nItemID.GetData() == nItemID)
+            return true;
+
+    return false;
 }
 
 long CharacterData::GetIncLevel()
@@ -367,12 +732,26 @@ long CharacterData::GetIncLevel()
 
 int32_t CharacterData::IsEquipedDualDagger()
 {
-    return __sub_000FF0F0(this, nullptr);
+    //return __sub_000FF0F0(this, nullptr);
+    auto& wep = aEquipped[11];
+    auto& wep2 = aEquipped[10];
+    if (wep && wep2)
+    {
+        return get_weapon_type(wep->nItemID.GetData()) == 33 && get_weapon_type(wep2->nItemID.GetData()) == 34;
+    }
+    return false;
 }
 
 void CharacterData::InitAdditionalItemEffect()
 {
-    __sub_000F4DB0(this, nullptr);
+    //__sub_000F4DB0(this, nullptr);
+    aMobCategoryDamage.fill(0);
+    aElemBoost.fill(0);
+    this->critical.nProb = 0;
+    this->critical.nDamage = 0;
+    this->boss.nProb = 0;
+    this->boss.nDamage = 0;
+    aUpgradeCountByDamageTheme.RemoveAll();
 }
 
 void CharacterData::ClearVisitorLog()
@@ -451,7 +830,7 @@ bool CharacterData::SELECTEDMOB::Decode(const ZXString<char>& sQRValue)
         }
 
         auto sub = sQRValue.Substring(after, ix);
-        auto num = atoi(sub.c_str());
+        auto num = sub.ToInt().value_or(0);
         after = ix + 1;
 
         switch (i)
@@ -465,6 +844,7 @@ bool CharacterData::SELECTEDMOB::Decode(const ZXString<char>& sQRValue)
         case 2:
             dwBonusEXP = num;
             break;
+        default: break;
         }
     }
 
@@ -489,19 +869,38 @@ long PARTYMEMBER::FindIndex(ZXString<char> sName)
 
 long PARTYMEMBER::FindIndex_(unsigned long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    for (auto i = 0; i < adwCharacterID.size(); ++i)
+    {
+        if (adwCharacterID[i] == arg0)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 ZXString<char> PARTYMEMBER::GetName(unsigned long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (auto ix = FindIndex_(arg0); ix != -1)
+    {
+        return ZXString<char>(this->asCharacterName[ix].data());
+    }
+    return {};
 }
 
 unsigned long PARTYMEMBER::GetCharacterID(ZXString<char> sName)
 {
-    return __sub_000F8960(this, nullptr, CreateNakedParam(sName));
+    //return __sub_000F8960(this, nullptr, CreateNakedParam(sName));
+    for (auto i = 0; i < asCharacterName.size(); ++i)
+    {
+        if (sName == asCharacterName[i].data())
+        {
+            return adwCharacterID[i];
+        }
+    }
+
+    return 0;
 }
 
 ZXString<char> PARTYMEMBER::GetBossName()
@@ -511,17 +910,26 @@ ZXString<char> PARTYMEMBER::GetBossName()
 
 long PARTYMEMBER::GetMemberCount()
 {
-    return __sub_000F1C00(this, nullptr);
+    //return __sub_000F1C00(this, nullptr);
+    return std::ranges::count_if(adwCharacterID, [](auto id) { return id != 0; });
 }
 
 int32_t PARTYMEMBER::IsFull()
 {
-    return __sub_000F1C30(this, nullptr);
+    return std::ranges::all_of(adwCharacterID, [](auto id) { return id != 0; });
 }
 
-int32_t PARTYMEMBER::IsBossOnline()
+int32_t PARTYMEMBER::IsBossOnline() const
 {
-    return __sub_000F1C30(this, nullptr);
+    for (auto i = 0; i < adwCharacterID.size(); ++i)
+    {
+        if (adwCharacterID[i] == dwPartyBossCharacterID)
+        {
+            return anChannelID[i] >= 0;
+        }
+    }
+
+    return false;
 }
 
 void SINGLEMACRO::Encode(COutPacket& oPacket)
@@ -559,46 +967,45 @@ void PARTYDATA::Encode(COutPacket& arg0)
 
 void PARTYDATA::Decode(CInPacket& iPacket)
 {
-    __sub_000F2B00(this, nullptr, iPacket);
+    iPacket.DecodeBuffer(this, sizeof(PARTYDATA));
 }
 
 unsigned long PARTYDATA::TOWNPORTAL::GetTownID()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_dwTownID;
 }
 
 unsigned long PARTYDATA::TOWNPORTAL::GetFieldID()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_dwFieldID;
 }
 
 long PARTYDATA::TOWNPORTAL::GetSkillID()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_nSKillID;
 }
 
 tagPOINT PARTYDATA::TOWNPORTAL::GetFieldPortalPos()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return this->m_ptFieldPortal;
 }
 
 void PARTYDATA::TOWNPORTAL::Set(unsigned long dwTownID, unsigned long dwFieldID, long nSkillId, tagPOINT ptFieldPortal)
 {
-    __sub_005CC690(this, nullptr, dwTownID, dwFieldID, nSkillId, CreateNakedParam(ptFieldPortal));
+    this->m_dwTownID = dwTownID;
+    this->m_dwFieldID = dwFieldID;
+    this->m_nSKillID = nSkillId;
+    this->m_ptFieldPortal = ptFieldPortal;
 }
 
 CSimpleStrMap::~CSimpleStrMap()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CSimpleStrMap::_dtor_0()
 {
-    return __sub_000F58A0(this, nullptr);
+    //return __sub_000F58A0(this, nullptr);
+    this->~CSimpleStrMap();
 }
 
 CSimpleStrMap::CSimpleStrMap(const CSimpleStrMap& arg0)
@@ -754,7 +1161,8 @@ void CashItemEntry::_ctor_0()
 
 void CashItemEntry::Set(ZRef<GW_ItemSlotBase> pItem, long nPOS)
 {
-    __sub_000F5810(this, nullptr, CreateNakedParam(pItem), nPOS);
+    this->pItem = pItem;
+    this->nPOS = nPOS;
 }
 
 CashItemEntry& CashItemEntry::operator=(const CashItemEntry& arg0)

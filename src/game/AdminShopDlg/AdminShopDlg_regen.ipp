@@ -5252,7 +5252,7 @@ __asm {
  Block11:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block12:
@@ -7953,7 +7953,7 @@ __asm {
 }
 }
 // CAdminShopDlg::OnKey
-__SUB_CLASS_THIS(00029770, __thiscall, 60757,  IUIMsgHandler, void, uint32_t, uint32_t) {
+__SUB_CLASS_THIS(00029770, __thiscall, 60757,  IUIMsgHandler, void, uint32_t, int) {
 __asm {
 
  Block0:

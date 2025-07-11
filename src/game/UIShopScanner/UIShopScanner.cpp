@@ -95,7 +95,7 @@ int32_t CUIShopScanResult::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 int32_t CUIShopScanResult::OnMouseMove(long rx, long ry) {
 	return __sub_00446390(this, nullptr, rx, ry);
 }
-void CUIShopScanResult::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIShopScanResult::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00449980(this, nullptr, wParam, lParam);
 }
 void CUIShopScanResult::LoadCurPageItemList() {
@@ -239,7 +239,7 @@ void CUIShopScanner::OnMoveWnd(long l, long t) {
 void CUIShopScanner::OnButtonClicked(uint32_t nId) {
 	__sub_00448C40(this, nullptr, nId);
 }
-void CUIShopScanner::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIShopScanner::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00448DA0(this, nullptr, wParam, lParam);
 }
 void CUIShopScanner::Update() {

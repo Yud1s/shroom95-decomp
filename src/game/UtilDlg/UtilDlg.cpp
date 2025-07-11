@@ -45,7 +45,7 @@ void CUICancelCharacterCouponRequests::OnButtonClicked(uint32_t nId)
 {
 	__sub_00568B50(this, nullptr, nId);
 }
-void CUICancelCharacterCouponRequests::OnKey(uint32_t wParam, uint32_t lParam)
+void CUICancelCharacterCouponRequests::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00568B10(this, nullptr, wParam, lParam);
 }
@@ -120,7 +120,7 @@ void CUtilDlg::OnButtonClicked(uint32_t nId)
 {
 	__sub_003B9BF0(this, nullptr, nId);
 }
-void CUtilDlg::OnKey(uint32_t wParam, uint32_t lParam)
+void CUtilDlg::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_003B9C60(this, nullptr, wParam, lParam);
 }
@@ -212,7 +212,7 @@ void CUIChannelShift::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long
 {
 	__sub_00569380(this, nullptr, msg, wParam, rx, ry);
 }
-void CUIChannelShift::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIChannelShift::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_005687A0(this, nullptr, wParam, lParam);
 }
@@ -300,7 +300,7 @@ void CUICashItemGachapon::Update()
 {
 	__sub_00579C80(this, nullptr);
 }
-void CUICashItemGachapon::OnKey(uint32_t wParam, uint32_t lParam)
+void CUICashItemGachapon::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00568E60(this, nullptr, wParam, lParam);
 }
@@ -359,7 +359,7 @@ void CUIBlockUser::OnButtonClicked(uint32_t nId)
 {
 	__sub_00578D50(this, nullptr, nId);
 }
-void CUIBlockUser::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIBlockUser::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00578D10(this, nullptr, wParam, lParam);
 }
@@ -429,7 +429,7 @@ void CUICashGachapon::Update()
 {
 	__sub_00571330(this, nullptr);
 }
-void CUICashGachapon::OnKey(uint32_t wParam, uint32_t lParam)
+void CUICashGachapon::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00568EA0(this, nullptr, wParam, lParam);
 }
@@ -492,7 +492,7 @@ void CUIGachaponBox::OnButtonClicked(uint32_t nId)
 {
 	__sub_00568CD0(this, nullptr, nId);
 }
-void CUIGachaponBox::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIGachaponBox::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00568C80(this, nullptr, wParam, lParam);
 }
@@ -764,7 +764,7 @@ void CUICancelCharacterCouponResults::OnButtonClicked(uint32_t nId)
 {
 	__sub_00568C10(this, nullptr, nId);
 }
-void CUICancelCharacterCouponResults::OnKey(uint32_t wParam, uint32_t lParam)
+void CUICancelCharacterCouponResults::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00568BD0(this, nullptr, wParam, lParam);
 }

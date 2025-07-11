@@ -84,7 +84,7 @@ protected:
 	void SetBackground();
 
 protected:
-	const wchar_t *MakeUOLByUIType(ZXString<unsigned short> &sOut, const wchar_t *sUOL, const wchar_t *sUOL2);
+	const wchar_t *MakeUOLByUIType(ZXString16 &sOut, const wchar_t *sUOL, const wchar_t *sUOL2);
 
 protected:
 	virtual void Update();

@@ -86,7 +86,7 @@ __SUB_CLASS_THIS0(0057AE90, __thiscall, 44636,  CUtilDlgEx, long) {
 	_ASM_PLACEHOLDER(0057AE90, 44636)
 }
 // CUtilDlgEx::MakeUOLByUIType
-__SUB_CLASS_THIS(0057DD70, __thiscall, 44652,  CUtilDlgEx, const wchar_t*, ZXString<unsigned short>&, const wchar_t*, const wchar_t*) {
+__SUB_CLASS_THIS(0057DD70, __thiscall, 44652,  CUtilDlgEx, const wchar_t*, ZXString16&, const wchar_t*, const wchar_t*) {
 	_ASM_PLACEHOLDER(0057DD70, 44652)
 }
 // CUtilDlgEx::OnCreate_COMBOBOX_EDITABLE

@@ -233,10 +233,10 @@ public:
     void ShiftMacroUIState();
 
 public:
-    long GetMacroUIState();
+    long GetMacroUIState() const;
 
 public:
-    long GetRecommendSKill(const SKILLROOT* arg0);
+    long GetRecommendSKill(const SKILLROOT* pSkillRoot);
 
 protected:
     void OnTabChanged(long nTab);
@@ -333,7 +333,7 @@ public:
     virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-    virtual void OnKey(uint32_t wParam, uint32_t lParam);
+    virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
     virtual void OnMoveWnd();
@@ -438,7 +438,7 @@ public:
     virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 
 public:
-    virtual void OnKey(uint32_t wParam, uint32_t lParam);
+    virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
     virtual void OnButtonClicked(uint32_t nId);

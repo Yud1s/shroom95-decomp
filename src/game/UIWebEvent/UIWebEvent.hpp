@@ -97,4 +97,4 @@ public:
 };
 STATIC_ASSERT_SIZE(CUIWebEvent, 2980);
 
-ZXString<unsigned short> __cdecl get_server_string();
+ZXString16 __cdecl get_server_string();

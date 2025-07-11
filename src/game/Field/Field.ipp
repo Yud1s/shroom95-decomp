@@ -454,7 +454,7 @@ __SUB_CLASS_THIS0(0013CCB0, __thiscall, 24959,  CField, void) {
 	_ASM_PLACEHOLDER(0013CCB0, 24959)
 }
 // CField::GetMapSpecificEffectUOL
-__SUB_CLASS_THIS0(004EAFC0, __thiscall, 25000,  CField, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(004EAFC0, __thiscall, 25000,  CField, ZXString16) {
 	_ASM_PLACEHOLDER(004EAFC0, 25000)
 }
 // CField::OnTownPortalChanged
@@ -502,7 +502,7 @@ __SUB_CLASS_THIS(0013A810, __thiscall, 25042,  CField, void, CInPacket&) {
 	_ASM_PLACEHOLDER(0013A810, 25042)
 }
 // CField::ShowScreenEffect
-__SUB_CLASS_THIS(001376D0, __thiscall, 25046,  CField, void, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(001376D0, __thiscall, 25046,  CField, void, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(001376D0, 25046)
 }
 // CField::CanUseSpecialArts

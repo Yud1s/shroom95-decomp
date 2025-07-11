@@ -45,7 +45,7 @@ void CLogo::Update() {
     UpdateVideo();
 	//__sub_0020E430(this, nullptr);
 }
-void CLogo::OnKey(const uint32_t wParam, const uint32_t lParam) {
+void CLogo::OnKey(const uint32_t wParam, const int32_t lParam) {
     if(!CanSkip()) {
         return;
     }

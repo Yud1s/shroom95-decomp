@@ -30,7 +30,7 @@ class CUIRevive: public CWnd, public TSingleton<CUIRevive> {
 		public:  virtual void OnDestroy();
 		public:  virtual int32_t OnSetFocus(int32_t bFocus);
 		public:  virtual void OnButtonClicked(uint32_t nId);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  virtual int32_t HitTest(long rx, long ry, CCtrlWnd** ppCtrl);
 		protected:   void Revive(int32_t bPremium);
 		protected:  virtual void Update();

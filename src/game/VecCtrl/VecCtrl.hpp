@@ -371,7 +371,7 @@ public:
     virtual void SetActive(int32_t arg0, long arg1, long arg2, long arg3, long arg4, long arg5, CStaticFoothold* arg6);
 
 public:
-    int32_t IsActive();
+    int32_t IsActive() const;
 
 public:
     int32_t IsUser();
@@ -395,19 +395,19 @@ public:
     int32_t IsDragon();
 
 public:
-    int32_t IsOnFoothold();
+    int32_t IsOnFoothold() const;
 
 public:
-    int32_t IsOnLadder();
+    int32_t IsOnLadder() const;
 
 public:
-    int32_t IsOnRope();
+    int32_t IsOnRope() const;
 
 public:
-    int32_t IsStopped();
+    int32_t IsStopped() const;
 
 public:
-    int32_t IsFalling();
+    int32_t IsFalling() const;
 
 public:
     int32_t IsDoingWings();
@@ -416,19 +416,19 @@ public:
     int32_t IsLandingWings();
 
 private:
-    int32_t _IsSwimmingMap();
+    int32_t _IsSwimmingMap() const;
 
 protected:
-    int32_t _IsUserFlyMap();
+    int32_t _IsUserFlyMap() const;
 
 protected:
     int32_t _IsNeedSkillForFly();
 
 public:
-    virtual int32_t IsUserFlying();
+    virtual int32_t IsUserFlying() const ;
 
 public:
-    int32_t IsSwimming();
+    int32_t IsSwimming() const;
 
 public:
     int32_t IsFreeFalling();
@@ -437,31 +437,31 @@ public:
     int32_t IsFloating();
 
 public:
-    long GetPage();
+    long GetPage() const;
 
 public:
-    long GetZMass();
+    long GetZMass() const;
 
 public:
-    CStaticFoothold* GetFoothold();
+    CStaticFoothold* GetFoothold() const;
 
 public:
-    const CLadderOrRope* GetLadderOrRope();
+    const CLadderOrRope* GetLadderOrRope() const;
 
 public:
-    const AbsPos& GetAbsPos();
+    const AbsPos& GetAbsPos() const;
 
 public:
-    long GetMoveAction();
+    long GetMoveAction() const;
 
 public:
-    void SetMoveAction(long arg0);
+    void SetMoveAction(long moveAction);
 
 public:
     void ResolveMoveAction();
 
 public:
-    void SetAlternateVector2D(_x_com_ptr<IWzVector2D> arg0);
+    void SetAlternateVector2D(_x_com_ptr<IWzVector2D> vec);
 
 public:
     _x_com_ptr<IWzVector2D> GetAlternateVector2D();
@@ -482,7 +482,7 @@ public:
     virtual int32_t CollisionDetectFloat(const AbsPos& p1, long& tElapse, int32_t bCalcFloat);
 
 public:
-    void GetInput(long& nInputX, long& nInputY);
+    void GetInput(long& nInputX, long& nInputY) const;
 
 public:
     void SetInput(long nInputX, long nInputY);
@@ -525,7 +525,7 @@ public:
     void DetachFromFoothold();
 
 public:
-    int64_t UpdatePassive(const long* pFixedX, const long* pFixedY);
+    int UpdatePassive(const long* pFixedX, const long* pFixedY);
 
 public:
     CMovePath& GetMovePath();
@@ -534,19 +534,19 @@ public:
     static CVecCtrl*__cdecl CreateInstance();
 
 public:
-    CWvsPhysicalSpace2D* GetPhysicalSpace2D();
+    CWvsPhysicalSpace2D* GetPhysicalSpace2D() const;
 
 protected:
     virtual void OnAttachedObjectChanged(CStaticFoothold* pfhNew, CLadderOrRope* pLadderOrRopeNew, long tElapse);
 
 protected:
-    void SetAttachedObjectChanged(int32_t arg0);
+    void SetAttachedObjectChanged(int32_t attachedObj);
 
 protected:
     int32_t IsAttachedObjectChanged() const;
 
 protected:
-    long GetMPA();
+    long GetMPA() const;
 
 protected:
     virtual void MakeContinuousMovePath(long tElapse);
@@ -561,7 +561,7 @@ protected:
     virtual void SaveFloatStateAfterCollision();
 
 protected:
-    long BoundPosMapRange(const RelPos& d0, long tElapseMax);
+    long BoundPosMapRange(const RelPos& d0, long tElapse);
 
     long BoundPosMapRange_1(const RelPos& d0, long tElapseMax)
     {
@@ -607,7 +607,7 @@ protected:
     virtual int32_t BeginUpdatePassive();
 
 protected:
-    virtual int64_t WorkUpdatePassive(long fh, const long* nAttr, const long* apOffsetY);
+    virtual int WorkUpdatePassive(long tElapse, const long* pFixedX, const long* pFixedY);
 
 protected:
     virtual void InspectUpdateActive();

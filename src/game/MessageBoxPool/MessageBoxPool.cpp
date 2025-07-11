@@ -47,7 +47,7 @@ MESSAGEBOX& MESSAGEBOX::_op_assign_3(MESSAGEBOX* pThis, const MESSAGEBOX& arg0)
 
 CMessageBoxPool::~CMessageBoxPool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CMessageBoxPool::_dtor_0()
@@ -68,6 +68,7 @@ void CMessageBoxPool::_ctor_1(const CMessageBoxPool& arg0)
 
 CMessageBoxPool::CMessageBoxPool()
 {
+    ms_pInstance = this;
 }
 
 void CMessageBoxPool::_ctor_0()

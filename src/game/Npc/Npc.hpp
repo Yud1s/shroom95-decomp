@@ -1,5 +1,7 @@
 // Npc.hpp
 #pragma once
+#include <VecCtrlNpc/VecCtrlNpc.hpp>
+
 #include "util/base.h"
 #include "pcom/wz.h"
 
@@ -249,7 +251,7 @@ public:
 	virtual void Update();
 
 public:
-	void UpdateScript(_SYSTEMTIME st);
+	void UpdateScript(_SYSTEMTIME st) const;
 
 public:
 	void SetMapleTVMessage();
@@ -261,13 +263,13 @@ public:
 	void SetImitatedLook(AvatarLook &al);
 
 public:
-	int32_t IsImitated();
+	int32_t IsImitated() const;
 
 public:
-	int32_t IsEnabled();
+	int32_t IsEnabled() const;
 
 public:
-	int32_t IsHideToLocalUser();
+	int32_t IsHideToLocalUser() const;
 
 public:
 	void RequestSpecialAction(ZXString<char> sAction);
@@ -337,6 +339,8 @@ protected:
 
 public:
 	void SetClientActionByQuest();
+
+	CVecCtrlNpc* GetVecCtrlNpc();
 
 	CLASS_RTTI_(CNpc, CLife);
 

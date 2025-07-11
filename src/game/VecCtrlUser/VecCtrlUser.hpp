@@ -114,7 +114,7 @@ public:
     void ResetFlyingSkill();
 
 public:
-    int32_t IsFlyingSkill();
+    int32_t IsFlyingSkill() const;
 
 public:
     int32_t IsFlyingSkillState();
@@ -123,13 +123,13 @@ public:
     virtual int32_t IsUserFlying();
 
 public:
-    int32_t IsPermitMapFlyingSkill();
+    int32_t IsPermitMapFlyingSkill() const;
 
 protected:
     virtual long BeginUpdateActive();
 
 protected:
-    virtual int32_t WorkUpdateActive(long pUserLocal);
+    virtual int32_t WorkUpdateActive(long tElapse);
 
 protected:
     void WorkUpdateActiveLadderOrRope();

@@ -41,7 +41,7 @@ public:
 	void _ctor_0();
 
 private:
-	virtual ZXString<unsigned short> GetBackUOL();
+	virtual ZXString16 GetBackUOL();
 
 public:
 	CCtrlSelectPartyQuest &operator=(const CCtrlSelectPartyQuest &arg0);
@@ -185,7 +185,7 @@ public:
 	virtual void OnMoveWnd(long l, long t);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void DoAction(long nAction, long nOption);
@@ -209,7 +209,7 @@ private:
 	void AttachBanner(TabPartyAdver::ENUM_CTRL_ID nID, long x, long y, ZRef<PartyQuestInfo> pInfo, int32_t bSelected);
 
 private:
-	void AttachButton(TabPartyAdver::ENUM_CTRL_ID nID, ZXString<unsigned short> sUOL);
+	void AttachButton(TabPartyAdver::ENUM_CTRL_ID nID, ZXString16 sUOL);
 
 private:
 	CCtrlComboBox *AttachComboBox(TabPartyAdver::ENUM_CTRL_ID nID, long nType, long x, long y, long width, long height, void *paramCombo);

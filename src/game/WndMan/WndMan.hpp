@@ -170,7 +170,8 @@ public:
 	void ReleaseCaptureWnd(IUIMsgHandler *pHandler);
 
 public:
-	void GetCursorPos(tagPOINT *lpPoint, int32_t bField);
+	void GetCursorPos(tagPOINT *lpPoint, int32_t bField) const;
+	tagPOINT GetCursorPosPt(bool bField) const;
 
 public:
 	void SetCursorPos(tagPOINT pt, int32_t bField);
@@ -185,7 +186,7 @@ public:
 	void ClearDragContext();
 
 public:
-	int32_t TranslateMessage(uint32_t &message, uint32_t &wParam, long &lParam, long *plResult);
+	int32_t TranslateMessage(uint32_t &msg, uint32_t &wParam, long &lParam, long *plResult);
 
 public:
 	long ProcessMouse(uint32_t message, uint32_t wParam, long lParam);
@@ -212,7 +213,7 @@ public:
 	_x_com_ptr<IWzVector2D> GetOrgWindow(CWnd::UIOrigin org);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);

@@ -54,20 +54,16 @@ void AvatarData::Decode(CInPacket& arg0)
     this->avatarLook.Decode(arg0);
 }
 
-AvatarData& AvatarData::operator=(const AvatarData& __that)
-{
-    return _op_assign_5(this, __that);
-}
+AvatarData& AvatarData::operator=(const AvatarData& __that) = default;
 
 AvatarData& AvatarData::_op_assign_5(AvatarData* pThis, const AvatarData& __that)
 {
-    return __sub_001D9500(pThis, nullptr, __that);
+    *pThis = __that;
+    return *pThis;
 }
 
 CLogin::~CLogin()
 {
-    this->m_pSpace2D.Detach();
-    //_dtor_0();
 }
 
 void CLogin::_dtor_0()
@@ -77,7 +73,7 @@ void CLogin::_dtor_0()
 }
 
 CLogin::CLogin(const CLogin& arg0)
-{
+ : CMapLoadable(arg0) {
     _ctor_1(arg0);
 }
 
@@ -98,7 +94,6 @@ CLogin::CLogin()
 void CLogin::_ctor_0()
 {
     new(this) CLogin();
-    // TODO return __sub_001DB440(this, nullptr);
 }
 
 void CLogin::Init(void* pParam)
@@ -203,7 +198,22 @@ void CLogin::Update()
 
 void CLogin::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_001D21A0(this, nullptr, msg, wParam, rx, ry);
+    auto wndMan = CWndMan::GetInstance();
+    if ( msg == 513 )
+    {
+        if ( this->m_tStartFadeOut == 1 )
+        {
+            if ( auto rec = TSingleton<CUIRecommendWorld>::ms_pInstance )
+                wndMan->SetFocus(rec);
+            else
+                CloseChannelSelect();
+        }
+        else if ( this->m_tStartFadeOut == 2 )
+        {
+            if ( wndMan )
+                wndMan->SetFocus(m_pFocusedUI);
+        }
+    }
 }
 
 void CLogin::OnPacket(long nType, CInPacket& iPacket)
@@ -1530,7 +1540,7 @@ void CConnectionNoticeDlg::OnButtonClicked(uint32_t nId)
     //__sub_001D4A90(this, nullptr, nId);
 }
 
-void CConnectionNoticeDlg::OnKey(uint32_t wParam, uint32_t lParam)
+void CConnectionNoticeDlg::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_001D4AB0(this, nullptr, wParam, lParam);
 }

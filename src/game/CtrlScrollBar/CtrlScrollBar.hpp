@@ -86,7 +86,7 @@ protected:
 	int32_t m_bTranslucent{};
 
 protected:
-	ZXString<unsigned short> m_sUOL;
+	ZXString16 m_sUOL;
 	// Methods
 public:
 	virtual ~CCtrlScrollBar();
@@ -129,10 +129,10 @@ public:
 	virtual void Update();
 
 public:
-	long GetCurPos();
+	long GetCurPos() const;
 
 public:
-	long GetScrollRange();
+	long GetScrollRange() const;
 
 public:
 	void SetCurPos(long nPos);
@@ -189,7 +189,7 @@ protected:
 	void DoThumbEnd(long rx, long ry);
 
 protected:
-	static void __cdecl GetScrollBarBaseUOL(long hv, long type, ZXString<unsigned short> &sUOL);
+	static void __cdecl GetScrollBarBaseUOL(long hv, long type, ZXString16 &sUOL);
 	CLASS_RTTI_(CCtrlScrollBar, CCtrlWnd);
 
 public:

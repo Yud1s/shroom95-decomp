@@ -15,7 +15,7 @@ bool is_beginner_job(int job);
 
 int get_mechanic_mastery(CharacterData *cd);
 
-long __cdecl get_increase_speed(CharacterData *param_1);
+long __cdecl get_increase_speed(const CharacterData &cd);
 
 long __cdecl get_job_level(long param_1);
 

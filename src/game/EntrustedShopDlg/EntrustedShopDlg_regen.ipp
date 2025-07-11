@@ -821,7 +821,7 @@ __asm {
 	lea edx,[esp+0x18]
 	push edx
 	mov byte ptr [esp+0x6C],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x20]
 	add esp,0xC
 	mov byte ptr [esp+0x60],0
@@ -831,7 +831,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -1066,7 +1066,7 @@ __asm {
  Block33:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block34:
@@ -1777,7 +1777,7 @@ je Block16
 	dec edi
 	push edi
 	mov ecx,ebp
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push 0x3FFFFFFF
 	push eax
 	push 0xFFFFFFFF
@@ -1787,7 +1787,7 @@ je Block16
 	call MultiByteToWideChar
 	push edi
 	mov ecx,ebp
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 
  Block19:
 	mov ecx,esi

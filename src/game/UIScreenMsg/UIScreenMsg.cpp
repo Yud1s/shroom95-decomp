@@ -4,7 +4,7 @@
 
 CUIScreenMsg::~CUIScreenMsg()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CUIScreenMsg::_dtor_0()

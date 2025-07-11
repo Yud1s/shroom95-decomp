@@ -1,6 +1,8 @@
 // ActionMan.cpp
 #include "ActionMan.hpp"
 
+#include <pcom/xcom.hpp>
+
 Ztl_bstr_t _D_S_SZMAPIMG(L"zmap.img");
 Ztl_bstr_t _D_S_SSMAPIMG(L"smap.img");
 
@@ -39,286 +41,1293 @@ static ZRef<CActionMan::MOBACTIONFRAMEENTRY> FAKE_ZRef_CActionMan_MOBACTIONFRAME
 // TODO ipp
 #include "ActionMan_regen.ipp"
 
-ACTIONDATA ActionData::m_saCharacterActions[273]{
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"walk1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"walk2")),
-    ACTIONDATA(1, 0, Ztl_bstr_t(L"stand1")),
-    ACTIONDATA(1, 0, Ztl_bstr_t(L"stand2")),
-    ACTIONDATA(1, 0, Ztl_bstr_t(L"alert")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO3")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingOF")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingT1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingT2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingT3")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingTF")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingP1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingP2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingPF")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabO1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabO2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabOF")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabT1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabT2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabTF")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swingD1")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swingD2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"stabD1")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tripleBlow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"quadBlow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"deathBlow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finishBlow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finishAttack_link")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finishAttack_link2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"shoot1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"shoot2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO2")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO3")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"shootF")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"swingO3")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"stabO1")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"heal")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"proneStab")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"prone")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"fly")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"jump")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ladder")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"rope")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"dead")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"sit")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sit2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sit3")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sit4")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sit5")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sit6")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sit7")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"tired")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_prone")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"proneStab_jaguar")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"alert2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"alert3")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"alert4")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"alert5")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"alert6")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"alert7")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"ladder2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rope2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"shoot6")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magic1")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magic2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magic3")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magic5")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magic6")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"burster1")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"burster2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"savage")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"avenger")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"assaulter")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"prone2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"assassination")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"assassinationS")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tornadoDash")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tornadoDashStop")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tornadoRush")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rush")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rush2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"brandish1")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"brandish2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"braveslash")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sanctuary")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"meteor")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"paralyze")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"blizzard")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"genesis")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"ninjastorm")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"blast")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"holyshield")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"showdown")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"resurrection")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"chainlightning")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"smokeshell")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"handgun")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"somersault")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"straight")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"eburster")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"backspin")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"eorb")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"screw")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"doubleupper")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"dragonstrike")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"doublefire")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"triplefire")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fake")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"airstrike")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"edrain")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"octopus")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"backstep")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"shot")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"recovery")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fireburner")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"coolingeffect")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fist")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"timeleap")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rapidfire")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"homing")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostwalk")),
-    ACTIONDATA(1, 0, Ztl_bstr_t(L"ghoststand")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostjump")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostproneStab")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostfly")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostladder")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostrope")),
-    ACTIONDATA(0, 0, Ztl_bstr_t(L"ghostsit")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"cannon")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"torpedo")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"darksight")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"bamboo")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"pyramid")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"wave")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"blade")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"souldriver")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"firestrike")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamegear")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"stormbreak")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"vampire")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"float")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swingT2PoleArm")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swingP1PoleArm")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swingP2PoleArm")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"doubleSwing")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tripleSwing")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fullSwingDouble")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fullSwingTriple")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"overSwingDouble")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"overSwingTriple")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rollingSpin")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"comboSmash")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"comboFenrir")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"comboTempest")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finalCharge")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"combatStep")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finalBlow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finalToss")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magicmissile")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"lightingBolt")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"dragonBreathe")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"breathe_prepare")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"dragonIceBreathe")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"icebreathe_prepare")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"blaze")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fireCircle")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"illusion")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magicFlare")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"elementalReset")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magicRegistance")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"recoveryAura")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magicBooster")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"magicShield")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flameWheel")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"killingWing")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"OnixBlessing")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"Earthquake")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"soulStone")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"dragonThrust")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"ghostLettering")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"darkFog")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"slow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"mapleHero")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"Awakening")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flyingAssaulter")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tripleStab")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fatalBlow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"slashStorm1")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"slashStorm2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"bloodyStorm")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flashBang")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"upperStab")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"suddenRaid")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"chainPull")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"chainAttack")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"owlDead")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"monsterBombPrepare")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"monsterBombThrow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finalCut")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"finalCutPrepare")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"cyclone_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"cyclone")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"cyclone_after")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"doubleJump")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"knockback")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rbooster_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rbooster")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rbooster_after")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"crossRoad")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"nemesis")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"wildbeast")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"siege_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"siege")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"siege_stand")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"siege_after")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_stand")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_after")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_walk")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_laser")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_siegepre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_siegeattack")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_siegestand")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_siegeafter")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"sonicBoom")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"revive")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"darkSpear")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"darkChain")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamethrower_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamethrower")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamethrower_after")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamethrower_pre2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamethrower2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flamethrower_after2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"mbooster")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"msummon")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"msummon2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"gatlingshot")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"gatlingshot2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"drillrush")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"earthslug")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"rpunch")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"clawCut")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swallow")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swallow_loop")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swallow_attack")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"swallow_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"flashRain")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"mine")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"capture")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"ride")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"getoff")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"ride2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"getoff2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"mRush")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_msummon")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_msummon2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_mRush")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_rbooster_pre")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"tank_rbooster_after")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"shockwave")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"demolition")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"snatch")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"windspear")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"windshot")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fly2")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fly2Move")),
-    ACTIONDATA(0, 1, Ztl_bstr_t(L"fly2Skill"))
+
+ACTIONDATA ActionData::m_saCharacterActions[273]
+{
+    ACTIONDATA(0, 0, 540, L"walk1", {
+                   ACTIONDATA::PIECE(5046317, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536672, 0, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4980768, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6357108, 0, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 540, L"walk2", {
+                   ACTIONDATA::PIECE(5242957, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4456480, 0, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(2883621, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6881352, 0, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(1, 0, 0, L"stand1", {
+                   ACTIONDATA::PIECE(6619223, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5767268, 0, 500, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7929970, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5767268, 0, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(1, 0, 0, L"stand2", {
+                   ACTIONDATA::PIECE(7077953, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(2097262, 0, 500, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6488174, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(2097262, 0, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(1, 0, 0, L"alert", {
+                   ACTIONDATA::PIECE(5046363, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6094897, 0, 500, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(5046304, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6094897, 0, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO1", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6357108, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO2", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7077888, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO3", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7077888, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 400, L"swingOF", {
+                   ACTIONDATA::PIECE(5046317, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536672, 0, 100, 0, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4980768, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6357108, 0, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingT1", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingT2", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingT3", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 500, L"swingTF", {
+                   ACTIONDATA::PIECE(5046363, 0, 200, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(6094897, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(5046304, 0, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5242957, 0, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingP1", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingP2", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 500, L"swingPF", {
+                   ACTIONDATA::PIECE(7209033, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7340129, 0, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6357024, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6553714, 0, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 350, L"stabO1", {
+                   ACTIONDATA::PIECE(6815811, 0, 350, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 350, L"stabO2", {
+                   ACTIONDATA::PIECE(6815811, 0, 350, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 400, L"stabOF", {
+                   ACTIONDATA::PIECE(6815811, 0, 250, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 400, L"stabT1", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619136, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 400, L"stabT2", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(49, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 500, L"stabTF", {
+                   ACTIONDATA::PIECE(5046317, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536672, 0, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4980768, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6357108, 0, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"swingD1", {
+                   ACTIONDATA::PIECE(6, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6, 2, 300, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 1, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 3, 300, 1, 0, 0, 21, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"swingD2", {
+                   ACTIONDATA::PIECE(6, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6, 2, 300, 1, 0, 0, -5, 0),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, -10, 0), ACTIONDATA::PIECE(8, 0, 330, 1, 0, 0, -15, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"stabD1", {
+                   ACTIONDATA::PIECE(16, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 1, 240, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 2, 150, 1, 0, 0, 15, 0), ACTIONDATA::PIECE(19, 2, 330, 1, 0, 0, 5, 0),
+               }),
+    ACTIONDATA(0, 1, 30, L"tripleBlow", {
+                   ACTIONDATA::PIECE(4, 1, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 0, 60, 1, 0, 0, -5, 0),
+                   ACTIONDATA::PIECE(5, 1, 60, 1, 0, 0, -5, 0), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 7, 0),
+                   ACTIONDATA::PIECE(5, 2, 60, 1, 0, 0, 7, 0), ACTIONDATA::PIECE(7, 0, 90, 1, 0, 0, -21, 0),
+                   ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, -6, 0), ACTIONDATA::PIECE(5, 1, 90, 1, 0, 0, -26, 0),
+                   ACTIONDATA::PIECE(16, 1, 210, 1, 0, 0, -17, 0), ACTIONDATA::PIECE(4, 1, 60, 1, 0, 0, -22, 0),
+               }),
+    ACTIONDATA(0, 1, 30, L"quadBlow", {
+                   ACTIONDATA::PIECE(4, 1, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 0, 60, 1, 0, 0, -5, 0),
+                   ACTIONDATA::PIECE(7, 0, 90, 1, 0, 0, -21, 0), ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, -6, 0),
+                   ACTIONDATA::PIECE(5, 1, 90, 1, 0, 0, -26, 0), ACTIONDATA::PIECE(17, 1, 120, 1, 0, 0, -17, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, -21, 0), ACTIONDATA::PIECE(17, 1, 60, 1, 1, 0, -64, 0),
+                   ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -50, 0), ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -51, 0),
+                   ACTIONDATA::PIECE(4, 1, 60, 1, 0, 0, -74, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"deathBlow", {
+                   ACTIONDATA::PIECE(15, 1, 60, 1, 0, 0, 9, 0), ACTIONDATA::PIECE(17, 1, 120, 1, 0, 0, -21, 0),
+                   ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, -24, 0), ACTIONDATA::PIECE(6, 1, 60, 1, 0, 0, 30, 0),
+                   ACTIONDATA::PIECE(6, 2, 120, 1, 0, 0, 17, 0), ACTIONDATA::PIECE(8, 0, 60, 1, 0, 0, 6, 0),
+                   ACTIONDATA::PIECE(20, 2, 120, 1, 0, 0, 7, 0), ACTIONDATA::PIECE(20, 2, 90, 1, 1, 0, -57, 0),
+                   ACTIONDATA::PIECE(19, 2, 120, 1, 0, 0, -37, 0), ACTIONDATA::PIECE(8, 0, 60, 1, 0, 0, -65, 0),
+                   ACTIONDATA::PIECE(4, 1, 30, 1, 0, 0, -74, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"finishBlow", {
+                   ACTIONDATA::PIECE(15, 1, 60, 1, 0, 0, 9, 0), ACTIONDATA::PIECE(17, 1, 120, 1, 0, 0, -3, 0),
+                   ACTIONDATA::PIECE(5, 2, 60, 1, 0, 0, 7, 0), ACTIONDATA::PIECE(6, 1, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 2, 120, 1, 0, 0, -13, 0), ACTIONDATA::PIECE(8, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(20, 2, 120, 1, 0, 0, -14, 0), ACTIONDATA::PIECE(8, 1, 90, 0, 1, 0, 0, -41),
+                   ACTIONDATA::PIECE(15, 2, 120, 1, 0, 0, 21, -29), ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, 30, 1),
+                   ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 30, 0),
+               }),
+    ACTIONDATA(0, 1, 270, L"finishAttack_link", {
+                   ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 3, 0), ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 3, 0),
+                   ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 3, 0), ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -29, 0),
+                   ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -34, 0), ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -35, 0),
+                   ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -36, 0), ACTIONDATA::PIECE(5, 0, 60, 1, 0, 0, -45, 0),
+               }),
+    ACTIONDATA(0, 1, 270, L"finishAttack_link2", {
+                   ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 3, 0), ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 4, 0),
+                   ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 4, 0),
+                   ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -29, 0), ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -34, 0),
+                   ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -35, 0), ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -37, 0),
+                   ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -37, 0), ACTIONDATA::PIECE(8, 0, 90, 1, 0, 0, -38, 0),
+                   ACTIONDATA::PIECE(4, 1, 60, 1, 0, 0, -44, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"shoot1", {
+                   ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(3276849, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 670, L"shoot2", {
+                   ACTIONDATA::PIECE(6619218, 0, 160, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7208992, 0, 160, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6619245, 0, 250, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7667822, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4259872, 0, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO1", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(3276849, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO2", {
+                   ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(3211313, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO3", {
+                   ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(3145777, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"shootF", {
+                   ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(57, 0, 250, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO1", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(56, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"swingO3", {
+                   ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(55, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 350, L"stabO1", {
+                   ACTIONDATA::PIECE(3145776, 0, 350, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 450, L"heal", {
+                   ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(53, 0, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 300, L"proneStab", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 400, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 0, L"prone", {ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 0, 300, L"fly", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 0, L"jump", {ACTIONDATA::PIECE(3145776, 0, 200, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 0, 250, L"ladder", {
+                   ACTIONDATA::PIECE(3145776, 0, 250, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(7536745, 0, 250, 0, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 250, L"rope", {
+                   ACTIONDATA::PIECE(6815811, 0, 250, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 250, 0, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 0, L"dead", {ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 0, 0, L"sit", {ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"sit2", {ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, -45),}),
+    ACTIONDATA(0, 1, 0, L"sit3", {ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, -12),}),
+    ACTIONDATA(0, 1, 0, L"sit4", {ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, -100),}),
+    ACTIONDATA(0, 1, 0, L"sit5", {ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, -200),}),
+    ACTIONDATA(0, 1, 0, L"sit6", {ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, -17),}),
+    ACTIONDATA(0, 1, 0, L"sit7", {ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, -24),}),
+    ACTIONDATA(0, 0, 13035136, L"tired", {}),
+    ACTIONDATA(0, 1, 0, L"tank_prone", {ACTIONDATA::PIECE(48, 0, 300, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 200, L"proneStab_jaguar", {
+                   ACTIONDATA::PIECE(48, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 400, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"alert2", {
+                   ACTIONDATA::PIECE(4, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1000, L"alert3", {
+                   ACTIONDATA::PIECE(4, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 500, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"alert4", {
+                   ACTIONDATA::PIECE(4, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 300, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 300, L"alert5", {
+                   ACTIONDATA::PIECE(4, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 300, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"alert6", {
+                   ACTIONDATA::PIECE(4, 0, 330, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 330, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 330, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"alert7", {
+                   ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"ladder2", {
+                   ACTIONDATA::PIECE(45, 0, 300, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(45, 1, 300, 0, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rope2", {
+                   ACTIONDATA::PIECE(46, 0, 300, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(46, 1, 300, 0, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 640, L"shoot6", {
+                   ACTIONDATA::PIECE(36, 0, 480, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(36, 1, 160, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(36, 2, 260, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 900, L"magic1", {
+                   ACTIONDATA::PIECE(36, 1, 900, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 1, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 2, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 350, L"magic2", {
+                   ACTIONDATA::PIECE(4, 0, 350, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 350, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 300, L"magic3", {
+                   ACTIONDATA::PIECE(2, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(2, 1, 300, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(2, 2, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 720, L"magic5", {
+                   ACTIONDATA::PIECE(4, 0, 720, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 240, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 300, L"magic6", {
+                   ACTIONDATA::PIECE(4, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"burster1", {
+                   ACTIONDATA::PIECE(19, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(19, 1, 300, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(19, 2, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(21, 1, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"burster2", {
+                   ACTIONDATA::PIECE(19, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(19, 1, 300, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(19, 2, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(21, 1, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(20, 2, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 360, L"savage", {
+                   ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(41, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(18, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 720, L"avenger", {
+                   ACTIONDATA::PIECE(7, 0, 720, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 1, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 2, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"assaulter", {
+                   ACTIONDATA::PIECE(5, 0, 600, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 3, 600, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 700, L"prone2", {
+                   ACTIONDATA::PIECE(41, 0, 700, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(41, 0, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 700, L"assassination", {
+                   ACTIONDATA::PIECE(2, 0, 540, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 0, 80, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 80, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 2, 80, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 3, 320, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 0, 80, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 1, 80, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 2, 80, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 0, 80, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6, 1, 80, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 2, 320, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"assassinationS", {
+                   ACTIONDATA::PIECE(18, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(18, 2, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(18, 2, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tornadoDash", {
+                   ACTIONDATA::PIECE(7, 2, 90, 1, 0, 0, 8, 0), ACTIONDATA::PIECE(7, 2, 90, 1, 0, 0, 8, -2),
+               }),
+    ACTIONDATA(0, 1, 0, L"tornadoDashStop", {ACTIONDATA::PIECE(8, 0, 400, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"tornadoRush", {
+                   ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 2, 30, 1, 0, 90, -15, 0),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 0, 90, -15, 0), ACTIONDATA::PIECE(8, 2, 60, 1, 1, 270, 15, -44),
+                   ACTIONDATA::PIECE(8, 1, 60, 0, 1, 270, 18, -30), ACTIONDATA::PIECE(8, 2, 60, 1, 0, 90, -15, 0),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 1, 270, 15, -44), ACTIONDATA::PIECE(8, 1, 60, 0, 1, 270, 18, -25),
+                   ACTIONDATA::PIECE(8, 2, 90, 1, 0, 90, -15, 0), ACTIONDATA::PIECE(8, 3, 150, 1, 0, 0, 32, 0),
+                   ACTIONDATA::PIECE(8, 3, 330, 1, 0, 0, 25, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rush", {
+                   ACTIONDATA::PIECE(19, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(19, 2, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rush2", {
+                   ACTIONDATA::PIECE(18, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(18, 2, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 360, L"brandish1", {
+                   ACTIONDATA::PIECE(8, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 1, 120, 0, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(18, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(18, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(18, 2, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 240, L"brandish2", {
+                   ACTIONDATA::PIECE(11, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(11, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(11, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(12, 0, 120, 0, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(12, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(12, 3, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 120, L"braveslash", {
+                   ACTIONDATA::PIECE(14, 1, 30, 1, 0, 0, 18, 0), ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 32, 0),
+                   ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 34, 0), ACTIONDATA::PIECE(16, 0, 30, 1, 0, 0, 36, 0),
+                   ACTIONDATA::PIECE(9, 2, 60, 1, 0, 0, 10, 0), ACTIONDATA::PIECE(9, 2, 150, 1, 0, 0, 8, 0),
+                   ACTIONDATA::PIECE(10, 2, 60, 1, 0, 0, 8, 0), ACTIONDATA::PIECE(12, 0, 60, 0, 0, 0, -21, 0),
+                   ACTIONDATA::PIECE(12, 1, 150, 1, 0, 0, -21, 0), ACTIONDATA::PIECE(16, 1, 60, 1, 0, 0, -23, 0),
+                   ACTIONDATA::PIECE(16, 1, 180, 1, 0, 0, -25, 0),
+               }),
+    ACTIONDATA(0, 1, 1080, L"sanctuary", {
+                   ACTIONDATA::PIECE(18, 0, 1080, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(18, 0, 480, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(18, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(18, 2, 720, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 360, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 2160, L"meteor", {
+                   ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 1800, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 1320, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 400, L"paralyze", {
+                   ACTIONDATA::PIECE(4, 0, 400, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 2160, L"blizzard", {
+                   ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 1800, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 1320, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1800, L"genesis", {
+                   ACTIONDATA::PIECE(4, 0, 900, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 900, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 900, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 480, L"ninjastorm", {
+                   ACTIONDATA::PIECE(4, 0, 480, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 210, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 540, L"blast", {
+                   ACTIONDATA::PIECE(17, 0, 540, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(17, 1, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 300, L"holyshield", {
+                   ACTIONDATA::PIECE(16, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 1, 840, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1170, L"showdown", {
+                   ACTIONDATA::PIECE(41, 0, 900, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 2, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 3, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1680, L"resurrection", {
+                   ACTIONDATA::PIECE(4, 0, 840, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 840, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 840, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 540, L"chainlightning", {
+                   ACTIONDATA::PIECE(7, 0, 540, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(17, 1, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 900, L"smokeshell", {
+                   ACTIONDATA::PIECE(8, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 1, 120, 0, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 3, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 270, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 270, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 240, L"handgun", {
+                   ACTIONDATA::PIECE(32, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 540, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"somersault", {
+                   ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, 35, 0),
+                   ACTIONDATA::PIECE(10, 0, 120, 1, 0, 0, -10, -8), ACTIONDATA::PIECE(14, 1, 120, 1, 0, 180, -30, -112),
+                   ACTIONDATA::PIECE(14, 0, 120, 1, 0, 180, -13, -115),
+                   ACTIONDATA::PIECE(14, 0, 120, 1, 0, 180, -7, -111),
+                   ACTIONDATA::PIECE(20, 1, 120, 1, 0, 270, 35, -84), ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, 35, 0),
+                   ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 240, L"straight", {
+                   ACTIONDATA::PIECE(16, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 1, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"eburster", {
+                   ACTIONDATA::PIECE(4, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -2, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -1, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -1, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(6, 1, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 480, L"backspin", {
+                   ACTIONDATA::PIECE(14, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 16, 0),
+                   ACTIONDATA::PIECE(32, 3, 480, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 810, L"eorb", {
+                   ACTIONDATA::PIECE(8, 0, 630, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 1, 6),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 1, 3), ACTIONDATA::PIECE(8, 2, 90, 1, 0, 0, 11, 4),
+                   ACTIONDATA::PIECE(8, 3, 180, 1, 0, 0, 28, 0), ACTIONDATA::PIECE(20, 0, 90, 1, 0, 0, -7, 0),
+                   ACTIONDATA::PIECE(4, 1, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"screw", {
+                   ACTIONDATA::PIECE(17, 1, 600, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(14, 1, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 420, L"doubleupper", {
+                   ACTIONDATA::PIECE(4, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 0, 120, 1, 0, 0, 5, 0),
+                   ACTIONDATA::PIECE(14, 1, 120, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(14, 0, 120, 1, 0, 0, -3, 0),
+                   ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 17, 0), ACTIONDATA::PIECE(17, 0, 240, 1, 0, 0, -4, 0),
+                   ACTIONDATA::PIECE(32, 3, 120, 1, 0, 0, -4, 0), ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 990, L"dragonstrike", {
+                   ACTIONDATA::PIECE(14, 1, 90, 1, 0, 0, 6, -14), ACTIONDATA::PIECE(14, 0, 90, 1, 0, 0, 1, -20),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 6, -19), ACTIONDATA::PIECE(10, 0, 90, 1, 1, 0, -7, -35),
+                   ACTIONDATA::PIECE(12, 1, 90, 1, 0, 0, 8, -34), ACTIONDATA::PIECE(12, 1, 90, 1, 0, 0, 8, -35),
+                   ACTIONDATA::PIECE(12, 1, 90, 1, 0, 0, 8, -34), ACTIONDATA::PIECE(12, 1, 90, 1, 0, 0, 8, -28),
+                   ACTIONDATA::PIECE(8, 3, 90, 1, 0, 0, 43, 0), ACTIONDATA::PIECE(8, 3, 90, 1, 0, 0, 43, 1),
+                   ACTIONDATA::PIECE(8, 3, 90, 1, 0, 0, 43, 2), ACTIONDATA::PIECE(8, 3, 90, 1, 0, 0, 43, 3),
+               }),
+    ACTIONDATA(0, 1, 0, L"doublefire", {
+                   ACTIONDATA::PIECE(32, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 360, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"triplefire", {
+                   ACTIONDATA::PIECE(32, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 720, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"fake", {
+                   ACTIONDATA::PIECE(32, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 720, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1980, L"airstrike", {
+                   ACTIONDATA::PIECE(4, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 240, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(10, 1, 120, 1, 0, 0, 9, -12),
+                   ACTIONDATA::PIECE(9, 0, 120, 1, 0, 0, 0, -15), ACTIONDATA::PIECE(9, 0, 120, 1, 0, 0, 0, -16),
+                   ACTIONDATA::PIECE(9, 0, 120, 1, 0, 0, 0, -15), ACTIONDATA::PIECE(9, 0, 120, 1, 0, 0, 0, -13),
+                   ACTIONDATA::PIECE(10, 2, 120, 1, 0, 0, 15, 1), ACTIONDATA::PIECE(10, 2, 120, 1, 0, 0, 15, 2),
+                   ACTIONDATA::PIECE(10, 2, 120, 1, 0, 0, 15, 3), ACTIONDATA::PIECE(11, 1, 120, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(4, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 450, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"edrain", {ACTIONDATA::PIECE(4, 0, 600, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"octopus", {
+                   ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 37, 0),
+                   ACTIONDATA::PIECE(20, 1, 90, 1, 0, 270, 36, -83), ACTIONDATA::PIECE(10, 0, 90, 1, 0, 180, -8, -108),
+                   ACTIONDATA::PIECE(14, 0, 90, 1, 0, 180, -11, -114),
+                   ACTIONDATA::PIECE(14, 1, 90, 1, 0, 180, -24, -111), ACTIONDATA::PIECE(10, 0, 90, 1, 0, 0, -9, -14),
+                   ACTIONDATA::PIECE(8, 3, 270, 1, 0, 0, 32, 0), ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"backstep", {ACTIONDATA::PIECE(16, 0, 300, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 240, L"shot", {
+                   ACTIONDATA::PIECE(32, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 540, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"recovery", {ACTIONDATA::PIECE(4, 0, 30, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 510, L"fireburner", {
+                   ACTIONDATA::PIECE(32, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 270, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 2, 0), ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 330, L"coolingeffect", {
+                   ACTIONDATA::PIECE(32, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(16, 0, 270, 1, 0, 0, 2, 0), ACTIONDATA::PIECE(32, 0, 0, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 450, L"fist", {
+                   ACTIONDATA::PIECE(4, 2, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 90, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 0, 270, 1, 0, 0, 2, 0), ACTIONDATA::PIECE(18, 1, 90, 1, 0, 0, -1, 2),
+                   ACTIONDATA::PIECE(18, 1, 90, 1, 0, 0, -2, 2), ACTIONDATA::PIECE(17, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(12, 1, 90, 1, 0, 0, 15, 0), ACTIONDATA::PIECE(18, 1, 90, 1, 0, 0, 13, 2),
+                   ACTIONDATA::PIECE(18, 1, 90, 1, 0, 0, 12, 2), ACTIONDATA::PIECE(10, 0, 90, 1, 0, 0, 4, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -5, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -6, 0),
+                   ACTIONDATA::PIECE(21, 2, 90, 1, 0, 0, 3, 8), ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, -13, -11),
+                   ACTIONDATA::PIECE(8, 2, 90, 1, 0, 0, 3, -11), ACTIONDATA::PIECE(9, 2, 90, 1, 0, 0, -2, 0),
+                   ACTIONDATA::PIECE(9, 2, 90, 1, 0, 0, -3, 2), ACTIONDATA::PIECE(18, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(14, 0, 90, 1, 0, 0, 0, -16), ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 4, -21),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 7, -27), ACTIONDATA::PIECE(8, 2, 90, 1, 1, 0, -24, -23),
+                   ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 51, 0),
+               }),
+    ACTIONDATA(0, 1, 990, L"timeleap", {
+                   ACTIONDATA::PIECE(4, 0, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 540, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rapidfire", {ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 7, 0),}),
+    ACTIONDATA(0, 1, 720, L"homing", {
+                   ACTIONDATA::PIECE(7, 0, 720, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 540, L"ghostwalk", {
+                   ACTIONDATA::PIECE(5242957, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7274608, 0, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(3801172, 0, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145780, 0, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(1, 0, 0, L"ghoststand", {
+                   ACTIONDATA::PIECE(5242957, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6357110, 0, 500, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4390944, 0, 500, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6357110, 0, 500, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 0, L"ghostjump", {ACTIONDATA::PIECE(3145776, 0, 200, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 0, 300, L"ghostproneStab", {
+                   ACTIONDATA::PIECE(3473459, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3211317, 0, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 300, L"ghostfly", {
+                   ACTIONDATA::PIECE(6815811, 0, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 300, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 250, L"ghostladder", {
+                   ACTIONDATA::PIECE(6815811, 0, 250, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 250, 0, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 250, L"ghostrope", {
+                   ACTIONDATA::PIECE(6815811, 0, 250, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(3145776, 0, 250, 0, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 0, 0, L"ghostsit", {ACTIONDATA::PIECE(3145776, 0, 150, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"cannon", {ACTIONDATA::PIECE(4, 0, 780, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"torpedo", {ACTIONDATA::PIECE(4, 0, 990, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"darksight", {ACTIONDATA::PIECE(4, 0, 100, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 3360, L"bamboo", {
+                   ACTIONDATA::PIECE(4, 1, 720, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 1, 120, 1, 0, 0, 8, 0),
+                   ACTIONDATA::PIECE(14, 1, 120, 1, 0, 0, 6, -218), ACTIONDATA::PIECE(14, 0, 120, 1, 0, 0, 1, -266),
+                   ACTIONDATA::PIECE(8, 1, 120, 0, 0, 0, 6, -287), ACTIONDATA::PIECE(10, 0, 120, 1, 1, 0, 6, -299),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 8, -299), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 23, -308),
+                   ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, 18, -306), ACTIONDATA::PIECE(6, 2, 120, 1, 0, 0, 4, -308),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 6, -306), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 6, -304),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 23, -313), ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 6, -309),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 6, -307), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 6, -308),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 6, -308), ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -12, -316),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, -3, -311), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 1, -311),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 2, -311), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 3, -311),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 4, -311), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 5, -311),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 6, -311), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 6, -287),
+                   ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 43, 2), ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 43, 3),
+                   ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 43, 3), ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 43, 3),
+                   ACTIONDATA::PIECE(4, 1, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 960, L"pyramid", {
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 120, 0, 0, 0, 3, -34), ACTIONDATA::PIECE(14, 0, 120, 1, 0, 0, 6, -68),
+                   ACTIONDATA::PIECE(8, 1, 120, 0, 0, 0, 9, -102), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 14, -127),
+                   ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 14, -132), ACTIONDATA::PIECE(12, 1, 120, 1, 0, 0, 14, -137),
+                   ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 35, -96), ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 35, -47),
+                   ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 35, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 540, L"wave", {
+                   ACTIONDATA::PIECE(12, 1, 60, 1, 0, 0, 14, 0), ACTIONDATA::PIECE(12, 1, 420, 1, 0, 0, 15, 0),
+                   ACTIONDATA::PIECE(16, 1, 60, 1, 0, 0, -29, 0), ACTIONDATA::PIECE(16, 1, 450, 1, 0, 0, -30, 0),
+                   ACTIONDATA::PIECE(4, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 570, L"blade", {
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, -1, -4), ACTIONDATA::PIECE(12, 1, 90, 1, 0, 0, 6, -13),
+                   ACTIONDATA::PIECE(12, 2, 90, 1, 0, 0, 11, -27), ACTIONDATA::PIECE(12, 2, 90, 1, 0, 0, 11, -32),
+                   ACTIONDATA::PIECE(12, 2, 90, 1, 0, 0, 11, -33), ACTIONDATA::PIECE(12, 2, 120, 1, 0, 0, 11, -34),
+                   ACTIONDATA::PIECE(12, 2, 60, 1, 0, 0, 11, -34), ACTIONDATA::PIECE(12, 3, 360, 1, 0, 0, 16, 0),
+               }),
+    ACTIONDATA(0, 1, 1600, L"souldriver", {
+                   ACTIONDATA::PIECE(4, 0, 800, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 800, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 1, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 540, L"firestrike", {
+                   ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 6, 0), ACTIONDATA::PIECE(16, 0, 480, 1, 0, 0, 7, 0),
+                   ACTIONDATA::PIECE(16, 1, 60, 1, 0, 0, -24, 0), ACTIONDATA::PIECE(16, 1, 60, 1, 0, 0, -36, 0),
+                   ACTIONDATA::PIECE(16, 1, 60, 1, 0, 0, -39, 0), ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -41, 0),
+               }),
+    ACTIONDATA(0, 1, 1260, L"flamegear", {
+                   ACTIONDATA::PIECE(4, 0, 630, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 630, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"stormbreak", {
+                   ACTIONDATA::PIECE(11, 0, 90, 1, 0, 0, -9, 0), ACTIONDATA::PIECE(11, 1, 90, 1, 0, 0, -20, 0),
+                   ACTIONDATA::PIECE(11, 2, 90, 1, 0, 0, -15, 0), ACTIONDATA::PIECE(11, 2, 180, 1, 0, 0, -15, 0),
+               }),
+    ACTIONDATA(0, 1, 1350, L"vampire", {
+                   ACTIONDATA::PIECE(4, 0, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 450, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"float", {ACTIONDATA::PIECE(4, 0, 1320, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 180, L"swingT2PoleArm", {
+                   ACTIONDATA::PIECE(10, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(10, 1, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(10, 2, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"swingP1PoleArm", {
+                   ACTIONDATA::PIECE(13, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(13, 1, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(13, 2, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"swingP2PoleArm", {
+                   ACTIONDATA::PIECE(14, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(14, 1, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(14, 2, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 90, L"doubleSwing", {
+                   ACTIONDATA::PIECE(14, 2, 90, 1, 0, 0, 11, -1), ACTIONDATA::PIECE(15, 0, 90, 1, 1, 0, -2, 0),
+                   ACTIONDATA::PIECE(21, 0, 60, 1, 1, 0, -53, 11), ACTIONDATA::PIECE(21, 2, 90, 1, 1, 0, -54, 11),
+                   ACTIONDATA::PIECE(21, 2, 90, 1, 1, 0, -56, 14),
+               }),
+    ACTIONDATA(0, 1, 330, L"tripleSwing", {
+                   ACTIONDATA::PIECE(15, 1, 60, 1, 0, 0, -32, 0), ACTIONDATA::PIECE(41, 0, 60, 1, 0, 90, -55, -31),
+                   ACTIONDATA::PIECE(41, 0, 60, 1, 1, 90, 31, -45), ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -41, -30),
+                   ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -45, -36), ACTIONDATA::PIECE(14, 2, 120, 1, 0, 0, -41, 0),
+                   ACTIONDATA::PIECE(14, 2, 120, 1, 0, 0, -41, 1), ACTIONDATA::PIECE(14, 2, 90, 1, 0, 0, -41, 2),
+               }),
+    ACTIONDATA(0, 1, 90, L"fullSwingDouble", {
+                   ACTIONDATA::PIECE(20, 2, 90, 1, 0, 0, -9, 0), ACTIONDATA::PIECE(20, 2, 60, 1, 0, 0, -9, 0),
+                   ACTIONDATA::PIECE(19, 0, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(19, 2, 150, 1, 0, 0, -25, 0),
+               }),
+    ACTIONDATA(0, 1, 330, L"fullSwingTriple", {
+                   ACTIONDATA::PIECE(10, 0, 60, 1, 0, 90, -84, -85), ACTIONDATA::PIECE(10, 0, 60, 1, 0, 180, -57, -152),
+                   ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -42, -51), ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -42, -55),
+                   ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -42, -56), ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, -34, 0),
+                   ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, -34, 1), ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, -34, 2),
+               }),
+    ACTIONDATA(0, 1, 90, L"overSwingDouble", {
+                   ACTIONDATA::PIECE(15, 3, 90, 1, 1, 0, -41, 0), ACTIONDATA::PIECE(19, 2, 90, 1, 0, 0, 22, 0),
+                   ACTIONDATA::PIECE(15, 3, 120, 1, 1, 0, -57, 0), ACTIONDATA::PIECE(19, 2, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 330, L"overSwingTriple", {
+                   ACTIONDATA::PIECE(21, 2, 30, 1, 1, 0, -67, -18), ACTIONDATA::PIECE(21, 2, 60, 1, 0, 0, -29, -38),
+                   ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -29, -54), ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -29, -57),
+                   ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -29, -59), ACTIONDATA::PIECE(15, 2, 60, 1, 0, 0, -29, -60),
+                   ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, -33, 0), ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, -33, 1),
+                   ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, -33, 2),
+               }),
+    ACTIONDATA(0, 1, 360, L"rollingSpin", {
+                   ACTIONDATA::PIECE(19, 2, 120, 1, 1, 0, -33, -21), ACTIONDATA::PIECE(19, 2, 120, 1, 0, 0, 27, -29),
+                   ACTIONDATA::PIECE(19, 2, 120, 1, 1, 0, -33, -35), ACTIONDATA::PIECE(19, 2, 120, 1, 0, 0, 27, -39),
+                   ACTIONDATA::PIECE(21, 2, 120, 1, 0, 0, 13, -17), ACTIONDATA::PIECE(21, 2, 120, 1, 0, 0, 13, -22),
+                   ACTIONDATA::PIECE(21, 2, 120, 1, 0, 0, 13, -7),
+               }),
+    ACTIONDATA(0, 1, 360, L"comboSmash", {
+                   ACTIONDATA::PIECE(8, 2, 120, 1, 0, 0, 39, -12), ACTIONDATA::PIECE(8, 1, 120, 0, 0, 0, 34, -18),
+                   ACTIONDATA::PIECE(8, 2, 120, 1, 1, 0, 4, -14), ACTIONDATA::PIECE(20, 2, 120, 1, 0, 0, 38, 0),
+                   ACTIONDATA::PIECE(20, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(20, 2, 600, 1, 0, 0, -2, 0),
+               }),
+    ACTIONDATA(0, 1, 900, L"comboFenrir", {
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(10, 0, 90, 1, 0, 0, 3, 0),
+                   ACTIONDATA::PIECE(10, 1, 90, 1, 0, 0, 3, 0), ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 45, 0),
+                   ACTIONDATA::PIECE(14, 2, 90, 1, 0, 0, 33, 0), ACTIONDATA::PIECE(21, 2, 90, 1, 0, 0, 60, 16),
+                   ACTIONDATA::PIECE(21, 2, 360, 1, 0, 0, 61, 16), ACTIONDATA::PIECE(20, 2, 90, 1, 0, 0, -82, 0),
+                   ACTIONDATA::PIECE(20, 2, 540, 1, 0, 0, -87, 0),
+               }),
+    ACTIONDATA(0, 1, 2400, L"comboTempest", {
+                   ACTIONDATA::PIECE(4, 0, 1200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 1200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 600, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 120, L"finalCharge", {
+                   ACTIONDATA::PIECE(21, 2, 120, 1, 0, 0, 13, 14), ACTIONDATA::PIECE(21, 2, 120, 1, 0, 0, 14, 13),
+                   ACTIONDATA::PIECE(20, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(20, 2, 120, 1, 1, 0, -56, 0),
+                   ACTIONDATA::PIECE(20, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(20, 2, 90, 1, 1, 0, -56, 0),
+                   ACTIONDATA::PIECE(20, 2, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(20, 2, 90, 1, 1, 0, -56, 0),
+                   ACTIONDATA::PIECE(20, 2, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(20, 2, 60, 1, 0, 0, -2, 0),
+                   ACTIONDATA::PIECE(20, 2, 60, 1, 0, 0, -1, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"combatStep", {
+                   ACTIONDATA::PIECE(1, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(1, 1, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(1, 2, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(1, 3, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 540, L"finalBlow", {
+                   ACTIONDATA::PIECE(10, 2, 90, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -2, -12),
+                   ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -2, -33), ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -2, -40),
+                   ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -2, -41), ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, -2, -40),
+                   ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 23, 6), ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 23, 7),
+                   ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 23, 2),
+               }),
+    ACTIONDATA(0, 1, 90, L"finalToss", {
+                   ACTIONDATA::PIECE(15, 3, 90, 1, 0, 0, 47, 0), ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, 14, -54),
+                   ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, 14, -60), ACTIONDATA::PIECE(15, 2, 90, 1, 0, 0, 14, -63),
+                   ACTIONDATA::PIECE(15, 2, 30, 1, 0, 0, 14, -64), ACTIONDATA::PIECE(14, 0, 30, 1, 0, 0, 0, -74),
+               }),
+    ACTIONDATA(0, 1, 480, L"magicmissile", {
+                   ACTIONDATA::PIECE(0, 1, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 10, 0),
+                   ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 11, 0), ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, 11, 0),
+                   ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 11, 0), ACTIONDATA::PIECE(7, 2, 210, 1, 0, 0, 10, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"lightingBolt", {
+                   ACTIONDATA::PIECE(4, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 9, 0),
+                   ACTIONDATA::PIECE(6, 2, 120, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(6, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(6, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"dragonBreathe", {
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -23, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -35, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -40, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -42, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -43, 0), ACTIONDATA::PIECE(16, 1, 360, 1, 0, 0, -44, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, -10, 0), ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"breathe_prepare", {ACTIONDATA::PIECE(0, 0, 1, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"dragonIceBreathe", {
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -23, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -35, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -40, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -42, 0),
+                   ACTIONDATA::PIECE(16, 1, 270, 1, 0, 0, -43, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, -10, 0),
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"icebreathe_prepare", {ACTIONDATA::PIECE(0, 0, 1, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 480, L"blaze", {
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 4, 0),
+                   ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 6, 0), ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 7, 0),
+                   ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -2, 0), ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -6, 0),
+                   ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -8, 0), ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -9, 0),
+                   ACTIONDATA::PIECE(16, 1, 120, 1, 0, 0, -9, 0), ACTIONDATA::PIECE(4, 0, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 240, L"fireCircle", {
+                   ACTIONDATA::PIECE(0, 1, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 10, 0),
+                   ACTIONDATA::PIECE(16, 0, 240, 1, 0, 0, 11, 0), ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, -9, 0),
+                   ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, -8, 0), ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, -9, 0),
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1170, L"illusion", {
+                   ACTIONDATA::PIECE(4, 0, 270, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 15, 0),
+                   ACTIONDATA::PIECE(16, 0, 630, 1, 0, 0, 16, 0), ACTIONDATA::PIECE(7, 0, 90, 1, 0, 0, 8, 0),
+                   ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -13, 0), ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -19, 0),
+                   ACTIONDATA::PIECE(17, 1, 60, 1, 0, 0, -21, 0), ACTIONDATA::PIECE(17, 1, 240, 1, 0, 0, -22, 0),
+                   ACTIONDATA::PIECE(4, 1, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 420, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"magicFlare", {
+                   ACTIONDATA::PIECE(4, 0, 270, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 60, 1, 0, 0, 9, 0),
+                   ACTIONDATA::PIECE(6, 2, 60, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(6, 1, 210, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(6, 0, 600, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 960, L"elementalReset", {
+                   ACTIONDATA::PIECE(2, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 600, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, -4, 0), ACTIONDATA::PIECE(6, 0, 240, 1, 0, 0, -9, 0),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, -4, 0), ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(2, 0, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1080, L"magicRegistance", {
+                   ACTIONDATA::PIECE(2, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 0, 600, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 3, 0), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 7, 0),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 3, 0),
+                   ACTIONDATA::PIECE(4, 2, 480, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1440, L"recoveryAura", {
+                   ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(44, 0, 120, 1, 0, 0, 1, -42),
+                   ACTIONDATA::PIECE(44, 0, 120, 1, 0, 0, 1, -44), ACTIONDATA::PIECE(7, 1, 120, 1, 0, 0, 22, -38),
+                   ACTIONDATA::PIECE(6, 2, 480, 1, 0, 0, 8, 0), ACTIONDATA::PIECE(4, 2, 360, 1, 0, 0, 1, 0),
+               }),
+    ACTIONDATA(0, 1, 960, L"magicBooster", {
+                   ACTIONDATA::PIECE(2, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 600, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, -4, 0), ACTIONDATA::PIECE(6, 0, 240, 1, 0, 0, -9, 0),
+                   ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, -4, 0), ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(2, 0, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"magicShield", {
+                   ACTIONDATA::PIECE(2, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 2, 840, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(2, 0, 960, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 990, L"flameWheel", {
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 8, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 25, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 27, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 28, 0),
+                   ACTIONDATA::PIECE(16, 0, 450, 1, 0, 0, 29, 0), ACTIONDATA::PIECE(7, 0, 90, 1, 0, 0, 16, 0),
+                   ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -5, 0), ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -11, 0),
+                   ACTIONDATA::PIECE(17, 1, 90, 1, 0, 0, -13, 0), ACTIONDATA::PIECE(17, 1, 270, 1, 0, 0, -14, 0),
+                   ACTIONDATA::PIECE(4, 2, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 630, L"killingWing", {
+                   ACTIONDATA::PIECE(2, 0, 270, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 1, 90, 1, 0, 0, 10, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -11, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -13, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -13, 0), ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, 22, 0),
+                   ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, 28, 0), ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, 29, 0),
+                   ACTIONDATA::PIECE(6, 2, 450, 1, 0, 0, 12, 0), ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 960, L"OnixBlessing", {
+                   ACTIONDATA::PIECE(2, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 2, 840, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 240, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(2, 0, 840, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1170, L"Earthquake", {
+                   ACTIONDATA::PIECE(4, 1, 180, 1, 0, 0, -3, 0), ACTIONDATA::PIECE(4, 0, 360, 1, 0, 0, -3, 0),
+                   ACTIONDATA::PIECE(6, 1, 90, 1, 0, 0, -1, 0), ACTIONDATA::PIECE(6, 0, 450, 1, 0, 0, -4, 0),
+                   ACTIONDATA::PIECE(6, 2, 90, 1, 0, 0, -12, 0), ACTIONDATA::PIECE(6, 2, 90, 1, 0, 0, -15, 0),
+                   ACTIONDATA::PIECE(6, 2, 180, 1, 0, 0, -16, 0), ACTIONDATA::PIECE(6, 2, 90, 1, 0, 0, -12, 0),
+                   ACTIONDATA::PIECE(4, 0, 180, 1, 0, 0, -7, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"soulStone", {
+                   ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 1, 600, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, -2, 0), ACTIONDATA::PIECE(5, 2, 240, 1, 0, 0, -3, 0),
+                   ACTIONDATA::PIECE(4, 2, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 810, L"dragonThrust", {
+                   ACTIONDATA::PIECE(4, 2, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 540, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -23, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -40, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -43, 0),
+                   ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -44, 0), ACTIONDATA::PIECE(16, 1, 90, 1, 0, 0, -45, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, -11, 0), ACTIONDATA::PIECE(4, 2, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 900, L"ghostLettering", {
+                   ACTIONDATA::PIECE(4, 2, 180, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 1, 90, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 0, 630, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, 4, 0),
+                   ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, -2, 0), ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, -3, 0),
+                   ACTIONDATA::PIECE(5, 2, 90, 1, 0, 0, -4, 0), ACTIONDATA::PIECE(4, 2, 360, 1, 0, 0, 1, 0),
+               }),
+    ACTIONDATA(0, 1, 2340, L"darkFog", {
+                   ACTIONDATA::PIECE(4, 1, 360, 1, 0, 0, 8, 0), ACTIONDATA::PIECE(4, 2, 90, 1, 0, 0, 8, 0),
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 10, 0), ACTIONDATA::PIECE(6, 0, 1800, 1, 0, 0, 11, 0),
+                   ACTIONDATA::PIECE(6, 1, 90, 1, 0, 0, 9, 0), ACTIONDATA::PIECE(6, 2, 630, 1, 0, 0, 10, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"slow", {
+                   ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 0, 600, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(6, 1, 120, 1, 0, 0, 3, 0),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 6, 0), ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 3, 0),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 2, 0), ACTIONDATA::PIECE(4, 2, 480, 1, 0, 0, 1, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"mapleHero", {
+                   ACTIONDATA::PIECE(4, 2, 90, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 1, 90, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 0, 1350, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 2, 720, 1, 0, 0, 1, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"Awakening", {
+                   ACTIONDATA::PIECE(4, 2, 120, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(4, 0, 840, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(4, 2, 960, 1, 0, 0, 1, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flyingAssaulter", {
+                   ACTIONDATA::PIECE(15, 2, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 3, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 3, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(19, 2, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(19, 2, 120, 1, 1, 0, 0, 0), ACTIONDATA::PIECE(19, 2, 450, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(6, 0, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 120, L"tripleStab", {
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 1, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 2, 150, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 1, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 142, L"fatalBlow", {
+                   ACTIONDATA::PIECE(4, 0, 142, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 1, 270, 1, 0, 0, -90, 0),
+                   ACTIONDATA::PIECE(5, 0, 120, 1, 0, 0, -75, 0), ACTIONDATA::PIECE(5, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(5, 2, 120, 1, 0, 0, 21, 0), ACTIONDATA::PIECE(8, 2, 120, 1, 0, 0, 0, -65),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 0, -65), ACTIONDATA::PIECE(8, 2, 90, 1, 0, 0, 0, -65),
+                   ACTIONDATA::PIECE(8, 3, 300, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 240, L"slashStorm1", {
+                   ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 20, 0), ACTIONDATA::PIECE(16, 1, 120, 1, 1, 0, -39, 0),
+                   ACTIONDATA::PIECE(18, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 120, L"slashStorm2", {
+                   ACTIONDATA::PIECE(8, 3, 120, 1, 0, 0, 20, 0), ACTIONDATA::PIECE(16, 1, 120, 1, 1, 0, -39, 0),
+                   ACTIONDATA::PIECE(18, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 60, 0, 0, 0, 0, -47), ACTIONDATA::PIECE(8, 2, 90, 1, 0, 0, 0, -85),
+                   ACTIONDATA::PIECE(8, 3, 150, 1, 0, 0, 20, 0),
+               }),
+    ACTIONDATA(0, 1, 360, L"bloodyStorm", {
+                   ACTIONDATA::PIECE(4, 0, 0, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 0, 90, 1, 1, 180, 0, -101),
+                   ACTIONDATA::PIECE(8, 2, 90, 1, 1, 270, 47, -85), ACTIONDATA::PIECE(7, 0, 60, 1, 1, 0, -15, 0),
+                   ACTIONDATA::PIECE(8, 3, 60, 1, 0, 0, 20, 0), ACTIONDATA::PIECE(16, 1, 60, 1, 1, 0, -39, 0),
+                   ACTIONDATA::PIECE(18, 2, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 2, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 60, 0, 0, 0, 0, -47), ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, 0, -85),
+                   ACTIONDATA::PIECE(8, 3, 150, 1, 0, 0, 20, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flashBang", {
+                   ACTIONDATA::PIECE(7, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 1, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(7, 2, 330, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 240, L"upperStab", {
+                   ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 2, 120, 1, 0, 0, 0, -20), ACTIONDATA::PIECE(15, 2, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1350, L"suddenRaid", {
+                   ACTIONDATA::PIECE(4, 2, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 2, 360, 1, 0, 0, 20, -50),
+                   ACTIONDATA::PIECE(8, 3, 330, 1, 0, 0, 20, 0), ACTIONDATA::PIECE(4, 1, 210, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 1350, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"chainPull", {
+                   ACTIONDATA::PIECE(16, 1, 330, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(7, 1, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(16, 0, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"chainAttack", {
+                   ACTIONDATA::PIECE(5, 1, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 2, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, -35, -15), ACTIONDATA::PIECE(6, 1, 90, 1, 1, 0, -35, -15),
+                   ACTIONDATA::PIECE(8, 3, 90, 1, 1, 0, -75, 0), ACTIONDATA::PIECE(7, 1, 90, 1, 0, 0, -31, 0),
+                   ACTIONDATA::PIECE(8, 1, 90, 0, 0, 0, -55, -65), ACTIONDATA::PIECE(8, 3, 90, 1, 1, 0, -125, -95),
+                   ACTIONDATA::PIECE(7, 1, 90, 1, 0, 0, -55, -115), ACTIONDATA::PIECE(15, 2, 240, 1, 0, 0, -55, -130),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, -55, -145), ACTIONDATA::PIECE(5, 2, 270, 1, 0, 0, -55, -170),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, -55, -145), ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, -55, -24),
+                   ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, -55, 0), ACTIONDATA::PIECE(8, 1, 60, 0, 0, 0, -30, -45),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, -20, -45), ACTIONDATA::PIECE(8, 1, 60, 0, 0, 0, -10, -20),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 120, L"owlDead", {
+                   ACTIONDATA::PIECE(16, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(16, 0, 840, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(5, 0, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"monsterBombPrepare", {ACTIONDATA::PIECE(15, 1, 1200, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"monsterBombThrow", {
+                   ACTIONDATA::PIECE(8, 1, 150, 0, 0, 0, 0, -58), ACTIONDATA::PIECE(8, 2, 150, 1, 0, 0, 0, -115),
+                   ACTIONDATA::PIECE(5, 2, 150, 1, 0, 0, 0, -120), ACTIONDATA::PIECE(5, 2, 150, 1, 0, 0, 0, -115),
+                   ACTIONDATA::PIECE(8, 2, 150, 1, 0, 0, 0, -58), ACTIONDATA::PIECE(8, 3, 150, 1, 0, 0, 20, 0),
+                   ACTIONDATA::PIECE(15, 1, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"finalCut", {
+                   ACTIONDATA::PIECE(5, 2, 180, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(5, 2, 780, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"finalCutPrepare", {ACTIONDATA::PIECE(8, 0, 1200, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"cyclone_pre", {
+                   ACTIONDATA::PIECE(4, 1, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 180, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 10, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 11, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 13, 0), ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -6),
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -8), ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -12),
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -12), ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -14),
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -15), ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -15),
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -13), ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -11),
+               }),
+    ACTIONDATA(0, 1, 0, L"cyclone", {
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -13), ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -16),
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -18), ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -19),
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -20), ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -20),
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -19), ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -18),
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -16), ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -13),
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -11), ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -11),
+               }),
+    ACTIONDATA(0, 1, 0, L"cyclone_after", {
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -13), ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -12),
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 1, 0, -6, -11), ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 1, -9),
+                   ACTIONDATA::PIECE(12, 0, 90, 0, 0, 0, 1, -5), ACTIONDATA::PIECE(4, 0, 90, 1, 1, 0, -5, 1),
+                   ACTIONDATA::PIECE(4, 0, 90, 1, 0, 0, -1, 2), ACTIONDATA::PIECE(4, 1, 90, 1, 0, 0, 0, 1),
+                   ACTIONDATA::PIECE(4, 2, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"doubleJump", {ACTIONDATA::PIECE(48, 0, 720, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 450, L"knockback", {
+                   ACTIONDATA::PIECE(48, 0, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 600, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rbooster_pre", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rbooster", {
+                   ACTIONDATA::PIECE(4, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"rbooster_after", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 480, L"crossRoad", {
+                   ACTIONDATA::PIECE(48, 0, 480, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 840, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1680, L"nemesis", {
+                   ACTIONDATA::PIECE(4, 0, 840, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 840, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 2, 1560, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"wildbeast", {ACTIONDATA::PIECE(48, 0, 1530, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"siege_pre", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"siege", {
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"siege_stand", {
+                   ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"siege_after", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_pre", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 180, L"tank", {
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_stand", {
+                   ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_after", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_walk", {
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 660, L"tank_laser", {
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_siegepre", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_siegeattack", {
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_siegestand", {
+                   ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 150, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_siegeafter", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 1260, L"sonicBoom", {
+                   ACTIONDATA::PIECE(48, 0, 1260, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 720, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"revive", {
+                   ACTIONDATA::PIECE(4, 2, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 200, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 200, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 200, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 630, L"darkSpear", {
+                   ACTIONDATA::PIECE(6, 0, 90, 1, 0, 0, 6, 0), ACTIONDATA::PIECE(6, 1, 90, 1, 0, 0, 10, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 14, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 17, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 19, 0), ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 20, 0),
+                   ACTIONDATA::PIECE(16, 0, 90, 1, 0, 0, 20, 0), ACTIONDATA::PIECE(17, 1, 120, 1, 0, 0, 13, 0),
+                   ACTIONDATA::PIECE(17, 1, 960, 1, 0, 0, 12, 0),
+               }),
+    ACTIONDATA(0, 1, 630, L"darkChain", {
+                   ACTIONDATA::PIECE(7, 0, 70, 1, 0, 0, 4, 0), ACTIONDATA::PIECE(6, 2, 70, 1, 0, 0, 11, 0),
+                   ACTIONDATA::PIECE(6, 1, 70, 1, 0, 0, 9, 0), ACTIONDATA::PIECE(6, 0, 70, 1, 0, 0, 5, 0),
+                   ACTIONDATA::PIECE(6, 0, 350, 1, 0, 0, 5, 0), ACTIONDATA::PIECE(16, 0, 420, 1, 0, 0, 13, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flamethrower_pre", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flamethrower", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flamethrower_after", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flamethrower_pre2", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flamethrower2", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"flamethrower_after2", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"mbooster", {
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 100, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"msummon", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"msummon2", {
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"gatlingshot", {ACTIONDATA::PIECE(48, 0, 810, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"gatlingshot2", {ACTIONDATA::PIECE(48, 0, 810, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 90, L"drillrush", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 810, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 660, L"earthslug", {
+                   ACTIONDATA::PIECE(48, 0, 660, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 570, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 450, L"rpunch", {
+                   ACTIONDATA::PIECE(48, 0, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 660, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 450, L"clawCut", {
+                   ACTIONDATA::PIECE(48, 0, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 1080, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 810, L"swallow", {
+                   ACTIONDATA::PIECE(48, 0, 810, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 450, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"swallow_loop", {ACTIONDATA::PIECE(48, 0, 270, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 120, L"swallow_attack", {
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 600, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 810, L"swallow_pre", {ACTIONDATA::PIECE(48, 0, 810, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 1320, L"flashRain", {
+                   ACTIONDATA::PIECE(4, 0, 1320, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 1320, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"mine", {ACTIONDATA::PIECE(48, 0, 1350, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"capture", {
+                   ACTIONDATA::PIECE(32, 1, 90, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(32, 2, 90, 1, 0, 0, 1, 0),
+                   ACTIONDATA::PIECE(32, 3, 270, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(32, 4, 90, 1, 0, 0, 2, 0),
+                   ACTIONDATA::PIECE(32, 4, 90, 1, 0, 0, 1, 0), ACTIONDATA::PIECE(32, 3, 360, 1, 0, 0, 1, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"ride", {
+                   ACTIONDATA::PIECE(2, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(44, 0, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(44, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 720, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"getoff", {
+                   ACTIONDATA::PIECE(48, 0, 120, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(44, 0, 360, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 120, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(3, 0, 240, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"ride2", {
+                   ACTIONDATA::PIECE(4, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(44, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 1, 60, 0, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(44, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"getoff2", {
+                   ACTIONDATA::PIECE(48, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 240, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 240, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(44, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(8, 2, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(8, 1, 60, 0, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(44, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(15, 3, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(15, 3, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 30, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(4, 0, 30, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 0, 30, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"mRush", {ACTIONDATA::PIECE(48, 0, 180, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"tank_msummon", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 270, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_msummon2", {
+                   ACTIONDATA::PIECE(48, 0, 540, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 4140, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 960, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_mRush", {
+                   ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 90, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_rbooster_pre", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"tank_rbooster_after", {
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+                   ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(48, 0, 60, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 870, L"shockwave", {
+                   ACTIONDATA::PIECE(4, 0, 870, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 360, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 450, L"demolition", {
+                   ACTIONDATA::PIECE(4, 0, 450, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 2670, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 630, L"snatch", {
+                   ACTIONDATA::PIECE(4, 0, 630, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 180, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 660, L"windspear", {
+                   ACTIONDATA::PIECE(4, 0, 660, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 540, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 600, L"windshot", {
+                   ACTIONDATA::PIECE(4, 0, 600, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(4, 1, 660, 1, 0, 0, 0, 0),
+               }),
+    ACTIONDATA(0, 1, 0, L"fly2", {ACTIONDATA::PIECE(43, 1, 150, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 0, L"fly2Move", {ACTIONDATA::PIECE(43, 0, 150, 1, 0, 0, 0, 0),}),
+    ACTIONDATA(0, 1, 360, L"fly2Skill", {
+                   ACTIONDATA::PIECE(4, 0, 150, 1, 0, 0, 0, 0), ACTIONDATA::PIECE(21, 1, 210, 1, 0, 0, 0, 0),
+               }),
+
 };
+
 Ztl_bstr_t ActionData::m_saMorphActions[49]{};
 Ztl_bstr_t ActionData::m_saEmotionName[24]{};
 Ztl_bstr_t ActionData::m_sNpcAction[2]{};
 Ztl_bstr_t ActionData::m_sPetAction[34]{};
 Ztl_bstr_t ActionData::m_saEmployeeAction[1]{};
+Ztl_bstr_t ActionData::m_saMobAction[43]{};
+Ztl_bstr_t ActionData::m_saSummonedAction[19]{};
 
 /*void InitCharacterActionData() {
 	auto& strPool = StringPool::GetInstance();
@@ -415,9 +1424,35 @@ void CActionMan::Init()
         0x1AB8, 0x400, 0x401
     };
 
-    for (auto i = 0; i < emotionKeys.size(); ++i )
+    for (auto i = 0; i < emotionKeys.size(); ++i)
     {
         ActionData::m_saEmotionName[i] = sp.GetBSTR(emotionKeys[i]);
+    }
+
+    const std::array mobKeys = {
+        0x1AC2, 0x42b, 0x1abc, 0x1ab1, 0x432, 0x1acf, 0x453,
+        0x442, 0x443, 0x444, 0x450, 0x451, 0x452, 0x445,
+        0x446, 0x447, 0x448, 0x449, 0x44a, 0x44b, 0x44c, 0x44d,
+        0xadb, 0xadc, 0xadd, 0xade, 0xadf, 0xae0, 0xae1, 0xae2,
+        0xae3, 0xae4, 0xae5, 0xae6, 0xae7, 0xae8, 0xae9, 0xaea, 0xaeb,
+        0xd74, 0x14f8, 0x1ad3, 0x165
+    };
+
+    for (auto i = 0; i < mobKeys.size(); ++i)
+    {
+        ActionData::m_saMobAction[i] = sp.GetBSTR(mobKeys[i]);
+    }
+
+    const std::array summKeys = {
+        0x42B, 0x1ac2, 0x1ab1, 0x45e, 0x445, 0x446,
+        0x44e, 0xadb, 0xadc, 0xadd, 0xade, 0xadf,
+        0xae0, 0xab5, 0x165e, 0x1ab7, 0x44f, 0x1ad3,
+        0xac8
+    };
+
+    for (auto i = 0; i < summKeys.size(); ++i)
+    {
+        ActionData::m_saSummonedAction[i] = sp.GetBSTR(summKeys[i]);
     }
 
 
@@ -427,10 +1462,12 @@ void CActionMan::Init()
 }
 
 void CActionMan::LoadCharacterAction(long nAction, long nGender, long nSkin, long* aAvatarHairEquip,
-                                     ZArray<ZRef<CActionMan::CHARACTERACTIONFRAMEENTRY>>& apFE, long nWeaponStickerID, long nVehicleID,
+                                     ZArray<ZRef<CActionMan::CHARACTERACTIONFRAMEENTRY>>& apFE, long nWeaponStickerID,
+                                     long nVehicleID,
                                      int32_t bTamingMobTired, long nGhostIndex)
 {
-    __sub_00027D00(this, nullptr, nAction, nGender, nSkin, aAvatarHairEquip, apFE, nWeaponStickerID, nVehicleID, bTamingMobTired, nGhostIndex);
+    __sub_00027D00(this, nullptr, nAction, nGender, nSkin, aAvatarHairEquip, apFE, nWeaponStickerID, nVehicleID,
+                   bTamingMobTired, nGhostIndex);
     /*AHECODES code;
     code.nAction = nAction;
     auto& hairEq = code.aHair;
@@ -604,8 +1641,9 @@ int32_t CActionMan::load_character_action(long nAction, const long nSkin, const 
     }
 
     static Ztl_bstr_t bsCapHairVSlot = StringPool::GetInstance().GetBSTR(0x4A1);
-    for (auto i = 0; i < aFrame.GetCount(); i++) {
-    // TODO: &ghostIndex == aFrame.m_sExclVSlot ???
+    for (auto i = 0; i < aFrame.GetCount(); i++)
+    {
+        // TODO: &ghostIndex == aFrame.m_sExclVSlot ???
         aFrame[i].SetExclusiveVSlot(bsCapHairVSlot);
         //if(aFrame[i].m_sExclVSlot)
         //TODO assign vslot somehow
@@ -613,8 +1651,8 @@ int32_t CActionMan::load_character_action(long nAction, const long nSkin, const 
     return 1;
 
 
-
-    return __sub_00026CE0((CActionMan*)this, nullptr, nAction, nSkin, (long*)aAvatarHairEquip, aFrame, nWeaponStickerID, nGhostIndex);
+    return __sub_00026CE0((CActionMan*)this, nullptr, nAction, nSkin, (long*)aAvatarHairEquip, aFrame, nWeaponStickerID,
+                          nGhostIndex);
 }
 
 void CActionMan::LoadTamingMobAction(long b, long aFrame, long* arg2, int32_t arg3,
@@ -636,8 +1674,57 @@ ZRef<CActionMan::CHARACTERIMGENTRY> CActionMan::GetInfoImgEntry(long nUOLKey)
 
 ZRef<CActionMan::CHARACTERIMGENTRY> CActionMan::GetCharacterImgEntry(long nUOLKey)
 {
-    ZRef<CActionMan::CHARACTERIMGENTRY> ret;
-    return *__sub_00017FD0(this, nullptr, &ret, nUOLKey);
+    //ZRef<CActionMan::CHARACTERIMGENTRY> ret;
+    //return *__sub_00017FD0(this, nullptr, &ret, nUOLKey);
+    if (nUOLKey <= 0)
+        return {};
+    ZRef<CHARACTERIMGENTRY> img;
+    if (!m_mCharacterImgEntry.GetAt(nUOLKey, &img))
+    {
+        img = new CHARACTERIMGENTRY();
+        auto eq_path = get_equip_data_path(nUOLKey);
+        if (!eq_path.IsEmpty())
+        {
+            auto prop = get_rm()->GetObjectT<IWzProperty>(eq_path.c_str());
+            img->pImg = prop;
+
+            auto infoProp = prop->GetItemT<IWzProperty>(_GetBSTR(981));
+            img->sISlot = infoProp->Getitem(_GetBSTR(1177)).GetStr();
+            img->sVSlot = infoProp->Getitem(_GetBSTR(1178)).GetStr();
+            img->sSfx = infoProp->Getitem(_GetBSTR(1179)).GetStr();
+            img->bWeekly = infoProp->Getitem(_GetBSTR(1186)).GetInt32(0);
+            img->nWeapon = GetWeaponType(nUOLKey);
+            if (img->nWeapon)
+            {
+
+                img->sWeaponAfterimage = infoProp->Getitem(_GetBSTR(1180)).GetStr();
+                img->nWalk = infoProp->Getitem(_GetBSTR(1181)).GetInt32(0);
+                img->nStand = infoProp->Getitem(_GetBSTR(1067)).GetInt32(0);
+                img->nAttack = infoProp->Getitem(_GetBSTR(6814)).GetInt32(0);
+                img->nAttackSpeed = infoProp->Getitem(_GetBSTR(1182)).GetInt32(0);
+            }
+
+            m_lCharacterImgEntry.Insert(img);
+            img->posMap = (__POSITION*)m_mCharacterImgEntry.Insert(nUOLKey, img);
+        }
+    }
+
+
+    img->tLastAccessed = timeGetTime();
+    if (img->bWeekly)
+    {
+        auto day = CDayOfWeek::GetInstance()->GetCurrentDay();
+        auto path = get_weekly_data_path(nUOLKey, day);
+        if (!path.IsEmpty())
+        {
+            img->pWeeklyImg = get_rm()->GetObjectT<IWzProperty>(path.c_str());
+        }
+    }
+
+    if (!img->pWeeklyImg)
+        img->pWeeklyImg = img->pImg;
+
+    return img;
 }
 
 void CActionMan::LoadMorphAction(unsigned long dwTemplateID, long nAction,
@@ -652,9 +1739,168 @@ ZRef<CActionMan::MORPHIMGENTRY> CActionMan::GetMorphImgEntry(unsigned long dwTem
     return *__sub_00018B30(this, nullptr, &ret, dwTemplateID);
 }
 
-void CActionMan::LoadMobAction(unsigned long arg0, long arg1, ZList<ZRef<CActionMan::MOBACTIONFRAMEENTRY>>& arg2)
+template <typename T>
+_com_ptr_t<_com_IIID<T, &__uuidof(T)>> GetPropT(IWzProperty* prop, Ztl_bstr_t path)
 {
-    __sub_0001F530(this, nullptr, arg0, arg1, arg2);
+    auto vObj = prop->Getitem(path);
+    auto unk = get_unknown(vObj);
+    return _com_ptr_t<_com_IIID<T, &__uuidof(T)>>(unk);
+}
+
+int GetIntProp(IWzProperty* p, int spKey, int defaultValue = 0)
+{
+    auto vObj = p->Getitem(StringPool::GetInstance().GetBSTR(spKey));
+    return get_int32(vObj, defaultValue);
+}
+
+SECRECT PropGetRect(IWzProperty* prop)
+{
+    auto& sp = StringPool::GetInstance();
+    auto lt = prop->GetItemT<IWzVector2D>(sp.GetBSTR(6846));
+    auto rb = prop->GetItemT<IWzVector2D>(sp.GetBSTR(6859));
+
+    SECRECT rc{};
+    if (lt && rb)
+    {
+        auto ltx = lt->Getx();
+        auto lty = lt->Gety();
+        auto rbx = rb->Getx();
+        auto rby = rb->Gety();
+
+        SECRECT::SetRect(rc, ltx, lty, rbx, rby);
+    }
+    else
+    {
+        rc.SetRectEmpty();
+    }
+    return rc;
+}
+
+void CActionMan::LoadMobAction(unsigned long dwTemplateID, long nAction,
+                               ZList<ZRef<CActionMan::MOBACTIONFRAMEENTRY>>& lpFrame)
+{
+    //__sub_0001F530(this, nullptr, arg0, arg1, arg2);
+    auto key = nAction | (dwTemplateID << 8);
+
+    ZRef<MOBACTIONENTRY> entry;
+    if (m_mMobAction.GetAt(key, &entry))
+    {
+        entry->tLastAccessed = get_update_time();
+        lpFrame.RemoveAll();
+        lpFrame.AddTail(entry->lpFrame);
+        return;
+    }
+
+    auto imgEntry = GetMobImgEntry(dwTemplateID);
+    auto& mobActionName = ActionData::m_saMobAction[nAction];
+
+    auto prop = imgEntry->pImg->GetItemT<IWzProperty>(mobActionName);
+    IUnknown* enm{};
+    //TODO(game) might need to free
+    Z_CHECK_HR(prop->Get__NewEnum(&enm));
+    _x_com_ptr<IEnumVARIANT> penm((IEnumVARIANT*)enm);
+    ULONG fetched = 0;
+
+    Ztl_variant_t vName;
+
+    ZList<ZRef<MOBACTIONFRAMEENTRY>> frames;
+    auto& sp = StringPool::GetInstance();
+    while (penm->Next(1, &vName, &fetched) == S_OK)
+    {
+        auto name = DetachBSTR(vName);
+
+        if (dwTemplateID == 8800101)
+        {
+            if (nAction == 16)
+            {
+                // TODO(game) 0x1763, 0x1762 load either action if they are empty
+            }
+        }
+        // 8800101 + action== 16 same as above
+
+
+        //TODO get_unknown
+        auto canvas = GetPropT<IWzCanvas>(prop, name);
+        if (canvas)
+        {
+            auto canvasProp = canvas->Getproperty();
+
+            ZRef<MOBACTIONFRAMEENTRY> actionEntry(ZAllocHelper(1));
+            actionEntry->pCanvas = canvas;
+
+
+            actionEntry->tDelay = GetIntProp(canvasProp, 6825, 120); //delay
+            actionEntry->a0 = GetIntProp(canvasProp, 6808, -1); // a0
+            actionEntry->a1 = GetIntProp(canvasProp, 6809, -1); // a1
+            auto lt = canvasProp->GetItemT<IWzVector2D>(sp.GetBSTR(6846));
+            auto rb = canvasProp->GetItemT<IWzVector2D>(sp.GetBSTR(6859));
+
+
+            actionEntry->rcBody = PropGetRect(canvasProp);
+
+            auto multiBodyProp = canvasProp->GetItemT<IWzProperty>(sp.GetBSTR(5961));
+            if (multiBodyProp)
+            {
+                for (int i = 0; ; ++i)
+                {
+                    wchar_t mbKey[32]{};
+                    _itow_s(i, mbKey, 10);
+
+                    auto sprop = multiBodyProp->GetItemT<IWzProperty>(mbKey);
+                    if (!sprop)
+                    {
+                        break;
+                    }
+
+                    actionEntry->arcMultiBody.Insert(PropGetRect(sprop));
+                }
+            }
+
+            auto attackOnlyProp = canvasProp->GetItemT<IWzProperty>(sp.GetBSTR(2919));
+            if (attackOnlyProp)
+            {
+                for (int i = 0; ; ++i)
+                {
+                    wchar_t mbKey[32]{};
+                    _itow_s(i, mbKey, 10);
+
+                    auto sprop = attackOnlyProp->GetItemT<IWzProperty>(mbKey);
+                    if (!sprop)
+                    {
+                        break;
+                    }
+
+                    actionEntry->arcAttackOnlyBody.Insert(PropGetRect(sprop));
+                }
+            }
+
+            auto head = canvasProp->GetItemT<IWzVector2D>(sp.GetBSTR(6836));
+            if (head)
+            {
+                actionEntry->ptHead.x = head->Getx();
+                actionEntry->ptHead.y = head->Gety();
+            }
+            frames.Insert(actionEntry);
+        }
+    }
+
+
+    auto bZigZag = GetIntProp(prop, 1183, 0); //TODO zigzab
+
+    ZRef<MOBACTIONENTRY> mobActionEntry(ZAllocHelper(1));
+    mobActionEntry->lpFrame = frames;
+    mobActionEntry->nAction = nAction;
+    mobActionEntry->tLastAccessed = get_update_time();
+    mobActionEntry->dwTemplateID = dwTemplateID;
+
+    auto lPos = m_lMobAction.Insert(mobActionEntry);
+    auto mPos = m_mMobAction.Insert(key, mobActionEntry);
+
+    mobActionEntry->posList = (__POSITION*)lPos;
+    mobActionEntry->posMap = (__POSITION*)mPos;
+
+    lpFrame.RemoveAll();
+    lpFrame.AddTail(frames);
 }
 
 ZRef<CActionMan::MOBIMGENTRY> CActionMan::GetMobImgEntry(unsigned long dwTemplateID)
@@ -664,7 +1910,7 @@ ZRef<CActionMan::MOBIMGENTRY> CActionMan::GetMobImgEntry(unsigned long dwTemplat
 }
 
 void CActionMan::LoadNpcAction(CNpcTemplate* pTemplate, long nAction,
-                               ZList<ZRef<CActionMan::NPCACTIONFRAMEENTRY>>& lpFrame, long nClientActionIdx)
+                               ZList<ZRef<NPCACTIONFRAMEENTRY>>& lpFrame, long nClientActionIdx)
 {
     auto& sp = StringPool::GetInstance();
     auto actIx = nClientActionIdx;
@@ -714,8 +1960,13 @@ void CActionMan::LoadNpcAction(CNpcTemplate* pTemplate, long nAction,
             auto sName = DetachBSTR(name);
             auto item = prop->Getitem(sName);
             auto unkItem = get_unknown(item);
+            if (!unkItem)
+                continue;
             _x_com_ptr<IWzCanvas> pCanvas(unkItem.op_arrow()); //TODO correct?
 
+
+            if (!pCanvas)
+                continue;
 
             auto canvasProp = pCanvas->Getproperty();
             auto delayStr = canvasProp->Getitem(StringPool::GetInstance().GetBSTR(0x1aa9));
@@ -728,6 +1979,12 @@ void CActionMan::LoadNpcAction(CNpcTemplate* pTemplate, long nAction,
                 frame->nDelay = delay;
                 frame->pCanvas = pCanvas;
             }
+        }
+
+        auto zigZag = GetIntProp(prop, 1183, 0);
+        if (zigZag)
+        {
+            //TODO zigzag, add frames in reverse order as tail
         }
 
 
@@ -747,7 +2004,7 @@ ZRef<CActionMan::NPCIMGENTRY> CActionMan::GetNpcImgEntry(unsigned long dwTemplat
 {
     /*auto& sp = StringPool::GetInstance();
     auto fmt = sp.GetStringW(0x3CF);
-    auto npcKey = ZXString<unsigned short>::FromFmt(fmt.c_str(), dwTemplateID);
+    auto npcKey = ZXString16::FromFmt(fmt.c_str(), dwTemplateID);
 
 
     ZRef<NPCIMGENTRY> npc;
@@ -796,7 +2053,67 @@ ZRef<CActionMan::EMPLOYEEIMGENTRY> CActionMan::GetEmployeeImgEntry(unsigned long
 void CActionMan::LoadSummonedAction(long nSkillID, long nSLV, long nAction,
                                     ZList<ZRef<CActionMan::SUMMONEDACTIONFRAMEENTRY>>& lpFrame)
 {
-    __sub_00023100(this, nullptr, nSkillID, nSLV, nAction, lpFrame);
+    //__sub_00023100(this, nullptr, nSkillID, nSLV, nAction, lpFrame);
+    ActionKey actKey(nSkillID, nSLV, nAction);
+    ZRef<SUMMONEDACTIONENTRY> entry;
+    if (m_mSummonedAction.GetAt(actKey, &entry))
+    {
+        lpFrame.RemoveAll();
+        lpFrame.AddTail(entry->lpFrame);
+        return;
+    }
+
+    entry = new SUMMONEDACTIONENTRY();
+    entry->nSkillID = nSkillID;
+    entry->nSLV = nSLV;
+    entry->nAction = nAction;
+
+    auto prop = GetSummonedProp(nSkillID, nSLV);
+    auto actProp = prop->GetItemT<IWzProperty>(ActionData::m_saSummonedAction[nAction]);
+
+    EnumVariantWrapper enm(actProp);
+    for (Ztl_variant_t& v : enm)
+    {
+        auto sKey = v.GetStr();
+        auto item = actProp->Getitem(sKey);
+        auto unk = get_unknown(item);
+        if (!unk)
+            continue;
+
+        _x_com_ptr<IWzCanvas> canvas(unk.op_arrow());
+
+
+        ZRef<SUMMONEDACTIONFRAMEENTRY> frame(ZAllocHelper(1));
+        frame->pCanvas = canvas;
+
+        auto canvasProp = canvas->Getproperty();
+        frame->tDelay = GetIntProp(canvasProp, 6825, 120);
+        frame->a0 = GetIntProp(canvasProp, 6808, -1);
+        frame->a1 = GetIntProp(canvasProp, 6809, -1);
+        auto lt = canvasProp->GetItemT<IWzVector2D>(StringPool::GetInstance().GetBSTR(6846));
+        auto rb = canvasProp->GetItemT<IWzVector2D>(StringPool::GetInstance().GetBSTR(6859));
+
+        if (lt && rb)
+        {
+            frame->rcBody.Set(lt->Getx(), lt->Gety(), rb->Getx(), rb->Gety());
+        }
+        else
+        {
+            frame->rcBody.SetEmpty();
+        }
+
+        entry->lpFrame.AddTail(frame);
+    }
+
+    auto zigZag = GetIntProp(actProp, 1183, 0);
+    entry->bZigZag = zigZag;
+    //TODO(game) zigzagh
+
+    entry->posList = (__POSITION*)m_lSummonedAction.Insert(entry);
+    entry->posMap = (__POSITION*)m_mSummonedAction.Insert(actKey, entry);
+
+    lpFrame.RemoveAll();
+    lpFrame.AddTail(entry->lpFrame);
 }
 
 _x_com_ptr<IWzProperty> CActionMan::GetSummonedProp(long nSkillID, long nSLV)
@@ -829,7 +2146,23 @@ void CActionMan::CreateAfterimageLayer(Ztl_bstr_t sAfterimageUOL, long nAction, 
 
 void CActionMan::GetMeleeAttackRange(Ztl_bstr_t sAfterimageUOL, long nAction, tagRECT& rc)
 {
-    __sub_00028D00(this, nullptr, CreateNakedParam(sAfterimageUOL), nAction, rc);
+    //__sub_00028D00(this, nullptr, CreateNakedParam(sAfterimageUOL), nAction, rc);
+    if (nAction == 74)
+    {
+        SetRect(&rc, -88, -62, -18, -6);
+    }
+    else
+    {
+        //TODO fix this
+        /*if (nAction == 85)
+            nAction = 8;*/
+        if (nAction == 57)
+            nAction = 41;
+        if (const auto img = GetWeaponAfterImage(sAfterimageUOL))
+            rc = static_cast<tagRECT>(img->arcRange[nAction]);
+        else
+            SetRectEmpty(&rc);
+    }
 }
 
 void CActionMan::SweepCache()
@@ -852,6 +2185,65 @@ void CActionMan::MergeTamingMobSprite(ZArray<CActionFrame>& aFrame,
 CActionMan::MELEEATTACKAFTERIMAGE* CActionMan::GetWeaponAfterImage(Ztl_bstr_t arg0)
 {
     return __sub_00028080(this, nullptr, CreateNakedParam(arg0));
+    /*if (auto img = m_mAfterimage.GetAt(arg0, nullptr))
+    {
+        return img->op_arrow();
+    }
+
+    ZRef img(new MELEEATTACKAFTERIMAGE(), true);
+
+    auto prop = get_rm()->GetObjectT<IWzProperty>(arg0);
+
+    auto actIx = 0;
+    for (auto& act : ActionData::m_saCharacterActions)
+    {
+        auto item = prop->Getitem(act.bsName);
+        auto unk = get_unknown(item);
+        if (!unk)
+            continue;
+        //TODO(game) simplify this
+        _x_com_ptr<IWzProperty> actProp(unk.op_arrow());
+
+        auto lt = actProp->GetItemT<IWzVector2D>(_GetBSTR(6846));
+        auto rb = actProp->GetItemT<IWzVector2D>(_GetBSTR(6859));
+
+        if (lt && rb)
+        {
+            img->arcRange[actIx].Set(lt->Getx(), lt->Gety(), rb->Getx(), rb->Gety());
+        }
+        else
+        {
+            img->arcRange[actIx].SetEmpty();
+        }
+
+
+        EnumVariantWrapper enm(actProp);
+        for (Ztl_variant_t& cur: enm)
+        {
+            auto subProp = actProp->GetItemT<IWzProperty>(cur.GetStr());
+            auto n = subProp->Getcount();
+            auto& actCanvas = img->aapCanvas[actIx];
+            actCanvas.Alloc(n);
+        }
+
+
+        auto n = prop->Getcount();
+        auto& actCanvas = img->aapCanvas[actIx];
+        actCanvas.Alloc(n);
+        for (auto i = 0; i < n; ++i)
+        {
+            wchar_t key[32]{};
+            _itow_s(i, key, 10);
+            auto canvas = prop->GetItemT<IWzCanvas>(key);
+            if (canvas)
+                actCanvas[i] = canvas;
+        }
+
+        ++actIx;
+    }
+
+    m_mAfterimage.Insert(arg0, img);
+    return img.op_arrow();*/
 }
 
 CActionMan& CActionMan::operator=(const CActionMan& arg0)
@@ -998,12 +2390,11 @@ CActionMan::TAMINGMOBACTIONFRAMEENTRY& CActionMan::TAMINGMOBACTIONFRAMEENTRY::_o
 
 CActionMan::MELEEATTACKAFTERIMAGE::~MELEEATTACKAFTERIMAGE()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CActionMan::MELEEATTACKAFTERIMAGE::_dtor_0()
 {
-    return __sub_000256C0(this, nullptr);
+    this->~MELEEATTACKAFTERIMAGE();
 }
 
 CActionMan::MELEEATTACKAFTERIMAGE::MELEEATTACKAFTERIMAGE(const CActionMan::MELEEATTACKAFTERIMAGE& arg0)
@@ -1019,13 +2410,13 @@ void CActionMan::MELEEATTACKAFTERIMAGE::_ctor_1(const CActionMan::MELEEATTACKAFT
 
 CActionMan::MELEEATTACKAFTERIMAGE::MELEEATTACKAFTERIMAGE()
 {
-    UNIMPLEMENTED; //_ctor_0();
+    aapCanvas.Alloc(0x111);
+    arcRange.Alloc(0x111);
 }
 
 void CActionMan::MELEEATTACKAFTERIMAGE::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) MELEEATTACKAFTERIMAGE();
 }
 
 CActionMan::MELEEATTACKAFTERIMAGE& CActionMan::MELEEATTACKAFTERIMAGE::operator=(
@@ -1043,7 +2434,6 @@ CActionMan::MELEEATTACKAFTERIMAGE& CActionMan::MELEEATTACKAFTERIMAGE::_op_assign
 
 CActionMan::FACELOOKENTRY::~FACELOOKENTRY()
 {
-
 }
 
 void CActionMan::FACELOOKENTRY::_dtor_0()
@@ -1064,7 +2454,6 @@ void CActionMan::FACELOOKENTRY::_ctor_1(const CActionMan::FACELOOKENTRY& arg0)
 
 CActionMan::FACELOOKENTRY::FACELOOKENTRY()
 {
-
 }
 
 void CActionMan::FACELOOKENTRY::_ctor_0()
@@ -1288,7 +2677,6 @@ void CActionMan::MOBACTIONFRAMEENTRY::_ctor_1(const CActionMan::MOBACTIONFRAMEEN
 
 CActionMan::MOBACTIONFRAMEENTRY::MOBACTIONFRAMEENTRY()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CActionMan::MOBACTIONFRAMEENTRY::_ctor_0()
@@ -1311,7 +2699,6 @@ CActionMan::MOBACTIONFRAMEENTRY& CActionMan::MOBACTIONFRAMEENTRY::_op_assign_3(
 
 CActionMan::MOBACTIONENTRY::~MOBACTIONENTRY()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CActionMan::MOBACTIONENTRY::_dtor_0()
@@ -1332,7 +2719,6 @@ void CActionMan::MOBACTIONENTRY::_ctor_1(const CActionMan::MOBACTIONENTRY& arg0)
 
 CActionMan::MOBACTIONENTRY::MOBACTIONENTRY()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CActionMan::MOBACTIONENTRY::_ctor_0()
@@ -1749,7 +3135,6 @@ CActionMan::EMPLOYEEACTIONENTRY& CActionMan::EMPLOYEEACTIONENTRY::_op_assign_3(
 
 CActionMan::SUMMONEDACTIONFRAMEENTRY::~SUMMONEDACTIONFRAMEENTRY()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CActionMan::SUMMONEDACTIONFRAMEENTRY::_dtor_0()
@@ -1771,7 +3156,6 @@ void CActionMan::SUMMONEDACTIONFRAMEENTRY::_ctor_1(const CActionMan::SUMMONEDACT
 
 CActionMan::SUMMONEDACTIONFRAMEENTRY::SUMMONEDACTIONFRAMEENTRY()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CActionMan::SUMMONEDACTIONFRAMEENTRY::_ctor_0()
@@ -1795,7 +3179,6 @@ CActionMan::SUMMONEDACTIONFRAMEENTRY& CActionMan::SUMMONEDACTIONFRAMEENTRY::_op_
 
 CActionMan::SUMMONEDACTIONENTRY::~SUMMONEDACTIONENTRY()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CActionMan::SUMMONEDACTIONENTRY::_dtor_0()
@@ -1816,7 +3199,6 @@ void CActionMan::SUMMONEDACTIONENTRY::_ctor_1(const CActionMan::SUMMONEDACTIONEN
 
 CActionMan::SUMMONEDACTIONENTRY::SUMMONEDACTIONENTRY()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CActionMan::SUMMONEDACTIONENTRY::_ctor_0()

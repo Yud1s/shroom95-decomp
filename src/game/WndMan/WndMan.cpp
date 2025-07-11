@@ -1,5 +1,6 @@
 // WndMan.cpp
 #include "WndMan.hpp"
+#include <Windowsx.h>
 
 #include <Login/Login.hpp>
 
@@ -145,40 +146,26 @@ int32_t CWndMan::SetActiveWnd(CWnd* pWnd)
 
 void CWndMan::SetFocus(IUIMsgHandler* pHandler)
 {
-    if (m_pFocus == pHandler)
+    if ((!pHandler || pHandler->IsEnabled()) && this->m_pFocus != pHandler)
     {
-        return;
-    }
-
-    if (pHandler && !pHandler->IsEnabled())
-    {
-        return;
-    }
-
-    CCtrlWnd* pCtrl = nullptr;
-    CWnd* pWnd = nullptr;
-    if (pHandler)
-    {
-        if (pHandler->IsKindOf(&CCtrlWnd::ms_RTTI_CCtrlWnd))
+        CWnd* parent = nullptr;
+        auto ctrlWnd = dynamic_cast<CCtrlWnd*>(pHandler);
+        if (ctrlWnd)
         {
-            pCtrl = dynamic_cast<CCtrlWnd*>(pHandler);
-            pWnd = pCtrl->GetParent();
+            parent = ctrlWnd->GetParent();
         }
-        else if (pHandler->IsKindOf(&CWnd::ms_RTTI_CWnd))
+        else
         {
-            pWnd = dynamic_cast<CWnd*>(pHandler);
+            parent = dynamic_cast<CWnd*>(pHandler);
+        }
+
+        if (SetActiveWndImp(parent))
+        {
+            SetFocusImp(pHandler);
+            if (ctrlWnd)
+                parent->SetFocusChild(ctrlWnd);
         }
     }
-
-    if (SetActiveWndImp(pWnd))
-    {
-        SetFocusImp(pHandler);
-        if (pCtrl)
-        {
-            pWnd->SetFocusChild(pCtrl);
-        }
-    }
-    // TODO __sub_005B1A10(this, nullptr, pHandler);
 }
 
 void CWndMan::SetCaptureWnd(IUIMsgHandler* pHandler)
@@ -198,7 +185,7 @@ void CWndMan::ReleaseCaptureWnd(IUIMsgHandler* pHandler)
     //__sub_005B3030(this, nullptr, pHandler);
 }
 
-void CWndMan::GetCursorPos(tagPOINT* lpPoint, int32_t bField)
+void CWndMan::GetCursorPos(tagPOINT* lpPoint, int32_t bField) const
 {
     const auto inpSys = CInputSystem::ms_pInstance;
     if (!inpSys)
@@ -216,6 +203,13 @@ void CWndMan::GetCursorPos(tagPOINT* lpPoint, int32_t bField)
     lpPoint->y += top->Gety();
 
     //__sub_005B1540(this, nullptr, lpPoint, bField);
+}
+
+tagPOINT CWndMan::GetCursorPosPt(bool bField) const
+{
+    tagPOINT pt{};
+    GetCursorPos(&pt, bField);
+    return pt;
 }
 
 void CWndMan::SetCursorPos(tagPOINT pt, int32_t bField)
@@ -355,268 +349,397 @@ void CWndMan::ClearDragContext()
     //__sub_005B3060(this, nullptr);
 }
 
-int32_t CWndMan::TranslateMessage(uint32_t& message, uint32_t& wParam, long& lParam, long* plResult)
+void setImmWnd(HIMC ctx, uint32_t m_dwIMEProperty)
 {
-    return __sub_005B5360(this, nullptr, message, wParam, lParam, plResult);
+    CANDIDATEFORM cdf{};
+    if ((m_dwIMEProperty & 0x10000) != 0)
+    {
+        cdf.dwIndex = 0;
+        cdf.dwStyle = 64;
+        cdf.ptCurrentPos.x = -GetSystemMetrics(0);
+        cdf.ptCurrentPos.y = -GetSystemMetrics(1);
+        ImmSetCandidateWindow(ctx, &cdf);
+    }
+    else
+    {
+        for (auto i = 0; i < 4; ++i)
+        {
+            if (ImmGetCandidateWindow(ctx, i, &cdf) && cdf.dwStyle)
+            {
+                cdf.dwStyle = 0;
+                ImmSetCandidateWindow(ctx, &cdf);
+            }
+        }
+    }
 }
+
+
+void immStartComp(HWND__* hWnd)
+{
+    if (auto ctx = ImmGetContext(hWnd))
+    {
+        COMPOSITIONFORM cdf{};
+        cdf.dwStyle = 2;
+        cdf.ptCurrentPos.x = -GetSystemMetrics(0);
+        cdf.ptCurrentPos.y = -GetSystemMetrics(1);
+        ImmSetCompositionWindow(ctx, &cdf);
+        ImmReleaseContext(hWnd, ctx);
+    }
+}
+
+
+int32_t CWndMan::TranslateMessage(uint32_t& msg, uint32_t& wParam, long& lParam, long* plResult)
+{
+    //return __sub_005B5360(this, nullptr, message, wParam, lParam, plResult);
+    auto inp = CInputSystem::GetInstance();
+    unsigned long specialFlag = 0;
+    unsigned long flag = 0;
+    bool isDown = msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN;
+    char c = 0;
+    switch (msg)
+    {
+    case WM_INPUTLANGCHANGEREQUEST:
+        return 1;
+    case WM_INPUTLANGCHANGE:
+        m_dwIMEProperty = ImmGetProperty(GetKeyboardLayout(0), 0);
+        if (const auto ctx = ImmGetContext(m_hWnd))
+        {
+            setImmWnd(ctx, m_dwIMEProperty);
+            ImmReleaseContext(this->m_hWnd, ctx);
+            SendIMEMode();
+        }
+        break;
+    case WM_KEYDOWN:
+    case WM_KEYUP:
+    case WM_SYSKEYDOWN:
+    case WM_SYSKEYUP:
+        if (!inp || inp->m_apDevice[0])
+        {
+            if (!m_pFocus || !m_pFocus->IsKindOf(&CCtrlEdit::ms_RTTI_CCtrlEdit))
+                return 0;
+        }
+
+        flag = isDown ? 0 : 0x80000000;
+        specialFlag = inp->GetSpecialKeyFlag();
+
+        lParam = flag | lParam & 0x1FF0000 | specialFlag;
+        msg = 256;
+        *plResult = ProcessKey(msg, wParam, lParam);
+        return *plResult;
+    case WM_CHAR:
+        // Cast required here toi unsigned later mby
+        c = static_cast<char>(wParam);
+        if (wParam != 13 && (c < 0x20 || c >= 0x7F))
+            return 1;
+        SendIMEResult(reinterpret_cast<const char*>(&wParam));
+        break;
+    case WM_IME_STARTCOMPOSITION:
+        if ((m_dwIMEProperty & 0x20000) == 0 || (m_dwIMEProperty & 0x10000) == 0)
+            return 1;
+        immStartComp(m_hWnd);
+        break;
+    case WM_IME_NOTIFY:
+        ProcessIMENotify(wParam);
+        if ((m_dwIMEProperty & 0x20000) == 0 && (m_dwIMEProperty & 0x10000) != 0)
+        {
+            *plResult = 0;
+            return 1;
+        }
+        break;
+    case WM_IME_COMPOSITION:
+        ProcessIMEComposition(lParam);
+        if ((m_dwIMEProperty & 0x20000) == 0 && (m_dwIMEProperty & 0x10000) != 0)
+        {
+            *plResult = 0;
+            return 1;
+        }
+        break;
+
+    case WM_MOUSEMOVE:
+    case WM_LBUTTONDOWN:
+    case WM_LBUTTONUP:
+    case WM_LBUTTONDBLCLK:
+    case WM_RBUTTONDOWN:
+    case WM_RBUTTONUP:
+    case WM_RBUTTONDBLCLK:
+    case WM_MOUSEWHEEL:
+        if (!inp || inp->m_apDevice[1])
+            return 0;
+        if (msg != WM_MOUSEWHEEL)
+            inp->SetCursorVectorPos(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+        *plResult = ProcessMouse(msg, wParam, lParam);
+        return 0;
+
+    default:
+        return 0;
+    }
+
+    *plResult = DefWindowProc(m_hWnd, msg, wParam, lParam);
+    return 1;
+}
+
+int calcWheelDelta(uint32_t wParam)
+{
+    return (GET_WHEEL_DELTA_WPARAM(wParam) + 60) / 120;
+}
+
 
 long CWndMan::ProcessMouse(uint32_t message, uint32_t wParam, long lParam)
 {
-    /*auto oldX = m_ptCursor.x;
-    auto oldY = m_ptCursor.y;
-
-    tagPOINT pt{};
-    GetCursorPos(&pt, 0);
+    auto inp = CInputSystem::GetInstance();
+    auto oldPt = m_ptCursor.op_tagpoint();
+    auto pt = GetCursorPosPt(false);
     m_ptCursor = pt;
 
-    auto inpSys = CInputSystem::GetInstance();
-    auto handler = GetHandlerFromPoint(pt.x, pt.y);
-
     long rx = 0, ry = 0;
-    if (handler) {
+    auto handler = GetHandlerFromPoint(pt.x, pt.y);
+    if (handler)
+    {
         rx = pt.x - handler->GetAbsLeft();
         ry = pt.y - handler->GetAbsTop();
     }
 
-    if (m_pDragWnd) {
-        auto layer = m_pDragWnd->GetLayer();
-        layer->RelOffset(pt.x - oldX, pt.y - oldY, vtMissing, vtMissing);
-        m_pDragWnd->OnMoveWnd(m_pDragWnd->GetAbsLeft(), m_pDragWnd->GetAbsTop());
-        if (inpSys->IsKeyPressed(1)) {
+    if (m_pDragWnd)
+    {
+        auto layer = GetLayer();
+        layer->RelOffset(pt.x - oldPt.x, pt.y - oldPt.y, vtMissing, vtMissing);
+
+        auto t = m_pDragWnd->GetAbsTop();
+        auto l = m_pDragWnd->GetAbsLeft();
+        m_pDragWnd->OnMoveWnd(l, t);
+
+        if (inp->IsKeyPressed(1))
             return 0;
-        }
 
         m_pDragWnd->OnEndMoveWnd();
         m_pDragWnd = nullptr;
     }
 
-    if (m_ctxDrag.pObj) {
-        auto obj = m_ctxDrag.pObj;
-        obj->m_pLayer->RelOffset(pt.x - oldX, pt.y - oldY, vtMissing, vtMissing);
-        if (handler != m_pCursorHandler) {
-            if (m_pCursorHandler) {
-                m_pCursorHandler->OnDraggableMove(0, obj.op_ptr(), 0, 0);
-            }
+
+    if (auto dragObj = m_ctxDrag.pObj)
+    {
+        dragObj->m_pLayer->RelOffset(pt.x - oldPt.x, pt.y - oldPt.y, vtMissing, vtMissing);
+        if (m_pCursorHandler != handler)
+        {
+            if (m_pCursorHandler)
+                m_pCursorHandler->OnDraggableMove(0, dragObj.op_arrow(), 0, 0);
             m_pCursorHandler = handler;
-            if (handler) {
-                handler->OnDraggableMove(1, obj.op_ptr(), rx, ry);
+            if (handler)
+            {
+                handler->OnDraggableMove(1, dragObj.op_arrow(), rx, ry);
             }
         }
 
-        if (handler) {
-            if (handler->IsEnabled()) {
-                auto delta = GET_WHEEL_DELTA_WPARAM(wParam);
-                handler->OnMouseWheel(rx, ry, delta);
-            }
-            handler->OnDraggableMove(2, obj.op_ptr(), rx, ry);
+        if (message == WM_MOUSEWHEEL && handler)
+        {
+            if (handler->IsEnabled())
+                handler->OnMouseWheel(rx, rx, calcWheelDelta(wParam)); //TODO(game) wparam
+            return 0;
         }
 
-        if (message == WM_LBUTTONDBLCLK) {
-            EndDragDrop(rx, ry, 1);
-        } else if(message == WM_LBUTTONUP && m_bDropByMouseUp) {
-            EndDragDrop(rx, ry, 0);
-        } else if(message == WM_LBUTTONDOWN && !m_bDropByMouseUp) {
-            inpSys->SetCursorState(0);
+        if (message == WM_LBUTTONDOWN || (m_bDropByMouseUp && WM_LBUTTONUP))
+        {
+            EndDragDrop(rx, ry, false);
         }
+        else if (message == WM_LBUTTONDBLCLK)
+        {
+            EndDragDrop(rx, ry, true);
+        }
+
         return 0;
     }
 
 
-    // Replace handler if required
-    if (handler != m_pCursorHandler) {
-        if (m_pCursorHandler) {
+    if (m_pCursorHandler != handler)
+    {
+        if (m_pCursorHandler)
             m_pCursorHandler->OnMouseEnter(false);
-        }
         m_pCursorHandler = handler;
-        // Only continue if the handler is set and enabled
-        if(!handler || !handler->IsEnabled()) {
+        if (!handler)
             return 0;
-        }
-
-        handler->OnMouseEnter(true);
+        if (handler->IsEnabled())
+            handler->OnMouseEnter(true);
     }
 
-    if (handler) {
-        ms_tLastMouseMessage = timeGetTime();
-        auto cs = inpSys->GetCursorState();
-        switch (message) {
-            case WM_MOUSEMOVE:
-                if (!inpSys->IsCursorShown()) {
-                    inpSys->ShowCursor(true);
-                }
-                if (handler->IsEnabled()) {
-                    handler->OnMouseMove(rx, ry);
-                }
-                break;
-            case WM_MOUSEWHEEL:
-                if (handler->IsEnabled()) {
-                    auto delta = GET_WHEEL_DELTA_WPARAM(wParam);
-                    //TODO auto v = wParam >> 0x10;
-                     //v = (v * 0x77777777 >> 0x20) - v;
-                     //auto wheel = (v >> 6) - (v >> 0x1f);
-                    //TODO verify
-                    handler->OnMouseWheel(rx, ry, delta);
-                }
-                break;
-            case WM_LBUTTONDOWN:
-                if(cs == 7 || cs == 8) {
-                    cs += 2;
-                } else {
-                    cs = 12;
-                }
-                inpSys->SetCursorState(cs);
-                SetFocus(handler);
-                if (handler->IsKindOf(&CWnd::ms_RTTI_CWnd)) {
-                    auto wnd = dynamic_cast<CWnd *>(handler);
-                    // Check if we hit a window, then just drag it
-                    if (wnd->HitTest(rx, ry, nullptr)) {
-                        m_pDragWnd = wnd;
-                        return 0;
-                    }
-                }
-                // Else invoke the mouse button on the handler
-                if (handler->IsEnabled()) {
-                    handler->OnMouseButton(message, wParam, rx, ry);
-                }
-                break;
-
-            case WM_LBUTTONUP:
-                if (cs == 9 || cs == 10 || cs == 12) {
-                    inpSys->SetCursorState(-1);
-                }
-            default:
-                if(handler->IsEnabled()) {
-                    handler->OnMouseButton(message, wParam, rx, ry);
-                }
-                break;
-        }
+    if (!handler)
+    {
+        return 0;
     }
 
-    return 0;*/
+    rx = pt.x - handler->GetAbsLeft();
+    ry = pt.y - handler->GetAbsTop();
+    ms_tLastMouseMessage = timeGetTime();
+    if (message == WM_MOUSEMOVE)
+    {
+        if (!inp->IsCursorShown())
+            inp->ShowCursor(true);
+        if (handler->IsEnabled())
+            handler->OnMouseMove(rx, ry);
+    }
+    else if (message == WM_MOUSEWHEEL)
+    {
+        if (handler->IsEnabled())
+            handler->OnMouseWheel(rx, rx, calcWheelDelta(wParam)); //TODO(game) wparam
+    }
+    else if (message == WM_LBUTTONDOWN)
+    {
+        auto curState = inp->GetCursorState();
+        auto state = curState == 7 ? 9 : curState == 8 ? 10 : 12;
+        inp->SetCursorState(state);
+        SetFocus(handler);
+        if (auto wnd = dynamic_cast<CWnd*>(handler))
+        {
+            if (wnd->HitTest(rx, ry, nullptr) == 1)
+            {
+                m_pDragWnd = wnd;
+                return 0;
+            }
+        }
+    }
+    else if (message == WM_LBUTTONUP)
+    {
+        auto curState = inp->GetCursorState();
+        if (curState == 9 || curState == 10 || curState == 12)
+            inp->SetCursorState(-1);
+    }
 
-    return __sub_005B3BE0(this, nullptr, message, wParam, lParam);
+
+    if (handler->IsEnabled())
+        handler->OnMouseButton(message, wParam, rx, ry);
+
+    return 0;
+
+    //return __sub_005B3BE0(this, nullptr, message, wParam, lParam);
 }
 
 
 long CWndMan::ProcessKey(uint32_t message, uint32_t wParam, long lParam)
 {
-    if (lParam >= 0)
+    if (lParam < 0)
     {
-        // check for f9
-        if (wParam == VK_F9)
+        if (!m_pFocus)
         {
-
-            spdlog::info("Focus wnd: {}", m_pFocus != nullptr);
-
-            spdlog::info("Wndman info:");
-
-
-            auto focus = GetFocus();
-            if (auto focusWnd = dynamic_cast<CCtrlWnd*>(focus))
-            {
-                auto wnd = focusWnd->GetParent();
-                wnd->PrintInfoTree(0);
-            }
-            else if (auto focusWnd = dynamic_cast<CWnd*>(focus))
-            {
-                focusWnd->PrintInfoTree(0);
-            }
+            SetFocus(this);
         }
 
-
-
-
-        if (wParam == VK_F10)
+        if (m_pFocus && m_pFocus->IsEnabled())
         {
-            /*spdlog::info("Wndman(all) info:");
-            for (const auto wnd: ms_lpWindow)
-            {
-                spdlog::info("-------------");
-                wnd->PrintInfoTree(0);
-            }*/
-
-            auto gr = get_gr();
-            auto center = gr->Getcenter();
-
-            auto x = center->Getx();
-            auto y = center->Gety();
-            spdlog::info("x: {}", x);
-            center->Putx(x + 50);
-            center->put_y(y);
+            m_pFocus->OnKey(wParam, lParam);
         }
+        return 0;
+    }
+    // check for f9
+    if (wParam == VK_F9)
+    {
+        /*spdlog::info("Focus wnd: {}", m_pFocus != nullptr);
 
-        if (wParam == VK_F11)
+        spdlog::info("Wndman info:");
+
+
+        auto focus = GetFocus();
+        if (auto focusWnd = dynamic_cast<CCtrlWnd*>(focus))
         {
-            /*spdlog::info("Wndman(all) info:");
-            for (const auto wnd: ms_lpWindow)
-            {
-                spdlog::info("-------------");
-                wnd->PrintInfoTree(0);
-            }*/
-
-            auto gr = get_gr();
-            auto center = gr->Getcenter();
-
-            auto x = center->Getx();
-            auto y = center->Gety();
-            spdlog::info("x: {}", x);
-            center->Putx(x);
-            center->put_y(y - 50);
+            auto wnd = focusWnd->GetParent();
+            wnd->PrintInfoTree(0);
         }
-
-        if (wParam == VK_SCROLL)
+        else if (auto focusWnd = dynamic_cast<CWnd*>(focus))
         {
-            const auto t = timeGetTime();
-            const auto statusBar = CUIStatusBar::GetInstance();
-            if (!m_tLastScrShot || t - m_tLastScrShot >= 1000 || !statusBar)
-            {
-                m_nScrShotCount = 1;
-            }
-            else
-            {
-                m_nScrShotCount++;
-            }
-            m_tLastScrShot = static_cast<long>(t);
+            focusWnd->PrintInfoTree(0);
+        }*/
 
-            if (m_nScrShotCount < 4)
-            {
-                CScreenShot::SaveFullScreenToJpg();
-            }
-            else if (m_nScrShotCount == 4 && statusBar)
-            {
-                statusBar->ChatLogAdd(
-                    "You cannot take screenshots right now",
-                    12,
-                    -1,
-                    0,
-                    {});
-            }
-            return 0;
-        }
-        else if (lParam & KF_EXTENDED)
+        COutPacket pkt(106);
+        pkt.Encode4(get_update_time());
+        pkt.Encode4(1000);
+        SendPacket(pkt);
+    }
+
+
+    if (wParam == VK_F10)
+    {
+        /*spdlog::info("Wndman(all) info:");
+        for (const auto wnd: ms_lpWindow)
         {
-            if (wParam == VK_RETURN)
-            {
-                const auto gr = get_gr();
-                SetFullScreen(gr->GetfullScreen());
-            }
-            else if (wParam == VK_F4)
-            {
-                if (CUILogoutGift::TryShowLogoutGiftDialog())
-                {
-                    PostQuitMessage(0);
-                }
-            }
-            else if (wParam == VK_F12)
-            {
-                get_gr()->ToggleFpsPanel();
-            }
-            return 0;
+            spdlog::info("-------------");
+            wnd->PrintInfoTree(0);
+        }*/
+
+        auto gr = get_gr();
+        auto center = gr->Getcenter();
+
+        auto x = center->Getx();
+        auto y = center->Gety();
+        spdlog::info("x: {}", x);
+        center->Putx(x + 50);
+        center->put_y(y);
+    }
+
+    if (wParam == VK_F11)
+    {
+        /*spdlog::info("Wndman(all) info:");
+        for (const auto wnd: ms_lpWindow)
+        {
+            spdlog::info("-------------");
+            wnd->PrintInfoTree(0);
+        }*/
+
+        auto gr = get_gr();
+        auto center = gr->Getcenter();
+
+        auto x = center->Getx();
+        auto y = center->Gety();
+        spdlog::info("x: {}", x);
+        center->Putx(x);
+        center->put_y(y - 50);
+    }
+
+    if (wParam == VK_SCROLL)
+    {
+        const auto t = timeGetTime();
+        const auto statusBar = CUIStatusBar::GetInstance();
+        if (!m_tLastScrShot || t - m_tLastScrShot >= 1000 || !statusBar)
+        {
+            m_nScrShotCount = 1;
         }
         else
         {
-            return 0;
+            m_nScrShotCount++;
         }
+        m_tLastScrShot = static_cast<long>(t);
+
+        if (m_nScrShotCount < 4)
+        {
+            CScreenShot::SaveFullScreenToJpg();
+        }
+        else if (m_nScrShotCount == 4 && statusBar)
+        {
+            statusBar->ChatLogAdd(
+                "You cannot take screenshots right now",
+                12,
+                -1,
+                0,
+                {});
+        }
+        return 0;
+    }
+    else if (lParam & KF_EXTENDED)
+    {
+        if (wParam == VK_RETURN)
+        {
+            const auto gr = get_gr();
+            SetFullScreen(gr->GetfullScreen());
+        }
+        else if (wParam == VK_F4)
+        {
+            if (CUILogoutGift::TryShowLogoutGiftDialog())
+            {
+                PostQuitMessage(0);
+            }
+        }
+        else if (wParam == VK_F12)
+        {
+            get_gr()->ToggleFpsPanel();
+        }
+        return 0;
     }
 
     if (!m_pFocus)
@@ -673,7 +796,7 @@ void __cdecl CWndMan::s_Update()
 void CWndMan::DestroyAll()
 {
     std::vector<CWnd*> windows;
-    for (auto wnd: ms_lpWindow)
+    for (auto wnd : ms_lpWindow)
     {
         windows.push_back(wnd);
     }
@@ -800,7 +923,7 @@ _x_com_ptr<IWzVector2D> CWndMan::GetOrgWindow(const CWnd::UIOrigin org)
     return m_pOrgWindow[org];
 }
 
-void CWndMan::OnKey(const uint32_t wParam, const uint32_t lParam)
+void CWndMan::OnKey(const uint32_t wParam, const int32_t lParam)
 {
     if (auto p = get_stage())
     {
@@ -1212,7 +1335,7 @@ void CWndMan::ResetOrgWindow()
         {
             y += h / 2;
         }
-        m_pOrgWindow[i]->RelMove(x, y, vtMissing, vtMissing);
+        Z_CHECK_HR(m_pOrgWindow[i]->RelMove(x, y, vtMissing, vtMissing));
     }
 
     //__sub_005B1AF0(this, nullptr);

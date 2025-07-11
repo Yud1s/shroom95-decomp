@@ -77,7 +77,7 @@ public:
         return GetData();
     }
 
-    operator T() const // NOLINT(*-explicit-constructor)
+    explicit operator T() const // NOLINT(*-explicit-constructor)
     {
         return GetData();
     }
@@ -85,6 +85,11 @@ public:
     bool operator==(const TSecType& other) const
     {
         return GetData() == other.GetData();
+    }
+
+    bool operator==(const T value) const
+    {
+        return GetData() == value;
     }
 
     TSecType& operator=(const T op)
@@ -209,8 +214,8 @@ Z_ASSERT_SIZE(TSecType<long>, (sizeof(size_t) * 3));
 
 
 struct SECPOINT {
-    TSecType<long> x{0};
     TSecType<long> y{0};
+    TSecType<long> x{0};
 
     SECPOINT() = default;
     SECPOINT(const SECPOINT& other) = default;
@@ -221,8 +226,8 @@ struct SECPOINT {
     explicit operator tagPOINT() const;
 
     void _ctor_default();
-    SECPOINT& op_assign_0(const SECPOINT& other);
-    SECPOINT& op_assign_1(const tagPOINT& pt);
+    SECPOINT& op_assign_1(const SECPOINT& other);
+    SECPOINT& op_assign_0(const tagPOINT& pt);
     [[nodiscard]] bool op_neq_tagpoint(const tagPOINT& pt) const;
     [[nodiscard]] tagPOINT op_tagpoint() const;
 };

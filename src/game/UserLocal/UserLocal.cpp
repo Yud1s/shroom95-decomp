@@ -1,10 +1,60 @@
 // UserLocal.cpp
 #include "UserLocal.hpp"
 
+bool __cdecl _IsRectEmpty(SECRECT& p)
+{
+    if (p._ZtlSecureGet_left() < p._ZtlSecureGet_right())
+        if (p._ZtlSecureGet_top() < p._ZtlSecureGet_bottom())
+            return false;
+
+    return true;
+}
+
+
+int aMobMove[7] = {
+    0x11,
+    6,
+    6,
+    6,
+    6,
+    0x1b
+};
+
+int aDelayForHashing[6] = {
+    0x3c, 0x14a, 0x1fe, 0x276, 0x2d0, 0x2ee
+};
+
+int aDelayForHashing_0[6] = {
+    0x3c, 0x14a, 0x1fe, 0x276, 0x2d0
+};
+
+int aDelayForHashing_1[4] = {
+    0xb4, 0x186, 0x258, 0x294
+};
+
+int aDelayForHashing_2[3] = {
+    0x96, 0x10e, 0x1e0
+};
+
+int aDelayForHashing_3[4] = {
+    0, 0xb4, 0x168, 0x1c2
+};
+
+int aDelayForHashing_4[8] = {
+    0, 0xb4, 0x1c2, 0x2d0,
+    0x384, 0x3de, 0x438, 0x492
+};
+
+int aDelayForHashing_5[3] = {
+    0x50, 0x168, 0x140
+};
+
 #include <VecCtrlUser/VecCtrlUser.hpp>
 
+#include "spdlog/spdlog.h"
 #include "UtilDlg/UtilDlg.hpp"
 #include "Stage/Stage.hpp"
+#include "ext/skills_ids.h"
 
 static ZRef<CStage> FAKE_ZRef_CStage{};
 
@@ -18,10 +68,11 @@ static ZRef<CUIRandomMesoBag> _FAKE_ZRef_CUIRandomMesoBag{};
 
 static ZList<ZRef<CActionMan::MOBACTIONFRAMEENTRY>> _FAKE_ZList_ZRef_CActionMan_MOBACTIONFRAMEENTRY{};
 
-HRESULT __fastcall __QueryVecCtrlNpc(_x_com_ptr<IWzVector2D>* self, void* edx, CVecCtrlUser* p)
+HRESULT __fastcall __QueryVecCtrlUser(_x_com_ptr<IWzVector2D>* self, void* edx, CVecCtrlUser* p)
 {
     //return self->__QueryInterface<IWzVector2D*>((IWzVector2D*)p);
-    self->Attach(p, true);
+    auto vec = dynamic_cast<IWzVector2D*>(p);
+    self->Attach(vec, true);
     return 0;
 }
 
@@ -30,18 +81,15 @@ HRESULT __fastcall __QueryVecCtrlNpc(_x_com_ptr<IWzVector2D>* self, void* edx, C
 ZArray<long> CUserLocal::ms_anTutors{};
 
 CAntiRepeat::CAntiRepeat()
-{
-}
+= default;
 
 CAntiRepeat::~CAntiRepeat()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAntiRepeat::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~CAntiRepeat();
 }
 
 CAntiRepeat::CAntiRepeat(long arg0)
@@ -56,12 +104,33 @@ void CAntiRepeat::_ctor_1(long arg0)
 
 int32_t CAntiRepeat::TryRepeat(long nX, long nY)
 {
-    return __sub_005032B0(this, nullptr, nX, nY);
+    // eax
+    // eax
+
+    const int v3 = this->m_nX - nX;
+    if (int v4; v3 <= -6 || v3 >= 6 || (v4 = this->m_nY - nY, v4 <= -150) || v4 >= 150)
+    {
+        this->m_nX = nX;
+        this->m_nY = nY;
+        this->m_nRepeatCount = 0;
+        return 1;
+    }
+    else
+    {
+        if (int m_nRepeatCount = this->m_nRepeatCount; m_nRepeatCount < this->m_nCountLimit)
+        {
+            this->m_nRepeatCount = m_nRepeatCount + 1;
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
 
 CDualKeyChecker::~CDualKeyChecker()
-{
-}
+= default;
 
 void CDualKeyChecker::_dtor_0()
 {
@@ -81,18 +150,48 @@ void CDualKeyChecker::_ctor_1(const CDualKeyChecker& arg0)
 }
 
 CDualKeyChecker::CDualKeyChecker()
-{
-}
+= default;
 
 void CDualKeyChecker::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) CDualKeyChecker();
 }
 
 CDualKeyChecker::State CDualKeyChecker::Check(CDualKeyChecker::KeyMsg& msg)
 {
-    return __sub_00519290(this, nullptr, msg);
+    //return __sub_00519290(this, nullptr, msg);
+    if ((msg.lParam & 0x80000000) == 0)
+    {
+        m_lScanCode = this->m_lScanCode;
+        const auto lParam_high = HIWORD(msg.lParam);
+        this->m_tInputTime = 0;
+        this->m_lScanCode = 0;
+        if (!m_lScanCode)
+        {
+            if (lParam_high == 29)
+            {
+            LABEL_11:
+                this->m_tInputTime = timeGetTime();
+                this->m_lScanCode = lParam_high;
+                m_lMsg.AddTail(msg);
+                return State_Buffered;
+            }
+            if (lParam_high != 56)
+            {
+            LABEL_5:
+                PushAndPopMsg(msg);
+                return State_None;
+            }
+        }
+        if (lParam_high != 29 && lParam_high != 56)
+            goto LABEL_5;
+        if (m_lScanCode && m_lScanCode != lParam_high)
+            return State_Dual;
+        goto LABEL_11;
+    }
+
+    PushAndPopMsg(msg);
+    return State_None;
 }
 
 void CDualKeyChecker::Update()
@@ -118,7 +217,13 @@ int32_t CDualKeyChecker::GetQueuedMsg(CDualKeyChecker::KeyMsg& arg0)
 
 void CDualKeyChecker::PushAndPopMsg(CDualKeyChecker::KeyMsg& msg)
 {
-    __sub_005119F0(this, nullptr, msg);
+    //__sub_005119F0(this, nullptr, msg);
+    if (!m_lMsg.IsEmpty())
+    {
+        m_lMsg.AddTail(msg);
+        msg = *m_lMsg.GetHeadPosition();
+        m_lMsg.RemoveHead();
+    }
 }
 
 CDualKeyChecker& CDualKeyChecker::operator=(const CDualKeyChecker& arg0)
@@ -134,42 +239,60 @@ CDualKeyChecker& CDualKeyChecker::_op_assign_7(CDualKeyChecker* pThis, const CDu
 
 ActionRandMan::~ActionRandMan()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    if (bRollBack)
+    {
+        //TODO(game) lock
+        auto past1 = RndManRef.m_past_s1;
+        auto past2 = RndManRef.m_past_s2;
+        auto past3 = RndManRef.m_past_s3;
+        RndManRef.SetSeed(past1, past2, past3);
+    }
 }
 
 void ActionRandMan::_dtor_0()
 {
-    return __sub_00504A00(this, nullptr);
+    this->~ActionRandMan();
 }
 
 ActionRandMan::ActionRandMan(CRand32& RndMan): RndManRef(RndMan)
 {
-    _ctor_0(RndMan);
+    bRollBack = true;
 }
 
 void ActionRandMan::_ctor_0(CRand32& RndMan)
 {
-    return __sub_00503330(this, nullptr, RndMan);
+    new(this) ActionRandMan(RndMan);
 }
 
-uint32_t ActionRandMan::GetRandom()
+uint32_t ActionRandMan::GetRandom() const
 {
-    return __sub_00504A40(this, nullptr);
+    return RndManRef.Random();
 }
 
 void ActionRandMan::PreventRollback()
 {
-    __sub_00503350(this, nullptr);
+    this->bRollBack = 0;
 }
 
 CUserLocal::~CUserLocal()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    auto anim = CAnimationDisplayer::GetInstance();
+    anim->RemovePrepareAnimation(m_dwCharacterId);
+
+    if (m_uSkillSoundCookie)
+        stop_skill_sound(m_uSkillSoundCookie);
+
+    //TODO maybe empty
+    auto center = get_gr()->Getcenter();
+    center->Putorigin(vtMissing);
+    center->RelMove(0, 0, vtMissing, vtMissing);
+
+    ms_pInstance = nullptr;
 }
 
 void CUserLocal::_dtor_0()
 {
-    return __sub_00506CE0(this, nullptr);
+    this->~CUserLocal();
 }
 
 CUserLocal::CUserLocal(const CUserLocal& arg0)
@@ -275,133 +398,213 @@ void CUserLocal::Init()
 
 unsigned char CUserLocal::GetCharacterLevel()
 {
-    return __sub_005072A0(this, nullptr);
+    return CWvsContext::GetInstance()->GetCharacterLevel();
 }
 
 SecondaryStat& CUserLocal::GetSecondaryStat()
 {
-    //return __sub_00507290(this, nullptr);
     return CWvsContext::GetInstance()->GetSecondaryStat();
 }
 
 long CUserLocal::GetJobCode()
 {
-    return __sub_00508EB0(this, nullptr);
+    if (auto ctx = CWvsContext::GetInstance())
+    {
+        return ctx->GetCharacterData()->characterStat._ZtlSecureGet_nJob();
+    }
+
+    return -1;
 }
 
 int32_t CUserLocal::IsLocalUser()
 {
-    return __sub_00160050(this, nullptr);
+    return true;
 }
 
 int32_t CUserLocal::IsPreview()
 {
-    return __sub_00160050(this, nullptr);
+    return false;
 }
 
 int32_t CUserLocal::IsRemoteUser()
 {
-    return __sub_00160050(this, nullptr);
+    return false;
 }
 
 int32_t CUserLocal::IsAdminHide()
 {
-    return __sub_00160050(this, nullptr);
+    return this->m_bAdminHide;
 }
 
 int32_t CUserLocal::IsMovingMode()
 {
-    return __sub_00160050(this, nullptr);
+    return this->m_bMovingMode;
 }
 
 unsigned char CUserLocal::GetLevel()
 {
-    return __sub_005072A0(this, nullptr);
+    return GetCharacterLevel();
 }
 
-unsigned long CUserLocal::GetFieldID()
+unsigned long CUserLocal::GetFieldID() const
 {
-    return __sub_005042D0(this, nullptr);
+    return CWvsContext::GetInstance()->GetCurFieldID();
 }
 
-int32_t CUserLocal::IsSit()
+int32_t CUserLocal::IsSit() const
 {
-    return __sub_00160050(this, nullptr);
+    auto sit = _ZtlSecureGet_m_bSit();
+    return sit;
 }
 
-int32_t CUserLocal::IsPreparingSkill()
+int32_t CUserLocal::IsPreparingSkill() const
 {
-    return __sub_00160050(this, nullptr);
+    return this->m_preparingSkill.nSkillID != 0;
 }
 
-int32_t CUserLocal::IsRepeatSkill()
+int32_t CUserLocal::IsRepeatSkill() const
 {
-    return __sub_00160050(this, nullptr);
+    return this->m_repeatSkill.nSkillID != 0;
 }
 
-long CUserLocal::GetRepeatSkillPoint()
+long CUserLocal::GetRepeatSkillPoint() const
 {
-    return __sub_00348E50(this, nullptr);
+    return this->m_repeatSkill.nPoint;
+}
+
+bool __cdecl is_able_to_move_during_gauge_skill(int nSkillID)
+{
+    if (nSkillID > GUNSLINGER_GRENADE)
+    {
+        if (nSkillID > EVAN4_ICE_BREATH)
+        {
+            if (nSkillID == EVAN7_FIRE_BREATH)
+                return true;
+            return nSkillID == WH4_WILD_ARROW_BLAST;
+        }
+        else
+        {
+            if (nSkillID == EVAN4_ICE_BREATH || nSkillID == NW3_POISON_BOMB)
+                return true;
+            return nSkillID == TB2_CORKSCREW_BLOW;
+        }
+    }
+    else
+    {
+        if (nSkillID == GUNSLINGER_GRENADE)
+            return true;
+        if (nSkillID > BISHOP_BIG_BANG)
+        {
+            if (nSkillID == MARKSMAN_PIERCING_ARROW)
+                return true;
+            return nSkillID == BRAWLER_CORKSCREW_BLOW;
+        }
+        else
+        {
+            if (nSkillID == BISHOP_BIG_BANG || nSkillID == FP3_BIG_BANG)
+                return true;
+            return nSkillID == IL3_BIG_BANG;
+        }
+    }
 }
 
 int32_t CUserLocal::IsImmovable()
 {
-    return __sub_00160050(this, nullptr);
+    if ((!this->m_preparingSkill.nSkillID || is_able_to_move_during_gauge_skill(this->m_preparingSkill.nSkillID))
+        && !IsSit())
+    {
+        if (!IsStun()
+            && (this->m_nMoveAction & 0xFFFFFFFE) != 0x12
+            && !this->m_bKnockBackStun)
+        {
+            auto nSkillID = this->m_repeatSkill.nSkillID;
+            if (!nSkillID || nSkillID == 35121005)
+                return false;
+        }
+    }
+    return true;
 }
 
 int32_t CUserLocal::IsStun()
 {
-    return __sub_00160050(this, nullptr);
+    return GetSecondaryStat()._ZtlSecureGet_nStun_() != 0;
 }
 
 int32_t CUserLocal::IsSealed()
 {
-    return __sub_00160050(this, nullptr);
+    return GetSecondaryStat()._ZtlSecureGet_nSeal_() != 0;
 }
 
 int32_t CUserLocal::IsWeakened()
 {
-    return __sub_00160050(this, nullptr);
+    return GetSecondaryStat()._ZtlSecureGet_nWeakness_() != 0;
 }
 
 int32_t CUserLocal::IsAttract()
 {
-    return __sub_00160050(this, nullptr);
+    return GetSecondaryStat()._ZtlSecureGet_nAttract_() != 0;
 }
 
 int32_t CUserLocal::IsStopPortion()
 {
-    return __sub_00160050(this, nullptr);
+    return GetSecondaryStat()._ZtlSecureGet_nStopPortion_() != 0;
 }
 
 int32_t CUserLocal::IsStopMotion()
 {
-    return __sub_00160050(this, nullptr);
+    return GetSecondaryStat()._ZtlSecureGet_nStopMotion_() != 0;
 }
 
 void CUserLocal::SetAttractMove(long& nPos_X, long& nPos_Y)
 {
-    __sub_0050DEB0(this, nullptr, nPos_X, nPos_Y);
+    auto& ss = GetSecondaryStat();
+    switch (ss._ZtlSecureGet_nAttract_())
+    {
+    case 1:
+        nPos_X = -1;
+        break;
+    case 2:
+        nPos_X = 1;
+        break;
+    case 3:
+        Jump(1);
+        break;
+    case 4:
+        nPos_Y = 1;
+        break;
+    case 6:
+        nPos_X = -1;
+        Jump(1);
+        break;
+    case 7:
+        nPos_X = 1;
+        Jump(1);
+        break;
+    default:
+        return;
+    }
 }
 
 int32_t CUserLocal::IsKnockBackStun()
 {
-    return __sub_00160050(this, nullptr);
+    return m_bKnockBackStun;
 }
 
 int32_t CUserLocal::IsSkillAvailable()
 {
-    return __sub_00160050(this, nullptr);
+    auto& ss = GetSecondaryStat();
+    return !ss._ZtlSecureGet_nStun_() && !ss._ZtlSecureGet_nSeal_() && !ss._ZtlSecureGet_nAttract_();
 }
 
 int32_t CUserLocal::HasOnDashSkill()
 {
-    return __sub_00160050(this, nullptr);
+    auto skill = GetOnDashSkill();
+    return skill && GetSkillLevel(skill) > 0;
 }
 
 long CUserLocal::GetOnDashSkill()
 {
-    return __sub_00503450(this, nullptr);
+    return CUser::GetDashingSkill() != 4321000 ? 0 : 4321001;
 }
 
 void CUserLocal::SetMoveAction(long nMA, int32_t bReload)
@@ -414,17 +617,23 @@ void CUserLocal::SetMoveAction(long nMA, int32_t bReload)
     {
         GetVecCtrlUser()->SetMoveAction(ma);
     }
-    //TODO(game missing
 }
 
 void CUserLocal::ResetOneTimeAction()
 {
-    __sub_005071F0(this, nullptr);
+    this->m_finalAttack.nSkillID = 0;
+    m_nOneTimeAction = -1;
+    m_nTamingMobOneTimeAction = -1;
+    ClearActionLayer(1);
 }
 
 void CUserLocal::SetImpact(long nAttr, long nImpact, int32_t bLeft)
 {
-    __sub_00505E10(this, nullptr, nAttr, nImpact, bLeft);
+    //__sub_00505E10(this, nullptr, nAttr, nImpact, bLeft);
+    auto dir = bLeft ? -nImpact : nImpact;
+    auto vec = GetVecCtrlUser();
+    vec->SetMovePathAttribute(nAttr);
+    vec->SetImpactNext(dir, nImpact);
 }
 
 void CUserLocal::SetDamaged(long nDamage, long vx, long vy, unsigned long dwObstacleData, CMob* pMob, long nAttackIdx,
@@ -434,9 +643,9 @@ void CUserLocal::SetDamaged(long nDamage, long vx, long vy, unsigned long dwObst
                    bSendPacket);
 }
 
-void CUserLocal::ShowCounterDamage(long nSeatID)
+void CUserLocal::ShowCounterDamage(long nDamage)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    this->SetDamaged(nDamage, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 
 long CUserLocal::GetProperBulletPosition(const SKILLENTRY* pSkill, long nSLV, long* pnItemID, long* pnCashItemPos,
@@ -512,6 +721,9 @@ void CUserLocal::VerticalJump()
 
 void CUserLocal::Update()
 {
+    __sub_00537330(this, nullptr);
+
+
     /* auto ctx = CWvsContext::GetInstance();
      //TODO TSecType<unsigned char>::GetData(&TSingleton<CWvsContext>::ms_pInstance->m_nSubGradeCode) & 0x80
      if (ctx->IsUserGM() && m_bMovingMode)
@@ -551,21 +763,41 @@ void CUserLocal::Update()
      }
 
  */
-    __sub_00537330(this, nullptr);
 }
 
 void CUserLocal::ClearToolTip()
 {
-    __sub_00507220(this, nullptr);
+    m_uiToolTip.ClearToolTip();
 }
 
-int32_t CUserLocal::PreprocessOnKey(uint32_t& wParam, uint32_t& lParam)
+int32_t CUserLocal::PreprocessOnKey(uint32_t& wParam, int32_t& lParam)
 {
-    return __sub_005199A0(this, nullptr, wParam, lParam);
+    //return __sub_005199A0(this, nullptr, wParam, lParam);
+    CDualKeyChecker::KeyMsg msg{};
+    msg.lParam = lParam;
+    msg.wParam = wParam;
+    auto v5 = this->m_DualKeyChecker.Check(msg);
+    if (v5 == 2)
+    {
+        if (CUserLocal::ProcessDualKey())
+            return 1;
+    }
+    else if (v5 == 1)
+    {
+        return 1;
+    }
+    lParam = msg.lParam;
+    wParam = msg.wParam;
+    return 0;
 }
 
-void CUserLocal::OnKey(uint32_t wParam, uint32_t lParam)
+void CUserLocal::OnKey(uint32_t wParam, int32_t lParam)
 {
+    if (lParam & 0x80000000)
+    {
+        // Unset the flag
+        lParam &= 0x7FFFFFFF;
+    }
     __sub_005369F0(this, nullptr, wParam, lParam);
 }
 
@@ -599,17 +831,191 @@ int32_t CUserLocal::OnMouseMove(long rx, long ry)
 
 void CUserLocal::OnFeatureChanged()
 {
-    __sub_0051D640(this, nullptr);
+    //__sub_0051D640(this, nullptr);
+    auto ctx = TSingleton<CWvsContext>::ms_pInstance;
+    auto cd = ctx->GetCharacterData();
+    GetAvatarLook().Load(cd->characterStat, ctx->GetRealEquip(), ctx->GetRealEquip2());;
+    CAvatar::NotifyAvatarModified(false);
+    CUserLocal::SetShoeAttr();
+    for (auto& pet : m_apPet)
+    {
+        if (pet)
+            pet->OnValidateStat();
+    }
+    if (const auto mess = CUIMessenger::GetInstance())
+        mess->OnSelfAvatarChanged(this->m_avatarLook);
+
+
+    const auto unique = CUniqueModeless::GetInstance();
+    if (unique
+        && unique->IsKindOf(
+            &CMiniRoomBaseDlg::ms_RTTI_CMiniRoomBaseDlg))
+    {
+        dynamic_cast<CMiniRoomBaseDlg*>(unique)->OnSelfAvatarChanged(this->m_avatarLook);
+    }
+    SetCarryItemEffectForLocal(*cd.op_arrow());
+    SetPairCharacterID();
+    SetActiveEffectItemForLocal(*cd.op_arrow(), ctx->GetActiveEffectItemID());
+    SetFriendPairCharacterID();
+    SetMarriagePairCharacterID();
+    ValidateItemSkill();
+    ValidateSkillBonus();
 }
 
 void CUserLocal::OnPacket(long nType, CInPacket& iPacket)
 {
-    __sub_005340C0(this, nullptr, nType, iPacket);
+    //__sub_005340C0(this, nullptr, nType, iPacket);
+    switch (nType)
+    {
+    case 0xE7:
+        this->OnSitResult(iPacket);
+        break;
+    case 0xE8:
+        this->OnEmotion(iPacket);
+        break;
+    case 0xE9:
+        this->OnEffect(iPacket);
+        break;
+    case 0xEA:
+        this->OnTeleport(iPacket);
+        break;
+    case 0xEC:
+        this->OnMesoGive_Succeeded(iPacket);
+        break;
+    case 0xED:
+        this->OnMesoGive_Failed(iPacket);
+        break;
+    case 0xEE:
+        this->OnRandomMesobag_Succeeded(iPacket);
+        break;
+    case 0xEF:
+        this->OnRandomMesobag_Failed(iPacket);
+        break;
+    case 0xF0:
+        this->OnFieldFadeInOut(iPacket);
+        break;
+    case 0xF1:
+        this->OnFieldFadeOutForce(iPacket);
+        break;
+    case 0xF2:
+        this->OnQuestResult(iPacket);
+        break;
+    case 0xF3:
+        this->OnNotifyHPDecByField(iPacket);
+        break;
+    case 0xF5:
+        this->OnBalloonMsg(iPacket);
+        break;
+    case 0xF6:
+        this->OnPlayEventSound(iPacket);
+        break;
+    case 0xF7:
+        this->OnPlayMinigameSound(iPacket);
+        break;
+    case 0xF8:
+        this->OnMakerResult(iPacket);
+        break;
+    case 0xFA:
+        this->OnOpenClassCompetitionPage(iPacket);
+        break;
+    case 0xFB:
+        this->OnOpenUI(iPacket);
+        break;
+    case 0xFC:
+        this->OnOpenUIWithOption(iPacket);
+        break;
+    case 0xFD:
+        this->OnSetDirectionMode(iPacket);
+        break;
+    case 0xFE:
+        this->OnSetStandAloneMode(iPacket);
+        break;
+    case 0xFF:
+        this->OnHireTutor(iPacket);
+        break;
+    case 0x100:
+        this->OnTutorMsg(iPacket);
+        break;
+    case 0x101:
+        this->OnIncComboResponse(iPacket);
+        break;
+    case 0x102:
+        this->OnRandomEmotion(iPacket);
+        break;
+    case 0x103:
+        this->OnResignQuestReturn(iPacket);
+        break;
+    case 0x104:
+        this->OnPassMateName(iPacket);
+        break;
+    case 0x105:
+        this->OnRadioSchedule(iPacket);
+        break;
+    case 0x106:
+        this->OnOpenSkillGuide(iPacket);
+        break;
+    case 0x107:
+        this->OnNoticeMsg(iPacket);
+        break;
+    case 0x108:
+        this->OnChatMsg(iPacket);
+        break;
+    case 0x109:
+        this->OnBuffzoneEffect(iPacket);
+        break;
+    case 0x10A:
+        this->OnGoToCommoditySN(iPacket);
+        break;
+    case 0x10B:
+        this->OnDamageMeter(iPacket);
+        break;
+    case 0x10C:
+        this->OnTimeBombAttack(iPacket);
+        break;
+    case 0x10D:
+        this->OnPassiveMove(iPacket);
+        break;
+    case 0x10E:
+        this->OnFollowCharacterFailed(iPacket);
+        break;
+    case 0x10F:
+        this->OnVengeanceSkillApply(iPacket);
+        break;
+    case 0x110:
+        this->OnExJablinApply(iPacket);
+        break;
+    case 0x111:
+        this->OnAskAPSPEvent(iPacket);
+        break;
+    case 0x112:
+        this->OnQuestGuideResult(iPacket);
+        break;
+    case 0x113:
+        this->OnDeliveryQuest(iPacket);
+        break;
+    case 0x114:
+        this->OnSkillCooltimeSet(iPacket);
+        break;
+    default:
+        break;
+    }
 }
 
 void CUserLocal::OnTeleport(CInPacket& iPacket)
 {
-    __sub_00513FF0(this, nullptr, iPacket);
+    const auto ctx = CWvsContext::GetInstance();
+    if (iPacket.Decode1())
+    {
+        ctx->SetExclRequestSent(0);
+    }
+
+    const auto portalList = CPortalList::GetInstance();
+    if (const auto portal = portalList->GetPortal(iPacket.Decode1()))
+    {
+        m_ptPos.x = portal->ptPos.x;
+        m_ptPos.y = portal->ptPos.y;
+        TryRegisterTeleport(0, 0, portal->sName.const_c_str(), portal->sTName.const_c_str(), true);
+    }
 }
 
 void CUserLocal::OnSitResult(CInPacket& iPacket)
@@ -664,18 +1070,13 @@ long CUserLocal::PetInterActWithItem(long nItemID)
 
 long CUserLocal::PetInterActWithUserAction(long nUserAction, long nPetIndex)
 {
-    //TODO(game) load pets
-    return 1;
     //return __sub_00503EC0(this, nullptr, nUserAction, nPetIndex);
     if (nPetIndex >= 0)
     {
-        if (nPetIndex < 3)
+        if (nPetIndex < 3 && m_apPet[nPetIndex])
         {
-            if (m_apPet[nPetIndex])
-            {
-                m_apPet[nPetIndex]->DoActionByUserAction(nUserAction);
-                return 1;
-            }
+            m_apPet[nPetIndex]->DoActionByUserAction(nUserAction);
+            return 1;
         }
         else
         {
@@ -838,42 +1239,110 @@ void CUserLocal::OnJoystickButton(uint32_t wButton, unsigned long dwData)
 
 long CUserLocal::FindHitSummonedInRect(const tagRECT& rc, CSummoned** apSummoned, long nMaxCount)
 {
-    return __sub_00506100(this, nullptr, rc, apSummoned, nMaxCount);
+    //return __sub_00506100(this, nullptr, rc, apSummoned, nMaxCount);
+    auto i = 0;
+    for (auto& summ : m_lSummoned)
+    {
+        if (i >= nMaxCount)
+            break;
+
+        tagRECT bodyRc{};
+        tagRECT intersectRc{};
+        summ->GetBodyRect(bodyRc, true);
+        if (!IsRectEmpty(&bodyRc) && IntersectRect(&intersectRc, &bodyRc, &rc))
+        {
+            apSummoned[++i] = summ.op_arrow();
+        }
+    }
+
+    return i;
 }
 
 void CUserLocal::SetSecondaryStatChangedPoint(unsigned char bSN)
 {
-    __sub_00504030(this, nullptr, bSN);
+    GetVecCtrlUser()->SetSecondaryStatChangedPoint(bSN);
 }
 
 void CUserLocal::RedrawGuildNameTag()
 {
-    __sub_005152F0(this, nullptr);
+    auto ctx = CWvsContext::GetInstance();
+
+    m_sGuildName = ctx->GetGuildName();
+
+    m_nGuildMarkBg = ctx->GetGuildMarkBg();
+    m_nGuildMark = ctx->GetGuildMark();
+    m_nGuildMarkBgColor = ctx->GetGuildMarkBgColor();
+    m_nGuildMarkColor = ctx->GetGuildMarkColor();
+    DrawNameTags();
 }
 
 int32_t CUserLocal::IsWeaponDisabled()
 {
-    return __sub_0050D700(this, nullptr);
+    //return __sub_0050D700(this, nullptr);
+    auto ctx = CWvsContext::GetInstance();
+    auto cd = ctx->GetCharacterData();
+    auto& sp = StringPool::GetInstance();
+
+    auto t = timeGetTime();
+    if (!cd->aEquipped[11] && !CanUseBareHand())
+    {
+        if (t - m_tLastWarnUsingDisabledWeapon > 2000)
+        {
+            auto warnMsg = sp.GetString(0x18b5);
+            CHATLOG_ADD(warnMsg, 0xC);
+            m_tLastWarnUsingDisabledWeapon = t;
+        }
+
+        return true;
+    }
+
+    if (!ctx->GetRealEquip()[11] && !CanUseBareHand())
+    {
+        if (t - m_tLastWarnUsingDisabledWeapon > 2000)
+        {
+            auto warnMsg = sp.GetString(0xB4B);
+            CHATLOG_ADD(warnMsg, 0xC);
+            m_tLastWarnUsingDisabledWeapon = t;
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
-int32_t CUserLocal::IsKeyDownSkillUsing()
+int32_t CUserLocal::IsKeyDownSkillUsing() const
 {
     return m_bKeyDown;
 }
 
 int32_t CUserLocal::IsDashing()
 {
-    return __sub_00160050(this, nullptr);
+    //return __sub_00160050(this, nullptr);
+    auto& ss = GetSecondaryStat();
+    return ss.aTemporaryStat[1]->IsActivated();
 }
 
 int32_t CUserLocal::IsDashing2()
 {
-    return __sub_00160050(this, nullptr);
+    //return __sub_00160050(this, nullptr);
+    auto& ss = GetSecondaryStat();
+    return ss.aTemporaryStat[1]->IsActivated() && GetDashingSkill() == 4321000;
 }
 
 void CUserLocal::GetUpFromPortableChair(int32_t bOnInit)
 {
-    __sub_00506050(this, nullptr, bOnInit);
+    //__sub_00506050(this, nullptr, bOnInit);
+    _ZtlSecurePut_m_bSit(false);
+    _ZtlSecurePut_m_nPortableChairID(0);
+    SetChairHeight(0);
+    this->_ZtlSecurePut_m_nSittingTime(0);
+    m_bPortableChairStatSetSent = false;
+    //TODO(game) SetActivePortableChair(0);
+    if (!bOnInit)
+    {
+        GetVecCtrlUser()->SetMovePathAttribute(10);
+    }
 }
 
 void CUserLocal::OnTemporaryStatChanged(MY_UINT128 uFlag, long tDelay, int32_t bInit)
@@ -915,45 +1384,49 @@ void CUserLocal::OnPassMateName(CInPacket& iPacket)
 
 void __cdecl CUserLocal::SetMonsterBookCover(long nCardID)
 {
-    __sub_00508DD0(nCardID);
+    CWvsContext::GetInstance()->GetCharacterData()->nMonsterBookCoverID = nCardID;
 }
 
 long __cdecl CUserLocal::GetMonsterBookCover()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return CWvsContext::GetInstance()->GetCharacterData()->nMonsterBookCoverID;
 }
 
 void __cdecl CUserLocal::SetMonsterCardCount(long nCardID, long nCardCount)
 {
-    __sub_00516EC0(nCardID, nCardCount);
+    auto cd = CWvsContext::GetInstance()->GetCharacterData();
+    CMonsterBookAccessor::SetCount(*cd.op_arrow(), nCardID, nCardCount);
 }
 
 long __cdecl CUserLocal::GetMonsterCardCount(long nCardID)
 {
-    return __sub_0050E3A0(nCardID);
+    auto cd = CWvsContext::GetInstance()->GetCharacterData();
+    return CMonsterBookAccessor::GetCount(*cd.op_arrow(), nCardID);
 }
 
 int32_t __cdecl CUserLocal::IsMonsterCardFull(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto cd = CWvsContext::GetInstance()->GetCharacterData();
+    return CMonsterBookAccessor::IsCardFull(*cd.op_arrow(), arg0);
 }
 
 void __cdecl CUserLocal::UpdateMonsterBookInfo()
 {
-    __sub_00508E20();
+    auto cd = CWvsContext::GetInstance()->GetCharacterData();
+    CMonsterBookAccessor::UpdateInfo(*cd.op_arrow());
 }
 
 ZRef<MonsterBookInfo> __cdecl CUserLocal::GetMonsterBookInfo()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto cd = CWvsContext::GetInstance()->GetCharacterData();
+    return CMonsterBookAccessor::GetInfo(*cd.op_arrow());
 }
 
 long CUserLocal::GetMonsterCardCheckListSize(long nGrade)
 {
-    return __sub_00504210(this, nullptr, nGrade);
+    long size = 0;
+    m_mMonsterCardCheckListSize.GetAt(nGrade, &size);
+    return size;
 }
 
 void CUserLocal::SetMonsterCardCheckList(long nCardID, int32_t bRemove)
@@ -968,19 +1441,26 @@ void CUserLocal::FollowCharacterFailedMsg(long nError, unsigned long dwDriverID)
 
 void CUserLocal::OnFollowCharacterFailed(CInPacket& iPacket)
 {
-    __sub_00510E80(this, nullptr, iPacket);
+    auto err = (int)iPacket.Decode4();
+    auto driverId = iPacket.Decode4();
+    if (err == -2)
+    {
+        TSingleton<CWvsContext>::ms_pInstance->SetOldDriverID(0);
+    }
+    else if (err >= 0)
+    {
+        FollowCharacterFailedMsg(err, driverId);
+    }
 }
 
 void CUserLocal::SetPassiveTransferField(int32_t arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_bTryPassiveTransferField = arg0;
 }
 
-int32_t CUserLocal::IsPassiveTransferField()
+int32_t CUserLocal::IsPassiveTransferField() const
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_bTryPassiveTransferField;
 }
 
 void CUserLocal::OnVengeanceSkillApply(CInPacket& iPacket)
@@ -1035,29 +1515,43 @@ long CUserLocal::OnResolveMoveAction(long nInputX, long nInputY, long nCurMoveAc
     //return __sub_00508030(this, nullptr, nInputX, nInputY, nCurMoveAction, pvc);
     if (nInputX || nInputY)
     {
-
-        /*auto portalList = CPortalList::GetInstance();
-
-        //TODO
+        auto portalList = CPortalList::GetInstance();
         auto pos = GetPos();
         auto hidden = portalList->FindPortal_Hidden(pos.x, pos.y, 100);
-        portalList->SetHiddenPortal(hidden);*/
-        //TODO
+        portalList->SetHiddenPortal(hidden);
     }
 
 
+    auto flag = true;
     auto cd = CWvsContext::GetInstance()->GetCharacterData();
-    if ((this->m_tAlertRemain & 0xFFFFFFFE) != 0x12){
+    auto hp = cd->characterStat._ZtlSecureGet_nHP();
 
 
+    auto vec = GetVecCtrlUser();
+    if (IsDead() && hp)
+    {
+        if (nCurMoveAction & 0xFFFFFFFE != 4)
+        {
+            vec->raw_Move(m_ptRevive.x, m_ptRevive.y);
+            vec->SetForcedFlush();
+        }
+        return nCurMoveAction & 1 | 4;
+    }
+
+    if (!hp)
+    {
+        return nCurMoveAction & 1 | 0x12;
+    }
+    else if (IsSit())
+    {
+        return nCurMoveAction & 1 | 0x14;
     }
 
 
-
-    //TODO(game)
+    if (m_bFly && (pvc->GetFoothold() || pvc->IsOnLadder() || pvc->IsOnRope()))
+        m_bFly = false;
 
     return CUser::OnResolveMoveAction(nInputX, nInputY, nCurMoveAction, pvc);
-    //TODO
 }
 
 void CUserLocal::SetShoeAttr()
@@ -1065,12 +1559,12 @@ void CUserLocal::SetShoeAttr()
     __sub_0050A990(this, nullptr);
 }
 
-int32_t CUserLocal::UseFuncKeyMapped(uint32_t lParam)
+int32_t CUserLocal::UseFuncKeyMapped(int32_t lParam)
 {
     return __sub_00532E20(this, nullptr, lParam);
 }
 
-int32_t CUserLocal::UseFuncKeyMappedUpKey(uint32_t lParam)
+int32_t CUserLocal::UseFuncKeyMappedUpKey(int32_t lParam)
 {
     return __sub_00507F00(this, nullptr, lParam);
 }
@@ -1097,7 +1591,125 @@ void CUserLocal::HandleUpKeyDown()
 
 void CUserLocal::HandleCtrlKeyDown()
 {
-    __sub_005326B0(this, nullptr);
+    //__sub_005326B0(this, nullptr);
+    auto ctx = CWvsContext::GetInstance();
+    if (!ctx->CanSendExclRequest(200))
+        return;
+
+    if (IsAttract() || IsPreparingSkill())
+        return;
+    auto& ss = GetSecondaryStat();
+    if (IsImmovable())
+    {
+        //TODO(game)
+        switch (m_repeatSkill.nSkillID)
+        {
+        case MECH3_MECH_SIEGE_MODE:
+        case MECH4_MECH_SIEGE_MODE:
+            if (this->m_repeatSkill.bDone)
+                return;
+            this->m_repeatSkill.nPoint = 1;
+            return;
+        default:
+            return;
+        case MECH4_GIANT_ROBOT_SG88:
+            break;
+        }
+
+        // Giant robot
+        auto cd = ctx->GetCharacterData();
+        const SKILLENTRY* pSkill{};
+        auto slvl = CSkillInfo::GetInstance()->GetSkillLevel(*cd.op_arrow(), MECH4_GIANT_ROBOT_SG88, &pSkill);
+        if (pSkill)
+        {
+            auto& lvlData = pSkill->GetLevelData(slvl);
+            m_repeatSkill.nPoint += lvlData._ZtlSecureGet_nX();
+            m_repeatSkill.bKeyDown = true;
+        }
+
+        return;
+    }
+    if (this->m_repeatSkill.nSkillID == MECH4_MECH_MISSILE_TANK && !this->m_repeatSkill.bDone)
+    {
+        m_repeatSkill.nPoint = 1;
+        return;
+    }
+
+
+    if (CheckRidingVehicleExceptMechanic())
+        return;
+    if (IsMonsterMorphed() || m_nGhostIndex)
+    {
+        ctx->AddChatMorphedMsg();
+        return;
+    }
+    if (IsAttackableMorphed())
+    {
+        auto job = GetJobCode();
+        auto noviceSkill = get_novice_skill_as_race(1066, job);
+        DoActiveSkill(noviceSkill, 0, nullptr);
+        return;
+    }
+    if (IsHideMorphed())
+    {
+        SendSkillCancelRequest(BRAWLER_OAK_BARREL);
+        return;
+    }
+    if (IsDashing())
+    {
+        SendSkillCancelRequest(GetDashingSkill());
+        if (HasOnDashSkill())
+        {
+            DoActiveSkill(GetOnDashSkill(), 0, nullptr);
+            return;
+        }
+    }
+    if (GetCurrentAction(nullptr) == 188
+        && IsOnFoothold()
+        && GetActionInfo().nCurFrameIndex > 1
+        && GetSkillLevel(DB3_TORNADO_SPIN_ATTACK) > 19
+        && GetSkillLevel(DB4_FLYING_ASSAULTER) > 9)
+    {
+        ResetOneTimeAction();
+        PrepareActionLayer(6, 100, 0);
+        this->m_rush.bValid = 0;
+        this->m_rush.tCoolTimeEnd = get_update_time();
+        DoActiveSkill(DB3_TORNADO_SPIN_ATTACK, 0, 0);
+    }
+
+    auto field = get_field();
+    auto reactor = CReactorPool::GetInstance();
+    auto job = GetJobCode();
+    if (!field->BasicActionAttack() && !reactor->FindHitReactor())
+    {
+        if (IsDarkSight() && GetSkillLevel(NW2_VANISH) <= 0
+            && GetSkillLevel(DB4_ADVANCED_DARK_SIGHT) <= 0)
+        {
+            auto ds = is_cygnus_job(job) ? NW1_DARK_SIGHT : THIEF_DARK_SIGHT;
+            auto skill = CSkillInfo::GetInstance()->GetSkill(ds);
+            ShowSkillEffect(skill, 1, 6, 0, 0x7FFFFFFF, nullptr);
+            play_skill_sound(ds, SE_SKILL_USE, GetSkillLevel(ds));
+            SendSkillCancelRequest(ds);
+            return;
+        }
+
+        if (IsWeaponDisabled())
+            return;
+
+        if (is_shooting_weapon(m_nWeaponItemID) && (is_mechanic_job(job) ||
+            GetProperBulletPosition(nullptr, 0, nullptr, nullptr, nullptr)
+            || ss._ZtlSecureGet_nSoulArrow_()
+            || ss._ZtlSecureGet_nSpiritJavelin_()) && GetMoveAction() & 0xFFFFFFFE != 0xA)
+        {
+            long nShootRange0{};
+            if (!TryDoingMeleeAttack(nullptr, 0, &nShootRange0, 0, 0, 0, nullptr, 0, 0, 0, 0, 0))
+                TryDoingShootAttack(nullptr, 0, nShootRange0, false, 0, 0);
+        }
+        else
+        {
+            TryDoingMeleeAttack(nullptr, 0, nullptr, 0, 0, 0, nullptr, 0, 0, 0, 0, 0);
+        }
+    }
 }
 
 void CUserLocal::HandleXKeyDown()
@@ -1197,9 +1809,16 @@ void CUserLocal::TryDoingSmoothingMovingShootAttack()
     __sub_0052DE70(this, nullptr);
 }
 
-void CUserLocal::TryLeaveDirectionMode(long nSeatID)
+void CUserLocal::TryLeaveDirectionMode(long tCur)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    if (this->m_bAfterLeaveDirectionMode)
+    {
+        if (tCur - this->m_tAfterLeaveDirectionMode >= 0)
+        {
+            this->m_bAfterLeaveDirectionMode = 0;
+            SetDirectionMode(false);
+        }
+    }
 }
 
 void CUserLocal::SetDirectionMode(int32_t bSet)
@@ -1225,7 +1844,11 @@ void CUserLocal::MoveToPortal(const char* sPortalName)
 
 void CUserLocal::SitOnPortableChair(long nSeatID)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    _ZtlSecurePut_m_bSit(true);
+    _ZtlSecurePut_m_nPortableChairID(nSeatID);
+    _ZtlSecurePut_m_nSittingTime(timeGetTime());
+    m_bPortableChairStatSetSent = false;
+    SetChairHeight(nSeatID);
 }
 
 long CUserLocal::GetPortableChairSittingTime()
@@ -1241,7 +1864,8 @@ void CUserLocal::ResetPortableChairSittingtime()
 
 long CUserLocal::GetPortableChairID()
 {
-    return __sub_00348E50(this, nullptr);
+    //return __sub_00348E50(this, nullptr);
+    return _ZtlSecureGet_m_nPortableChairID();
 }
 
 int32_t CUserLocal::SetPortableChairStatSetSent()
@@ -1301,9 +1925,78 @@ int32_t CUserLocal::SendSkillUseRequest(const SKILLENTRY* pSkill, long nSLV, uns
                           nSpiritJavelinItemID, nPelletPOS);
 }
 
-void CUserLocal::SendSkillCancelRequest(long nSeatID)
+void CUserLocal::SendSkillCancelRequest(long skillId)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    auto skillId_1 = skillId;
+    switch (skillId)
+    {
+    case ADVANCED_DARK_AURA:
+        skillId_1 = DARK_AURA;
+        break;
+    case ADVANCED_BLUE_AURA:
+        skillId_1 = BLUE_AURA;
+        break;
+    case ADVANCED_YELLOW_AURA:
+        skillId_1 = YELLOW_AURA;
+        break;
+    default:
+        break;
+    }
+    if (this->m_preparingSkill.nSkillID == skillId_1)
+    {
+        this->m_preparingSkill.nSkillID = 0;
+        this->m_preparingSkill.tStart = 0;
+        this->m_preparingSkill.tAttackStartTime = 0;
+        this->m_preparingSkill.bKeyDown = 0;
+    }
+    if (skillId_1 == WH2_JAGUAROSHI)
+        ResetSwallow();
+    COutPacket pkt(Cp::Userskillcancelrequest);
+    pkt.Encode4(skillId);
+    SendPacket(pkt);
+    if (skillId_1 > EVANBEGINNER_MONSTER_RIDER)
+    {
+        if (skillId_1 != CITIZEN_MONSTER_RIDING && skillId_1 != WH1_JAGUAR_RIDER && skillId_1 != MECH1_MECH_PROTOTYPE)
+            goto LABEL_26;
+    }
+    else if (skillId_1 != EVANBEGINNER_MONSTER_RIDER)
+    {
+        if (skillId_1 > NOBLESSE_MONSTER_RIDER)
+        {
+            if (skillId_1 != LEGEND_MONSTER_RIDER)
+                goto LABEL_26;
+        }
+        else if (skillId_1 != NOBLESSE_MONSTER_RIDER
+            && skillId_1 != BEGINNER_MONSTER_RIDER
+            && skillId_1 != CORSAIR_BATTLESHIP)
+        {
+            goto LABEL_26;
+        }
+    }
+    if (!this->m_nVehicleValid)
+        this->m_tLastVehicleValidSetting = get_update_time();
+    ++this->m_nVehicleValid;
+LABEL_26:
+    if (is_keydown_skill(skillId_1))
+    {
+        if (skillId_1 != BOWMASTER_HURRICANE
+            && skillId_1 != CORSAIR_RAPID_FIRE
+            && skillId_1 != WA3_HURRICANE
+            && skillId_1 != MECH1_FLAME_LAUNCHER
+            && skillId_1 != MECH2_ENHANCED_FLAME_LAUNCHER
+            && skillId_1 != WH4_WILD_ARROW_BLAST)
+        {
+            auto anim = CAnimationDisplayer::GetInstance();
+            anim->RemovePrepareAnimation(this->m_dwCharacterId);
+            if (this->m_pDragon)
+            {
+                m_nMoveAction = this->m_nMoveAction;
+                auto MoveAction = m_pDragon->GetMoveAction();
+                m_pDragon->SetMoveAction(MoveAction ^ (m_nMoveAction ^ MoveAction) & 1, 0);
+                m_pDragon->SetOneTimeAction(0);
+            }
+        }
+    }
 }
 
 void CUserLocal::SendSkillEffectRequest(long nAttr, long nImpact, int32_t bLeft)
@@ -1339,7 +2032,8 @@ ZXString<char> CUserLocal::GetMateNameByQuestID(uint16_t arg0)
 
 int32_t CUserLocal::CanUseBareHand()
 {
-    return __sub_00504060(this, nullptr);
+    //return __sub_00504060(this, nullptr);
+    return GetJobCode() % 1000 / 100 == 5;
 }
 
 int32_t CUserLocal::IsVehicleValid()
@@ -1355,7 +2049,8 @@ int32_t CUserLocal::CheckRidingVehicle(int32_t bJaguarCheckPass)
 
 int32_t CUserLocal::CheckRidingVehicleExceptMechanic()
 {
-    return __sub_00160050(this, nullptr);
+    //return __sub_00160050(this, nullptr);
+    return false;
 }
 
 int32_t CUserLocal::IsActiveSkillReplacedByMeleeAttack()
@@ -1389,16 +2084,155 @@ void CUserLocal::SendRepeatEffectRemoveRequest()
     __sub_00509D70(this, nullptr);
 }
 
-int32_t CUserLocal::DoActiveSkill_MeleeAttack(const SKILLENTRY* arg0, long arg1)
+int32_t CUserLocal::DoActiveSkill_MeleeAttack(const SKILLENTRY* pSkill, long nSLV)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (IsWeaponDisabled())
+        return 0;
+    if ((this->m_nMoveAction & 0xFFFFFFFE) == 0xA && (!pSkill || pSkill->nSkillID != ARAN3_ROLLING_SPIN))
+        return 0;
+    if (pSkill)
+    {
+        auto& ss = GetSecondaryStat();
+        auto wt = get_weapon_type(m_nWeaponItemID);
+        auto sid = pSkill->nSkillID;
+
+        //TODO
+    }
+
+    m_bReplacedByMeleeAttack = TryDoingMeleeAttack(pSkill, nSLV, nullptr, 0, 0, 0, nullptr, 0, 0, 0LL, 0, 0);
+    return m_bReplacedByMeleeAttack;
 }
 
-int32_t CUserLocal::DoActiveSkill_ShootAttack(const SKILLENTRY* arg0, long arg1)
+int32_t CUserLocal::DoActiveSkill_ShootAttack(const SKILLENTRY* pSkill, long nSLV)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (IsWeaponDisabled())
+        return 0;
+    auto skillID = pSkill->nSkillID;
+    auto& ss = GetSecondaryStat();
+    auto vec = GetVecCtrlUser();
+    if (skillID >= WA3_WIND_PIERCING
+        && skillID <= WA3_WIND_SHOT
+        && ss._ZtlSecureGet_nMorph_() != WA3_EAGLE_EYE)
+    {
+        auto str = _GetStr(0xDF3);
+        CHATLOG_ADD(str, 0xCu);
+        return 0;
+    }
+
+    auto v10 = 0;
+    if (skillID > TB3_SHARK_WAVE)
+    {
+        if (skillID == ARAN2_COMBO_SMASH || skillID == ARAN3_COMBO_FENRIR)
+            goto LABEL_63;
+        v10 = skillID == ARAN4_COMBO_TEMPEST;
+    }
+    else
+    {
+        if (skillID == TB3_SHARK_WAVE)
+            goto LABEL_63;
+        if (skillID <= BUCCANEER_ENERGY_ORB)
+        {
+            if (skillID == BUCCANEER_ENERGY_ORB)
+            {
+                if (IsOnLadderOrRope())
+                    return 0;
+                if (!ss[0]->IsActivated())
+                {
+                    auto str = _GetStr(0xDF2);
+                    CHATLOG_ADD(str, 0xCu);
+                    return 0;
+                }
+                return TryDoingShootAttack(pSkill, nSLV, 0, 0, 0, 0);
+            }
+            if (skillID != NIGHTLORD_TAUNT)
+            {
+                v10 = skillID == SHADOWER_TAUNT;
+                goto LABEL_23;
+            }
+        LABEL_63:
+            if (vec->GetLadderOrRope())
+                return 0;
+            return TryDoingShootAttack(pSkill, nSLV, 0, 0, 0, 0);
+        }
+        v10 = skillID == DW2_SOUL_BLADE;
+    }
+LABEL_23:
+    if (v10)
+        goto LABEL_63;
+
+    auto job_category = get_job_category(skillID / 10000);
+    auto weapon_type = get_weapon_type(this->m_nWeaponItemID);
+    auto v15 = 0;
+    if (job_category != 3)
+    {
+        if (job_category != 4)
+        {
+            if (job_category != 5 || weapon_type != 49)
+            {
+            LABEL_28:
+                auto str = _GetStr(0x1127u);
+                CHATLOG_ADD(str, 0xCu);
+                return 0;
+            }
+            goto LABEL_34;
+        }
+        v15 = weapon_type == 47;
+        goto LABEL_27;
+    }
+    if (weapon_type != 45)
+    {
+        v15 = weapon_type == 46;
+    LABEL_27:
+        if (!v15)
+            goto LABEL_28;
+    }
+LABEL_34:
+    if (is_shooting_weapon(this->m_nWeaponItemID)
+        && ((this->m_nMoveAction & 0xFFFFFFFE) != 0xA || IsRidingWildHunterJaguar())
+        && (GetProperBulletPosition(pSkill, nSLV, nullptr, nullptr, nullptr)
+            || is_shoot_skill_not_consuming_bullet(skillID)
+            || ss._ZtlSecureGet_nSoulArrow_()
+            || ss._ZtlSecureGet_nSpiritJavelin_()))
+    {
+        long nShootRange0 = 0;
+        if (is_shoot_skill_not_switched_to_melee_attack(nSLV))
+        {
+            if (skillID != PIRATE_DOUBLE_SHOT && skillID != OUTLAW_BURST_FIRE)
+                return TryDoingShootAttack(pSkill, nSLV, 0, 0, 0, 0);
+            if (!TryDoingMeleeAttack(nullptr, 0, &nShootRange0, 0, 0, 0, nullptr, 0, 0LL, 0, 0, skillID))
+                return TryDoingShootAttack(pSkill, nSLV, nShootRange0, 0, 0, 0);
+        }
+        else if (!TryDoingMeleeAttack(nullptr, 0, &nShootRange0, 0, 0, 0, nullptr, skillID, 0LL, 0, 0, 0))
+        {
+            return TryDoingShootAttack(pSkill, nSLV, nShootRange0, 0, 0, 0);
+        }
+    }
+    else if (this->m_nRidingVehicleID != 1932016)
+    {
+        if (!ss._ZtlSecureGet_nSoulArrow_()
+            && !ss._ZtlSecureGet_nSpiritJavelin_()
+            && !GetProperBulletPosition(pSkill, nSLV, nullptr, nullptr, nullptr)
+            && GetOneTimeAction() <= -1)
+        {
+            if (job_category == 3)
+            {
+                auto str = _GetStr(0xB4Fu);
+                CHATLOG_ADD(str, 0xCu);
+            }
+            else if (job_category == 4)
+            {
+                auto str = _GetStr(0xB50u);
+                CHATLOG_ADD(str, 0xCu);
+            }
+            else
+            {
+                auto str = _GetStr(0xB49u);
+                CHATLOG_ADD(str, 0xCu);
+            }
+        }
+        TryDoingMeleeAttack(nullptr, 0, nullptr, 0, 0, 0, nullptr, 0, 0LL, 0, 0, 0);
+    }
+    return 0;
 }
 
 int32_t CUserLocal::DoActiveSkill_VehicleShootAttack(const SKILLENTRY* arg0, long arg1)
@@ -1407,10 +2241,15 @@ int32_t CUserLocal::DoActiveSkill_VehicleShootAttack(const SKILLENTRY* arg0, lon
     UNIMPLEMENTED;
 }
 
-int32_t CUserLocal::DoActiveSkill_MagicAttack(const SKILLENTRY* arg0, long arg1)
+int32_t CUserLocal::DoActiveSkill_MagicAttack(const SKILLENTRY* pSkill, long nSLV)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (!IsWeaponDisabled())
+    {
+        if ((this->m_nMoveAction & 0xFFFFFFFE) != 0xA)
+            return CUserLocal::TryDoingMagicAttack(pSkill, nSLV, 0, 0);
+        CUserLocal::TryDoingMeleeAttack(nullptr, 0, nullptr, 0, 0, 0, nullptr, 0, 0LL, 0, 0, 0);
+    }
+    return 0;
 }
 
 int32_t CUserLocal::DoActiveSkill_WeaponBooster(const SKILLENTRY* pSkill, long nSLV, long nWT1, long nWT2, long nWT3,
@@ -1425,10 +2264,42 @@ int32_t CUserLocal::DoActiveSkill_Teleport(const SKILLENTRY* arg0, long arg1)
     UNIMPLEMENTED;
 }
 
-int32_t CUserLocal::DoActiveSkill_Heal(const SKILLENTRY* arg0, long arg1)
+int32_t CUserLocal::DoActiveSkill_Heal(const SKILLENTRY* pSkill, long nSLV)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto ctx = TSingleton<CWvsContext>::ms_pInstance;
+    if (!ctx->CanSendExclRequest(300))
+    {
+        return 0;
+    }
+    auto cd = ctx->GetCharacterData();
+    if (TSingleton<CSkillInfo>::ms_pInstance->GetSkillLevel(*cd.op_arrow(), pSkill->nSkillID, nullptr) <= 0)
+        return 0;
+    auto v10 = pSkill->nSkillID / 1000 % 10;
+    if (!v10 || v10 == 9 || GetOneTimeAction() > -1)
+        return 0;
+    auto vec = GetVecCtrlUser();
+    if (vec->IsOnLadder() || vec->IsOnRope() || vec->IsUserFlying()) //TODO(game) user flying?
+        return 0;
+    COutPacket pkt(103);
+    pkt.Encode4(get_update_time());
+    pkt.Encode4(pSkill->nSkillID);
+    pkt.Encode1(nSLV);
+    long cnt{};
+    auto pt = FindParty(pSkill, nSLV, &cnt);
+    pkt.Encode1(pt);
+    pkt.Encode2(0);
+    ctx->SetExclRequestSent(true);
+    SendPacket(pkt);
+    ShowSkillEffect(pSkill, nSLV, 6, 0, 0x7FFFFFFF, nullptr);
+    if (!TryDoingMagicAttack(pSkill, nSLV, 0, 0))
+    {
+        if (pSkill->IsActionAppointed(nSLV))
+        {
+            this->m_nOneTimeAction = pSkill->GetRandomAppointedAction(nSLV, rand());
+            PrepareActionLayer(6, 100, 0);
+        }
+    }
+    return 1;
 }
 
 int32_t CUserLocal::DoActiveSkill_TownPortal(const SKILLENTRY* arg0, long arg1)
@@ -1448,10 +2319,150 @@ int32_t CUserLocal::DoActiveSkill_Prepare(const SKILLENTRY* pSkill, long nSLV, u
     return __sub_00541710(this, nullptr, pSkill, nSLV, nScanCode);
 }
 
-int32_t CUserLocal::DoActiveSkill_Summon(const SKILLENTRY* arg0, long arg1)
+int32_t CUserLocal::DoActiveSkill_Summon(const SKILLENTRY* pSkill, long nSLV)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto vec = GetVecCtrlUser();
+    auto field = get_field();
+
+    auto nSkillID_ = pSkill->nSkillID;
+    if (vec->IsUserFlying() || vec->IsSwimming())
+    {
+        if (!vec->GetFoothold() && (nSkillID_ == MECH3_ROCK_N_SHOCK
+            || nSkillID_ == MECH3_ACCELERATION_BOT_EX7
+            || nSkillID_ == MECH3_HEALING_ROBOT_HLX
+            || nSkillID_ == MECH4_BOTS_N_TOTS
+            || nSkillID_ == MECH4_AMPLIFIER_ROBOT_AF11))
+        {
+            auto str = _GetStr(0x18AA);
+            CHATLOG_ADD(str, 12);
+            return 0;
+        }
+    }
+
+    if (!vec->IsUserFlying() && !vec->GetFoothold())
+    {
+        return 0;
+    }
+
+    if (field->GetFieldID() / 1000000 % 100 == 9)
+        return 0;
+
+    auto ctx = CWvsContext::GetInstance();
+    if (IsDead() || !ctx->CanSendExclRequest(300))
+    {
+        return 0;
+    }
+    if (nSkillID_ == MECH3_SATELLITE || nSkillID_ == MECH3_SATELLITE_1 || nSkillID_ == MECH3_SATELLITE_2)
+    {
+        auto summ = GetSummoned(MECH3_SATELLITE);
+        //TODO
+        UNIMPLEMENTED;
+    }
+
+    auto pos = GetPos();
+    auto left = IsLeft();
+    if (nSkillID_ == RANGER_PUPPET
+        || nSkillID_ == SNIPER_PUPPET
+        || nSkillID_ == WA3_PUPPET
+        || nSkillID_ == DB5_MIRRORED_TARGET
+        || nSkillID_ == WH3_WILD_TRAP
+        || is_summon_octopus_skill(nSkillID_)
+        || nSkillID_ == WH2_ITS_RAINING_MINESHIDDEN_SELFDESTRUCT)
+    {
+        auto range = 200;
+        if (is_summon_octopus_skill(nSkillID_))
+        {
+            range = 45;
+        }
+        else if (nSkillID_ == DB5_MIRRORED_TARGET)
+        {
+            range = -50;
+        }
+        else if (nSkillID_ == WH2_ITS_RAINING_MINESHIDDEN_SELFDESTRUCT)
+        {
+            range = -30;
+        }
+
+        auto phy2d = CWvsPhysicalSpace2D::GetInstance();
+        auto v22 = 2 * ((m_nMoveAction & 1) == 0) - 1;
+        auto v23 = pos.x + range * v22;
+        auto mbr = phy2d->GetMBR();
+        if (mbr.left + 1 >= v23)
+            v23 = mbr.left + 1;
+        auto v24 = mbr.right - 1;
+        pos.x = v23;
+        if (v23 >= v24)
+            pos.x = v24;
+        auto userPos = GetPos();
+        if (pos.x != userPos.x)
+        {
+            while (true)
+            {
+                if (vec->IsUserFlying())
+                    break;
+                long cy{};
+                auto fhU = phy2d->GetFootholdUnderneath(pos.x, pos.y, &cy, pos.y + 80, 1);
+                long cyA{};
+                auto fhAbove = phy2d->GetFootholdAbove(pos.x, pos.y, &cyA, pos.y - 80);
+                if (fhU)
+                {
+                    if (fhAbove && cy - pos.y > pos.y - cyA)
+                        pos.y = cyA - 1;
+                    else
+                        pos.y = cy - 1;
+                    break;
+                }
+                if (fhAbove)
+                {
+                    pos.y = cyA - 1;
+                    break;
+                }
+                userPos = GetPos();
+                pos.x += -15 * v22;
+                if (v22 * pos.x <= v22 * userPos.x)
+                    return 0;
+                if (pos.x == userPos.x)
+                    break;
+            }
+        }
+    }
+
+    auto actionAppointed = pSkill->IsActionAppointed(nSLV);
+    if (actionAppointed)
+    {
+        if (GetOneTimeAction() > -1)
+        {
+            return 0;
+        }
+
+        m_nOneTimeAction = pSkill->GetRandomAppointedAction(nSLV, rand());
+        PrepareActionLayer(6, 100, false);
+    }
+
+    COutPacket pkt(Cp::Userskilluserequest);
+    pkt.Encode4(get_update_time());
+    pkt.Encode4(nSkillID_);
+    pkt.Encode1(nSLV);
+    if (nSkillID_ == MECH3_ROCK_N_SHOCK)
+    {
+        //TODO(game)
+        /*
+        *COutPacket::Encode1(&oPacket, field);
+    if ( field == 2 )
+    {
+      COutPacket::Encode4(&oPacket, *ldwTeslaCoilSummonedID.a);
+      COutPacket::Encode4(&oPacket, ldwTeslaCoilSummonedID.a[1]);
+    }*/
+    }
+
+    pkt.Encode2(pos.x);
+    pkt.Encode2(pos.y);
+    pkt.Encode1(left);
+    pkt.Encode1(vec->IsUserFlying());
+    SendPacket(pkt);
+    ctx->SetExclRequestSent(true);
+    ShowSkillEffect(pSkill, nSLV, 6, 0, 0x7FFFFFFF, nullptr);
+    return 1;
 }
 
 int32_t CUserLocal::DoActiveSkill_StatChange(const SKILLENTRY* pSkill, long nSLV, unsigned long dwTargetFlag)
@@ -1602,18 +2613,233 @@ void CUserLocal::TryDoingSparkAttack()
 
 void CUserLocal::TryDoingPreparedSkill()
 {
-    //TODO(game)
-    return;
+    auto p_m_preparingSkill = &this->m_preparingSkill;
+    auto ctx = CWvsContext::GetInstance();
+    auto skillInfo = CSkillInfo::GetInstance();
+    auto cd = ctx->GetCharacterData();
+    auto& ss = GetSecondaryStat();
+    if (this->m_preparingSkill.nSkillID && get_update_time() - this->m_preparingSkill.tStart >= 0)
+    {
+        const SKILLENTRY* pSkill{};
+
+        auto SkillLevel = skillInfo->GetSkillLevel(
+            *cd,
+            p_m_preparingSkill->nSkillID,
+            &pSkill);
+        if (p_m_preparingSkill->nSkillID == MECH2_ENHANCED_FLAME_LAUNCHER)
+            SkillLevel = skillInfo->GetSkillLevel(*cd, MECH1_FLAME_LAUNCHER, nullptr);
+        if (pSkill && SkillLevel)
+        {
+            if (this->m_bKeyDown)
+            {
+                if (p_m_preparingSkill->nSkillID == MECH1_FLAME_LAUNCHER
+                    || p_m_preparingSkill->nSkillID == MECH2_ENHANCED_FLAME_LAUNCHER)
+                {
+                    if (get_update_time() - this->m_preparingSkill.tStart < 8000)
+                    {
+                        if (get_update_time() - this->m_preparingSkill.tAttackStartTime >= 0)
+                        {
+                            auto Value = ss[4]->GetValue();
+                            auto nFrozen = ss._ZtlSecureGet_nFrozen_();
+
+                            auto AuraBooster = GetAuraBooster();
+                            auto nBooster = ss._ZtlSecureGet_nBooster_();
+                            auto m_nWeaponAttackSpeed = _ZtlSecureGet_m_nWeaponAttackSpeed();
+                            auto attack_speed_degree = get_attack_speed_degree(
+                                m_nWeaponAttackSpeed,
+                                0,
+                                nBooster,
+                                Value,
+                                AuraBooster,
+                                nFrozen);
+                            ShowSkillPrepare(pSkill, attack_speed_degree, 1, 0);
+                            this->m_preparingSkill.tAttackStartTime = GetActionInfo().tTotFrameDelay +
+                                get_update_time();
+                        }
+                    }
+                    else
+                    {
+                        auto cool_time = get_cool_time(p_m_preparingSkill->nSkillID);
+                        m_mCoolEndTime.Insert(p_m_preparingSkill->nSkillID, cool_time + get_update_time());
+                        OnKeyDownSkillEnd();
+                    }
+                }
+                else if (get_update_time() - this->m_tLastKeyDown == pSkill->tPrepare)
+                {
+                    auto Value = ss[4]->GetValue();
+                    auto nFrozen = ss._ZtlSecureGet_nFrozen_();
+
+                    auto AuraBooster = GetAuraBooster();
+                    auto nBooster = ss._ZtlSecureGet_nBooster_();
+                    auto m_nWeaponAttackSpeed = _ZtlSecureGet_m_nWeaponAttackSpeed();
+                    auto attack_speed_degree = get_attack_speed_degree(
+                        m_nWeaponAttackSpeed,
+                        0,
+                        nBooster,
+                        Value,
+                        AuraBooster,
+                        nFrozen);
+                    ShowSkillPrepare(pSkill, attack_speed_degree, 1, 0);
+                }
+            }
+            else
+            {
+                p_m_preparingSkill->nSkillID = 0;
+                p_m_preparingSkill->tStart = 0;
+                p_m_preparingSkill->tAttackStartTime = 0;
+                p_m_preparingSkill->bKeyDown = 0;
+                if (GetOneTimeAction() > -1)
+                {
+                    this->ResetOneTimeAction();
+                    this->PrepareActionLayer(6, 100, 0);
+                }
+                if (pSkill->nSkillID == FP2_EXPLOSION)
+                {
+                    TryDoingMagicAttack(pSkill, SkillLevel, 0, 0);
+                }
+                else if (pSkill->nSkillID == CHIEFBANDIT_CHAKRA)
+                {
+                    DoActiveSkill_StatChange(pSkill, SkillLevel, 1u);
+                }
+            }
+        }
+    }
 }
 
-void CUserLocal::TryDoingRepeatSkill(long nSeatID)
+void CUserLocal::TryDoingRepeatSkill(long tCur)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    auto cd = CWvsContext::GetInstance()->GetCharacterData();
+    auto skillInfo = CSkillInfo::GetInstance();
+    auto nSkillID = this->m_repeatSkill.nSkillID;
+    auto v5 = 0;
+    if (nSkillID <= MECH4_MECH_MISSILE_TANK)
+    {
+        if (nSkillID == MECH4_MECH_MISSILE_TANK)
+        {
+            CUserLocal::TryDoingSiege(tCur);
+            return;
+        }
+        if (nSkillID != MECH3_MECH_SIEGE_MODE)
+        {
+            if (nSkillID == MECH4_GIANT_ROBOT_SG88)
+            {
+                if (this->m_repeatSkill.bKeyDownbar || tCur - this->m_repeatSkill.tStart < 810)
+                {
+                    if (this->m_repeatSkill.bDone)
+                    {
+                        if (tCur - this->m_repeatSkill.tAttackStartTime >= 2520)
+                        {
+                            auto summ = GetSummoned(MECH4_GIANT_ROBOT_SG88);
+                            if (summ)
+                            {
+                                if (!summ->IsAssistAttackManual())
+                                {
+                                    summ->SendRemove();
+                                    CUserLocal::ClearRepeatSkill();
+                                    if (this->m_nMechanicMode == MECH4_MECH_MISSILE_TANK)
+                                    {
+                                        this->m_repeatSkill.nSkillID = MECH4_MECH_MISSILE_TANK;
+                                        this->m_repeatSkill.tStart = tCur;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (tCur - this->m_repeatSkill.tStart >= 2790)
+                    {
+                        auto summ = GetSummoned(MECH4_GIANT_ROBOT_SG88);
+                        if (summ)
+                            summ->SetAssistAttackManual(true);
+                        this->m_repeatSkill.bDone = 1;
+                        this->m_repeatSkill.tAttackStartTime = tCur;
+                        m_pLayerKeyDownBar = 0;
+                    }
+                }
+                else
+                {
+                    CreateKeyDownBar(MECH4_GIANT_ROBOT_SG88);
+                    this->m_repeatSkill.bKeyDownbar = 1;
+                }
+            }
+            return;
+        }
+        v5 = tCur;
+        if (tCur - this->m_repeatSkill.tStart >= 5000)
+        {
+            auto slvl = skillInfo->GetSkillLevel(*cd.op_arrow(), m_repeatSkill.nSkillID, nullptr);
+            SendSkillEffectRequest(35110004, slvl, 1);
+            ClearRepeatSkill();
+            play_skill_sound(35111004, SE_SKILL_USE, 0);
+            return;
+        }
+    LABEL_31:
+        TryDoingSiege(v5);
+        return;
+    }
+    if (nSkillID != MECH4_MECH_SIEGE_MODE)
+        return;
+    if (!this->m_bSendTankSiegeModeEnd)
+    {
+        v5 = tCur;
+        if (tCur - this->m_tLastTankSiegeMode >= 5000)
+        {
+            auto slvl = skillInfo->GetSkillLevel(*cd.op_arrow(), m_repeatSkill.nSkillID, nullptr);
+            CUserLocal::SendSkillEffectRequest(35120013, slvl, 1);
+            this->m_bSendTankSiegeModeEnd = 1;
+            play_skill_sound(35121013, SE_SKILL_USE, 0);
+            return;
+        }
+        goto LABEL_31;
+    }
+    if (this->m_nMechanicMode == MECH4_MECH_MISSILE_TANK)
+        this->m_repeatSkill.nSkillID = MECH4_MECH_MISSILE_TANK;
 }
 
-void CUserLocal::TryDoingSiege(long nSeatID)
+void CUserLocal::TryDoingSiege(long tCur)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    auto v3 = 0;
+    if (this->m_repeatSkill.bDone)
+    {
+        switch (this->m_repeatSkill.nSkillID)
+        {
+        case MECH3_MECH_SIEGE_MODE:
+            v3 = tCur - this->m_repeatSkill.tAttackStartTime < 180;
+            break;
+        case MECH4_MECH_MISSILE_TANK:
+            v3 = tCur - this->m_repeatSkill.tAttackStartTime < 420;
+            break;
+        case MECH4_MECH_SIEGE_MODE:
+            v3 = tCur - this->m_repeatSkill.tAttackStartTime < 180;
+            break;
+        default:
+            if (this->m_repeatSkill.bDone)
+                return;
+        }
+        if (!v3)
+            this->m_repeatSkill.bDone = false;
+        if (this->m_repeatSkill.bDone)
+            return;
+    }
+    if (this->m_repeatSkill.nPoint)
+    {
+        auto ctx = TSingleton<CWvsContext>::ms_pInstance;
+        auto cd = ctx->GetCharacterData();
+        auto skillInfo = CSkillInfo::GetInstance();
+        auto nSkillID = this->m_repeatSkill.nSkillID;
+        const SKILLENTRY* entry{};
+        auto slv = skillInfo->GetSkillLevel(*cd.op_arrow(), nSkillID, &entry);
+        if (skillInfo->CheckConsumeForActiveSkill(
+            *cd.op_arrow(),
+            ctx->GetBasicStat(),
+            ctx->GetSecondaryStat(),
+            entry->nSkillID,
+            nullptr,
+            nullptr))
+            TryDoingShootAttack(entry, slv, 0, 0, 0, 0);
+        this->m_repeatSkill.tAttackStartTime = get_update_time();
+        this->m_repeatSkill.bDone = true;
+        this->m_repeatSkill.nPoint = 0;
+    }
 }
 
 void CUserLocal::TryDoingRocketBooster()
@@ -1692,8 +2918,15 @@ void CUserLocal::TryPassiveTransferField()
 
 void CUserLocal::CheckPassenser()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if ( m_dwPassenserID )
+    {
+        if ( auto user = TSingleton<CUserPool>::ms_pInstance->GetUser(m_dwPassenserID) )
+        {
+            user->GetSecondaryStat();
+            user->SetDriverID(0);
+        }
+        this->m_dwPassenserID = 0;
+    }
 }
 
 int32_t CUserLocal::IsTeleportSkillAvailable(const SKILLENTRY* pSkill, long nSLV, tagPOINT& ptAfterTeleport)
@@ -1713,7 +2946,7 @@ void CUserLocal::OnSkillCooltimeSet(CInPacket& iPacket)
 
 void CUserLocal::CreateKeyDownBar(long nSeatID)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    //TODO(game)
 }
 
 void CUserLocal::DrawKeyDownBar()
@@ -1731,7 +2964,7 @@ void CUserLocal::SendBanMapByMobRequest(unsigned long dwMobTemplateID)
     __sub_00508D50(this, nullptr, dwMobTemplateID);
 }
 
-void CUserLocal::CheckBoobyTrapPickUpRequest(uint32_t lParam)
+void CUserLocal::CheckBoobyTrapPickUpRequest(int32_t lParam)
 {
     __sub_00506190(this, nullptr, lParam);
 }
@@ -1773,9 +3006,16 @@ long CUserLocal::CalcBuffDefenseAttr(char nElemAttr, long nDamage)
     return __sub_00504120(this, nullptr, nElemAttr, nDamage);
 }
 
-void CUserLocal::RemoveTutor(long nSeatID)
+void CUserLocal::RemoveTutor(long nSKillId)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    m_pTutor = 0;
+    for (auto& tutor : ms_anTutors)
+    {
+        if (tutor == nSKillId)
+        {
+            ms_anTutors.RemoveAt(&tutor);
+        }
+    }
 }
 
 void CUserLocal::RequestIncCombo()
@@ -1793,9 +3033,9 @@ long CUserLocal::GetCombo()
     return __sub_00348E50(this, nullptr);
 }
 
-void CUserLocal::SetCombo(long nSeatID)
+void CUserLocal::SetCombo(long nCombo)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    m_nCombo = nCombo;
 }
 
 void CUserLocal::ClearCombo()
@@ -1836,7 +3076,11 @@ void CUserLocal::OnNoticeMsg(CInPacket& iPacket)
 
 void CUserLocal::OnChatMsg(CInPacket& iPacket)
 {
-    __sub_00518300(this, nullptr, iPacket);
+    //__sub_00518300(this, nullptr, iPacket);
+    auto flag = iPacket.Decode2();
+    auto msg = iPacket.DecodeStr();
+    if (auto statusBar = CUIStatusBar::GetInstance())
+        statusBar->ChatLogAdd(msg.c_str(), flag, -1, 0, {});
 }
 
 void CUserLocal::OnBuffzoneEffect(CInPacket& iPacket)
@@ -1846,17 +3090,24 @@ void CUserLocal::OnBuffzoneEffect(CInPacket& iPacket)
 
 long CUserLocal::GetConsumeItemUsingLastTime()
 {
-    return __sub_00348E50(this, nullptr);
+    return m_tConsumeItemUsingLastTime;
 }
 
-void CUserLocal::SetConsumeItemUsingLastTime(long nSeatID)
+void CUserLocal::SetConsumeItemUsingLastTime(long t)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    m_tConsumeItemUsingLastTime = t;
 }
 
-void CUserLocal::UpdateClientTimer(long nSeatID)
+void CUserLocal::UpdateClientTimer(long tCur)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    /*auto cur = m_mClientTimerSkill.GetHeadPosition();
+    while (cur)
+    {
+        long value{};
+
+    }*/
+
+    //TODO(game)
 }
 
 void CUserLocal::SetClientTimer(long nSkillID, long tTime)
@@ -1921,9 +3172,13 @@ void CUserLocal::GetTeslaCoilSummonedID(ZArray<unsigned long>& ldwTeslaCoilSummo
     __sub_00510B90(this, nullptr, ldwTeslaCoilSummonedID);
 }
 
-void CUserLocal::ChangeTeslaCoilEndTime(long nSeatID)
+void CUserLocal::ChangeTeslaCoilEndTime(long tNew)
 {
-    __sub_005D3870(this, nullptr, nSeatID);
+    for (auto& summ : m_lSummoned)
+    {
+        if (summ->GetSkillID() == MECH3_ROCK_N_SHOCK)
+            summ->ChangeEndTime(tNew);
+    }
 }
 
 void CUserLocal::ChangeTeslaTriangle()
@@ -1971,12 +3226,25 @@ void CUserLocal::SetPassiveSkillDataForced(ZXString<char> sFlag, long nVal)
 
 int32_t CUserLocal::CheckApplyExJablin(const SKILLENTRY* pSkill, long nAction)
 {
-    return __sub_00509BF0(this, nullptr, pSkill, nAction);
+    //return __sub_00509BF0(this, nullptr, pSkill, nAction);
+    auto nSkillID = pSkill ? pSkill->nSkillID : 0;
+    if (!this->m_bNextShootExJablin)
+        return 0;
+    if (GetSkillLevel(NIGHTLORD_EXPERT_THROWING_STAR_HANDLING) <= 0)
+    {
+        this->m_bNextShootExJablin = 0;
+        return 0;
+    }
+    return is_shoot_action(nAction)
+        && (!nSkillID || !is_shoot_skill_not_consuming_bullet(nSkillID) && !is_shoot_skill_not_showing_bullet(pSkill));
 }
 
 void CUserLocal::SetPetsAngry()
 {
-    __sub_005042A0(this, nullptr);
+    //__sub_005042A0(this, nullptr);
+    for (auto& pet : m_apPet)
+        if (pet)
+            pet->SetAngryAction();
 }
 
 void CUserLocal::ResetNLCPQ()
@@ -2028,12 +3296,11 @@ void CUserLocal::TELEPORT::_ctor_0()
 
 CUserLocal::RUSH::~RUSH()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CUserLocal::RUSH::_dtor_0()
 {
-    return __sub_00506C70(this, nullptr);
+    this->~RUSH();
 }
 
 CUserLocal::RUSH::RUSH(const CUserLocal::RUSH& arg0)
@@ -2070,7 +3337,6 @@ CUserLocal::RUSH& CUserLocal::RUSH::_op_assign_3(CUserLocal::RUSH* pThis, const 
 
 CUserLocal::CBalloonMsg::~CBalloonMsg()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CUserLocal::CBalloonMsg::_dtor_0()
@@ -2122,17 +3388,68 @@ CUserLocal::CBalloonMsg& CUserLocal::CBalloonMsg::_op_assign_4(CUserLocal::CBall
 tagPOINT __cdecl GetShootAttackPt0(long nSkillID, long nJob, const tagPOINT& ptUser, long nVehicleID,
                                    long nBodyRelMoveY)
 {
-    return __sub_005039A0(nSkillID, nJob, ptUser, nVehicleID, nBodyRelMoveY);
+    //TODO(game) !!!
+    //return __sub_005039A0(nSkillID, nJob, ptUser, nVehicleID, nBodyRelMoveY);
+    auto res = ptUser;
+    res.y -= 28;
+    if (is_position_up_skill_on_riding(nSkillID, nJob))
+    {
+        UNIMPLEMENTED; //TODO(game) detect riding vehicle
+    }
+
+    switch (nSkillID)
+    {
+    case WH2_JAGUAROSHI_2:
+        res.y -= 12;
+        break;
+    case WH4_STINK_BOMB_SHOT:
+        res.y += 11;
+        break;
+    case MECH1_GATLING_GUN:
+    case WH2_RICOCHET:
+    case MECH2_ENHANCED_GATLING_GUN:
+        res.y += 5;
+        break;
+    case MECH3_PUNCH_LAUNCHER:
+        res.y += 10;
+        break;
+    default:
+        break;
+    }
+
+    return res;
 }
 
 long __cdecl GetShootRange0(long nSkillID, long nShootRange0, int32_t bMortalBlow)
 {
-    return __sub_00503230(nSkillID, nShootRange0, bMortalBlow);
+    nShootRange0 = 400;
+    switch (nSkillID)
+    {
+    case WH2_JAGUAROSHI_2:
+        return 70;
+    case WH1_TRIPLE_SHOT:
+        return 65;
+    case WH2_RICOCHET:
+        return 39;
+    case WH3_ENDURING_FIRE:
+        return 65;
+    case WH4_STINK_BOMB_SHOT:
+        return 22;
+    default:
+        return bMortalBlow ? 0 : nShootRange0;
+    }
 }
 
 const SKILLENTRY* __cdecl get_soul_arrow(long nJob)
 {
-    return __sub_00503910(nJob);
+    auto skillInfo = CSkillInfo::GetInstance();
+    if (nJob / 100 == 33)
+        return skillInfo->GetSkill(WH2_SOUL_ARROW_CROSSBOW);
+    if (nJob / 1000 == 1)
+        return skillInfo->GetSkill(WA2_SOUL_ARROW);
+    if (nJob / 10 == 32)
+        return skillInfo->GetSkill(CROSSBOWMAN_SOUL_ARROW_CROSSBOW);
+    return skillInfo->GetSkill(HUNTER_SOUL_ARROW_BOW);
 }
 
 void __cdecl sort_mob_by_distance(int32_t arg0, CMob** arg1, long arg2)
@@ -2142,7 +3459,30 @@ void __cdecl sort_mob_by_distance(int32_t arg0, CMob** arg1, long arg2)
 
 long __cdecl get_stance_skill_id(const long nJob)
 {
-    return __sub_005031D0(nJob);
+    //return __sub_005031D0(nJob);
+    if (nJob <= 2112)
+    {
+        switch (nJob)
+        {
+        case 2112:
+            return 21121003;
+        case 112:
+            return 1121002;
+        case 122:
+            return 1221002;
+        case 132:
+            return 1321002;
+        default:
+            return 0;
+        }
+    }
+    if (nJob != 3212)
+    {
+        if (nJob > 3309 && nJob <= 3312)
+            return 33101006;
+        return 0;
+    }
+    return 32121005;
 }
 
 void __cdecl zswap_CMob__(CMob*& a, CMob*& b)

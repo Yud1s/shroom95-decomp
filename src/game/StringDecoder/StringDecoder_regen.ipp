@@ -296,7 +296,7 @@ __asm {
 	mov ecx,ebx
 	mov dword ptr [esp+0x28],0
 	mov dword ptr [ebx],0
-	call ZArray<ZXString<unsigned short> *>::_Alloc
+	call ZArray<ZXString16 *>::_Alloc
 	mov ecx,esi
 	mov dword ptr [esi+8],0
 	xor edi,edi
@@ -552,7 +552,7 @@ __asm {
 }
 }
 // StringPool::GetStringW
-__SUB_CLASS_THIS(00003B60, __thiscall, 107256,  StringPool, ZXString<unsigned short>*, ZXString<unsigned short>*, uint32_t) {
+__SUB_CLASS_THIS(00003B60, __thiscall, 107256,  StringPool, ZXString16*, ZXString16*, uint32_t) {
 __asm {
 
  Block0:
@@ -573,7 +573,7 @@ __asm {
 }
 // StringPool::GetString
 _SUB_EXCEPTION_HANDLER(346880)
-__SUB_CLASS_THIS(00346880, __thiscall, 88770,  StringPool, ZXString<unsigned short>*, ZXString<unsigned short>*, uint32_t, wchar_t) {
+__SUB_CLASS_THIS(00346880, __thiscall, 88770,  StringPool, ZXString16*, ZXString16*, uint32_t, wchar_t) {
 __asm {
 
  Block0:
@@ -627,7 +627,7 @@ __asm {
 	push edx
 	mov ecx,edi
 	mov dword ptr [edi],0
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	jmp Block4
 
  Block3:
@@ -654,7 +654,7 @@ __asm {
 	push ebx
 	mov ecx,esi
 	mov dword ptr [esi],0
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,esi
 	test ebp,ebp
 	je Block9

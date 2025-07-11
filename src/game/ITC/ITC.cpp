@@ -154,7 +154,7 @@ void CITC::Init(void* pParam) {
 void CITC::Close() {
 	__sub_00174400(this, nullptr);
 }
-void CITC::OnKey(uint32_t wParam, uint32_t lParam) {
+void CITC::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00171DF0(this, nullptr, wParam, lParam);
 }
 void CITC::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {

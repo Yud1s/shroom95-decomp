@@ -85,7 +85,7 @@ void CRegisterWishEntrySearchDlg::OnDestroy() {
 void CRegisterWishEntrySearchDlg::Draw(const tagRECT* pRect) {
 	__sub_00179AB0(this, nullptr, pRect);
 }
-void CRegisterWishEntrySearchDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CRegisterWishEntrySearchDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_001774E0(this, nullptr, wParam, lParam);
 }
 void CRegisterWishEntrySearchDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {
@@ -141,7 +141,7 @@ void CRegisterAuctionEntryDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint
 void CRegisterAuctionEntryDlg::Draw(const tagRECT* pRect) {
 	__sub_0017D6E0(this, nullptr, pRect);
 }
-void CRegisterAuctionEntryDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CRegisterAuctionEntryDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0017E100(this, nullptr, wParam, lParam);
 }
 int32_t __cdecl CRegisterAuctionEntryDlg::Confirm(long nTI, GW_ItemSlotBase* pItem, void* pData, long& nBeginPrice, long& nEndPrice, long& nSaleCount, unsigned char& bSaleDuration, unsigned char& bRegisterFeeType, long& nBidRange) {
@@ -185,7 +185,7 @@ void CRegisterSaleEntryDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_
 void CRegisterSaleEntryDlg::Draw(const tagRECT* pRect) {
 	__sub_00178EB0(this, nullptr, pRect);
 }
-void CRegisterSaleEntryDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CRegisterSaleEntryDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_001796E0(this, nullptr, wParam, lParam);
 }
 int32_t __cdecl CRegisterSaleEntryDlg::Confirm(long nTI, GW_ItemSlotBase* pItem, void* pData, long& nSalePrice, long& nSaleCount, unsigned char& bSaleDuration, unsigned char& bRegisterFeeType) {
@@ -229,7 +229,7 @@ void CRegisterWishEntryDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_
 void CRegisterWishEntryDlg::Draw(const tagRECT* pRect) {
 	__sub_0017C0A0(this, nullptr, pRect);
 }
-void CRegisterWishEntryDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CRegisterWishEntryDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0017C660(this, nullptr, wParam, lParam);
 }
 int32_t __cdecl CRegisterWishEntryDlg::Confirm(long nItemID, void* pData, long& nSalePrice, long& nSaleCount, unsigned char& bSaleDuration, unsigned char& bRegisterFeeType, ZXString<char>& sDesc) {

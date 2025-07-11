@@ -70,7 +70,7 @@ CUILoginDesc::CUILoginDesc(CLogin* pLogin, long nStep)
         100, 0, 300);
 
     auto sFmt = StringPool::GetInstance().GetStringW(0x548);
-    ZXString<unsigned short> sText;
+    ZXString16 sText;
     sText.Format(sFmt.c_str(), 3); //TODO proper step
 
     CreateFadeWnd(
@@ -295,7 +295,7 @@ int32_t CUILoginStart::OnSetFocus(int32_t bFocus)
     // return __sub_001EF230(this, nullptr, bFocus);
 }
 
-void CUILoginStart::OnKey(uint32_t wParam, uint32_t lParam)
+void CUILoginStart::OnKey(uint32_t wParam, int32_t lParam)
 {
     //__sub_001EE560(this, nullptr, wParam, lParam);
 }
@@ -372,14 +372,11 @@ CUILoginStart& CUILoginStart::_op_assign_14(CUILoginStart* pThis, const CUILogin
     UNIMPLEMENTED;
 }
 
-CLoginUtilDlg::~CLoginUtilDlg()
-{
-    UNIMPLEMENTED; // _dtor_0();
-}
+CLoginUtilDlg::~CLoginUtilDlg() = default;
 
 void CLoginUtilDlg::_dtor_0()
 {
-    return __sub_001EF010(this, nullptr);
+    this->~CLoginUtilDlg();
 }
 
 CLoginUtilDlg::CLoginUtilDlg(const CLoginUtilDlg& arg0)
@@ -393,9 +390,7 @@ void CLoginUtilDlg::_ctor_1(const CLoginUtilDlg& arg0)
     UNIMPLEMENTED;
 }
 
-CLoginUtilDlg::CLoginUtilDlg()
-{
-}
+CLoginUtilDlg::CLoginUtilDlg() = default;
 
 void CLoginUtilDlg::_ctor_0()
 {
@@ -405,7 +400,14 @@ void CLoginUtilDlg::_ctor_0()
 
 int32_t __cdecl CLoginUtilDlg::YesNo(long nMsg, ZRef<CDialog>* ppDialog)
 {
-    return __sub_001EF570(nMsg, ppDialog);
+    //return __sub_001EF570(nMsg, ppDialog);
+    auto dlg = new CLoginUtilDlg();
+    if (ppDialog)
+        *ppDialog = dlg;
+    dlg->Init(0, nMsg);
+    auto txt = _GetStrW(0x55A);
+    dlg->CreateFadeWnd(249, 142, (const wchar_t*)txt.c_str(), 10, 1, 0, 0, Origin_LT);
+    return dlg->DoModal() != 0;
 }
 
 int32_t __cdecl CLoginUtilDlg::YesNo2(long nMsg)
@@ -425,20 +427,28 @@ int32_t __cdecl CLoginUtilDlg::YesNo4(long nMsg, ZRef<CDialog>* ppDialog)
 
 void __cdecl CLoginUtilDlg::Notice(long nMsg, ZRef<CDialog>* ppDialog)
 {
-    const auto dlg = new CLoginUtilDlg;
-    *ppDialog = dlg;
+    auto dlg = new CLoginUtilDlg();
+    if (ppDialog)
+        *ppDialog = dlg;
 
     dlg->Init(4, nMsg);
-    auto str = StringPool::GetInstance().GetStringW(0x55a);
+    auto str = _GetStrW(0x55a);
     dlg->CreateFadeWnd(249, 142, (const wchar_t*)str.c_str(), 10, true, nullptr, false, Origin_LT);
     dlg->DoModal();
-    *ppDialog = 0;
     //__sub_001EF820(nMsg, ppDialog);
 }
 
 void __cdecl CLoginUtilDlg::Error(long nMsg, ZRef<CDialog>* ppDialog)
 {
-    __sub_001EF980(nMsg, ppDialog);
+    //__sub_001EF980(nMsg, ppDialog);
+    auto dlg = new CLoginUtilDlg();
+    if (ppDialog)
+        *ppDialog = dlg;
+
+    dlg->Init(5, nMsg);
+    auto str = _GetStrW(0x55B);
+    dlg->CreateFadeWnd(249, 142, (const wchar_t*)str.c_str(), 10, true, nullptr, false, Origin_LT);
+    dlg->DoModal();
 }
 
 long __cdecl CLoginUtilDlg::AskBirthDate(ZRef<CDialog>* arg0)
@@ -447,13 +457,13 @@ long __cdecl CLoginUtilDlg::AskBirthDate(ZRef<CDialog>* arg0)
     UNIMPLEMENTED;
 }
 
-void __cdecl CLoginUtilDlg::ScrollNotice(ZXString<unsigned short> arg0)
+void __cdecl CLoginUtilDlg::ScrollNotice(ZXString16 arg0)
 {
     // TODO: No module found for method
     UNIMPLEMENTED;
 }
 
-void CLoginUtilDlg::Init_(long arg0, ZXString<unsigned short> arg1)
+void CLoginUtilDlg::Init_(long arg0, ZXString16 arg1)
 {
     // TODO: No module found for method
     UNIMPLEMENTED;
@@ -461,7 +471,12 @@ void CLoginUtilDlg::Init_(long arg0, ZXString<unsigned short> arg1)
 
 void CLoginUtilDlg::Init(long nType, long nMsg)
 {
-    __sub_001EE600(this, nullptr, nType, nMsg);
+    //__sub_001EE600(this, nullptr, nType, nMsg);
+    tagPOINT pt0{0x127, 0xBD};
+    tagPOINT pt1{0x113, 0xD1};
+    SetOption(0, 255, 0, pt0, pt1, pt1, 150, 0, 150);
+    this->m_nType = nType;
+    this->m_nMsg = nMsg;
 }
 
 void CLoginUtilDlg::SetRet(long nRet)
@@ -482,10 +497,26 @@ void CLoginUtilDlg::OnCreate(void* pData)
 
 void CLoginUtilDlg::OnButtonClicked(uint32_t nId)
 {
-    __sub_001EFD80(this, nullptr, nId);
+    //__sub_001EFD80(this, nullptr, nId);
+    if (nId == 1000)
+    {
+        if (this->m_nType == 1002)
+        {
+            auto txt = m_pEditBirthDate->GetText();
+            this->SetRet(txt.IsEmpty());
+        }
+        else
+        {
+            this->SetRet(1);
+        }
+    }
+    else if (nId == 1001)
+    {
+        this->SetRet(0);
+    }
 }
 
-void CLoginUtilDlg::OnKey(uint32_t wParam, uint32_t lParam)
+void CLoginUtilDlg::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_001EFE50(this, nullptr, wParam, lParam);
 }
@@ -497,7 +528,8 @@ void CLoginUtilDlg::Draw(const tagRECT* pRect)
 
 void CLoginUtilDlg::Delete()
 {
-    __sub_001EE650(this, nullptr);
+    //__sub_001EE650(this, nullptr);
+    delete this;
 }
 
 void CLoginUtilDlg::OnPreFadeIn()
@@ -507,7 +539,11 @@ void CLoginUtilDlg::OnPreFadeIn()
 
 int32_t CLoginUtilDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl)
 {
-    return __sub_001EE670(this, nullptr, rx, ry, ppCtrl);
+    //return __sub_001EE670(this, nullptr, rx, ry, ppCtrl);
+    if (ppCtrl)
+        return CFadeWnd::HitTest(rx, ry, ppCtrl);
+
+    return 0;
 }
 
 CLoginUtilDlg& CLoginUtilDlg::operator=(const CLoginUtilDlg& arg0)

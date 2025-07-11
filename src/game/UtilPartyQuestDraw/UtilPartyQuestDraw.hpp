@@ -63,6 +63,6 @@ void __cdecl DrawLevelRange(_x_com_ptr<IWzCanvas> pCanvas, long x, long y, long 
 void __cdecl DrawQuestUnit2(const PartyQuestInfo *pInfo, _x_com_ptr<IWzCanvas> pCanvas, long x, long y, int32_t bByExp);
 long __cdecl GetLevel();
 CFontContainer *__cdecl GetFont();
-void __cdecl DoDraw(const PartyQuestInfo *pCanvas, _x_com_ptr<IWzCanvas> x, long y, long bSelected, int32_t sUOL, ZXString<unsigned short> arg5);
+void __cdecl DoDraw(const PartyQuestInfo *pCanvas, _x_com_ptr<IWzCanvas> x, long y, long bSelected, int32_t sUOL, ZXString16 arg5);
 void __cdecl DrawDigitForLevel(_x_com_ptr<IWzCanvas> pCanvas, long x, long y, long number, int32_t bGray);
 void __cdecl DrawNumberForLevel(_x_com_ptr<IWzCanvas> pCanvas, int x, int y, int number, bool gray);

@@ -18,7 +18,7 @@ __SUB_CLASS_THIS(0009C5E0, __thiscall, 138388,  CCashTradingRoomDlg, void, long,
 	_ASM_PLACEHOLDER(0009C5E0, 138388)
 }
 // CMiniRoomBaseDlg::AddChatText
-__SUB_CLASS_THIS(00239130, __thiscall, 60003,  CMiniRoomBaseDlg, void, NakedParam<ZXString<unsigned short>>, FONT_TYPE) {
+__SUB_CLASS_THIS(00239130, __thiscall, 60003,  CMiniRoomBaseDlg, void, NakedParam<ZXString16>, FONT_TYPE) {
 	_ASM_PLACEHOLDER(00239130, 60003)
 }
 // CCashTradingRoomDlg::ClearToolTip

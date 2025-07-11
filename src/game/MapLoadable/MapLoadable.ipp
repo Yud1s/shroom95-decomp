@@ -81,7 +81,7 @@ __SUB_CLASS_THIS0(0021F0C0, __thiscall, 19649,  CMapLoadable, void) {
 	_ASM_PLACEHOLDER(0021F0C0, 19649)
 }
 // CMapLoadable::TransientLayer_NewYear
-__SUB_CLASS_THIS(0021D930, __thiscall, 19689,  CMapLoadable, void, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(0021D930, __thiscall, 19689,  CMapLoadable, void, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(0021D930, 19689)
 }
 // CMapLoadable::PrepareNextBGM
@@ -157,7 +157,7 @@ __SUB_CLASS_THIS0(0021E190, __thiscall, 19649,  CMapLoadable, void) {
 	_ASM_PLACEHOLDER(0021E190, 19649)
 }
 // CMapLoadable::TransientLayer_Weather
-__SUB_CLASS_THIS(002177C0, __thiscall, 19688,  CMapLoadable, void, const ZXString<unsigned short>&, long, long, long) {
+__SUB_CLASS_THIS(002177C0, __thiscall, 19688,  CMapLoadable, void, const ZXString16&, long, long, long) {
 	_ASM_PLACEHOLDER(002177C0, 19688)
 }
 // CMapLoadable::IsInSafeZone
@@ -193,7 +193,7 @@ __SUB_CLASS_THIS0(0021DAB0, __thiscall, 19649,  CMapLoadable, void) {
 	_ASM_PLACEHOLDER(0021DAB0, 19649)
 }
 // CMapLoadable::TransientLayer_FireCracker
-__SUB_CLASS_THIS(0021D7C0, __thiscall, 19689,  CMapLoadable, void, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(0021D7C0, __thiscall, 19689,  CMapLoadable, void, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(0021D7C0, 19689)
 }
 // CMapLoadable::OnSetMapObjectVisible

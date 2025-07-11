@@ -1,5 +1,7 @@
 // Summoned.hpp
 #pragma once
+#include <VecCtrlSummoned/VecCtrlSummoned.hpp>
+
 #include "util/base.h"
 #include "pcom/wz.h"
 
@@ -200,6 +202,7 @@ public:
 
 	public:
 		static CSummoned::SummonedBullet &_op_assign_4(CSummoned::SummonedBullet *pThis, const CSummoned::SummonedBullet &arg0);
+
 	};
 	// Fields
 protected:
@@ -383,7 +386,7 @@ public:
 	void _ctor_0( unsigned long dwCharacterID, unsigned long dwSummonedID, long nSkillID, unsigned char nCharLevel, long nSLV);
 
 public:
-	int32_t Init(CInPacket &iPacket);
+	int32_t Init(CInPacket &pkt);
 	int32_t Init_1(CInPacket &iPacket)
 	{
 		return Init(iPacket);
@@ -439,7 +442,7 @@ public:
 	tagPOINT GetHitPoint(tagRECT arg0);
 
 public:
-	long GetHeight();
+	long GetHeight() const;
 
 public:
 	_x_com_ptr<IWzVector2D> GetVecCtrl();
@@ -566,6 +569,9 @@ public:
 
 public:
 	virtual long GetZMass();
+
+
+	CVecCtrlSummoned* GetVecCtrlSummoned();
 
 public:
 	void OnRemoved(CInPacket &iPacket);

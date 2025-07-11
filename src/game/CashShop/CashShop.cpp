@@ -381,7 +381,9 @@ const ZRef<CS_COMMODITY_EX>& __cdecl Median_ZRef_CS_COMMODITY_EX__CommMoreFunc_(
 
 int32_t __cdecl is_dual_job_born(long nJob, short nSubJob)
 {
-    return __sub_0007CB40(nJob, nSubJob);
+    if ( nJob / 1000 )
+    return 0;
+  return nSubJob == 1;
 }
 
 short __cdecl _ZtlSecureFuse_short_(const short* at, uint32_t uCS)

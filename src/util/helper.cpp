@@ -439,7 +439,8 @@ L1:
 
         mov eax, ecx
         pop ecx
-        xchg esp, eax
+        //xchg esp, eax
+        xchg    eax, esp
         mov eax, dword ptr[eax]
         mov dword ptr [esp], eax
         ret
@@ -490,6 +491,14 @@ wchar_t *__itow(int value, wchar_t *buffer, int radix) {
 
 int _atoi(const char *str) {
     return std::atoi(str);
+}
+
+double _atof(char const* _String)
+{
+    if (!_String)
+        return 0.; //TODO verify that this si correct
+
+    return atof(_String);
 }
 
 double get_rand_0(unsigned int rand, double f0, double f1) {

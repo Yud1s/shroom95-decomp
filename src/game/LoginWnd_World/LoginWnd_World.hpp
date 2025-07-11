@@ -148,7 +148,7 @@ public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
@@ -272,7 +272,7 @@ protected:
 	_x_com_ptr<IWzFont> m_pMessageFont;
 
 protected:
-	ZArray<ZXString<unsigned short>> m_asMessage;
+	ZArray<ZXString16> m_asMessage;
 
 protected:
 	_x_com_ptr<IWzCanvas> m_pCanvasWorldName;
@@ -455,7 +455,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);

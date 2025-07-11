@@ -509,7 +509,7 @@ __asm {
 	push eax
 	lea ecx,[esp+0x28]
 	mov dword ptr [esp+0x20],edx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	jmp Block3
 
  Block2:
@@ -519,7 +519,7 @@ __asm {
 	mov edx,dword ptr [esp+0x3C]
 	push edx
 	lea ecx,[esp+0x28]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xAE4
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -630,7 +630,7 @@ __asm {
  Block19:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block20:
@@ -896,7 +896,7 @@ __asm {
  Block30:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block31:
@@ -1904,7 +1904,7 @@ __asm {
  Block9:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block10:

@@ -26,7 +26,7 @@ void CWebWnd::_ctor_1( const CWebWnd& arg0) {
 void CWebWnd::_ctor_0( int32_t nUIType, long nLeftMargin, long nTopMargin, long nRightMargin, long nBottomMargin, int32_t closeType, int32_t closeX, int32_t closeY) {
 	return __sub_005A4D20(this, nullptr, nUIType, nLeftMargin, nTopMargin, nRightMargin, nBottomMargin, closeType, closeX, closeY);
 }
-void CWebWnd::OnCreate(void* pData, ZXString<unsigned short> sUOL) {
+void CWebWnd::OnCreate(void* pData, ZXString16 sUOL) {
 	__sub_005A5250(this, nullptr, pData, CreateNakedParam(sUOL));
 }
 void CWebWnd::Draw(const tagRECT* pRect) {

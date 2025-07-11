@@ -6,11 +6,11 @@
 
 static ZSynchronizedHelper<ZFatalSection> FAKE_ZSynchronizedHelper_ZFatalSection{nullptr};
 
-static void *_TI_SECURITY_UPDATE_FAILED = nullptr;
-static void *_TI_SECURITY_INIT_FAILED = nullptr;
-static void *_TI_SECURITY_CLEAR_FAILED = nullptr;
-static void *_TI_THREAD_DETECTED = nullptr;
-static void *_COM_ERROR_THROW_INFO = nullptr;
+static void* _TI_SECURITY_UPDATE_FAILED = nullptr;
+static void* _TI_SECURITY_INIT_FAILED = nullptr;
+static void* _TI_SECURITY_CLEAR_FAILED = nullptr;
+static void* _TI_THREAD_DETECTED = nullptr;
+static void* _COM_ERROR_THROW_INFO = nullptr;
 
 struct NMVirtualKey
 {
@@ -27,20 +27,19 @@ static _FILETIME _FILETIME_HEX(uint32_t low, uint32_t high)
 }
 
 
-
 struct EHExceptionRecord
 {
     struct EHParameters
     {
         uint32_t magicNumber{};
-        void *pExceptionObject{};
-        void const *pThrowInfo{};
+        void* pExceptionObject{};
+        void const* pThrowInfo{};
     };
 
     uint32_t ExceptionCode{};
     uint32_t ExceptionFlags{};
-    void *ExceptionRecord{};
-    void *ExceptionAddress{};
+    void* ExceptionRecord{};
+    void* ExceptionAddress{};
     uint32_t NumberParameters{};
     EHParameters params;
 };
@@ -275,7 +274,7 @@ const int32_t kWidth = 768;
 // 86F440 60
 
 // 86F480 392
-static std::array<void *, 392> _D_SPFONTBASIC{};
+static std::array<void*, 392> _D_SPFONTBASIC{};
 // 62FE6C 4
 static unsigned long _D_LEADUPVEC = 0xA2FE78;
 // 62FEE8 4
@@ -303,81 +302,81 @@ static unsigned long _D_TRAILDOWNVEC__1 = 0xA30E10;
 // 64A700 2624
 //static std::array<none_t, 2624> _D_C_RGODFDIJOY2{};
 // 7143F0 4
-static std::array<proc_t *, 4> _D___XC_A{};
+static std::array<proc_t*, 4> _D___XC_A{};
 // 746894 4
-static proc_t *_D__S6__3{};
+static proc_t* _D__S6__3{};
 // 746898 4
-static proc_t *_D__S5__1{};
+static proc_t* _D__S5__1{};
 // 7468A0 4
-static std::array<proc_t *, 4> _D___XC_Z{};
+static std::array<proc_t*, 4> _D___XC_Z{};
 // 7468A4 4
-static std::array<proc_t *, 4> _D___XI_A{};
+static std::array<proc_t*, 4> _D___XI_A{};
 // 7468A8 4
-static proc_t *_D_PINIT{};
+static proc_t* _D_PINIT{};
 // 7468AC 4
-static proc_t *_D_PINIT__5{};
+static proc_t* _D_PINIT__5{};
 // 7468B0 4
-static proc_t *_D_PINIT__4{};
+static proc_t* _D_PINIT__4{};
 // 7468B4 4
-static proc_t *_D_PINIT__2{};
+static proc_t* _D_PINIT__2{};
 // 7468B8 4
-static proc_t *_D_PINIT__1{};
+static proc_t* _D_PINIT__1{};
 // 7468BC 4
-static proc_t *_D_PINIT__3{};
+static proc_t* _D_PINIT__3{};
 // 7468C0 4
-static std::array<proc_t *, 4> _D___XI_Z{};
+static std::array<proc_t*, 4> _D___XI_Z{};
 // 7468C4 4
-static std::array<proc_t *, 4> _D___XP_A{};
+static std::array<proc_t*, 4> _D___XP_A{};
 // 7468C8 4
-static proc_t *_D_PTERM{};
+static proc_t* _D_PTERM{};
 // 7468CC 4
-static proc_t *_D_PTERM__1{};
+static proc_t* _D_PTERM__1{};
 // 7468D0 4
-static std::array<proc_t *, 4> _D___XP_Z{};
+static std::array<proc_t*, 4> _D___XP_Z{};
 // 7468D4 4
-static std::array<proc_t *, 4> _D___XT_A{};
+static std::array<proc_t*, 4> _D___XT_A{};
 // 7468D8 4
-static std::array<proc_t *, 4> _D___XT_Z{};
+static std::array<proc_t*, 4> _D___XT_Z{};
 // 7469C4 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__221{};
 // 7469E0 8
 static _FILETIME _D_DB_DATE_19000101__229 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 746F18 4
-static const char *_D_SZSTRINGVAL__21{};
+static const char* _D_SZSTRINGVAL__21{};
 // 746F1C 4
-static const char *_D_MULTISZSTRINGVAL__21{};
+static const char* _D_MULTISZSTRINGVAL__21{};
 // 746F20 4
-static const char *_D_SZDWORDVAL__21{};
+static const char* _D_SZDWORDVAL__21{};
 // 746F24 4
-static const char *_D_SZBINARYVAL__21{};
+static const char* _D_SZBINARYVAL__21{};
 // 746F28 4
-static const char *_D_SZVALTOKEN__21{};
+static const char* _D_SZVALTOKEN__21{};
 // 746F2C 4
-static const char *_D_SZFORCEREMOVE__21{};
+static const char* _D_SZFORCEREMOVE__21{};
 // 746F30 4
-static const char *_D_SZNOREMOVE__21{};
+static const char* _D_SZNOREMOVE__21{};
 // 746F34 4
-static const char *_D_SZDELETE__21{};
+static const char* _D_SZDELETE__21{};
 // 746F38 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__8{};
 // 746F54 8
 static _FILETIME _D_DB_DATE_19000101__7 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7472E0 4
-static const char *_D_SZSTRINGVAL__20{};
+static const char* _D_SZSTRINGVAL__20{};
 // 7472E4 4
-static const char *_D_MULTISZSTRINGVAL__20{};
+static const char* _D_MULTISZSTRINGVAL__20{};
 // 7472E8 4
-static const char *_D_SZDWORDVAL__20{};
+static const char* _D_SZDWORDVAL__20{};
 // 7472EC 4
-static const char *_D_SZBINARYVAL__20{};
+static const char* _D_SZBINARYVAL__20{};
 // 7472F0 4
-static const char *_D_SZVALTOKEN__20{};
+static const char* _D_SZVALTOKEN__20{};
 // 7472F4 4
-static const char *_D_SZFORCEREMOVE__20{};
+static const char* _D_SZFORCEREMOVE__20{};
 // 7472F8 4
-static const char *_D_SZNOREMOVE__20{};
+static const char* _D_SZNOREMOVE__20{};
 // 7472FC 4
-static const char *_D_SZDELETE__20{};
+static const char* _D_SZDELETE__20{};
 // 74731C 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__11{};
 // 747338 8
@@ -413,21 +412,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__216{};
 // 747F38 8
 static _FILETIME _D_DB_DATE_19000101__225 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7480B4 4
-static const char *_D_SZSTRINGVAL__19{};
+static const char* _D_SZSTRINGVAL__19{};
 // 7480B8 4
-static const char *_D_MULTISZSTRINGVAL__19{};
+static const char* _D_MULTISZSTRINGVAL__19{};
 // 7480BC 4
-static const char *_D_SZDWORDVAL__19{};
+static const char* _D_SZDWORDVAL__19{};
 // 7480C0 4
-static const char *_D_SZBINARYVAL__19{};
+static const char* _D_SZBINARYVAL__19{};
 // 7480C4 4
-static const char *_D_SZVALTOKEN__19{};
+static const char* _D_SZVALTOKEN__19{};
 // 7480C8 4
-static const char *_D_SZFORCEREMOVE__19{};
+static const char* _D_SZFORCEREMOVE__19{};
 // 7480CC 4
-static const char *_D_SZNOREMOVE__19{};
+static const char* _D_SZNOREMOVE__19{};
 // 7480D0 4
-static const char *_D_SZDELETE__19{};
+static const char* _D_SZDELETE__19{};
 // 7481EC 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__7{};
 // 748218 28
@@ -459,21 +458,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__210{};
 // 749BA8 8
 static _FILETIME _D_DB_DATE_19000101__219 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 749BD8 4
-static const char *_D_SZSTRINGVAL{};
+static const char* _D_SZSTRINGVAL{};
 // 749BDC 4
-static const char *_D_MULTISZSTRINGVAL{};
+static const char* _D_MULTISZSTRINGVAL{};
 // 749BE0 4
-static const char *_D_SZDWORDVAL{};
+static const char* _D_SZDWORDVAL{};
 // 749BE4 4
-static const char *_D_SZBINARYVAL{};
+static const char* _D_SZBINARYVAL{};
 // 749BE8 4
-static const char *_D_SZVALTOKEN{};
+static const char* _D_SZVALTOKEN{};
 // 749BEC 4
-static const char *_D_SZFORCEREMOVE{};
+static const char* _D_SZFORCEREMOVE{};
 // 749BF0 4
-static const char *_D_SZNOREMOVE{};
+static const char* _D_SZNOREMOVE{};
 // 749BF4 4
-static const char *_D_SZDELETE{};
+static const char* _D_SZDELETE{};
 // 749BF8 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__4{};
 // 749C14 8
@@ -485,21 +484,21 @@ static _FILETIME _D_DB_DATE_19000101__218 = _FILETIME_HEX(0xFDE04000, 0x14F373B)
 // 749E9C 8
 static _FILETIME _D_DB_DATE_19000101__217 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 749EA4 4
-static const char *_D_SZSTRINGVAL__18{};
+static const char* _D_SZSTRINGVAL__18{};
 // 749EA8 4
-static const char *_D_MULTISZSTRINGVAL__18{};
+static const char* _D_MULTISZSTRINGVAL__18{};
 // 749EAC 4
-static const char *_D_SZDWORDVAL__18{};
+static const char* _D_SZDWORDVAL__18{};
 // 749EB0 4
-static const char *_D_SZBINARYVAL__18{};
+static const char* _D_SZBINARYVAL__18{};
 // 749EB4 4
-static const char *_D_SZVALTOKEN__18{};
+static const char* _D_SZVALTOKEN__18{};
 // 749EB8 4
-static const char *_D_SZFORCEREMOVE__18{};
+static const char* _D_SZFORCEREMOVE__18{};
 // 749EBC 4
-static const char *_D_SZNOREMOVE__18{};
+static const char* _D_SZNOREMOVE__18{};
 // 749EC0 4
-static const char *_D_SZDELETE__18{};
+static const char* _D_SZDELETE__18{};
 // 749EC4 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__208{};
 // 749EE0 8
@@ -575,21 +574,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__193{};
 // 74B574 8
 static _FILETIME _D_DB_DATE_19000101__200 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 74BA64 4
-static const char *_D_SZSTRINGVAL__17{};
+static const char* _D_SZSTRINGVAL__17{};
 // 74BA68 4
-static const char *_D_MULTISZSTRINGVAL__17{};
+static const char* _D_MULTISZSTRINGVAL__17{};
 // 74BA6C 4
-static const char *_D_SZDWORDVAL__17{};
+static const char* _D_SZDWORDVAL__17{};
 // 74BA70 4
-static const char *_D_SZBINARYVAL__17{};
+static const char* _D_SZBINARYVAL__17{};
 // 74BA74 4
-static const char *_D_SZVALTOKEN__17{};
+static const char* _D_SZVALTOKEN__17{};
 // 74BA78 4
-static const char *_D_SZFORCEREMOVE__17{};
+static const char* _D_SZFORCEREMOVE__17{};
 // 74BA7C 4
-static const char *_D_SZNOREMOVE__17{};
+static const char* _D_SZNOREMOVE__17{};
 // 74BA80 4
-static const char *_D_SZDELETE__17{};
+static const char* _D_SZDELETE__17{};
 // 74BA84 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__192{};
 // 74BAA0 8
@@ -601,21 +600,21 @@ static _FILETIME _D_DB_DATE_19000101__198 = _FILETIME_HEX(0xFDE04000, 0x14F373B)
 // 74BAD4 8
 static _FILETIME _D_DB_DATE_20790101__32 = _FILETIME_HEX(0xBB058000, 0x217E646);
 // 74BC58 4
-static const char *_D_SZSTRINGVAL__16{};
+static const char* _D_SZSTRINGVAL__16{};
 // 74BC5C 4
-static const char *_D_MULTISZSTRINGVAL__16{};
+static const char* _D_MULTISZSTRINGVAL__16{};
 // 74BC60 4
-static const char *_D_SZDWORDVAL__16{};
+static const char* _D_SZDWORDVAL__16{};
 // 74BC64 4
-static const char *_D_SZBINARYVAL__16{};
+static const char* _D_SZBINARYVAL__16{};
 // 74BC68 4
-static const char *_D_SZVALTOKEN__16{};
+static const char* _D_SZVALTOKEN__16{};
 // 74BC6C 4
-static const char *_D_SZFORCEREMOVE__16{};
+static const char* _D_SZFORCEREMOVE__16{};
 // 74BC70 4
-static const char *_D_SZNOREMOVE__16{};
+static const char* _D_SZNOREMOVE__16{};
 // 74BC74 4
-static const char *_D_SZDELETE__16{};
+static const char* _D_SZDELETE__16{};
 // 74BC78 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__190{};
 // 74BC94 8
@@ -1005,21 +1004,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__110{};
 // 755968 8
 static _FILETIME _D_DB_DATE_19000101__112 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 755A68 4
-static const char *_D_SZSTRINGVAL__15{};
+static const char* _D_SZSTRINGVAL__15{};
 // 755A6C 4
-static const char *_D_MULTISZSTRINGVAL__15{};
+static const char* _D_MULTISZSTRINGVAL__15{};
 // 755A70 4
-static const char *_D_SZDWORDVAL__15{};
+static const char* _D_SZDWORDVAL__15{};
 // 755A74 4
-static const char *_D_SZBINARYVAL__15{};
+static const char* _D_SZBINARYVAL__15{};
 // 755A78 4
-static const char *_D_SZVALTOKEN__15{};
+static const char* _D_SZVALTOKEN__15{};
 // 755A7C 4
-static const char *_D_SZFORCEREMOVE__15{};
+static const char* _D_SZFORCEREMOVE__15{};
 // 755A80 4
-static const char *_D_SZNOREMOVE__15{};
+static const char* _D_SZNOREMOVE__15{};
 // 755A84 4
-static const char *_D_SZDELETE__15{};
+static const char* _D_SZDELETE__15{};
 // 755AF4 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__109{};
 // 755E8C 28
@@ -1115,21 +1114,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__88{};
 // 79B80C 8
 static _FILETIME _D_DB_DATE_19000101__92 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 79B89C 4
-static const char *_D_SZSTRINGVAL__14{};
+static const char* _D_SZSTRINGVAL__14{};
 // 79B8A0 4
-static const char *_D_MULTISZSTRINGVAL__14{};
+static const char* _D_MULTISZSTRINGVAL__14{};
 // 79B8A4 4
-static const char *_D_SZDWORDVAL__14{};
+static const char* _D_SZDWORDVAL__14{};
 // 79B8A8 4
-static const char *_D_SZBINARYVAL__14{};
+static const char* _D_SZBINARYVAL__14{};
 // 79B8AC 4
-static const char *_D_SZVALTOKEN__14{};
+static const char* _D_SZVALTOKEN__14{};
 // 79B8B0 4
-static const char *_D_SZFORCEREMOVE__14{};
+static const char* _D_SZFORCEREMOVE__14{};
 // 79B8B4 4
-static const char *_D_SZNOREMOVE__14{};
+static const char* _D_SZNOREMOVE__14{};
 // 79B8B8 4
-static const char *_D_SZDELETE__14{};
+static const char* _D_SZDELETE__14{};
 // 79B8BC 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__87{};
 // 79B8D8 8
@@ -1227,21 +1226,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__67{};
 // 79F8A0 8
 static _FILETIME _D_DB_DATE_19000101__71 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7A0178 4
-static const char *_D_SZSTRINGVAL__13{};
+static const char* _D_SZSTRINGVAL__13{};
 // 7A017C 4
-static const char *_D_MULTISZSTRINGVAL__13{};
+static const char* _D_MULTISZSTRINGVAL__13{};
 // 7A0180 4
-static const char *_D_SZDWORDVAL__13{};
+static const char* _D_SZDWORDVAL__13{};
 // 7A0184 4
-static const char *_D_SZBINARYVAL__13{};
+static const char* _D_SZBINARYVAL__13{};
 // 7A0188 4
-static const char *_D_SZVALTOKEN__13{};
+static const char* _D_SZVALTOKEN__13{};
 // 7A018C 4
-static const char *_D_SZFORCEREMOVE__13{};
+static const char* _D_SZFORCEREMOVE__13{};
 // 7A0190 4
-static const char *_D_SZNOREMOVE__13{};
+static const char* _D_SZNOREMOVE__13{};
 // 7A0194 4
-static const char *_D_SZDELETE__13{};
+static const char* _D_SZDELETE__13{};
 // 7A0198 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__66{};
 // 7A01B4 8
@@ -1283,21 +1282,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__60{};
 // 7A213C 8
 static _FILETIME _D_DB_DATE_19000101__63 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7A234C 4
-static const char *_D_SZSTRINGVAL__12{};
+static const char* _D_SZSTRINGVAL__12{};
 // 7A2350 4
-static const char *_D_MULTISZSTRINGVAL__12{};
+static const char* _D_MULTISZSTRINGVAL__12{};
 // 7A2354 4
-static const char *_D_SZDWORDVAL__12{};
+static const char* _D_SZDWORDVAL__12{};
 // 7A2358 4
-static const char *_D_SZBINARYVAL__12{};
+static const char* _D_SZBINARYVAL__12{};
 // 7A235C 4
-static const char *_D_SZVALTOKEN__12{};
+static const char* _D_SZVALTOKEN__12{};
 // 7A2360 4
-static const char *_D_SZFORCEREMOVE__12{};
+static const char* _D_SZFORCEREMOVE__12{};
 // 7A2364 4
-static const char *_D_SZNOREMOVE__12{};
+static const char* _D_SZNOREMOVE__12{};
 // 7A2368 4
-static const char *_D_SZDELETE__12{};
+static const char* _D_SZDELETE__12{};
 // 7A236C 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__59{};
 // 7A2388 8
@@ -1357,41 +1356,41 @@ static _FILETIME _D_DB_DATE_19000101__49 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7A5DFC 8
 static _FILETIME _D_DB_DATE_20790101__9 = _FILETIME_HEX(0xBB058000, 0x217E646);
 // 7A6BD8 4
-static const char *_D_SZSTRINGVAL__11{};
+static const char* _D_SZSTRINGVAL__11{};
 // 7A6BDC 4
-static const char *_D_MULTISZSTRINGVAL__11{};
+static const char* _D_MULTISZSTRINGVAL__11{};
 // 7A6BE0 4
-static const char *_D_SZDWORDVAL__11{};
+static const char* _D_SZDWORDVAL__11{};
 // 7A6BE4 4
-static const char *_D_SZBINARYVAL__11{};
+static const char* _D_SZBINARYVAL__11{};
 // 7A6BE8 4
-static const char *_D_SZVALTOKEN__11{};
+static const char* _D_SZVALTOKEN__11{};
 // 7A6BEC 4
-static const char *_D_SZFORCEREMOVE__11{};
+static const char* _D_SZFORCEREMOVE__11{};
 // 7A6BF0 4
-static const char *_D_SZNOREMOVE__11{};
+static const char* _D_SZNOREMOVE__11{};
 // 7A6BF4 4
-static const char *_D_SZDELETE__11{};
+static const char* _D_SZDELETE__11{};
 // 7A6BF8 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__46{};
 // 7A6C14 8
 static _FILETIME _D_DB_DATE_19000101__48 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7A8F10 4
-static const char *_D_SZSTRINGVAL__10{};
+static const char* _D_SZSTRINGVAL__10{};
 // 7A8F14 4
-static const char *_D_MULTISZSTRINGVAL__10{};
+static const char* _D_MULTISZSTRINGVAL__10{};
 // 7A8F18 4
-static const char *_D_SZDWORDVAL__10{};
+static const char* _D_SZDWORDVAL__10{};
 // 7A8F1C 4
-static const char *_D_SZBINARYVAL__10{};
+static const char* _D_SZBINARYVAL__10{};
 // 7A8F20 4
-static const char *_D_SZVALTOKEN__10{};
+static const char* _D_SZVALTOKEN__10{};
 // 7A8F24 4
-static const char *_D_SZFORCEREMOVE__10{};
+static const char* _D_SZFORCEREMOVE__10{};
 // 7A8F28 4
-static const char *_D_SZNOREMOVE__10{};
+static const char* _D_SZNOREMOVE__10{};
 // 7A8F2C 4
-static const char *_D_SZDELETE__10{};
+static const char* _D_SZDELETE__10{};
 // 7A8F30 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__45{};
 // 7A8F4C 8
@@ -1409,21 +1408,21 @@ static std::array<const long, 24> _D_ADELAY_FIST{};
 // 7A92E8 16
 static std::array<const long, 16> _D_ADELAY_VAMPIRE{};
 // 7A961C 4
-static const char *_D_SZSTRINGVAL__9{};
+static const char* _D_SZSTRINGVAL__9{};
 // 7A9620 4
-static const char *_D_MULTISZSTRINGVAL__9{};
+static const char* _D_MULTISZSTRINGVAL__9{};
 // 7A9624 4
-static const char *_D_SZDWORDVAL__9{};
+static const char* _D_SZDWORDVAL__9{};
 // 7A9628 4
-static const char *_D_SZBINARYVAL__9{};
+static const char* _D_SZBINARYVAL__9{};
 // 7A962C 4
-static const char *_D_SZVALTOKEN__9{};
+static const char* _D_SZVALTOKEN__9{};
 // 7A9630 4
-static const char *_D_SZFORCEREMOVE__9{};
+static const char* _D_SZFORCEREMOVE__9{};
 // 7A9634 4
-static const char *_D_SZNOREMOVE__9{};
+static const char* _D_SZNOREMOVE__9{};
 // 7A9638 4
-static const char *_D_SZDELETE__9{};
+static const char* _D_SZDELETE__9{};
 // 7A963C 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__42{};
 // 7A9658 8
@@ -1435,21 +1434,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__41{};
 // 7A9F50 8
 static _FILETIME _D_DB_DATE_19000101__43 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AA02C 4
-static const char *_D_SZSTRINGVAL__8{};
+static const char* _D_SZSTRINGVAL__8{};
 // 7AA030 4
-static const char *_D_MULTISZSTRINGVAL__8{};
+static const char* _D_MULTISZSTRINGVAL__8{};
 // 7AA034 4
-static const char *_D_SZDWORDVAL__8{};
+static const char* _D_SZDWORDVAL__8{};
 // 7AA038 4
-static const char *_D_SZBINARYVAL__8{};
+static const char* _D_SZBINARYVAL__8{};
 // 7AA03C 4
-static const char *_D_SZVALTOKEN__8{};
+static const char* _D_SZVALTOKEN__8{};
 // 7AA040 4
-static const char *_D_SZFORCEREMOVE__8{};
+static const char* _D_SZFORCEREMOVE__8{};
 // 7AA044 4
-static const char *_D_SZNOREMOVE__8{};
+static const char* _D_SZNOREMOVE__8{};
 // 7AA048 4
-static const char *_D_SZDELETE__8{};
+static const char* _D_SZDELETE__8{};
 // 7AA04C 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__40{};
 // 7AA068 8
@@ -1459,21 +1458,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__39{};
 // 7AA120 8
 static _FILETIME _D_DB_DATE_19000101__41 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AA168 4
-static const char *_D_SZSTRINGVAL__7{};
+static const char* _D_SZSTRINGVAL__7{};
 // 7AA16C 4
-static const char *_D_MULTISZSTRINGVAL__7{};
+static const char* _D_MULTISZSTRINGVAL__7{};
 // 7AA170 4
-static const char *_D_SZDWORDVAL__7{};
+static const char* _D_SZDWORDVAL__7{};
 // 7AA174 4
-static const char *_D_SZBINARYVAL__7{};
+static const char* _D_SZBINARYVAL__7{};
 // 7AA178 4
-static const char *_D_SZVALTOKEN__7{};
+static const char* _D_SZVALTOKEN__7{};
 // 7AA17C 4
-static const char *_D_SZFORCEREMOVE__7{};
+static const char* _D_SZFORCEREMOVE__7{};
 // 7AA180 4
-static const char *_D_SZNOREMOVE__7{};
+static const char* _D_SZNOREMOVE__7{};
 // 7AA184 4
-static const char *_D_SZDELETE__7{};
+static const char* _D_SZDELETE__7{};
 // 7AA188 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__38{};
 // 7AA1A4 8
@@ -1525,21 +1524,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__30{};
 // 7AC5CC 8
 static _FILETIME _D_DB_DATE_19000101__33 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AC6D0 4
-static const char *_D_SZSTRINGVAL__6{};
+static const char* _D_SZSTRINGVAL__6{};
 // 7AC6D4 4
-static const char *_D_MULTISZSTRINGVAL__6{};
+static const char* _D_MULTISZSTRINGVAL__6{};
 // 7AC6D8 4
-static const char *_D_SZDWORDVAL__6{};
+static const char* _D_SZDWORDVAL__6{};
 // 7AC6DC 4
-static const char *_D_SZBINARYVAL__6{};
+static const char* _D_SZBINARYVAL__6{};
 // 7AC6E0 4
-static const char *_D_SZVALTOKEN__6{};
+static const char* _D_SZVALTOKEN__6{};
 // 7AC6E4 4
-static const char *_D_SZFORCEREMOVE__6{};
+static const char* _D_SZFORCEREMOVE__6{};
 // 7AC6E8 4
-static const char *_D_SZNOREMOVE__6{};
+static const char* _D_SZNOREMOVE__6{};
 // 7AC6EC 4
-static const char *_D_SZDELETE__6{};
+static const char* _D_SZDELETE__6{};
 // 7AC6F0 30
 static std::array<const char, 30> _D_SCLASSNAME{};
 // 7AC718 8
@@ -1551,21 +1550,21 @@ static _FILETIME _D_DB_DATE_19000101__31 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AC8D4 8
 static _FILETIME _D_DB_DATE_20790101__6 = _FILETIME_HEX(0xBB058000, 0x217E646);
 // 7ACB60 4
-static const char *_D_SZSTRINGVAL__5{};
+static const char* _D_SZSTRINGVAL__5{};
 // 7ACB64 4
-static const char *_D_MULTISZSTRINGVAL__5{};
+static const char* _D_MULTISZSTRINGVAL__5{};
 // 7ACB68 4
-static const char *_D_SZDWORDVAL__5{};
+static const char* _D_SZDWORDVAL__5{};
 // 7ACB6C 4
-static const char *_D_SZBINARYVAL__5{};
+static const char* _D_SZBINARYVAL__5{};
 // 7ACB70 4
-static const char *_D_SZVALTOKEN__5{};
+static const char* _D_SZVALTOKEN__5{};
 // 7ACB74 4
-static const char *_D_SZFORCEREMOVE__5{};
+static const char* _D_SZFORCEREMOVE__5{};
 // 7ACB78 4
-static const char *_D_SZNOREMOVE__5{};
+static const char* _D_SZNOREMOVE__5{};
 // 7ACB7C 4
-static const char *_D_SZDELETE__5{};
+static const char* _D_SZDELETE__5{};
 // 7ACB80 8
 static _FILETIME _D_DB_DATE_19000101__30 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7ACB88 8
@@ -1595,21 +1594,21 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__25{};
 // 7AD500 8
 static _FILETIME _D_DB_DATE_19000101__26 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AD508 4
-static const char *_D_SZSTRINGVAL__4{};
+static const char* _D_SZSTRINGVAL__4{};
 // 7AD50C 4
-static const char *_D_MULTISZSTRINGVAL__4{};
+static const char* _D_MULTISZSTRINGVAL__4{};
 // 7AD510 4
-static const char *_D_SZDWORDVAL__4{};
+static const char* _D_SZDWORDVAL__4{};
 // 7AD514 4
-static const char *_D_SZBINARYVAL__4{};
+static const char* _D_SZBINARYVAL__4{};
 // 7AD518 4
-static const char *_D_SZVALTOKEN__4{};
+static const char* _D_SZVALTOKEN__4{};
 // 7AD51C 4
-static const char *_D_SZFORCEREMOVE__4{};
+static const char* _D_SZFORCEREMOVE__4{};
 // 7AD520 4
-static const char *_D_SZNOREMOVE__4{};
+static const char* _D_SZNOREMOVE__4{};
 // 7AD524 4
-static const char *_D_SZDELETE__4{};
+static const char* _D_SZDELETE__4{};
 // 7AD528 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__24{};
 // 7AD544 8
@@ -1617,21 +1616,21 @@ static _FILETIME _D_DB_DATE_19000101__25 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AD54C 8
 static _FILETIME _D_DB_DATE_20790101__2 = _FILETIME_HEX(0xBB058000, 0x217E646);
 // 7AE150 4
-static const char *_D_SZSTRINGVAL__3{};
+static const char* _D_SZSTRINGVAL__3{};
 // 7AE154 4
-static const char *_D_MULTISZSTRINGVAL__3{};
+static const char* _D_MULTISZSTRINGVAL__3{};
 // 7AE158 4
-static const char *_D_SZDWORDVAL__3{};
+static const char* _D_SZDWORDVAL__3{};
 // 7AE15C 4
-static const char *_D_SZBINARYVAL__3{};
+static const char* _D_SZBINARYVAL__3{};
 // 7AE160 4
-static const char *_D_SZVALTOKEN__3{};
+static const char* _D_SZVALTOKEN__3{};
 // 7AE164 4
-static const char *_D_SZFORCEREMOVE__3{};
+static const char* _D_SZFORCEREMOVE__3{};
 // 7AE168 4
-static const char *_D_SZNOREMOVE__3{};
+static const char* _D_SZNOREMOVE__3{};
 // 7AE16C 4
-static const char *_D_SZDELETE__3{};
+static const char* _D_SZDELETE__3{};
 // 7AE170 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__23{};
 // 7AE18C 8
@@ -1651,41 +1650,41 @@ static std::array<const long, 28> _D_RIDING_WILDHUNTE__20{};
 // 7AE3D8 8
 static _FILETIME _D_DB_DATE_19000101__21 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AE3E4 4
-static const char *_D_SZSTRINGVAL__2{};
+static const char* _D_SZSTRINGVAL__2{};
 // 7AE3E8 4
-static const char *_D_MULTISZSTRINGVAL__2{};
+static const char* _D_MULTISZSTRINGVAL__2{};
 // 7AE3EC 4
-static const char *_D_SZDWORDVAL__2{};
+static const char* _D_SZDWORDVAL__2{};
 // 7AE3F0 4
-static const char *_D_SZBINARYVAL__2{};
+static const char* _D_SZBINARYVAL__2{};
 // 7AE3F4 4
-static const char *_D_SZVALTOKEN__2{};
+static const char* _D_SZVALTOKEN__2{};
 // 7AE3F8 4
-static const char *_D_SZFORCEREMOVE__2{};
+static const char* _D_SZFORCEREMOVE__2{};
 // 7AE3FC 4
-static const char *_D_SZNOREMOVE__2{};
+static const char* _D_SZNOREMOVE__2{};
 // 7AE400 4
-static const char *_D_SZDELETE__2{};
+static const char* _D_SZDELETE__2{};
 // 7AE404 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__19{};
 // 7AE420 8
 static _FILETIME _D_DB_DATE_19000101__20 = _FILETIME_HEX(0xFDE04000, 0x14F373B);
 // 7AE428 4
-static const char *_D_SZSTRINGVAL__1{};
+static const char* _D_SZSTRINGVAL__1{};
 // 7AE42C 4
-static const char *_D_MULTISZSTRINGVAL__1{};
+static const char* _D_MULTISZSTRINGVAL__1{};
 // 7AE430 4
-static const char *_D_SZDWORDVAL__1{};
+static const char* _D_SZDWORDVAL__1{};
 // 7AE434 4
-static const char *_D_SZBINARYVAL__1{};
+static const char* _D_SZBINARYVAL__1{};
 // 7AE438 4
-static const char *_D_SZVALTOKEN__1{};
+static const char* _D_SZVALTOKEN__1{};
 // 7AE43C 4
-static const char *_D_SZFORCEREMOVE__1{};
+static const char* _D_SZFORCEREMOVE__1{};
 // 7AE440 4
-static const char *_D_SZNOREMOVE__1{};
+static const char* _D_SZNOREMOVE__1{};
 // 7AE444 4
-static const char *_D_SZDELETE__1{};
+static const char* _D_SZDELETE__1{};
 // 7AE448 28
 static std::array<const long, 28> _D_RIDING_WILDHUNTE__18{};
 // 7AE464 8
@@ -1733,11 +1732,11 @@ static _GUID _D_IID_IDISPATCH = _GUID_HEX(0x20400, 0x0, 0x0, 0x46000000000000C0)
 // 7AED24 16
 static _GUID _D_IID_IUNKNOWN = _GUID_HEX(0x0, 0x0, 0x0, 0x46000000000000C0);
 // 7AEEF8 4
-static proc_t *_D__FPINIT{};
+static proc_t* _D__FPINIT{};
 // 7AEEFC 4
-static proc_t *_D__FPMTINIT{};
+static proc_t* _D__FPMTINIT{};
 // 7AEF00 4
-static proc_t *_D__FPMTTERM{};
+static proc_t* _D__FPMTTERM{};
 // 7AEF04 32
 static EHExceptionRecord _D_EXCEPTIONTEMPLAT{};
 // 7AEF30 8
@@ -1765,7 +1764,7 @@ static std::array<const char, 89> _D___LOOKUPTABLE{};
 // 7AF0C8 8
 static _EXCEPTION_POINTERS _D_GS_EXCEPTIONPOIN{};
 // 7AF0D0 4
-static proc_t *_D__PDESTRUCTEXCEPT{};
+static proc_t* _D__PDESTRUCTEXCEPT{};
 // 7AF160 8
 static uint64_t _D_SHIFTER__3 = 0x4338000000000000;
 // 7AF170 8
@@ -2025,11 +2024,11 @@ static uint64_t _D_QIND = 0xFFF8000000000000;
 // 7B5D80 0
 static std::array<const unsigned char, 0> _D___LOOKUPTABLE_S{};
 // 7B6358 44
-static std::array<const char *, 44> _D_TOKENTABLE{};
+static std::array<const char*, 44> _D_TOKENTABLE{};
 // 7B6384 20
-static std::array<const char *, 20> _D_RTTITABLE{};
+static std::array<const char*, 20> _D_RTTITABLE{};
 // 7B6398 320
-static std::array<const char *, 320> _D_NAMETABLE{};
+static std::array<const char*, 320> _D_NAMETABLE{};
 // 7B6548 6160
 static std::array<const double, 6160> _D__ATAN_TABLE{};
 // 7B7D58 768
@@ -2068,13 +2067,13 @@ static _GUID _D_GUID_XAXIS = _GUID_HEX(0xA36D02E0, 0xC9F3, 0x11CF, 0x54534544C7B
 // 7B89AC 16
 static _GUID _D_IID_IDIRECTINPUT = _GUID_HEX(0xBF798030, 0x483A, 0x4DA2, 0x9736ED645D99AA);
 // 7B8AE0 4
-static std::array<proc_t *, 4> _D___RTC_IAA{};
+static std::array<proc_t*, 4> _D___RTC_IAA{};
 // 7B8AE4 4
-static std::array<proc_t *, 4> _D___RTC_IZZ{};
+static std::array<proc_t*, 4> _D___RTC_IZZ{};
 // 7B8AE8 4
-static std::array<proc_t *, 4> _D___RTC_TAA{};
+static std::array<proc_t*, 4> _D___RTC_TAA{};
 // 7B8AEC 4
-static std::array<proc_t *, 4> _D___RTC_TZZ{};
+static std::array<proc_t*, 4> _D___RTC_TZZ{};
 // 856240 0
 static std::array<long, 4> _D_G_ANRINGBODYPART{0xc, 0xd, 0xf, 0x10};
 // 856250 0
@@ -2084,7 +2083,15 @@ static std::array<long, 0> _D_G_ANPETRINGBODYP{};
 // 8562B8 0
 static std::array<long, 0> _D_G_ANPETWEARBODYP{};
 // 8562C8 0
-static std::array<long, 0> _D_G_ANWEAPONTYPE{};
+static std::array<long, 18> _D_G_ANWEAPONTYPE
+
+{
+    0x00000000, 0x0000001e, 0x0000001f, 0x00000020,
+    0x00000021, 0x00000025, 0x00000026, 0x00000028,
+    0x00000029, 0x0000002a, 0x0000002b, 0x0000002c,
+    0x0000002d, 0x0000002e, 0x0000002f, 0x00000030,
+    0x00000031, 0x00000027
+};
 // 856738 4
 static int32_t _D_S_BLOGALLITEMPRI = 0x1;
 // 85673C 24
@@ -2146,21 +2153,585 @@ static long _D_NSEQNO = 0xFFFFFFFF;
 // 858F8C 4
 static long _D_G_NLOGINNO = 0x3;
 // 858F98 480
-static std::array<std::array<long, 24>, 480> _D_AMELEEATTACKACTI{};
+static long _D_AMELEEATTACKACTI[0x14][6]{
+
+    {
+        0x00000005,
+        0x00000005,
+        0x00000006,
+        0x00000007,
+        0x00000010,
+        0x00000011,
+    },
+
+    {
+        0x00000002,
+        0x00000008,
+        0x00000012,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000005,
+        0x0000000a,
+        0x0000000d,
+        0x0000000e,
+        0x00000013,
+        0x00000014,
+    },
+
+    {
+        0x00000002,
+        0x0000000f,
+        0x00000015,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000002,
+        0x00000009,
+        0x0000000b,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000024,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000002,
+        0x00000009,
+        0x00000013,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000005,
+        0x00000009,
+        0x0000000a,
+        0x0000000b,
+        0x00000010,
+        0x00000011,
+    },
+
+    {
+        0x00000002,
+        0x0000000c,
+        0x00000012,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000006,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000002,
+        0x00000010,
+        0x00000011,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000002,
+        0x00000010,
+        0x00000011,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000003,
+        0x00000009,
+        0x0000000a,
+        0x0000000a,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000003,
+        0x00000016,
+        0x00000017,
+        0x00000018,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+};
 // 859178 320
-static std::array<std::array<long, 16>, 320> _D_ASHOOTATTACKACTI{};
+static long _D_ASHOOTATTACKACTI[0x14][4]{
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x0000001f,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000024,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000020,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000020,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000003,
+        0x00000021,
+        0x00000022,
+        0x00000023,
+    },
+
+    {
+        0x00000003,
+        0x00000021,
+        0x00000022,
+        0x00000023,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000074,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000001,
+        0x00000074,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    }
+};
 // 8592B8 240
-static std::array<std::array<long, 12>, 240> _D_AMAGICATTACKACTI{};
+static long _D_AMAGICATTACKACTI[0x14][3]{
+
+    {
+        0x00000002,
+        0x00000025,
+        0x00000026,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000002,
+        0x00000025,
+        0x00000026,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+    {
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    },
+
+
+};
 // 8593A8 60
-static std::array<long, 60> _D___NX__1{};
+static std::array<long, 0xF> _D___NX__1{
+    0x0000028a,
+    0x000002a3,
+    0x000002bc,
+    0x000002d5,
+    0x000002ee,
+    0x00000307,
+    0x00000320,
+    0x00000339,
+    0x00000352,
+    0x0000036b,
+    0x00000384,
+    0x0000039d,
+    0x000003b6,
+    0x000003cf,
+    0x000003e8,
+};
 // 8593E4 60
-static std::array<long, 60> _D___NX{};
+static std::array<long, 0xF> _D___NX{
+    0x0000028a,
+    0x000002a3,
+    0x000002bc,
+    0x000002d5,
+    0x000002ee,
+    0x00000307,
+    0x00000320,
+    0x00000339,
+    0x00000352,
+    0x0000036b,
+    0x00000384,
+    0x0000039d,
+    0x000003b6,
+    0x000003cf,
+    0x000003e8,
+};
 // 859420 600
-static std::array<std::array<double, 120>, 600> _D_S_AADRATE{};
+static double _D_S_AADRATE[5][0xF]{
+
+    {
+        0.66666700000000001,
+        0.222222,
+        0.074074000000000001,
+        0.024691000000000001,
+        0.0082299999999999995,
+        0.0027430000000000002,
+        0.00091399999999999999,
+        0.00030499999999999999,
+        0.000102,
+        3.3000000000000003e-05,
+        1.1e-05,
+        3.9999999999999998e-06,
+        9.9999999999999995e-07,
+        0,
+        0,
+    },
+    {
+        1,
+        0.90000000000000002,
+        0.81000000000000005,
+        0.72899999999999998,
+        0.65610000000000002,
+        0.59048999999999996,
+        0.53144100000000005,
+        0.478296,
+        0.43046699999999999,
+        0.38740999999999998,
+        0.34867799999999999,
+        0.31380999999999998,
+        0.28242899999999999,
+        0.25418600000000002,
+        0.228767,
+    },
+    {
+        1,
+        0.69999999999999996,
+        0.48999999999999999,
+        0.34300000000000003,
+        0.24010000000000001,
+        0.16807,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    },
+    {
+        1,
+        1.2,
+        1.4399999999999999,
+        1.728,
+        2.0735999999999999,
+        2.4883199999999999,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    },
+    {
+        1,
+        1,
+        1,
+        0.94999999999999996,
+        0.94999999999999996,
+        0.94999999999999996,
+        0.90000000000000002,
+        0.90000000000000002,
+        0.90000000000000002,
+        0.84999999999999998,
+        0.84999999999999998,
+        0.84999999999999998,
+        0.80000000000000004,
+        0.80000000000000004,
+        0.80000000000000004,
+    },
+
+};
 // 859688 4
-static const char *_D__BAD_ALLOC_MESSA{};
+static const char* _D__BAD_ALLOC_MESSA{};
 // 85968C 36
-static std::array<char *, 36> _D_S_ASDLLNAME{};
+static std::array<char*, 36> _D_S_ASDLLNAME{};
 // 859870 32
 static std::array<long, 32> _D_S_ADEFAULTQKM__1{};
 // 859890 3995
@@ -2168,11 +2739,66 @@ static std::array<char, 3995> _D_S_AAPIINFO{};
 // 85A82C 61
 static std::array<char, 61> _D_S_AZTLTASKMEMFUN{};
 // 861404 4
-static const char *_D_S_FILTERCHARS{};
+static const char* _D_S_FILTERCHARS{" _-:\t^.,*/;!\\'\"`+"};
 // 8615F8 16
 static tagRECT _D_SRECTQUESTDLG__1{};
 // 861608 88
-static std::array<tagPOINT, 88> _D_APTNODE_{};
+static tagPOINT _D_APTNODE_[0xB]{
+    {
+        0xde,
+        0x28,
+    },
+
+    {
+        0xde,
+        0x5e,
+    },
+
+    {
+        0xde,
+        0x92,
+    },
+
+    {
+        0xde,
+        0xc6,
+    },
+
+    {
+        0x16d,
+        0xc6,
+    },
+
+    {
+        0x50,
+        0xfa,
+    },
+
+    {
+        0x16d,
+        0xfa,
+    },
+
+    {
+        0xd,
+        0x12e,
+    },
+
+    {
+        0x94,
+        0x12e,
+    },
+
+    {
+        0x129,
+        0x12e,
+    },
+
+    {
+        0x1b0,
+        0x12e,
+    },
+};
 // 861668 16
 static tagRECT _D_S_RTPRIVILEGE{};
 // 861678 16
@@ -2194,19 +2820,19 @@ static std::array<tagPOINT, 64> _D_S_PTSHORTKEYPOS{};
 // 861918 16
 static tagRECT _D_SRECTQUESTDLG{};
 // 861950 4
-static char *_D_S_SREG{};
+static char* _D_S_SREG{};
 // 861954 4
-static char *_D_S_SREGPOS{};
+static char* _D_S_SREGPOS{};
 // 861958 4
-static char *_D_S_SREGKEY{};
+static char* _D_S_SREGKEY{};
 // 861A30 4
 static unsigned long _D_G_DWTARGETOS = 0x7C0;
 // 862298 4
 static unsigned long _D_G_DWHSUPCHKLIBRA = 0x2010101;
 // 8626E0 4
-static const char *_D__BAD_ALLOC_MESSA__1{};
+static const char* _D__BAD_ALLOC_MESSA__1{};
 // 8626E4 4
-static proc_t *_D___ERRORPFN{};
+static proc_t* _D___ERRORPFN{};
 // 8626E8 16
 static _variant_t _D_VTMISSING{};
 // 862700 4
@@ -2218,7 +2844,7 @@ static int32_t _D__FLTUSED = 0x9875;
 // 86270C 4
 static int32_t _D__LDUSED = 0x9873;
 // 862710 4
-static const char *_D__BAD_ALLOC_MESSA__3{};
+static const char* _D__BAD_ALLOC_MESSA__3{};
 // 862730 1
 static unsigned char _D__NAME___4 = 0x61;
 // 862740 1
@@ -2230,9 +2856,9 @@ static unsigned char _D__NAME___3 = 0x61;
 // 862770 1
 static unsigned char _D__NAME___1 = 0x73;
 // 862780 4
-static const char *_D__BAD_ALLOC_MESSA__4{};
+static const char* _D__BAD_ALLOC_MESSA__4{};
 // 862790 4
-static proc_t *_D__AEXIT_RTN{};
+static proc_t* _D__AEXIT_RTN{};
 // 8627A0 8
 static uint64_t _D__HALF__1 = 0x3FE0000000000000;
 // 8627A8 1
@@ -2242,9 +2868,9 @@ static int32_t _D___APP_TYPE = 0x2;
 // 8627B4 16
 // TODO static _NLG_INFO _D___NLG_DESTINATIO{};
 // 8627D0 4
-static char *_D___NULLSTRING{};
+static char* _D___NULLSTRING{};
 // 8627D4 4
-static wchar_t *_D___WNULLSTRING{};
+static wchar_t* _D___WNULLSTRING{};
 // 8627D8 360
 // TODO static std::array<errentry, 360> _D_ERRTABLE{};
 // 862940 4
@@ -2252,15 +2878,15 @@ static int32_t _D_ERRNONOMEM = 0xC;
 // 862944 4
 static unsigned long _D_DOSERRORNOMEM = 0x8;
 // 862948 40
-static std::array<proc_t *, 40> _D__CFLTCVT_TAB{};
+static std::array<proc_t*, 40> _D__CFLTCVT_TAB{};
 // 862970 4
-static const char *_D__BAD_ALLOC_MESSA__5{};
+static const char* _D__BAD_ALLOC_MESSA__5{};
 // 862994 4
 static unsigned long _D___FLSINDEX = 0xFFFFFFFF;
 // 862998 4
 static unsigned long _D___GETVALUEINDEX = 0xFFFFFFFF;
 // 8629A0 4
-static const char *_D__BAD_ALLOC_MESSA__2{};
+static const char* _D__BAD_ALLOC_MESSA__2{};
 // 8629B0 10
 static long double _D__INDEFINITE{};
 // 8629BA 10
@@ -2298,7 +2924,7 @@ static std::array<char, 4> _D___RGCTYPEFLAG{};
 // 863050 240
 // TODO static std::array<code_page_info, 240> _D___RGCODE_PAGE_IN{};
 // 863140 4
-static const short *_D__CTYPE_LOC_STYLE{};
+static const short* _D__CTYPE_LOC_STYLE{};
 // 863144 4
 static int32_t _D___GLOBALLOCALEST = 0xFFFFFFFE;
 // 863148 2
@@ -2338,9 +2964,9 @@ static unsigned short _D__OP_EXPJMPTAB = 0x6503;
 // 863670 4
 static uint32_t _D___ABORT_BEHAVIOR = 0x3;
 // 863674 4
-static const unsigned short *_D__PCTYPE{};
+static const unsigned short* _D__PCTYPE{};
 // 863678 4
-static const unsigned short *_D__PWCTYPE{};
+static const unsigned short* _D__PWCTYPE{};
 // 863680 184
 // static __lc_time_data _D___LC_TIME_C{};
 // 863738 4
@@ -2390,7 +3016,7 @@ static std::array<char, 64> _D_TZSTD{};
 // 863920 64
 static std::array<char, 64> _D_TZDST{};
 // 863960 8
-static std::array<char *, 8> _D__TZNAME{};
+static std::array<char*, 8> _D__TZNAME{};
 // 863968 52
 static std::array<int32_t, 52> _D__LPDAYS{};
 // 86399C 52
@@ -2447,21 +3073,21 @@ static Ztl_bstr_t _D_S_SMUZZLE{L"muzzle"};
 static Ztl_bstr_t _D_S_SMAP{L"map"};
 // 863EB0 12
 // TODO CDayOfWeek
-static void *_D_SINGLETON__1{};
+static void* _D_SINGLETON__1{};
 // 863EC0 4
 static long _D_S_NTYPE = 0x0;
 // 863EC8 4
 static uint32_t _D__S3__13 = 0x0;
 // 864038 8
-static const double _D_PI__216 = 0;
+static const double _D_PI__216 = acos(-1.0);
 // 864040 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__45{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__45{};
 
 // 86405C 4
 // TODO static ADAD::BrowserControlPane* _D_BCP{};
 
 // 8640F8 8
-static const double _D_PI__9 = 0;
+static const double _D_PI__9 = acos(-1.0);
 // 864320 4096
 static std::array<std::array<unsigned long, 1024>, 4096> _D_IL_TAB{};
 // 865320 4096
@@ -2481,55 +3107,55 @@ static std::array<unsigned char, 256> _D_POW_TAB{};
 // 868648 256
 static std::array<unsigned char, 256> _D_LOG_TAB{};
 // 868778 8
-static const double _D_PI__12 = 0;
+static const double _D_PI__12 = acos(-1.0);
 // 868788 8
-static const double _D_PI__215 = 0;
+static const double _D_PI__215 = acos(-1.0);
 // 868790 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__44{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__44{};
 // 868820 36
 static std::array<unsigned long, 36> _D_G_HOOKAPI{};
 // 868848 512
-static std::array<HINSTANCE__ *, 512> _D_G_HSAFEWS232ADRL{};
+static std::array<HINSTANCE__*, 512> _D_G_HSAFEWS232ADRL{};
 // 868A48 4
-static proc_t *_D_G_FNSAFEGETPEERN__1{};
+static proc_t* _D_G_FNSAFEGETPEERN__1{};
 // 868A4C 24
 // TODO static CCriticalSector _D_CS{};
 // 868AB8 8
-static const double _D_PI__214 = 0;
+static const double _D_PI__214 = acos(-1.0);
 // 868AD8 8
-static const double _D_PI__10 = 0;
+static const double _D_PI__10 = acos(-1.0);
 // 868BD8 8
-static const double _D_PI__213 = 0;
+static const double _D_PI__213 = acos(-1.0);
 // 868BE8 8
-static const double _D_PI__212 = 0;
+static const double _D_PI__212 = acos(-1.0);
 // 868BF8 8
-static const double _D_PI__8 = 0;
+static const double _D_PI__8 = acos(-1.0);
 // 868C08 8
-static const double _D_PI__211 = 0;
+static const double _D_PI__211 = acos(-1.0);
 // 868C24 24
 static std::array<ZXString<char>, 24> _D_S_ASCATEGORY__2{};
 // 868C3C 4
 static uint32_t _D__S4__6 = 0x0;
 // 868C50 8
-static const double _D_PI__210 = 0;
+static const double _D_PI__210 = acos(-1.0);
 // 868C58 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__43{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__43{};
 // 868C80 8
-static const double _D_PI__209 = 0;
+static const double _D_PI__209 = acos(-1.0);
 // 868C88 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__42{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__42{};
 // 868CA8 8
-static const double _D_PI__208 = 0;
+static const double _D_PI__208 = acos(-1.0);
 // 868CB8 8
-static const double _D_PI__207 = 0;
+static const double _D_PI__207 = acos(-1.0);
 // 868CC8 8
-static const double _D_PI__206 = 0;
+static const double _D_PI__206 = acos(-1.0);
 // 868CD0 260
 static std::array<char, 260> _D_G_SZSAFEPATH{};
 // 868DD4 4
-static proc_t *_D_PFN_ISWOW64PROCE{};
+static proc_t* _D_PFN_ISWOW64PROCE{};
 // 868DD8 4
-static proc_t *_D_PFN_NTGETCONTEXT{};
+static proc_t* _D_PFN_NTGETCONTEXT{};
 // 868DDC 4
 static int32_t _D_G_BISWOW64 = 0x0;
 // 868DE0 4
@@ -2537,17 +3163,17 @@ static unsigned long _D_G_NGTC_IDX = 0x0;
 // 868DE4 4
 static unsigned long _D_G_DWCRYPTKEY = 0x0;
 // 868DE8 4
-static HINSTANCE__ *_D_G_HNTDLL{};
+static HINSTANCE__* _D_G_HNTDLL{};
 // 868DF8 8
-static const double _D_PI__5 = 0;
+static const double _D_PI__5 = acos(-1.0);
 // 868E08 4
 static unsigned long _D_G_DWRETADDR = 0x0;
 // 868E10 8
-static const double _D_PI__205 = 0;
+static const double _D_PI__205 = acos(-1.0);
 // 868E18 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__41{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__41{};
 // 868E60 8
-static const double _D_PI__204 = 0;
+static const double _D_PI__204 = acos(-1.0);
 // 86A8CC 44
 static std::array<ZXString<char>, 44> _D_G_ASGAMEOBJECTTY{};
 // 86A8F8 172
@@ -2561,63 +3187,63 @@ static std::array<Ztl_bstr_t, 76> _D_S_SSUMMONEDACTIO{};
 // 86AA30 116
 static std::array<Ztl_bstr_t, 116> _D_S_SDRAGONACTION{};
 // 86AAC0 8
-static const double _D_PI__203 = 0;
+static const double _D_PI__203 = acos(-1.0);
 // 86AAC8 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__40{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__40{};
 // 86AAE8 20
 static std::array<ZXString<char>, 20> _D_S_ASCATEGORY__1{};
 // 86AAFC 4
 static uint32_t _D__S3__12 = 0x0;
 // 86AB00 8
-static const double _D_PI__202 = 0;
+static const double _D_PI__202 = acos(-1.0);
 // 86AB08 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__39{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__39{};
 // 86AB20 8
-static const double _D_PI__201 = 0;
+static const double _D_PI__201 = acos(-1.0);
 // 86AB28 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__38{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__38{};
 // 86AB48 8
-static const double _D_PI__200 = 0;
+static const double _D_PI__200 = acos(-1.0);
 // 86AB50 8
-static const double _D_PI__199 = 0;
+static const double _D_PI__199 = acos(-1.0);
 // 86AB60 8
-static const double _D_PI__198 = 0;
+static const double _D_PI__198 = acos(-1.0);
 // 86AC18 8
-static const double _D_PI__197 = 0;
+static const double _D_PI__197 = acos(-1.0);
 // 86AC20 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__37{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__37{};
 // 86AC38 8
-static const double _D_PI__196 = 0;
+static const double _D_PI__196 = acos(-1.0);
 // 86AC48 8
-static const double _D_PI__195 = 0;
+static const double _D_PI__195 = acos(-1.0);
 // 86AC50 8
-static const double _D_PI__194 = 0;
+static const double _D_PI__194 = acos(-1.0);
 // 86AC60 4
 static uint32_t _D__S3__11 = 0x0;
 // 86AC64 4
 static long _D_TLASTSFX = 0x0;
 // 86AC78 8
-static const double _D_PI__193 = 0;
+static const double _D_PI__193 = acos(-1.0);
 // 86AC80 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__36{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__36{};
 // 86AC98 8
-static const double _D_PI__192 = 0;
+static const double _D_PI__192 = acos(-1.0);
 // 86ACA0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__35{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__35{};
 // 86ACC8 8
-static const double _D_PI__191 = 0;
+static const double _D_PI__191 = acos(-1.0);
 // 86ACE0 8
-static const double _D_PI__190 = 0;
+static const double _D_PI__190 = acos(-1.0);
 // 86ACF0 8
-static const double _D_PI__189 = 0;
+static const double _D_PI__189 = acos(-1.0);
 // 86AD10 4
 static int32_t _D_S_BCHASE = 0x0;
 // 86AD14 4
 static int32_t _D_S_BAUTOULIST = 0x0;
 // 86AD18 8
-static const double _D_PI__188 = 0;
+static const double _D_PI__188 = acos(-1.0);
 // 86AD20 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__34{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__34{};
 // 86AD38 8
 static _FILETIME _D_S_FTXMASSTART = _FILETIME_HEX(0x0, 0x0);
 // 86AD40 8
@@ -2629,157 +3255,157 @@ static ZArray<ZXString<char>> _D_AMACRONOTICE{};
 // 86AD88 4
 static uint32_t _D__S6__2 = 0x0;
 // 86AE00 8
-static const double _D_PI__187 = 0;
+static const double _D_PI__187 = acos(-1.0);
 // 86AE08 8
-static const double _D_PI__186 = 0;
+static const double _D_PI__186 = acos(-1.0);
 // 86AE10 8
-static const double _D_PI__185 = 0;
+static const double _D_PI__185 = acos(-1.0);
 // 86AE18 8
-static const double _D_PI__184 = 0;
+static const double _D_PI__184 = acos(-1.0);
 // 86AE20 8
-static const double _D_PI__183 = 0;
+static const double _D_PI__183 = acos(-1.0);
 // 86AE28 8
-static const double _D_PI__182 = 0;
+static const double _D_PI__182 = acos(-1.0);
 // 86AE30 8
-static const double _D_PI__181 = 0;
+static const double _D_PI__181 = acos(-1.0);
 // 86AE38 8
-static const double _D_PI__180 = 0;
+static const double _D_PI__180 = acos(-1.0);
 // 86AE40 8
-static const double _D_PI__179 = 0;
+static const double _D_PI__179 = acos(-1.0);
 // 86AE48 8
-static const double _D_PI__178 = 0;
+static const double _D_PI__178 = acos(-1.0);
 // 86AE50 8
-static const double _D_PI__177 = 0;
+static const double _D_PI__177 = acos(-1.0);
 // 86AE58 8
-static const double _D_PI__176 = 0;
+static const double _D_PI__176 = acos(-1.0);
 // 86AE60 8
-static const double _D_PI__175 = 0;
+static const double _D_PI__175 = acos(-1.0);
 // 86AE68 8
-static const double _D_PI__174 = 0;
+static const double _D_PI__174 = acos(-1.0);
 // 86AE78 8
-static const double _D_PI__173 = 0;
+static const double _D_PI__173 = acos(-1.0);
 // 86AE80 8
-static const double _D_PI__172 = 0;
+static const double _D_PI__172 = acos(-1.0);
 // 86AE88 8
-static const double _D_PI__15 = 0;
+static const double _D_PI__15 = acos(-1.0);
 // 86AE90 8
-static const double _D_PI__171 = 0;
+static const double _D_PI__171 = acos(-1.0);
 // 86AE98 8
-static const double _D_PI__170 = 0;
+static const double _D_PI__170 = acos(-1.0);
 // 86AEA8 8
-static const double _D_PI__169 = 0;
+static const double _D_PI__169 = acos(-1.0);
 // 86AEB0 8
-static const double _D_PI__168 = 0;
+static const double _D_PI__168 = acos(-1.0);
 // 86AEB8 8
-static const double _D_PI__167 = 0;
+static const double _D_PI__167 = acos(-1.0);
 // 86AEC0 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__33{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__33{};
 // 86AED8 8
-static const double _D_PI__166 = 0;
+static const double _D_PI__166 = acos(-1.0);
 // 86AEE0 8
-static const double _D_PI__165 = 0;
+static const double _D_PI__165 = acos(-1.0);
 // 86AEE8 8
-static const double _D_PI__164 = 0;
+static const double _D_PI__164 = acos(-1.0);
 // 86AEF0 8
-static const double _D_PI__163 = 0;
+static const double _D_PI__163 = acos(-1.0);
 // 86AEF8 8
-static const double _D_PI__4 = 0;
+static const double _D_PI__4 = acos(-1.0);
 // 86AF00 8
-static const double _D_PI__162 = 0;
+static const double _D_PI__162 = acos(-1.0);
 // 86AF08 8
-static const double _D_PI__161 = 0;
+static const double _D_PI__161 = acos(-1.0);
 // 86AF10 8
-static const double _D_PI__160 = 0;
+static const double _D_PI__160 = acos(-1.0);
 // 86AF28 8
-static const double _D_PI__159 = 0;
+static const double _D_PI__159 = acos(-1.0);
 // 86AF30 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__32{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__32{};
 // 86AF50 8
-static const double _D_PI__158 = 0;
+static const double _D_PI__158 = acos(-1.0);
 // 86AF58 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__31{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__31{};
 // 86AF70 8
-static const double _D_PI__157 = 0;
+static const double _D_PI__157 = acos(-1.0);
 // 86AF78 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__30{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__30{};
 // 86AFA8 8
-static const double _D_PI__156 = 0;
+static const double _D_PI__156 = acos(-1.0);
 // 86AFB0 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__29{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__29{};
 // 86AFD0 8
-static const double _D_PI__155 = 0;
+static const double _D_PI__155 = acos(-1.0);
 // 86AFD8 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__28{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__28{};
 // 86AFF0 8
-static const double _D_PI__154 = 0;
+static const double _D_PI__154 = acos(-1.0);
 // 86AFF8 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__27{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__27{};
 // 86B028 8
-static const double _D_PI__153 = 0;
+static const double _D_PI__153 = acos(-1.0);
 // 86B030 24
-static std::array<ZXString<unsigned short>, 6> _D_ASAUTOSPEAKING__26{};
+static std::array<ZXString16, 6> _D_ASAUTOSPEAKING__26{};
 // 86B048 8
-static const double _D_PI__152 = 0;
+static const double _D_PI__152 = acos(-1.0);
 // 86B050 12
-static std::array<ZXString<unsigned short>, 3> _D_S_ASTYPENAME__2{};
+static std::array<ZXString16, 3> _D_S_ASTYPENAME__2{};
 // 86B05C 4
 static uint32_t _D__S3__10 = 0x0;
 // 86B060 20
-static std::array<ZXString<unsigned short>, 5> _D_S_ASTYPENAME__1{};
+static std::array<ZXString16, 5> _D_S_ASTYPENAME__1{};
 // 86B074 4
 static uint32_t _D__S4__5 = 0x0;
 // 86B078 16
-static std::array<ZXString<unsigned short>, 4> _D_S_ASTYPENAME{};
+static std::array<ZXString16, 4> _D_S_ASTYPENAME{};
 // 86B088 4
 static uint32_t _D__S5 = 0x0;
 // 86B168 8
-static const double _D_PI__151 = 0;
+static const double _D_PI__151 = acos(-1.0);
 // 86B170 8
-static const double _D_PI__150 = 0;
+static const double _D_PI__150 = acos(-1.0);
 // 86B180 8
-static const double _D_PI__1 = 0;
+static const double _D_PI__1 = acos(-1.0);
 // 86B188 8
-static const double _D_PI__149 = 0;
+static const double _D_PI__149 = acos(-1.0);
 // 86B190 8
-static const double _D_PI__148 = 0;
+static const double _D_PI__148 = acos(-1.0);
 // 86B1E8 4
 // TODO static CNMCOClientObject* _D_SPINSTANCE__1{};
 // 86B1F0 8
-static const double _D_PI__147 = 0;
+static const double _D_PI__147 = acos(-1.0);
 // 86B1F8 48
 static std::array<ZXString<char>, 48> _D_S_ASMONTH{};
 // 86B228 8
 static std::array<ZXString<char>, 8> _D_S_ASTIME{};
 // 86B230 8
-static const double _D_PI__146 = 0;
+static const double _D_PI__146 = acos(-1.0);
 // 86B238 8
-static const double _D_PI__145 = 0;
+static const double _D_PI__145 = acos(-1.0);
 // 86B240 8
-static const double _D_PI__144 = 0;
+static const double _D_PI__144 = acos(-1.0);
 // 86B248 8
-static const double _D_PI__143 = 0;
+static const double _D_PI__143 = acos(-1.0);
 // 86B250 8
-static const double _D_PI__142 = 0;
+static const double _D_PI__142 = acos(-1.0);
 // 86B258 8
-static const double _D_PI__141 = 0;
+static const double _D_PI__141 = acos(-1.0);
 // 86B260 8
-static const double _D_PI__140 = 0;
+static const double _D_PI__140 = acos(-1.0);
 // 86B268 8
-static const double _D_PI__139 = 0;
+static const double _D_PI__139 = acos(-1.0);
 // 86B270 8
-static const double _D_PI__138 = 0;
+static const double _D_PI__138 = acos(-1.0);
 // 86B280 4
 static long _D_NCOUNTER__2 = 0x0;
 // 86B290 8
-static const double _D_PI__137 = 0;
+static const double _D_PI__137 = acos(-1.0);
 // 86B298 8
-static const double _D_PI__136 = 0;
+static const double _D_PI__136 = acos(-1.0);
 // 86B2A8 8
-static const double _D_PI__135 = 0;
+static const double _D_PI__135 = acos(-1.0);
 // 86B2B0 8
-static const double _D_PI__134 = 0;
+static const double _D_PI__134 = acos(-1.0);
 // 86B2B8 8
-static const double _D_PI__133 = 0;
+static const double _D_PI__133 = acos(-1.0);
 // 86B2C0 4
 static unsigned long _D_DWCOUNTER = 0x0;
 // 86B2C4 24
@@ -2793,128 +3419,128 @@ static ZXString<char> _D_SCHAR{};
 // 86B2E8 4
 static uint32_t _D__S3__9 = 0x0;
 // 86B300 8
-static const double _D_PI__132 = 0;
+static const double _D_PI__132 = acos(-1.0);
 // 86B308 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__25{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__25{};
 // 86B320 8
-static const double _D_PI__11 = 0;
+static const double _D_PI__11 = acos(-1.0);
 // 86B338 8
-static const double _D_PI__131 = 0;
+static const double _D_PI__131 = acos(-1.0);
 // 86B34C 4
-static proc_t *_D_SETUPDIGETCLASSD{};
+static proc_t* _D_SETUPDIGETCLASSD{};
 // 86B350 4
-static proc_t *_D_SETUPDIGETCLASSD__1{};
+static proc_t* _D_SETUPDIGETCLASSD__1{};
 // 86B354 4
-static proc_t *_D_SETUPDIGETDEVICE{};
+static proc_t* _D_SETUPDIGETDEVICE{};
 // 86B358 4
-static proc_t *_D_SETUPDIGETDEVICE__1{};
+static proc_t* _D_SETUPDIGETDEVICE__1{};
 // 86B35C 4
-static proc_t *_D_SETUPDISETCLASSI{};
+static proc_t* _D_SETUPDISETCLASSI{};
 // 86B360 4
-static proc_t *_D_SETUPDISETCLASSI__1{};
+static proc_t* _D_SETUPDISETCLASSI__1{};
 // 86B364 4
-static proc_t *_D_SETUPDIGETDEVICE__2{};
+static proc_t* _D_SETUPDIGETDEVICE__2{};
 // 86B368 4
-static proc_t *_D_SETUPDIGETDEVICE__3{};
+static proc_t* _D_SETUPDIGETDEVICE__3{};
 // 86B36C 4
-static proc_t *_D_SETUPDIENUMDEVIC{};
+static proc_t* _D_SETUPDIENUMDEVIC{};
 // 86B370 4
-static proc_t *_D_SETUPDICALLCLASS{};
+static proc_t* _D_SETUPDICALLCLASS{};
 // 86B374 4
-static proc_t *_D_SETUPDIDESTROYDE{};
+static proc_t* _D_SETUPDIDESTROYDE{};
 // 86B378 4
-static proc_t *_D_CM_GET_DEVICE_ID{};
+static proc_t* _D_CM_GET_DEVICE_ID{};
 // 86B37C 4
-static proc_t *_D_CM_GET_DEVICE_ID__1{};
+static proc_t* _D_CM_GET_DEVICE_ID__1{};
 // 86B380 4
-static HINSTANCE__ *_D_G_HSETUPAPI{};
+static HINSTANCE__* _D_G_HSETUPAPI{};
 // 86B384 4
-static HINSTANCE__ *_D_G_HCFGMGR32{};
+static HINSTANCE__* _D_G_HCFGMGR32{};
 // 86B388 4
 // TODO static CNMManager* _D_SPINSTANCE{};
 // 86B3E0 8
-static const double _D_PI__130 = 0;
+static const double _D_PI__130 = acos(-1.0);
 // 86B3E8 8
-static const double _D_PI__129 = 0;
+static const double _D_PI__129 = acos(-1.0);
 // 86B3F0 8
-static const double _D_PI__128 = 0;
+static const double _D_PI__128 = acos(-1.0);
 // 86B400 8
-static const double _D_PI__127 = 0;
+static const double _D_PI__127 = acos(-1.0);
 // 86B408 8
-static const double _D_PI__126 = 0;
+static const double _D_PI__126 = acos(-1.0);
 // 86B410 8
-static const double _D_PI__125 = 0;
+static const double _D_PI__125 = acos(-1.0);
 // 86B418 8
-static const double _D_PI__124 = 0;
+static const double _D_PI__124 = acos(-1.0);
 // 86B420 8
-static const double _D_PI__123 = 0;
+static const double _D_PI__123 = acos(-1.0);
 // 86B430 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__24{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__24{};
 // 86B448 8
-static const double _D_PI__122 = 0;
+static const double _D_PI__122 = acos(-1.0);
 // 86B458 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__23{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__23{};
 // 86B470 8
-static const double _D_PI__121 = 0;
+static const double _D_PI__121 = acos(-1.0);
 // 86B480 8
-static const double _D_PI__120 = 0;
+static const double _D_PI__120 = acos(-1.0);
 // 86B488 8
-static const double _D_PI__119 = 0;
+static const double _D_PI__119 = acos(-1.0);
 // 86B4A0 8
-static const double _D_PI__118 = 0;
+static const double _D_PI__118 = acos(-1.0);
 // 86B4A8 8
-static const double _D_PI__117 = 0;
+static const double _D_PI__117 = acos(-1.0);
 // 86B4B0 8
-static const double _D_PI__116 = 0;
+static const double _D_PI__116 = acos(-1.0);
 // 86B4B8 32
 // static CRand32 _D_G_RAND{};
 // 86B4E0 8
-static const double _D_PI__14 = 0;
+static const double _D_PI__14 = acos(-1.0);
 // 86B4F0 8
-static const double _D_PI__115 = 0;
+static const double _D_PI__115 = acos(-1.0);
 // 86B4F8 8
-static const double _D_PI__114 = 0;
+static const double _D_PI__114 = acos(-1.0);
 // 86B500 4
 static ZXString<char> _D_SLASTBASEFOLDER{};
 // 86B504 4
 static uint32_t _D__S4__3 = 0x0;
 // 86B508 8
-static const double _D_PI__113 = 0;
+static const double _D_PI__113 = acos(-1.0);
 // 86B510 32
 // static CScriptMan _D_G_SCRIPTMAN{};
 // 86B530 4
 static int32_t _D_NSHUFFLECOUNTER = 0x0;
 // 86B538 8
-static const double _D_PI__112 = 0;
+static const double _D_PI__112 = acos(-1.0);
 // 86B540 48
 static std::array<ZInetAddr, 48> _D_G_ALOGINADDR{};
 // 86B570 8
-static const double _D_PI__111 = 0;
+static const double _D_PI__111 = acos(-1.0);
 // 86B5F0 8
-static const double _D_PI__110 = 0;
+static const double _D_PI__110 = acos(-1.0);
 // 86B5F8 8
-static const double _D_PI__109 = 0;
+static const double _D_PI__109 = acos(-1.0);
 // 86B600 8
-static const double _D_PI__108 = 0;
+static const double _D_PI__108 = acos(-1.0);
 // 86B610 4
 static long _D_TFADEINTIME = 0x0;
 // 86B614 4
 static uint32_t _D__S3__8 = 0x0;
 // 86B618 8
-static const double _D_PI__107 = 0;
+static const double _D_PI__107 = acos(-1.0);
 // 86B620 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__22{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__22{};
 // 86B64C 4
 // TODO static ADAD::BrowserControlPane* _D_BCP3{};
-static void *_D_BCP3{};
+static void* _D_BCP3{};
 // 86B650 4
 // TODO static const StartUpWndParam* _D_PSWP2{};
-static const void *_D_PSWP2{};
+static const void* _D_PSWP2{};
 // 86B654 4
 // TODO static ADAD::BrowserControlPane* _D_BCP2{};
-static void *_D_BCP2{};
+static void* _D_BCP2{};
 // 86B658 4
-static HWND__ *_D_HWNDBUTTON{};
+static HWND__* _D_HWNDBUTTON{};
 // 86B65C 2
 static short _D_NSTATUS = 0x0;
 // 86B660 4
@@ -2924,557 +3550,35 @@ static int32_t _D_CXBACKGROUND = 0x0;
 // 86B668 16
 static tagRECT _D_RECTBUTTON{};
 // 86B678 12
-static std::array<HBITMAP__ *, 12> _D_HBITMAP{};
+static std::array<HBITMAP__*, 12> _D_HBITMAP{};
 // 86B684 4
-static HINSTANCE__ *_D_HINSTANCE{};
-// 86C960 16
-static UINT128 _D_CTS_SPEED__2{};
-// 86C970 16
-static UINT128 _D_CTS_JUMP__1{};
-// 86C980 16
-static UINT128 _D_CTS_STUN__1{};
-// 86C990 16
-static UINT128 _D_CTS_WEAKNESS__1{};
-// 86C9A0 16
-static UINT128 _D_CTS_SLOW__1{};
-// 86C9B0 16
-static UINT128 _D_CTS_MORPH__2{};
-// 86C9C0 16
-static UINT128 _D_CTS_GHOST__2{};
-// 86C9D0 16
-static UINT128 _D_CTS_BASICSTATUP__1{};
-// 86C9E0 16
-static UINT128 _D_CTS_ATTRACT__1{};
-// 86C9F0 16
-static UINT128 _D_CTS_RIDEVEHICLE__3{};
-// 86CA00 16
-static UINT128 _D_CTS_DASH_SPEED__1{};
-// 86CA10 16
-static UINT128 _D_CTS_DASH_JUMP__1{};
-// 86CA20 16
-static UINT128 _D_CTS_FLYING__2{};
-// 86CA30 16
-static UINT128 _D_CTS_FROZEN__1{};
-// 86CA40 16
-static UINT128 _D_CTS_YELLOWAURA__1{};
-// 86CA50 16
-static UINT128 _D_CTS_PAD__1{};
-// 86CA60 16
-static UINT128 _D_CTS_PDD__1{};
-// 86CA70 16
-static UINT128 _D_CTS_MAD__1{};
-// 86CA80 16
-static UINT128 _D_CTS_MDD__1{};
-// 86CA90 16
-static UINT128 _D_CTS_ACC__1{};
-// 86CAA0 16
-static UINT128 _D_CTS_EVA__1{};
-// 86CAB0 16
-static UINT128 _D_CTS_CRAFT__1{};
-// 86CAC0 16
-static UINT128 _D_CTS_EMHP__1{};
-// 86CAD0 16
-static UINT128 _D_CTS_EMMP__1{};
-// 86CAE0 16
-static UINT128 _D_CTS_EPAD__1{};
-// 86CAF0 16
-static UINT128 _D_CTS_EPDD__1{};
-// 86CB00 16
-static UINT128 _D_CTS_EMDD__1{};
-// 86CB10 16
-static UINT128 _D_CTS_MAGICGUARD__1{};
-// 86CB20 16
-static UINT128 _D_CTS_DARKSIGHT__1{};
-// 86CB30 16
-static UINT128 _D_CTS_BOOSTER__1{};
-// 86CB40 16
-static UINT128 _D_CTS_POWERGUARD__1{};
-// 86CB50 16
-static UINT128 _D_CTS_GUARD__1{};
-// 86CB60 16
-static UINT128 _D_CTS_SAFETYDAMAGE__1{};
-// 86CB70 16
-static UINT128 _D_CTS_SAFETYABSORB__1{};
-// 86CB80 16
-static UINT128 _D_CTS_MAXHP__2{};
-// 86CB90 16
-static UINT128 _D_CTS_MAXMP__1{};
-// 86CBA0 16
-static UINT128 _D_CTS_INVINCIBLE__1{};
-// 86CBB0 16
-static UINT128 _D_CTS_SOULARROW__1{};
-// 86CBC0 16
-static UINT128 _D_CTS_POISON__1{};
-// 86CBD0 16
-static UINT128 _D_CTS_SEAL__1{};
-// 86CBE0 16
-static UINT128 _D_CTS_DARKNESS__1{};
-// 86CBF0 16
-static UINT128 _D_CTS_COMBOCOUNTER__2{};
-// 86CC00 16
-static UINT128 _D_CTS_WEAPONCHARGE__1{};
-// 86CC10 16
-static UINT128 _D_CTS_DRAGONBLOOD__1{};
-// 86CC20 16
-static UINT128 _D_CTS_HOLYSYMBOL__1{};
-// 86CC30 16
-static UINT128 _D_CTS_MESOUP__1{};
-// 86CC40 16
-static UINT128 _D_CTS_SHADOWPARTNE__2{};
-// 86CC50 16
-static UINT128 _D_CTS_PICKPOCKET__1{};
-// 86CC60 16
-static UINT128 _D_CTS_MESOGUARD__1{};
-// 86CC70 16
-static UINT128 _D_CTS_THAW__1{};
-// 86CC80 16
-static UINT128 _D_CTS_CURSE__1{};
-// 86CC90 16
-static UINT128 _D_CTS_REGEN__1{};
-// 86CCA0 16
-static UINT128 _D_CTS_STANCE__1{};
-// 86CCB0 16
-static UINT128 _D_CTS_SHARPEYES__1{};
-// 86CCC0 16
-static UINT128 _D_CTS_MANAREFLECTI__1{};
-// 86CCD0 16
-static UINT128 _D_CTS_SPIRITJAVELI__1{};
-// 86CCE0 16
-static UINT128 _D_CTS_INFINITY__1{};
-// 86CCF0 16
-static UINT128 _D_CTS_HOLYSHIELD__1{};
-// 86CD00 16
-static UINT128 _D_CTS_HAMSTRING__1{};
-// 86CD10 16
-static UINT128 _D_CTS_BLIND__1{};
-// 86CD20 16
-static UINT128 _D_CTS_CONCENTRATIO__1{};
-// 86CD30 16
-static UINT128 _D_CTS_BANMAP__1{};
-// 86CD40 16
-static UINT128 _D_CTS_MAXLEVELBUFF__1{};
-// 86CD50 16
-static UINT128 _D_CTS_BARRIER__3{};
-// 86CD60 16
-static UINT128 _D_CTS_DOJANGSHIELD__1{};
-// 86CD70 16
-static UINT128 _D_CTS_REVERSEINPUT__1{};
-// 86CD80 16
-static UINT128 _D_CTS_MESOUPBYITEM__1{};
-// 86CD90 16
-static UINT128 _D_CTS_ITEMUPBYITEM__1{};
-// 86CDA0 16
-static UINT128 _D_CTS_RESPECTPIMMU__1{};
-// 86CDB0 16
-static UINT128 _D_CTS_RESPECTMIMMU__1{};
-// 86CDC0 16
-static UINT128 _D_CTS_DEFENSEATT__1{};
-// 86CDD0 16
-static UINT128 _D_CTS_DEFENSESTATE__1{};
-// 86CDE0 16
-static UINT128 _D_CTS_DOJANGBERSER__1{};
-// 86CDF0 16
-static UINT128 _D_CTS_DOJANGINVINC__1{};
-// 86CE00 16
-static UINT128 _D_CTS_SPARK__1{};
-// 86CE10 16
-static UINT128 _D_CTS_SOULMASTERFI__1{};
-// 86CE20 16
-static UINT128 _D_CTS_WINDBREAKERF__1{};
-// 86CE30 16
-static UINT128 _D_CTS_ELEMENTALRES__1{};
-// 86CE40 16
-static UINT128 _D_CTS_WINDWALK__1{};
-// 86CE50 16
-static UINT128 _D_CTS_EVENTRATE__1{};
-// 86CE60 16
-static UINT128 _D_CTS_COMBOABILITY__2{};
-// 86CE70 16
-static UINT128 _D_CTS_COMBODRAIN__1{};
-// 86CE80 16
-static UINT128 _D_CTS_COMBOBARRIER__1{};
-// 86CE90 16
-static UINT128 _D_CTS_BODYPRESSURE__1{};
-// 86CEA0 16
-static UINT128 _D_CTS_SMARTKNOCKBA__1{};
-// 86CEB0 16
-static UINT128 _D_CTS_REPEATEFFECT__1{};
-// 86CEC0 16
-static UINT128 _D_CTS_EXPBUFFRATE__1{};
-// 86CED0 16
-static UINT128 _D_CTS_INCEFFECTHPP__1{};
-// 86CEE0 16
-static UINT128 _D_CTS_INCEFFECTMPP__1{};
-// 86CEF0 16
-static UINT128 _D_CTS_STOPPORTION__1{};
-// 86CF00 16
-static UINT128 _D_CTS_STOPMOTION__1{};
-// 86CF10 16
-static UINT128 _D_CTS_FEAR__1{};
-// 86CF20 16
-static UINT128 _D_CTS_EVANSLOW__1{};
-// 86CF30 16
-static UINT128 _D_CTS_MAGICSHIELD__1{};
-// 86CF40 16
-static UINT128 _D_CTS_MAGICRESISTA__1{};
-// 86CF50 16
-static UINT128 _D_CTS_SOULSTONE__1{};
-// 86CF60 16
-static UINT128 _D_CTS_ASSISTCHARGE__1{};
-// 86CF70 16
-static UINT128 _D_CTS_ENRAGE__1{};
-// 86CF80 16
-static UINT128 _D_CTS_SUDDENDEATH__1{};
-// 86CF90 16
-static UINT128 _D_CTS_NOTDAMAGED__2{};
-// 86CFA0 16
-static UINT128 _D_CTS_FINALCUT__1{};
-// 86CFB0 16
-static UINT128 _D_CTS_THORNSEFFECT__1{};
-// 86CFC0 16
-static UINT128 _D_CTS_SWALLOWATTAC__1{};
-// 86CFD0 16
-static UINT128 _D_CTS_MOREWILDDAMA__1{};
-// 86CFE0 16
-static UINT128 _D_CTS_MINE__1{};
-// 86CFF0 16
-static UINT128 _D_CTS_CYCLONE__1{};
-// 86D000 16
-static UINT128 _D_CTS_SWALLOWCRITI__1{};
-// 86D010 16
-static UINT128 _D_CTS_SWALLOWMAXMP__1{};
-// 86D020 16
-static UINT128 _D_CTS_SWALLOWDEFEN__1{};
-// 86D030 16
-static UINT128 _D_CTS_SWALLOWEVASI__1{};
-// 86D040 16
-static UINT128 _D_CTS_CONVERSION__1{};
-// 86D050 16
-static UINT128 _D_CTS_REVIVE__1{};
-// 86D060 16
-static UINT128 _D_CTS_SNEAK__1{};
-// 86D070 16
-static UINT128 _D_CTS_MECHANIC__1{};
-// 86D080 16
-static UINT128 _D_CTS_AURA__2{};
-// 86D090 16
-static UINT128 _D_CTS_DARKAURA__1{};
-// 86D0A0 16
-static UINT128 _D_CTS_BLUEAURA__1{};
-// 86D0B0 16
-static UINT128 _D_CTS_SUPERBODY__1{};
-// 86D0C0 16
-static UINT128 _D_CTS_MOREWILDMAXH__1{};
-// 86D0D0 16
-static UINT128 _D_CTS_DICE__1{};
-// 86D0E0 16
-static UINT128 _D_CTS_BLESSINGARMO__1{};
-// 86D0F0 16
-static UINT128 _D_CTS_DAMR__1{};
-// 86D100 16
-static UINT128 _D_CTS_TELEPORTMAST__1{};
-// 86D110 16
-static UINT128 _D_CTS_COMBATORDERS__1{};
-// 86D120 16
-static UINT128 _D_CTS_BEHOLDER__1{};
-// 86D130 16
-static UINT128 _D_CTS_SUMMONBOMB__1{};
-// 86D140 16
-static UINT128 _D_CTS_SWALLOWBUFF__1{};
-// 86D6D4 16
-static UINT128 _D_CTS_ENERGYCHARGE__3{};
-// 86D6E4 16
-static UINT128 _D_S_UFILTER{};
+static HINSTANCE__* _D_HINSTANCE{};
 // 86D6F4 4
 static uint32_t _D__S3__7 = 0x0;
-// 86D6F8 16
-static UINT128 _D_S_UFILTER__1{};
 // 86D708 4
 static uint32_t _D__S4__2 = 0x0;
 // 86D750 4
-static HINSTANCE__ *_D__G_HPCOMMODULE{};
+static HINSTANCE__* _D__G_HPCOMMODULE{};
 // 86D754 4
 static volatile long _D__G_NPCOMMODULERE = 0x0;
 // 86D758 1020
 // TODOstatic _ZAPIProcAddress _D_ZAPI{};
 static int _D_ZAPI{};
 // 86DB54 20
-static std::array<proc_t *, 20> _D__G_APFNPCOMAPIS{};
-// 86DB68 16
-static UINT128 _D_CTS_COMBATORDERS{};
-// 86DB78 16
-static UINT128 _D_CTS_CURSE{};
-// 86DB88 16
-static UINT128 _D_CTS_SHARPEYES{};
-// 86DB98 16
-static UINT128 _D_CTS_FEAR{};
-// 86DBA8 16
-static UINT128 _D_CTS_HAMSTRING{};
-// 86DBB8 16
-static UINT128 _D_CTS_THORNSEFFECT{};
-// 86DBC8 16
-static UINT128 _D_CTS_DOJANGBERSER{};
-// 86DBD8 16
-static UINT128 _D_CTS_BEHOLDER{};
-// 86DBE8 16
-static UINT128 _D_CTS_SWALLOWATTAC{};
-// 86DBF8 16
-static UINT128 _D_CTS_MAGICSHIELD{};
-// 86DC08 16
-static UINT128 _D_CTS_FLYING__1{};
-// 86DC18 16
-static UINT128 _D_CTS_SWALLOWMAXMP{};
-// 86DC28 16
-static UINT128 _D_CTS_EMHP{};
-// 86DC38 16
-static UINT128 _D_CTS_DARKSIGHT{};
-// 86DC48 16
-static UINT128 _D_CTS_WINDBREAKERF{};
-// 86DC58 16
-static UINT128 _D_CTS_BASICSTATUP{};
-// 86DC68 16
-static UINT128 _D_CTS_DARKAURA{};
-// 86DC78 16
-static UINT128 _D_CTS_GUARD{};
-// 86DC88 16
-static UINT128 _D_CTS_SOULARROW{};
-// 86DC98 16
-static UINT128 _D_CTS_BODYPRESSURE{};
-// 86DCA8 16
-static UINT128 _D_CTS_ATTRACT{};
-// 86DCB8 16
-static UINT128 _D_CTS_HOLYSYMBOL{};
-// 86DCC8 16
-static UINT128 _D_CTS_DICE{};
-// 86DCD8 16
-static UINT128 _D_CTS_WINDWALK{};
-// 86DCE8 16
-static UINT128 _D_CTS_COMBODRAIN{};
-// 86DCF8 16
-static UINT128 _D_CTS_DAMR{};
-// 86DD08 16
-static UINT128 _D_CTS_INCEFFECTHPP{};
-// 86DD18 16
-static UINT128 _D_CTS_MESOGUARD{};
-// 86DD28 16
-static UINT128 _D_CTS_NOTDAMAGED__1{};
-// 86DD38 16
-static UINT128 _D_CTS_SEAL{};
-// 86DD48 16
-static UINT128 _D_CTS_SUMMONBOMB{};
+static std::array<proc_t*, 20> _D__G_APFNPCOMAPIS{};
 // 86DD58 16
 static Ztl_variant_t _D_VTEMPTY{};
-// 86DD68 16
-static UINT128 _D_CTS_HOLYSHIELD{};
-// 86DD78 16
-static UINT128 _D_CTS_DEFENSESTATE{};
-// 86DD88 16
-static UINT128 _D_CTS_SAFETYABSORB{};
-// 86DD98 16
-static UINT128 _D_CTS_EXPBUFFRATE{};
-// 86DDA8 16
-static UINT128 _D_CTS_EPAD{};
-// 86DDB8 16
-static UINT128 _D_CTS_FINALCUT{};
-// 86DDC8 16
-static UINT128 _D_CTS_EVANSLOW{};
-// 86DDD8 16
-static UINT128 _D_CTS_EVA{};
-// 86DDE8 16
-static UINT128 _D_CTS_BANMAP{};
-// 86DDF8 16
-static UINT128 _D_CTS_STOPMOTION{};
-// 86DE08 16
-static UINT128 _D_CTS_DARKNESS{};
-// 86DE18 16
-static UINT128 _D_CTS_RIDEVEHICLE__2{};
-// 86DE2C 16
-static UINT128 _D_CTS_COMBOABILITY__1{};
-// 86DE3C 16
-static UINT128 _D_CTS_SUDDENDEATH{};
-// 86DE4C 16
-static UINT128 _D_CTS_DASH_SPEED{};
-// 86DE5C 16
-static UINT128 _D_CTS_GUIDEDBULLET__1{};
-// 86DE6C 16
-static UINT128 _D_CTS_COMBOBARRIER{};
-// 86DE7C 16
-static UINT128 _D_CTS_SMARTKNOCKBA{};
-// 86DE8C 16
-static UINT128 _D_CTS_REPEATEFFECT{};
-// 86DE9C 16
-static UINT128 _D_CTS_RESPECTMIMMU{};
-// 86DEAC 16
-static UINT128 _D_CTS_INVINCIBLE{};
 // 86DEBC 4
 static ZXString<char> _D_S_SGROUPUNDEFINE{};
-// 86DEC0 16
-static UINT128 _D_CTS_MOREWILDMAXH{};
-// 86DED0 16
-static UINT128 _D_CTS_DASH_JUMP{};
-// 86DEE0 16
-static UINT128 _D_CTS_SWALLOWCRITI{};
-// 86DEF0 16
-static UINT128 _D_CTS_SWALLOWBUFF{};
-// 86DF00 16
-static UINT128 _D_CTS_SWALLOWDEFEN{};
 // 86DF10 332
 // TODO static ZExceptionHandler _D__G_ZEH{};
 static int _D__G_ZEH{};
-// 86E05C 16
-static UINT128 _D_CTS_RESPECTPIMMU{};
-// 86E06C 16
-static UINT128 _D_CTS_POWERGUARD{};
-// 86E07C 16
-static UINT128 _D_CTS_CONCENTRATIO{};
-// 86E08C 16
-static UINT128 _D_CTS_CRAFT{};
-// 86E09C 16
-static UINT128 _D_CTS_MOREWILDDAMA{};
-// 86E0AC 16
-static UINT128 _D_CTS_INCEFFECTMPP{};
-// 86E0BC 16
-static UINT128 _D_CTS_SLOW{};
 // 86E0D0 200
 // TODO static `anonymous-namespace'::ZAPILoader _D__S_ZAPILOADER{};
-// 86E198 16
-static UINT128 _D_CTS_POISON{};
-// 86E1A8 16
-static UINT128 _D_CTS_REVIVE{};
-// 86E1B8 16
-static UINT128 _D_CTS_MESOUPBYITEM{};
-// 86E1C8 16
-static UINT128 _D_CTS_EPDD{};
-// 86E1D8 16
-static UINT128 _D_CTS_SNEAK{};
-// 86E1E8 16
-static UINT128 _D_CTS_MECHANIC{};
-// 86E1F8 16
-static UINT128 _D_CTS_ENERGYCHARGE__2{};
-// 86E208 16
-static UINT128 _D_CTS_EVENTRATE{};
-// 86E218 16
-static UINT128 _D_CTS_PARTYBOOSTER{};
-// 86E228 16
-static UINT128 _D_CTS_THAW{};
-// 86E238 16
-static UINT128 _D_CTS_SPIRITJAVELI{};
-// 86E248 16
-static UINT128 _D_CTS_GHOST__1{};
-// 86E258 16
-static UINT128 _D_CTS_CYCLONE{};
-// 86E268 16
-static UINT128 _D_CTS_MORPH__1{};
-// 86E278 16
-static UINT128 _D_CTS_CONVERSION{};
-// 86E288 16
-static UINT128 _D_CTS_BOOSTER{};
-// 86E298 16
-static UINT128 _D_CTS_MDD{};
-// 86E2A8 16
-static UINT128 _D_CTS_MAGICRESISTA{};
-// 86E2B8 16
-static UINT128 _D_CTS_MAXLEVELBUFF{};
-// 86E2C8 16
-static UINT128 _D_CTS_WEAKNESS{};
-// 86E2D8 16
-static UINT128 _D_CTS_ENRAGE{};
-// 86E2E8 16
-static UINT128 _D_CTS_YELLOWAURA{};
-// 86E2F8 16
-static UINT128 _D_CTS_REGEN{};
-// 86E308 16
-static UINT128 _D_CTS_MANAREFLECTI{};
-// 86E318 16
-static UINT128 _D_CTS_STANCE{};
-// 86E328 16
-static UINT128 _D_CTS_EMDD{};
-// 86E338 16
-static UINT128 _D_CTS_ITEMUPBYITEM{};
-// 86E348 16
-static UINT128 _D_CTS_MAD{};
-// 86E358 16
-static UINT128 _D_CTS_BLIND{};
-// 86E368 16
-static UINT128 _D_CTS_ASSISTCHARGE{};
-// 86E378 16
-static UINT128 _D_CTS_PAD{};
-// 86E388 16
-static UINT128 _D_CTS_STUN{};
-// 86E398 16
-static UINT128 _D_CTS_MAXMP{};
-// 86E3A8 16
-static UINT128 _D_CTS_AURA__1{};
-// 86E3B8 16
-static UINT128 _D_CTS_EMMP{};
-// 86E3C8 16
-static UINT128 _D_CTS_PICKPOCKET{};
-// 86E3D8 16
-static UINT128 _D_CTS_ELEMENTALRES{};
-// 86E3E8 16
-static UINT128 _D_CTS_TELEPORTMAST{};
-// 86E3F8 16
-static UINT128 _D_CTS_DOJANGINVINC{};
-// 86E408 16
-static UINT128 _D_CTS_FROZEN{};
-// 86E418 16
-static UINT128 _D_CTS_SPEED__1{};
-// 86E428 16
-static UINT128 _D_CTS_STOPPORTION{};
-// 86E438 16
-static UINT128 _D_CTS_DRAGONBLOOD{};
-// 86E448 16
-static UINT128 _D_CTS_BLUEAURA{};
-// 86E458 16
-static UINT128 _D_CTS_SWALLOWEVASI{};
-// 86E468 16
-static UINT128 _D_CTS_JUMP{};
-// 86E478 16
-static UINT128 _D_CTS_MAGICGUARD{};
-// 86E488 16
-static UINT128 _D_CTS_WEAPONCHARGE{};
-// 86E498 16
-static UINT128 _D_CTS_SAFETYDAMAGE{};
-// 86E4A8 16
-static UINT128 _D_CTS_REVERSEINPUT{};
-// 86E4B8 16
-static UINT128 _D_CTS_SHADOWPARTNE__1{};
-// 86E4C8 16
-static UINT128 _D_CTS_INFINITY{};
-// 86E4D8 16
-static UINT128 _D_CTS_UNDEAD{};
-// 86E4E8 16
-static UINT128 _D_CTS_MESOUP{};
-// 86E4F8 16
-static UINT128 _D_CTS_PDD{};
-// 86E508 16
-static UINT128 _D_CTS_SPARK{};
-// 86E518 16
-static UINT128 _D_CTS_COMBOCOUNTER__1{};
-// 86E528 16
-static UINT128 _D_CTS_SUPERBODY{};
-// 86E538 16
-static UINT128 _D_CTS_MAXHP__1{};
-// 86E548 16
-static UINT128 _D_CTS_BARRIER__2{};
-// 86E558 16
-static UINT128 _D_CTS_DOJANGSHIELD{};
-// 86E568 16
-static UINT128 _D_CTS_SOULSTONE{};
-// 86E578 16
-static UINT128 _D_CTS_DEFENSEATT{};
-// 86E588 16
-static UINT128 _D_CTS_BLESSINGARMO{};
-// 86E598 16
-static UINT128 _D_CTS_SOULMASTERFI{};
-// 86E5A8 16
-static UINT128 _D_CTS_ACC{};
-// 86E5B8 16
-static UINT128 _D_CTS_MINE{};
 // 86E5C8 128
 static std::array<char, 128> _D_SBUFFER{};
 // 86E6D8 8
-static const double _D_PI__106 = 0;
+static const double _D_PI__106 = acos(-1.0);
 // 86E6EC 4
 static ZArray<ZXString<char>> _D_S_ASCURSE1{};
 // 86E6F0 4
@@ -3486,161 +3590,161 @@ static ZArray<ZXString<char>> _D_S_ASFORBIDDENNAM{};
 // 86E6FC 4
 static uint32_t _D__S3__6 = 0x0;
 // 86E708 8
-static const double _D_PI__105 = 0;
+static const double _D_PI__105 = acos(-1.0);
 // 86E718 8
-static const double _D_PI__104 = 0;
+static const double _D_PI__104 = acos(-1.0);
 // 86E728 8
-static const double _D_PI__103 = 0;
+static const double _D_PI__103 = acos(-1.0);
 // 86E730 8
-static const double _D_PI__102 = 0;
+static const double _D_PI__102 = acos(-1.0);
 // 86E738 8
-static const double _D_PI__101 = 0;
+static const double _D_PI__101 = acos(-1.0);
 // 86E740 8
-static const double _D_PI__100 = 0;
+static const double _D_PI__100 = acos(-1.0);
 // 86E748 8
-static const double _D_PI__99 = 0;
+static const double _D_PI__99 = acos(-1.0);
 // 86E758 8
-static const double _D_PI__98 = 0;
+static const double _D_PI__98 = acos(-1.0);
 // 86E768 8
-static const double _D_PI__97 = 0;
+static const double _D_PI__97 = acos(-1.0);
 // 86E778 8
-static const double _D_PI__96 = 0;
+static const double _D_PI__96 = acos(-1.0);
 // 86E780 8
-static const double _D_PI__95 = 0;
+static const double _D_PI__95 = acos(-1.0);
 // 86E7A8 8
-static const double _D_PI__94 = 0;
+static const double _D_PI__94 = acos(-1.0);
 // 86E7B0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__21{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__21{};
 // 86E7D0 8
-static const double _D_PI__93 = 0;
+static const double _D_PI__93 = acos(-1.0);
 // 86E7D8 8
-static const double _D_PI__92 = 0;
+static const double _D_PI__92 = acos(-1.0);
 // 86E7E8 8
-static const double _D_PI__91 = 0;
+static const double _D_PI__91 = acos(-1.0);
 // 86E7F0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__20{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__20{};
 // 86E808 8
-static const double _D_PI__90 = 0;
+static const double _D_PI__90 = acos(-1.0);
 // 86EA48 8
-static const double _D_PI__89 = 0;
+static const double _D_PI__89 = acos(-1.0);
 // 86EA60 8
-static const double _D_PI__88 = 0;
+static const double _D_PI__88 = acos(-1.0);
 // 86EA78 8
-static const double _D_PI__87 = 0;
+static const double _D_PI__87 = acos(-1.0);
 // 86EA80 8
-static const double _D_PI__86 = 0;
+static const double _D_PI__86 = acos(-1.0);
 // 86EA88 8
-static const double _D_PI__85 = 0;
+static const double _D_PI__85 = acos(-1.0);
 // 86EA90 8
-static const double _D_PI__84 = 0;
+static const double _D_PI__84 = acos(-1.0);
 // 86EAA0 8
-static const double _D_PI__83 = 0;
+static const double _D_PI__83 = acos(-1.0);
 // 86EAA8 8
-static const double _D_PI__82 = 0;
+static const double _D_PI__82 = acos(-1.0);
 // 86EAB0 8
-static const double _D_PI__3 = 0;
+static const double _D_PI__3 = acos(-1.0);
 // 86EAD0 8
-static const double _D_PI__81 = 0;
+static const double _D_PI__81 = acos(-1.0);
 // 86EAE0 8
-static const double _D_PI__80 = 0;
+static const double _D_PI__80 = acos(-1.0);
 // 86EAE8 8
-static const double _D_PI__79 = 0;
+static const double _D_PI__79 = acos(-1.0);
 // 86EAF0 8
-static const double _D_PI__78 = 0;
+static const double _D_PI__78 = acos(-1.0);
 // 86EAF8 1160
 static std::array<tagPOINT, 1160> _D_S_PTSHORTKEYPOS__1{};
 // 86EF80 8
-static const double _D_PI__77 = 0;
+static const double _D_PI__77 = acos(-1.0);
 // 86EF90 8
-static const double _D_PI__76 = 0;
+static const double _D_PI__76 = acos(-1.0);
 // 86EFA0 8
-static const double _D_PI__75 = 0;
+static const double _D_PI__75 = acos(-1.0);
 // 86EFB8 8
-static const double _D_PI__74 = 0;
+static const double _D_PI__74 = acos(-1.0);
 // 86EFC0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__19{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__19{};
 // 86EFE0 8
-static const double _D_PI__73 = 0;
+static const double _D_PI__73 = acos(-1.0);
 // 86EFF0 8
-static const double _D_PI__72 = 0;
+static const double _D_PI__72 = acos(-1.0);
 // 86EFF8 4
 static long _D_NCOUNTER__3 = 0x0;
 // 86F008 8
-static const double _D_PI__71 = 0;
+static const double _D_PI__71 = acos(-1.0);
 // 86F018 8
-static const double _D_PI__70 = 0;
+static const double _D_PI__70 = acos(-1.0);
 // 86F028 8
-static const double _D_PI__69 = 0;
+static const double _D_PI__69 = acos(-1.0);
 // 86F030 8
-static const double _D_PI__68 = 0;
+static const double _D_PI__68 = acos(-1.0);
 // 86F048 8
-static const double _D_PI__67 = 0;
+static const double _D_PI__67 = acos(-1.0);
 // 86F060 8
-static const double _D_PI__66 = 0;
+static const double _D_PI__66 = acos(-1.0);
 // 86F068 8
-static const double _D_PI__65 = 0;
+static const double _D_PI__65 = acos(-1.0);
 // 86F070 8
-static const double _D_PI__64 = 0;
+static const double _D_PI__64 = acos(-1.0);
 // 86F080 8
-static const double _D_PI__63 = 0;
+static const double _D_PI__63 = acos(-1.0);
 // 86F090 8
-static const double _D_PI__13 = 0;
+static const double _D_PI__13 = acos(-1.0);
 // 86F098 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING{};
 // 86F0B0 8
-static const double _D_PI__62 = 0;
+static const double _D_PI__62 = acos(-1.0);
 // 86F0C0 8
-static const double _D_PI__61 = 0;
+static const double _D_PI__61 = acos(-1.0);
 // 86F0C8 8
-static const double _D_PI__60 = 0;
+static const double _D_PI__60 = acos(-1.0);
 // 86F0D8 8
-static const double _D_PI__59 = 0;
+static const double _D_PI__59 = acos(-1.0);
 // 86F0E0 8
-static const double _D_PI__58 = 0;
+static const double _D_PI__58 = acos(-1.0);
 // 86F0F8 8
-static const double _D_PI__57 = 0;
+static const double _D_PI__57 = acos(-1.0);
 // 86F108 4
 static uint32_t _D__S3__5 = 0x0;
 // 86F110 8
-static const double _D_PI__56 = 0;
+static const double _D_PI__56 = acos(-1.0);
 // 86F118 8
-static const double _D_PI__55 = 0;
+static const double _D_PI__55 = acos(-1.0);
 // 86F128 4
 static uint32_t _D__S3__4 = 0x0;
 // 86F130 8
-static const double _D_PI__54 = 0;
+static const double _D_PI__54 = acos(-1.0);
 // 86F140 8
-static const double _D_PI__53 = 0;
+static const double _D_PI__53 = acos(-1.0);
 // 86F158 8
-static const double _D_PI__52 = 0;
+static const double _D_PI__52 = acos(-1.0);
 // 86F160 4
 static long _D_NCOUNTER__1 = 0x0;
 // 86F168 8
-static const double _D_PI__51 = 0;
+static const double _D_PI__51 = acos(-1.0);
 // 86F170 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__18{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__18{};
 // 86F18C 20
 static std::array<ZXString<char>, 20> _D_S_ASCATEGORY{};
 // 86F1A0 4
 static uint32_t _D__S4__1 = 0x0;
 // 86F1B0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__17{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__17{};
 // 86F1C8 8
-static const double _D_PI__50 = 0;
+static const double _D_PI__50 = acos(-1.0);
 // 86F1D0 8
-static const double _D_PI__49 = 0;
+static const double _D_PI__49 = acos(-1.0);
 // 86F1F0 8
-static const double _D_PI__48 = 0;
+static const double _D_PI__48 = acos(-1.0);
 // 86F1F8 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__16{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__16{};
 // 86F220 8
-static const double _D_PI__47 = 0;
+static const double _D_PI__47 = acos(-1.0);
 // 86F228 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__15{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__15{};
 // 86F248 8
-static const double _D_PI__46 = 0;
+static const double _D_PI__46 = acos(-1.0);
 // 86F250 8
-static const double _D_PI__45 = 0;
+static const double _D_PI__45 = acos(-1.0);
 // 86F258 4
 static unsigned long _D_DWCOUNTER__1 = 0x0;
 // 86F25C 4
@@ -3650,23 +3754,9 @@ static Ztl_bstr_t _D_SHEAD{};
 // 86F264 4
 static uint32_t _D__S6__1 = 0x0;
 // 86F270 8
-static const double _D_PI__44 = 0;
+static const double _D_PI__44 = acos(-1.0);
 // 86F278 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__14{};
-// 86F290 16
-static UINT128 _D_CTS_COMBOCOUNTER{};
-// 86F2A0 16
-static UINT128 _D_CTS_ENERGYCHARGE__1{};
-// 86F2B0 16
-static UINT128 _D_CTS_FLYING{};
-// 86F2C0 16
-static UINT128 _D_CTS_SPEED{};
-// 86F2D0 16
-static UINT128 _D_CTS_SHADOWPARTNE{};
-// 86F2E0 16
-static UINT128 _D_CTS_MORPH{};
-// 86F2F0 16
-static UINT128 _D_CTS_GHOST{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__14{};
 // 86F308 4
 static uint32_t _D__S7 = 0x0;
 // 86F314 4
@@ -3674,21 +3764,17 @@ static uint32_t _D__S4 = 0x0;
 // 86F31C 4
 static uint32_t _D__S6 = 0x0;
 // 86F328 8
-static const double _D_PI__43 = 0;
+static const double _D_PI__43 = acos(-1.0);
 // 86F330 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__13{};
-// 86F34C 16
-static UINT128 _D_CTS_ENERGYCHARGE{};
-// 86F35C 16
-static UINT128 _D_CTS_RIDEVEHICLE__1{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__13{};
 // 86F370 8
-static const double _D_PI__42 = 0;
+static const double _D_PI__42 = acos(-1.0);
 // 86F378 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__12{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__12{};
 // 86F390 8
-static const double _D_PI__41 = 0;
+static const double _D_PI__41 = acos(-1.0);
 // 86F398 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__11{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__11{};
 // 86F3B0 4
 static long _D_NLASTITEMID = 0x0;
 // 86F3B4 4
@@ -3698,154 +3784,138 @@ static long _D_NLASTITEMID__2 = 0x0;
 // 86F3C0 8
 static double _D_FANGLE = 0;
 // 86F3C8 8
-static const double _D_PI__40 = 0;
+static const double _D_PI__40 = acos(-1.0);
 // 86F3D0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__10{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__10{};
 // 86F3E8 8
-static const double _D_PI__39 = 0;
+static const double _D_PI__39 = acos(-1.0);
 // 86F3F0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__9{};
-// 86F408 16
-static UINT128 _D_CTS_BARRIER__1{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__9{};
 // 86F418 4
 static long _D_S_NIMGEXTLEN = 0x0;
 // 86F41C 4
-static ZXString<unsigned short> _D_S_SIMGEXT{};
+static ZXString16 _D_S_SIMGEXT{};
 // 86F420 4
 static uint32_t _D__S3__3 = 0x0;
 // 86F428 8
-static const double _D_PI__38 = 0;
+static const double _D_PI__38 = acos(-1.0);
 
 // 86F610 8
-static const double _D_PI__37 = 0;
+static const double _D_PI__37 = acos(-1.0);
 // 86F618 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__8{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__8{};
 // 86F630 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__7{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__7{};
 // 86F648 8
-static const double _D_PI__36 = 0;
+static const double _D_PI__36 = acos(-1.0);
 // 86F650 28
 // TODO static CFontContainer _D_SINGLETON{};
 // 86F670 8
 static const double _D_PI = 0;
 // 86F680 8
-static const double _D_PI__35 = 0;
+static const double _D_PI__35 = acos(-1.0);
 // 86F688 8
-static const double _D_PI__6 = 0;
+static const double _D_PI__6 = acos(-1.0);
 // 86F690 8
-static const double _D_PI__34 = 0;
+static const double _D_PI__34 = acos(-1.0);
 // 86F698 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__6{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__6{};
 // 86F6B0 8
-static const double _D_PI__33 = 0;
+static const double _D_PI__33 = acos(-1.0);
 // 86F6B8 4
 static long _D_S_NFREEFALLTICK = 0x0;
 // 86F6BC 4
 static uint32_t _D__S3 = 0x0;
 // 86F6C0 8
-static const double _D_PI__7 = 0;
+static const double _D_PI__7 = acos(-1.0);
 // 86F6C8 8
-static const double _D_PI__32 = 0;
+static const double _D_PI__32 = acos(-1.0);
 // 86F6D0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__5{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__5{};
 // 86F6F0 8
-static const double _D_PI__31 = 0;
+static const double _D_PI__31 = acos(-1.0);
 // 86F700 8
-static const double _D_PI__30 = 0;
+static const double _D_PI__30 = acos(-1.0);
 // 86F708 8
-static const double _D_PI__2 = 0;
+static const double _D_PI__2 = acos(-1.0);
 // 86F718 8
-static const double _D_PI__29 = 0;
+static const double _D_PI__29 = acos(-1.0);
 // 86F720 4
-static HINSTANCE__ *_D_G_HINSTANCE{};
+static HINSTANCE__* _D_G_HINSTANCE{};
 // 86F728 8
-static const double _D_PI__28 = 0;
+static const double _D_PI__28 = acos(-1.0);
 // 86F730 8
 // TODO static CeTracer _D_ETRACER{};
 // 86F738 4
-static proc_t *_D_FN_LOPEN{};
+static proc_t* _D_FN_LOPEN{};
 // 86F73C 4
 static int32_t _D_G_BCALLAUTH = 0x0;
 // 86F740 1024
 static std::array<unsigned long, 1024> _D_G_CRC32TABLE{};
 // 86FB40 40
-static std::array<proc_t *, 40> _D_G_FNSAFEGETPEERN{};
+static std::array<proc_t*, 40> _D_G_FNSAFEGETPEERN{};
 // 86FB68 4
 static unsigned long _D_G_DWGPNFUNCSIZE = 0x0;
 // 86FB6C 4
-static proc_t *_D_S_FNSAFEGETPEERN{};
+static proc_t* _D_S_FNSAFEGETPEERN{};
 // 86FB70 8
-static const double _D_PI__27 = 0;
+static const double _D_PI__27 = acos(-1.0);
 // 86FB78 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__4{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__4{};
 // 86FB90 260
 static std::array<char, 260> _D_S_SFILENAME{};
 // 86FC98 8
-static const double _D_PI__26 = 0;
+static const double _D_PI__26 = acos(-1.0);
 // 86FCA0 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__3{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__3{};
 // 86FCB8 4
 static unsigned long _D_NCOUNTER = 0x0;
 // 86FCF8 8
-static const double _D_PI__25 = 0;
+static const double _D_PI__25 = acos(-1.0);
 // 86FD00 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__2{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__2{};
 // 873F70 8
-static const double _D_PI__24 = 0;
+static const double _D_PI__24 = acos(-1.0);
 // 873F78 24
-static std::array<ZXString<unsigned short>, 24> _D_ASAUTOSPEAKING__1{};
-// 873F90 16
-static UINT128 _D_CTS_COMBOABILITY{};
-// 873FA0 16
-static UINT128 _D_CTS_NOTDAMAGED{};
-// 873FB0 16
-static UINT128 _D_CTS_AURA{};
-// 873FC0 16
-static UINT128 _D_CTS_RIDEVEHICLE{};
-// 873FD0 16
-static UINT128 _D_CTS_BARRIER{};
-// 873FE0 16
-static UINT128 _D_CTS_GUIDEDBULLET{};
-// 873FF0 16
-static UINT128 _D_CTS_MAXHP{};
+static std::array<ZXString16, 24> _D_ASAUTOSPEAKING__1{};
 // 874000 8
-static const double _D_PI__23 = 0;
+static const double _D_PI__23 = acos(-1.0);
 // 874008 8
-static const double _D_PI__22 = 0;
+static const double _D_PI__22 = acos(-1.0);
 // 874010 8
-static const double _D_PI__21 = 0;
+static const double _D_PI__21 = acos(-1.0);
 // 874020 4
 static uint32_t _D__S3__2 = 0x0;
 // 874028 8
-static const double _D_PI__20 = 0;
+static const double _D_PI__20 = acos(-1.0);
 // 874030 8
-static const double _D_PI__19 = 0;
+static const double _D_PI__19 = acos(-1.0);
 // 874038 4
 static unsigned long _D_DWCONSTANTCRC = 0x0;
 // 87403C 4
 static uint32_t _D__S3__1 = 0x0;
 // 874050 8
-static const double _D_PI__18 = 0;
+static const double _D_PI__18 = acos(-1.0);
 // 874058 8
-static const double _D_PI__17 = 0;
+static const double _D_PI__17 = acos(-1.0);
 // 874060 8
-static const double _D_PI__16 = 0;
+static const double _D_PI__16 = acos(-1.0);
 // 8740A0 1340
 // TODO static CHsMonitor _D_G_CHSMON{};
 // 8745DC 4
-static proc_t *_D_G_PFNDNSQUERY_A{};
+static proc_t* _D_G_PFNDNSQUERY_A{};
 // 8745E0 4
-static proc_t *_D_G_PFNDNSRECORDSE{};
+static proc_t* _D_G_PFNDNSRECORDSE{};
 // 8745E4 4
-static proc_t *_D_G_PFNDNSRECORDLI{};
+static proc_t* _D_G_PFNDNSRECORDLI{};
 // 8745E8 4
-static proc_t *_D_G_PFNINET_ADDR{};
+static proc_t* _D_G_PFNINET_ADDR{};
 // 8745EC 4
 //static none_t *_D_G_HDNSMODULE{};
 // 8745F0 4
-static void *_D_G_HFILEMAP{};
+static void* _D_G_HFILEMAP{};
 // 8745F4 4
-static void *_D_G_PVIEW{};
+static void* _D_G_PVIEW{};
 // 8745F8 4
 static unsigned long _D_G_DWHSUPPID = 0x0;
 // 874600 1340
@@ -3865,27 +3935,27 @@ static int32_t _D___FASTFLAG = 0x0;
 // 874F5C 4
 static int32_t _D__ADJUST_FDIV = 0x0;
 // 874F60 4
-static proc_t *_D___PINVALIDARGHAN{};
+static proc_t* _D___PINVALIDARGHAN{};
 // 874F64 4
 static int32_t _D__UMASKVAL = 0x0;
 // 874F68 4
 static int32_t _D___ARGC = 0x0;
 // 874F6C 4
-static char **_D___ARGV{};
+static char** _D___ARGV{};
 // 874F70 4
-static unsigned short **_D___WARGV{};
+static unsigned short** _D___WARGV{};
 // 874F74 4
-static char **_D__ENVIRON{};
+static char** _D__ENVIRON{};
 // 874F78 4
-static char **_D___INITENV{};
+static char** _D___INITENV{};
 // 874F7C 4
-static unsigned short **_D__WENVIRON{};
+static unsigned short** _D__WENVIRON{};
 // 874F80 4
-static unsigned short **_D___WINITENV{};
+static unsigned short** _D___WINITENV{};
 // 874F84 4
-static char *_D__PGMPTR{};
+static char* _D__PGMPTR{};
 // 874F88 4
-static unsigned short *_D__WPGMPTR{};
+static unsigned short* _D__WPGMPTR{};
 // 874F8C 1
 static char _D__EXITFLAG = 0x0;
 // 874F90 4
@@ -3893,9 +3963,9 @@ static int32_t _D__C_TERMINATION_D = 0x0;
 // 874F94 4
 static int32_t _D__C_EXIT_DONE = 0x0;
 // 874F98 4
-static char *_D__AENVPTR{};
+static char* _D__AENVPTR{};
 // 874F9C 4
-static unsigned short *_D__WENVPTR{};
+static unsigned short* _D__WENVPTR{};
 // 874FA0 4
 static int32_t _D___ERROR_MODE = 0x0;
 // 874FA8 80
@@ -3905,21 +3975,21 @@ static int32_t _D_DEBUGGERWASPRESE = 0x0;
 // 875000 716
 static _CONTEXT _D_GS_CONTEXTRECORD{};
 // 8752CC 4
-static proc_t *_D_GPFLSALLOC{};
+static proc_t* _D_GPFLSALLOC{};
 // 8752D0 4
-static proc_t *_D_GPFLSGETVALUE{};
+static proc_t* _D_GPFLSGETVALUE{};
 // 8752D4 4
-static proc_t *_D_GPFLSSETVALUE{};
+static proc_t* _D_GPFLSSETVALUE{};
 // 8752D8 4
-static proc_t *_D_GPFLSFREE{};
+static proc_t* _D_GPFLSFREE{};
 // 8752DC 4
-static proc_t *_D___PINCONSISTENCY{};
+static proc_t* _D___PINCONSISTENCY{};
 // 8752E0 8
 // TODO static __type_info_node _D___TYPE_INFO_ROOT{};
 // 8752E8 4
 static unsigned long _D__MAXWAIT = 0x0;
 // 8752EC 4
-static void *_D__CRTHEAP{};
+static void* _D__CRTHEAP{};
 // 8752F0 336
 static std::array<_RTL_CRITICAL_SECTION, 336> _D_LCLCRITSECTS{};
 // 875440 4
@@ -3927,7 +3997,7 @@ static std::array<_RTL_CRITICAL_SECTION, 336> _D_LCLCRITSECTS{};
 // 875448 788
 static std::array<char, 788> _D_OUTMSG{};
 // 87575C 4
-static proc_t *_D__PNHHEAP{};
+static proc_t* _D__PNHHEAP{};
 // 875760 4
 static int32_t _D__NEWMODE = 0x0;
 // 875764 4
@@ -3957,21 +4027,21 @@ static int32_t _D__CFLUSH = 0x0;
 // 8757B0 4
 static int32_t _D_F_USE = 0x0;
 // 8757B4 4
-static proc_t *_D_CTRLC_ACTION{};
+static proc_t* _D_CTRLC_ACTION{};
 // 8757B8 4
-static proc_t *_D_CTRLBREAK_ACTION{};
+static proc_t* _D_CTRLBREAK_ACTION{};
 // 8757BC 4
-static proc_t *_D_ABORT_ACTION{};
+static proc_t* _D_ABORT_ACTION{};
 // 8757C0 4
-static proc_t *_D_TERM_ACTION{};
+static proc_t* _D_TERM_ACTION{};
 // 8757C4 4
 static int32_t _D_CONSOLECTRLHANDL = 0x0;
 // 8757C8 4
-static proc_t *_D_G_PFNRTLGENRANDO{};
+static proc_t* _D_G_PFNRTLGENRANDO{};
 // 8757D4 4
-static proc_t *_D___PPURECALL{};
+static proc_t* _D___PPURECALL{};
 // 8757D8 4
-static proc_t *_D___PFNINITCRITSEC{};
+static proc_t* _D___PFNINITCRITSEC{};
 // 8757E0 261
 static std::array<char, 261> _D__PGMNAME{};
 // 8758E8 4
@@ -3989,15 +4059,15 @@ static uint32_t _D__OUTPUTFORMAT = 0x0;
 // 875980 20
 // TODO static HeapManager _D_HEAP{};
 // 8759BC 4
-static proc_t *_D_PFNMESSAGEBOX{};
+static proc_t* _D_PFNMESSAGEBOX{};
 // 8759C0 4
-static proc_t *_D_PFNGETACTIVEWIND{};
+static proc_t* _D_PFNGETACTIVEWIND{};
 // 8759C4 4
-static proc_t *_D_PFNGETLASTACTIVE{};
+static proc_t* _D_PFNGETLASTACTIVE{};
 // 8759C8 4
-static proc_t *_D_PFNGETPROCESSWIN{};
+static proc_t* _D_PFNGETPROCESSWIN{};
 // 8759CC 4
-static proc_t *_D_PFNGETUSEROBJECT{};
+static proc_t* _D_PFNGETUSEROBJECT{};
 // 8759D0 1
 static std::array<char, 1> _D___LCONV_STATIC_N{};
 // 8759D8 172
@@ -4005,11 +4075,11 @@ static _TIME_ZONE_INFORMATION _D_TZINFO{};
 // 875A84 4
 static int32_t _D_TZAPIUSED = 0x0;
 // 875A88 4
-static char *_D_LASTTZ{};
+static char* _D_LASTTZ{};
 // 875A90 4
 static int32_t _D__COMMODE = 0x0;
 // 875A94 8
-static std::array<void *, 8> _D__STDBUF{};
+static std::array<void*, 8> _D__STDBUF{};
 // 875A9C 4
 static int32_t _D__FMODE = 0x0;
 // 875B50 4
@@ -4019,13 +4089,13 @@ static int32_t _D__NHANDLE = 0x0;
 // 875C60 4
 static int32_t _D__DEBUGGER_HOOK_D = 0x0;
 // 875C64 4
-static void **_D___PIOB{};
+static void** _D___PIOB{};
 // 875C80 4096
 static std::array<char, 4096> _D__BUFIN{};
 // 876C80 4
 static int32_t _D__NSTREAM = 0x0;
 // 876C84 4
-static proc_t *_D__PMATHERR{};
+static proc_t* _D__PMATHERR{};
 // 876C88 4
 static int32_t _D___SBH_CNTHEADERL = 0x0;
 // 876C8C 4
@@ -4045,14 +4115,14 @@ static int32_t _D___USE_SSE2_MATHF = 0x0;
 // 876CA8 4
 static int32_t _D___SSE2_AVAILABLE = 0x0;
 // 876CAC 4
-static char *_D__ACMDLN{};
+static char* _D__ACMDLN{};
 // 876CB0 4
 static int32_t _D___ENV_INITIALIZE = 0x0;
 // 876CB4 4
-static proc_t **_D___ONEXITEND{};
+static proc_t** _D___ONEXITEND{};
 // 876CB8 4
-static proc_t **_D___ONEXITBEGIN{};
+static proc_t** _D___ONEXITBEGIN{};
 // 876CBC 4
 static int32_t _D___MBCTYPE_INITIA = 0x0;
 // 876CC0 4
-static proc_t *_D___DYN_TLS_INIT_C{};
+static proc_t* _D___DYN_TLS_INIT_C{};

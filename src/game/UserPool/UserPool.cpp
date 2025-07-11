@@ -54,7 +54,7 @@ USERREMOTE_ENTRY& USERREMOTE_ENTRY::_op_assign_3(USERREMOTE_ENTRY* pThis, const 
 
 CUserPool::~CUserPool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CUserPool::_dtor_0()
@@ -170,7 +170,12 @@ long CUserPool::FindHitUserInRectWithReason(const tagRECT& rc, CUserRemote** apU
 
 CUser* CUserPool::GetUser(unsigned long dwCharacterID)
 {
-    return __sub_0054C350(this, nullptr, dwCharacterID);
+    //return __sub_0054C350(this, nullptr, dwCharacterID);
+    auto local = CUserLocal::GetInstance();
+    if (local && local->GetCharacterId())
+        return local;
+
+    return GetRemoteUser(dwCharacterID);
 }
 
 void CUserPool::RemoveAllUser()
@@ -186,7 +191,31 @@ void CUserPool::Update()
 
 void CUserPool::OnPacket(long nType, CInPacket& iPacket)
 {
-    __sub_0054DDF0(this, nullptr, nType, iPacket);
+    //__sub_0054DDF0(this, nullptr, nType, iPacket);
+    if (nType == 179)
+    {
+        CUserPool::OnUserEnterField(iPacket);
+    }
+    else if (nType == 180)
+    {
+        CUserPool::OnUserLeaveField(iPacket);
+    }
+    else if ((nType - 181) > 0x1C)
+    {
+        if ((nType - 210) > 0x14)
+        {
+            if ((nType - 231) <= 0x2D)
+                CUserPool::OnUserLocalPacket(nType, iPacket);
+        }
+        else
+        {
+            CUserPool::OnUserRemotePacket(nType, iPacket);
+        }
+    }
+    else
+    {
+        CUserPool::OnUserCommonPacket(nType, iPacket);
+    }
 }
 
 void CUserPool::OnCoupleRecordAdd(const _LARGE_INTEGER& liSN, CUser* pUser, long nItemID)
@@ -277,8 +306,6 @@ void CUserPool::OnUserEnterField(CInPacket& iPacket)
         partyHp->Destroy();
         partyHp->Create();
     }
-
-
 }
 
 void CUserPool::OnUserLeaveField(CInPacket& iPacket)
@@ -293,12 +320,91 @@ void CUserPool::OnUserCommonPacket(long nType, CInPacket& iPacket)
 
 void CUserPool::OnUserRemotePacket(long nType, CInPacket& iPacket)
 {
-    __sub_0054B390(this, nullptr, nType, iPacket);
+    //__sub_0054B390(this, nullptr, nType, iPacket);
+    auto id = iPacket.Decode4();
+    auto remote = GetRemoteUser(id);
+    if (!remote || CWvsContext::GetInstance()->GetStandAloneMode())
+        return;
+
+    if (remote->IsDelayedLoad())
+    {
+        switch (nType)
+        {
+        case 211:
+        case 212:
+        case 213:
+        case 214:
+            remote->OnAttack(nType, iPacket);
+            break;
+        case 215:
+            remote->OnSkillPrepare(iPacket);
+            break;
+        case 216:
+            remote->OnMovingShootAttackPrepare(iPacket);
+            break;
+        case 217:
+            remote->OnSkillCancel(iPacket);
+            break;
+        case 218:
+            remote->OnHit(iPacket);
+            break;
+        case 219:
+            remote->OnEmotion(iPacket);
+            break;
+        case 220:
+            remote->OnSetActiveEffectItem(iPacket);
+            break;
+        case 221:
+            remote->OnShowUpgradeTombEffect(iPacket);
+            break;
+        case 224:
+            remote->OnEffect(iPacket);
+            break;
+        case 230:
+            remote->OnThrowGrenade(iPacket);
+            break;
+        default:
+            break;
+        }
+    }
+    switch (nType)
+    {
+    case 210:
+        remote->OnMove(iPacket);
+        break;
+    case 222:
+        remote->OnSetActivePortableChair(iPacket);
+        break;
+    case 223:
+        remote->OnAvatarModified(iPacket);
+        break;
+    case 225:
+        remote->OnSetTemporaryStat(iPacket);
+        break;
+    case 226:
+        remote->OnResetTemporaryStat(iPacket);
+        break;
+    case 227:
+        remote->OnReceiveHP(iPacket);
+        break;
+    case 228:
+        remote->OnGuildNameChanged(iPacket);
+        break;
+    case 229:
+        remote->OnGuildMarkChanged(iPacket);
+        break;
+    default:
+        return;
+    }
 }
 
 void CUserPool::OnUserLocalPacket(long nType, CInPacket& iPacket)
 {
-    __sub_00548AA0(this, nullptr, nType, iPacket);
+    //__sub_00548AA0(this, nullptr, nType, iPacket);
+    if (auto local = GetLocalUser())
+    {
+        local->OnPacket(nType, iPacket);
+    }
 }
 
 CUserPool& CUserPool::operator=(const CUserPool& arg0)

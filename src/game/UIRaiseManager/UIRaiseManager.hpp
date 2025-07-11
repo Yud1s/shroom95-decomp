@@ -35,7 +35,7 @@ private:
 	long _nQuestID{};
 
 private:
-	ZXString<unsigned short> _sUIData;
+	ZXString16 _sUIData;
 
 private:
 	ZXString<char> _sName;
@@ -62,7 +62,7 @@ private:
 	long _nBMargin{};
 
 private:
-	std::array<std::array<_x_com_ptr<IWzCanvas>, 3>, 3> _apBgTileCanvas;
+	std::array<std::array<_x_com_ptr<IWzCanvas>, 3>, 3> _apBgTileCanvas{};
 
 private:
 	_x_com_ptr<IWzVector2D> _pOrigin;
@@ -77,9 +77,8 @@ private:
 	ZRef<CCtrlButton> _pBtClose;
 	// Methods
 public:
-	CUIRaiseWndBase()
-	{
-	}
+
+	CUIRaiseWndBase();
 	virtual ~CUIRaiseWndBase();
 
 public:
@@ -92,10 +91,10 @@ public:
 	void _ctor_1(const CUIRaiseWndBase &arg0);
 
 public:
-	CUIRaiseWndBase(long nItemID, long nQuestID, long nQRData, ZXString<unsigned short> &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
+	CUIRaiseWndBase(long nItemID, long nQuestID, long nQRData, ZXString16 &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
 
 public:
-	void _ctor_0(long nItemID, long nQuestID, long nQRData, ZXString<unsigned short> &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
+	void _ctor_0(long nItemID, long nQuestID, long nQRData, ZXString16 &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
 
 public:
 	virtual void OnCreate(void *pData);
@@ -258,10 +257,10 @@ public:
 	void _ctor_1(const CUIRaiseWnd &arg0);
 
 public:
-	CUIRaiseWnd(long nItemID, long nQuestID, long nIncExpUnit, long nGrade, ZXString<unsigned short> &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
+	CUIRaiseWnd(long nItemID, long nQuestID, long nIncExpUnit, long nGrade, ZXString16 &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
 
 public:
-	void _ctor_0(long nItemID, long nQuestID, long nIncExpUnit, long nGrade, ZXString<unsigned short> &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
+	void _ctor_0(long nItemID, long nQuestID, long nIncExpUnit, long nGrade, ZXString16 &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
 
 private:
 	virtual int32_t SendPutItem(long nItemTI, long nSlotPosition, long _nItemID);
@@ -302,10 +301,10 @@ public:
 	void _ctor_1(const CUIRaisePieceWnd &arg0);
 
 public:
-	CUIRaisePieceWnd(long nItemID, long nQuestID, long nGrade, ZXString<unsigned short> &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
+	CUIRaisePieceWnd(long nItemID, long nQuestID, long nGrade, ZXString16 &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
 
 public:
-	void _ctor_0(long nItemID, long nQuestID, long nGrade, ZXString<unsigned short> &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
+	void _ctor_0(long nItemID, long nQuestID, long nGrade, ZXString16 &sUIData, ZXString<char> &sName, ZArray<ZXString<char>> &asMessage, ZArray<long> &anItemID);
 
 private:
 	virtual int32_t SendPutItem(long nItemTI, long nSlotPosition, long _nItemID);

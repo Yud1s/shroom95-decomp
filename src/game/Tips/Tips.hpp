@@ -30,7 +30,7 @@ public:
 		long nAll{};
 
 	public:
-		ZXString<unsigned short> sTipPath;
+		ZXString16 sTipPath;
 		// Methods
 	public:
 		~TIPS_INFO();

@@ -42,7 +42,7 @@ protected:
 	long m_tSkillWait{};
 
 protected:
-	ZXString<unsigned short> m_sLastMessage;
+	ZXString16 m_sLastMessage;
 
 protected:
 	MACROSYSDATA m_macrosysdata;
@@ -114,7 +114,7 @@ public:
 	void SetMacroInfo(long nMacroIdx, ZXString<char> sName, int32_t bShout);
 
 public:
-	int32_t CanItShow(ZXString<unsigned short> sChat);
+	int32_t CanItShow(ZXString16 sChat);
 
 public:
 	void ValidateMacro();

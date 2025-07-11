@@ -27,7 +27,21 @@ ZXString<char> __cdecl get_labeled_string(_x_com_ptr<IWzProperty> pProp, long nI
 }
 
 uint32_t __cdecl get_sound_volume_by_pos(long x1, long y1) {
-    return __sub_0055B2A0(x1, y1);
+    //return __sub_0055B2A0(x1, y1);
+    if (auto local = CUserLocal::GetInstance())
+    {
+        auto localPos = local->GetPos();
+        auto dx = x1 - localPos.x;
+        auto dy = y1 - localPos.y;
+        auto dist = sqrt(dx*dx + dy*dy + 0.001);
+        if ( dist < 250.0 )
+            return 100;
+        if ( dist <= 1000.0 )
+            return (120.0 - dist * 0.08);
+    }
+
+
+    return 40;
 }
 
 _x_com_ptr<IWzFont> __cdecl get_basic_font(FONT_TYPE fType) {
@@ -43,7 +57,7 @@ _x_com_ptr<IWzProperty> __cdecl get_labeled_sub_1(_x_com_ptr<IWzProperty> pProp,
     return __sub_0055D770(CreateNakedParam(pProp), CreateNakedParam(sID));
 }
 
-void __cdecl DrawGrayImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString<unsigned short> sUOL, long x, long y, long nAlpha) {
+void __cdecl DrawGrayImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString16 sUOL, long x, long y, long nAlpha) {
     return __sub_0055F080(CreateNakedParam(pCanvas), CreateNakedParam(sUOL), x, y, nAlpha);
 }
 
@@ -84,7 +98,7 @@ int32_t __cdecl activate_web_site(const char *sTitle) {
     return __sub_0055B150(sTitle);
 }
 
-ZXString<unsigned short> __cdecl UOL_Index(long sPath, long nIndex) {
+ZXString16 __cdecl UOL_Index(long sPath, long nIndex) {
     return __sub_00565FB0(sPath, nIndex);
 }
 
@@ -96,7 +110,7 @@ int32_t __cdecl format_string(ZXString<char> &sFormat, _x_com_ptr<IWzFont> pFont
     return __sub_00566380(sFormat, CreateNakedParam(pFont), nWidth);
 }
 
-int32_t __cdecl format_string(ZXString<unsigned short> &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth) {
+int32_t __cdecl format_string(ZXString16 &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth) {
     return __sub_00566080(sFormat, CreateNakedParam(pFont), nWidth);
 }
 
@@ -147,7 +161,7 @@ void __cdecl play_ui_sound_str(uint32_t code) {
     play_ui_sound(reinterpret_cast<const wchar_t*>(str.c_str()));
 }
 
-void __cdecl DrawImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString<unsigned short> sUOL, long x, long y) {
+void __cdecl DrawImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString16 sUOL, long x, long y) {
     return __sub_0055EE20(CreateNakedParam(pCanvas), CreateNakedParam(sUOL), x, y);
 }
 

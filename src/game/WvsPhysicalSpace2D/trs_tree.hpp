@@ -1,3 +1,6 @@
+//
+// Created by jonas on 08.02.2025.
+//
 
 #ifndef TRS_TREE_HPP
 #define TRS_TREE_HPP
@@ -75,7 +78,7 @@ public:
         long max[2] = {i2.r, i2.b};
 
         std::vector<Data> results;
-        m_tree->query(spatial::contains<2>(min, max), std::back_inserter(results));
+        m_tree->query(spatial::intersects<2>(min, max), std::back_inserter(results));
         for (auto &result : results)
         {
             list.AddTail(result.data);

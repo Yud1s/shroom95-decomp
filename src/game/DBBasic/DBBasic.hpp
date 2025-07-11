@@ -191,7 +191,7 @@ public:
 	int32_t bReachMaxLevel{};
 
 public:
-	_FILETIME ftReachMaxLevelTime;
+	_FILETIME ftReachMaxLevelTime{};
 
 public:
 	std::array<long, 5> nItemTotalNumber{};
@@ -348,7 +348,7 @@ public:
 	GW_ItemSlotPet *GetActiveItemSlotPet(long nIndex);
 
 public:
-	uint64_t Decode(CInPacket &iPacket, int32_t bBackwardUpdate);
+	uint64_t Decode(CInPacket &pkt, int32_t bBackwardUpdate);
 
 public:
 	void Encode(COutPacket &arg0, uint64_t arg1, int32_t arg2, TRADEINFO *arg3, int32_t arg4);
@@ -370,20 +370,20 @@ public:
 
 public:
 	long FindCashItemSlotPosition(long nTI, long nItemID);
-	long FindCashItemSlotPosition_0(long nTI, long nItemID)
+	long FindCashItemSlotPosition_1(long nTI, long nItemID)
 	{
 		return FindCashItemSlotPosition(nTI, nItemID);
 	}
 
 public:
 	long FindCashItemSlotPosition(long nTI, _LARGE_INTEGER liSN);
-	long FindCashItemSlotPosition_1(long nTI, _LARGE_INTEGER liSN)
+	long FindCashItemSlotPosition_0(long nTI, _LARGE_INTEGER liSN)
 	{
 		return FindCashItemSlotPosition(nTI, liSN);
 	}
 
 public:
-	int32_t IsEquipSlotExpired(long nPos, const _FILETIME &ftNow);
+	int32_t IsEquipSlotExpired(long nPos, const _FILETIME &ftNow) const;
 
 public:
 	int32_t IsEquiped(long nItemID);
@@ -468,7 +468,7 @@ public:
 	int32_t IsFull();
 
 public:
-	int32_t IsBossOnline();
+	int32_t IsBossOnline() const;
 };
 #pragma pack(pop)
 STATIC_ASSERT_SIZE(PARTYMEMBER, 178);

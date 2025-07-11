@@ -6,7 +6,7 @@ __SUB_CLASS_THIS0(003AABA0, __thiscall, 87327,  CUIEventAlarm, void) {
 	_ASM_PLACEHOLDER(003AABA0, 87327)
 }
 // CUIEventAlarm::MakeUOLByUIType
-__SUB_CLASS_THIS(003AAD40, __thiscall, 87331,  CUIEventAlarm, const wchar_t*, ZXString<unsigned short>&, const wchar_t*, const wchar_t*) {
+__SUB_CLASS_THIS(003AAD40, __thiscall, 87331,  CUIEventAlarm, const wchar_t*, ZXString16&, const wchar_t*, const wchar_t*) {
 	_ASM_PLACEHOLDER(003AAD40, 87331)
 }
 // CUIEventAlarm::Update

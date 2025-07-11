@@ -158,7 +158,7 @@ __SUB_CLASS_THIS0(0002A270, __thiscall, 4989,  CWnd, _x_com_ptr<IWzGr2DLayer>) {
 	_ASM_PLACEHOLDER(0002A270, 4989)
 }
 // CWnd::CoverBackgrnd
-__SUB_CLASS_THIS(005B0FD0, __thiscall, 5006,  CWnd, void, NakedParam<ZXString<unsigned short>>, long, long, int32_t) {
+__SUB_CLASS_THIS(005B0FD0, __thiscall, 5006,  CWnd, void, NakedParam<ZXString16>, long, long, int32_t) {
 	_ASM_PLACEHOLDER(005B0FD0, 5006)
 }
 // CWnd::InsertChildBefore

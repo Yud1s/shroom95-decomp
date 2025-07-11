@@ -4,7 +4,6 @@
 
 CUIDamageBoard::~CUIDamageBoard()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CUIDamageBoard::_dtor_0()
@@ -66,7 +65,19 @@ CUIDamageBoard& CUIDamageBoard::_op_assign_7(CUIDamageBoard* pThis, const CUIDam
 
 CDamageMeter::~CDamageMeter()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    if (m_pClock)
+    {
+        m_pClock->Destroy();
+        m_pClock = nullptr;
+    }
+
+    if (m_pDamageBoard)
+    {
+        m_pDamageBoard->Destroy();
+        m_pDamageBoard = nullptr;
+    }
+
+    ms_pInstance = nullptr;
 }
 
 void CDamageMeter::_dtor_0()

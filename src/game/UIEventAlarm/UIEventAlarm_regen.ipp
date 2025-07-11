@@ -59,7 +59,7 @@ __asm {
 }
 }
 // CUIEventAlarm::MakeUOLByUIType
-__SUB_CLASS_THIS(003AAD40, __thiscall, 87331,  CUIEventAlarm, const wchar_t*, ZXString<unsigned short>&, const wchar_t*, const wchar_t*) {
+__SUB_CLASS_THIS(003AAD40, __thiscall, 87331,  CUIEventAlarm, const wchar_t*, ZXString16&, const wchar_t*, const wchar_t*) {
 __asm {
 
  Block0:
@@ -69,7 +69,7 @@ __asm {
 	mov edi,dword ptr [esp+0xC]
 	push eax
 	mov ecx,edi
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	mov ebx,dword ptr [esp+0x14]
 	test ebx,ebx
 	je Block4
@@ -78,7 +78,7 @@ __asm {
 	push 1
 	push offset _S___9
 	mov ecx,edi
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	mov edx,ebx
 	lea ecx,[edx+2]
 	push esi
@@ -96,7 +96,7 @@ __asm {
 	push edx
 	push ebx
 	mov ecx,eax
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	pop esi
 
  Block4:
@@ -190,7 +190,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -2711,7 +2711,7 @@ __asm {
  Block5:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block6:
@@ -4264,7 +4264,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -4276,7 +4276,7 @@ __asm {
  Block3:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block4:
@@ -4353,7 +4353,7 @@ __asm {
  Block14:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block15:

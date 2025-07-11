@@ -65,7 +65,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -492,7 +492,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	mov dword ptr [esi+0x1C],0
 
@@ -738,7 +738,7 @@ __asm {
  Block18:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	mov dword ptr [esi+0x1C],ebp
 	mov ecx,dword ptr [esp+0x24]
@@ -1008,7 +1008,7 @@ __asm {
 }
 // CMacroSysMan::CanItShow
 _SUB_EXCEPTION_HANDLER(20F0E0)
-__SUB_CLASS_THIS(0020F0E0, __thiscall, 52630,  CMacroSysMan, int32_t, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(0020F0E0, __thiscall, 52630,  CMacroSysMan, int32_t, NakedParam<ZXString16>) {
 __asm {
 
  Block0:
@@ -1027,7 +1027,7 @@ __asm {
 	push eax
 	mov ecx,esi
 	mov dword ptr [esp+0x14],0
-	call ZXString<unsigned short>::op_eq
+	call ZXString16::op_eq
 	test eax,eax
 	je Block4
 
@@ -1040,7 +1040,7 @@ __asm {
  Block2:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block3:
@@ -1056,7 +1056,7 @@ __asm {
 	lea ecx,[esp+0x18]
 	push ecx
 	mov ecx,esi
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x18]
 	mov dword ptr [esp+0x10],0xFFFFFFFF
 	test eax,eax
@@ -1065,7 +1065,7 @@ __asm {
  Block5:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block6:

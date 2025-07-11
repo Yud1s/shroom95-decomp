@@ -1708,7 +1708,7 @@ __asm {
 	mov dword ptr [edi+0x48],eax
 	mov dword ptr [edi+0x4C],edx
 	mov dword ptr [esp+0x28],ebp
-	int 3// TODO: 	mov dword ptr [esp+0x48],offset ZList<ActiveCandidateEntity>::`vftable'
+	mov dword ptr [esp+0x48],0
 	mov dword ptr [esp+0x50],ebp
 	mov dword ptr [esp+0x54],ebp
 	mov dword ptr [esp+0x58],ebp
@@ -2029,7 +2029,7 @@ __asm {
 	call ZArray<long>::RemoveAll
 	lea ecx,[esp+0x48]
 	mov dword ptr [esp+0x64],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x48],offset ZList<ActiveCandidateEntity>::`vftable'
+	mov dword ptr [esp+0x48],0
 	call ZList<ActiveCandidateEntity>::RemoveAll
 	mov eax,dword ptr [esp+0x28]
 	jmp Block73
@@ -3425,7 +3425,7 @@ __asm {
 	mov dword ptr [esi+4],eax
 	mov dword ptr [esi+8],eax
 	mov byte ptr [esp+0x48],1
-	int 3// TODO: 	mov dword ptr [esi],offset KeySequenceElement::`vftable'
+	mov dword ptr [esi],0
 	mov dword ptr [esi+0xC],0x4B
 	mov dword ptr [esi+0x10],1
 	mov dword ptr [esi+0x14],0x12C

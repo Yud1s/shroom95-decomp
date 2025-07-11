@@ -64,7 +64,7 @@ void CUINewCharJobSelect::OnButtonClicked(uint32_t nId)
     __sub_001F35D0(this, nullptr, nId);
 }
 
-void CUINewCharJobSelect::OnKey(const uint32_t wParam, const uint32_t lParam)
+void CUINewCharJobSelect::OnKey(const uint32_t wParam, const int32_t lParam)
 {
     if ((lParam & 0x80000000) == 0)
     {
@@ -148,7 +148,7 @@ void CUINewCharAvatarSelect::OnButtonClicked(uint32_t nId)
     __sub_001F36B0(this, nullptr, nId);
 }
 
-void CUINewCharAvatarSelect::OnKey(uint32_t wParam, uint32_t lParam)
+void CUINewCharAvatarSelect::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_001F3490(this, nullptr, wParam, lParam);
 }
@@ -215,7 +215,7 @@ void CUINewCharNameSelect::OnButtonClicked(uint32_t nId)
     __sub_001F4FE0(this, nullptr, nId);
 }
 
-void CUINewCharNameSelect::OnKey(uint32_t wParam, uint32_t lParam)
+void CUINewCharNameSelect::OnKey(uint32_t wParam, int32_t lParam)
 {
     if (!lParam)
         return;
@@ -318,7 +318,7 @@ void CUINewCharRaceSelect::OnButtonClicked(const uint32_t nId)
     //__sub_001F9470(this, nullptr, nId);
 }
 
-void CUINewCharRaceSelect::OnKey(uint32_t wParam, uint32_t lParam)
+void CUINewCharRaceSelect::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_001F94D0(this, nullptr, wParam, lParam);
 }

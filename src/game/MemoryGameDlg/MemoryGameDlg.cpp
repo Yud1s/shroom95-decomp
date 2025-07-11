@@ -30,7 +30,7 @@ void CMemoryGameDlg::OnCreate(void* pData) {
 int32_t CMemoryGameDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 	return __sub_002274D0(this, nullptr, rx, ry, ppCtrl);
 }
-void CMemoryGameDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CMemoryGameDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00228EA0(this, nullptr, wParam, lParam);
 }
 void CMemoryGameDlg::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {

@@ -44,7 +44,7 @@ public:
 	_x_com_ptr<IWzGr2DLayer> m_pLayer;
 
 public:
-	FUNCKEY_MAPPED m_OldIcon;
+	FUNCKEY_MAPPED m_OldIcon{};
 	// Methods
 public:
 	IDraggable() {}

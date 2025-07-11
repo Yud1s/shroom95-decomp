@@ -9,9 +9,9 @@ void CUIPartySearch::_dtor_0() {
 	return __sub_00417BF0(this, nullptr);
 }
  CUIPartySearch::CUIPartySearch(const CUIPartySearch& arg0) {
-	_ctor_1( arg0);
+	_ctor_3( arg0);
 }
-void CUIPartySearch::_ctor_1( const CUIPartySearch& arg0) {
+void CUIPartySearch::_ctor_3( const CUIPartySearch& arg0) {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
 }
@@ -22,9 +22,9 @@ void CUIPartySearch::_ctor_0( long nDefaultTab) {
 	return __sub_00417CB0(this, nullptr, nDefaultTab);
 }
  CUIPartySearch::CUIPartySearch(long nLeft, long nTop, long nDefaultTab) {
-	_ctor_3( nLeft, nTop, nDefaultTab);
+	_ctor_1( nLeft, nTop, nDefaultTab);
 }
-void CUIPartySearch::_ctor_3( long nLeft, long nTop, long nDefaultTab) {
+void CUIPartySearch::_ctor_1( long nLeft, long nTop, long nDefaultTab) {
 	return __sub_00417A60(this, nullptr, nLeft, nTop, nDefaultTab);
 }
 void CUIPartySearch::OnCreate(void* arg0) {
@@ -36,7 +36,7 @@ void CUIPartySearch::OnDestroy() {
 void CUIPartySearch::Draw(const tagRECT* pRect) {
 	__sub_00417570(this, nullptr, pRect);
 }
-void CUIPartySearch::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIPartySearch::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00418580(this, nullptr, wParam, lParam);
 }
 int32_t CUIPartySearch::OnSetFocus(int32_t bFocus) {

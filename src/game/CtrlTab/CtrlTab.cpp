@@ -4,12 +4,11 @@
 
 CCtrlTab::~CCtrlTab()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CCtrlTab::_dtor_0()
 {
-    return __sub_000EE110(this, nullptr);
+    this->~CCtrlTab();
 }
 
 CCtrlTab::CCtrlTab(const CCtrlTab& arg0)
@@ -30,9 +29,8 @@ CCtrlTab::CCtrlTab()
     m_pFontSelected = G_PCOM.CreateWzFont();
 
     auto& sp = StringPool::GetInstance();
-    m_pFontNormal->Create(sp.GetBSTR(0x1a25), 12, 0xFF677B91, vtMissing );
-    m_pFontSelected->Create(sp.GetBSTR(0x1a25), 12, 0xFF000000, vtMissing );
-
+    m_pFontNormal->Create(sp.GetBSTR(0x1a25), 12, 0xFF677B91, vtMissing);
+    m_pFontSelected->Create(sp.GetBSTR(0x1a25), 12, 0xFF000000, vtMissing);
 }
 
 void CCtrlTab::_ctor_0()
@@ -44,17 +42,68 @@ void CCtrlTab::_ctor_0()
 void CCtrlTab::CreateCtrl(CWnd* pParent, uint32_t nId, long nType, long l, long t, long width, long nHeight,
                           void* pData)
 {
-    __sub_000EE240(this, nullptr, pParent, nId, nType, l, t, width, nHeight, pData);
+    auto* param = static_cast<CREATEPARAM*>(pData);
+    RemoveAllItems();
+    this->m_nType = nType;
+    switch (nType)
+    {
+    case 0:
+        this->m_nHeight = 24;
+        break;
+    case 1:
+        this->m_nHeight = 19;
+        break;
+    case 2:
+    case 4:
+    case 5:
+        this->m_nHeight = 21;
+        break;
+    case 3:
+        this->m_nHeight = 28;
+        break;
+    case 6:
+        this->m_nHeight = 20;
+        break;
+    case 7:
+        this->m_nHeight = 17;
+        break;
+    case 8:
+        this->m_nHeight = nHeight;
+        break;
+    default:
+        break;
+    }
+    if (pData)
+    {
+        m_bDrawBaseImage = param->bDrawBaseImage;
+        m_nTabSpace = param->nTabSpace;
+    }
+    CCtrlWnd::CreateCtrl(pParent, nId, l, t, width, this->m_nHeight, pData);
 }
 
 void CCtrlTab::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_000EE3B0(this, nullptr, msg, wParam, rx, ry);
+    if (msg == 513 && ry >= 4)
+    {
+        auto cur = m_lTabInfo.GetHeadPosition();
+        auto ix = 0;
+        for (auto& tabInfo : m_lTabInfo)
+        {
+            if (tabInfo.nStart - 2 <= rx && rx <= tabInfo.nEnd + 2 && tabInfo.bEnabled)
+            {
+                play_ui_sound_str(0x4F7);
+                SetTab(ix);
+                break;
+            }
+
+            ++ix;
+        }
+    }
 }
 
 int32_t CCtrlTab::OnSetFocus(int32_t bFocus)
 {
-    return __sub_000EE1E0(this, nullptr, bFocus);
+    return 0;
 }
 
 void CCtrlTab::Draw(long rx, long ry, const tagRECT* pRect)
@@ -117,7 +166,7 @@ void CCtrlTab::RelocateTabPos()
     __sub_000EE7F0(this, nullptr);
 }
 
-void __cdecl CCtrlTab::GetTabBaseUOL(long type, ZXString<unsigned short>& sUOL)
+void __cdecl CCtrlTab::GetTabBaseUOL(long type, ZXString16& sUOL)
 {
     __sub_000EEC30(type, sUOL);
 }
@@ -150,7 +199,7 @@ CCtrlTab::TABINFO::~TABINFO()
 
 void CCtrlTab::TABINFO::_dtor_0()
 {
-    return __sub_000EE300(this, nullptr);
+    this->~TABINFO();
 }
 
 CCtrlTab::TABINFO::TABINFO(const CCtrlTab::TABINFO& arg0)
@@ -166,7 +215,6 @@ void CCtrlTab::TABINFO::_ctor_1(const CCtrlTab::TABINFO& arg0)
 
 CCtrlTab::TABINFO::TABINFO()
 {
-
 }
 
 void CCtrlTab::TABINFO::_ctor_0()

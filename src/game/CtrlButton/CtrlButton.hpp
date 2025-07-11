@@ -222,7 +222,7 @@ public:
 		int32_t bAnimateOnce{};
 
 	public:
-		ZXString<unsigned short> sUOL;
+		ZXString16 sUOL;
 		// Methods
 		CTOR_DEFAULT(CREATEPARAM)
 	public:
@@ -358,7 +358,7 @@ public:
 	virtual void Destroy();
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
@@ -388,7 +388,7 @@ public:
 	virtual int32_t HitTest(long rx, long ry);
 
 public:
-	void EnableToolTip(int32_t arg0) const;
+	void EnableToolTip(int32_t arg0);
 
 public:
 	void LoadToolTip(const wchar_t *sUOL, int32_t bEnable, int32_t bUpDir);
@@ -412,7 +412,7 @@ public:
 	void SetKeyFocus(int32_t bFocus);
 
 public:
-	void SetButtonImage(ZXString<unsigned short> sUOL);
+	void SetButtonImage(ZXString16 sUOL);
 
 public:
 	void SetSelfDisable();
@@ -557,7 +557,7 @@ public:
 	virtual tagRECT GetRect();
 
 public:
-	void SetCheck(int32_t arg0) const;
+	void SetCheck(int32_t arg0);
 
 public:
 	int32_t IsChecked() const;

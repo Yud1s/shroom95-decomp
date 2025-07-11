@@ -44,7 +44,7 @@ void CLicenseDlg::OnButtonClicked(uint32_t nId)
 {
 	__sub_001FF870(this, nullptr, nId);
 }
-void CLicenseDlg::OnKey(uint32_t wParam, uint32_t lParam)
+void CLicenseDlg::OnKey(uint32_t wParam, int32_t lParam)
 {
 	if(wParam != VK_RETURN && wParam != VK_ESCAPE) {
 		CDialog::OnKey(wParam, lParam);

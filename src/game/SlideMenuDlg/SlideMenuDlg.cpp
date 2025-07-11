@@ -36,7 +36,7 @@ void CSlideMenuDlg::Draw(const tagRECT* pRect) {
 void CSlideMenuDlg::OnButtonClicked(uint32_t nId) {
 	__sub_00310D60(this, nullptr, nId);
 }
-void CSlideMenuDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CSlideMenuDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00310E30(this, nullptr, wParam, lParam);
 }
 long CSlideMenuDlg::GetSelectResult() {

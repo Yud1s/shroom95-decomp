@@ -132,7 +132,7 @@ protected:
 	void OnMobEnterField(CInPacket &iPacket);
 
 protected:
-	void OnMobLeaveField(CInPacket &iPacket);
+	void OnMobLeaveField(CInPacket &pkt);
 
 protected:
 	void OnMobChangeController(CInPacket &iPacket);

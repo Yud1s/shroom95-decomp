@@ -54,7 +54,7 @@ __SUB_CLASS_THIS(003AF1D0, __thiscall, 40854,  TabExpedition, void, NakedParam<_
 	_ASM_PLACEHOLDER(003AF1D0, 40854)
 }
 // GetJobIcon
-__SUB(003AEDD0, __cdecl, 87300,  ZXString<unsigned short>, long, int32_t) {
+__SUB(003AEDD0, __cdecl, 87300,  ZXString16, long, int32_t) {
 	_ASM_PLACEHOLDER(003AEDD0, 87300)
 }
 // DragMember::OnDropped
@@ -90,7 +90,7 @@ __SUB_CLASS_THIS(003AE940, __thiscall, 40836,  TabExpedition, void, TabExpeditio
 	_ASM_PLACEHOLDER(003AE940, 40836)
 }
 // TabExpedition::AttachButton
-__SUB_CLASS_THIS(003AEA80, __thiscall, 40841,  TabExpedition, void, TabExpedition::ENUM_CTRL_ID, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(003AEA80, __thiscall, 40841,  TabExpedition, void, TabExpedition::ENUM_CTRL_ID, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(003AEA80, 40841)
 }
 // TabExpedition::GetSelectMemberID
@@ -190,7 +190,7 @@ __SUB_CLASS_THIS(003AD530, __thiscall, 40863,  TabExpedition, long, long, long) 
 	_ASM_PLACEHOLDER(003AD530, 40863)
 }
 // CCtrlSelectQuest::GetBackUOL
-__SUB_CLASS_THIS0(003AE4B0, __thiscall, 87287,  CCtrlSelectQuest, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(003AE4B0, __thiscall, 87287,  CCtrlSelectQuest, ZXString16) {
 	_ASM_PLACEHOLDER(003AE4B0, 87287)
 }
 // CCtrlStatic::~CCtrlStatic

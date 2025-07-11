@@ -669,7 +669,7 @@ __asm {
 }
 }
 // CVecCtrlDragon::WorkUpdatePassive
-__SUB_CLASS_THIS(00595E70, __thiscall, 80059,  CVecCtrlDragon, int64_t, long) {
+__SUB_CLASS_THIS(00595E70, __thiscall, 80059,  CVecCtrlDragon, int, long) {
 __asm {
 
  Block0:

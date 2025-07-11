@@ -29,7 +29,7 @@ void CCtrlSelectPartyQuest::_ctor_0() {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
 }
-ZXString<unsigned short> CCtrlSelectPartyQuest::GetBackUOL() {
+ZXString16 CCtrlSelectPartyQuest::GetBackUOL() {
 	return __sub_00414020(this, nullptr);
 }
 CCtrlSelectPartyQuest& CCtrlSelectPartyQuest::operator=(const CCtrlSelectPartyQuest& arg0) {
@@ -79,7 +79,7 @@ void TabPartyAdver::HideControls() {
 void TabPartyAdver::OnMoveWnd(long l, long t) {
 	__sub_004115F0(this, nullptr, l, t);
 }
-void TabPartyAdver::OnKey(uint32_t wParam, uint32_t lParam) {
+void TabPartyAdver::OnKey(uint32_t wParam, int32_t lParam) {
 	//__sub_00411600(this, nullptr, wParam, lParam);
 }
 void TabPartyAdver::DoAction(long nAction, long nOption) {
@@ -103,7 +103,7 @@ void TabPartyAdver::AttachStatic(TabPartyAdver::ENUM_CTRL_ID nID, long x, long y
 void TabPartyAdver::AttachBanner(TabPartyAdver::ENUM_CTRL_ID nID, long x, long y, ZRef<PartyQuestInfo> pInfo, int32_t bSelected) {
 	__sub_00414090(this, nullptr, nID, x, y, CreateNakedParam(pInfo), bSelected);
 }
-void TabPartyAdver::AttachButton(TabPartyAdver::ENUM_CTRL_ID nID, ZXString<unsigned short> sUOL) {
+void TabPartyAdver::AttachButton(TabPartyAdver::ENUM_CTRL_ID nID, ZXString16 sUOL) {
 	__sub_00414230(this, nullptr, nID, CreateNakedParam(sUOL));
 }
 CCtrlComboBox* TabPartyAdver::AttachComboBox(TabPartyAdver::ENUM_CTRL_ID nID, long nType, long x, long y, long width, long height, void* paramCombo) {

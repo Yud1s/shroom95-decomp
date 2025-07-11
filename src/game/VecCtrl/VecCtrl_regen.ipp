@@ -3401,7 +3401,7 @@ __asm {
  Block31:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	mov eax,1
 	mov ecx,dword ptr [esp+0x78]
@@ -6057,7 +6057,7 @@ __asm {
  Block5:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block6:
@@ -7497,7 +7497,7 @@ __asm {
 }
 }
 // CVecCtrl::WorkUpdatePassive
-__SUB_CLASS_THIS(00591BE0, __thiscall, 23323,  CVecCtrl, int64_t, long, const long*, const long*) {
+__SUB_CLASS_THIS(00591BE0, __thiscall, 23323,  CVecCtrl, int, long, const long*, const long*) {
 __asm {
 
  Block0:

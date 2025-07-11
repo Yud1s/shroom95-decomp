@@ -8,12 +8,12 @@ static InsertionSortHelperDefault<CUISkill::RecommSkillPair> __InsertionSortHelp
 
 CUISkill::~CUISkill()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CUISkill::_dtor_0()
 {
-    return __sub_0044E480(this, nullptr);
+    this->~CUISkill();
 }
 
 CUISkill::CUISkill(const CUISkill& arg0)
@@ -54,32 +54,163 @@ void CUISkill::OnCreate(void* pData)
 
 void CUISkill::OnDestroy()
 {
-    __sub_0044A660(this, nullptr);
+    //__sub_0044A660(this, nullptr);
+    m_pTab->RemoveAllItems();
+    if (m_pUIMacroSys)
+    {
+        m_pUIMacroSys->Destroy();
+        m_pUIMacroSys = 0;
+    }
+
+    if (m_pWndSkillGuide)
+    {
+        m_pWndSkillGuide->Destroy();
+        m_pWndSkillGuide = 0;
+    }
+
+    CUIWnd::OnDestroy();
+    CWvsContext::GetInstance()->RemoveFromStackForTab(this);
 }
 
 void CUISkill::OnMoveWnd(long l, long t)
 {
-    __sub_0044A350(this, nullptr, l, t);
+    //__sub_0044A350(this, nullptr, l, t);
+    CWnd::OnMoveWnd(l, t);
+    if (m_pUIMacroSys)
+    {
+        auto x = GetAbsLeft();
+        auto y = GetAbsTop();
+        m_pUIMacroSys->MoveWnd(x + 174, y);
+    }
 }
 
 int32_t CUISkill::OnMouseMove(long rx, long ry)
 {
-    return __sub_0044B660(this, nullptr, rx, ry);
+    //return __sub_0044B660(this, nullptr, rx, ry);
+    auto SkillIndexFromPoint = GetSkillIndexFromPoint(rx, ry, 0);
+    if (SkillIndexFromPoint < 0)
+    {
+        m_uiToolTip.ClearToolTip();
+        if (this->m_nMouseOver != -1)
+        {
+            this->m_nMouseOver = -1;
+            InvalidateRect(nullptr);
+        }
+        return 0;
+    }
+    else
+    {
+        auto& p = CUISkill::GetSkillRootVisible(0)->aSkill[SkillIndexFromPoint];
+        auto y = GetAbsTop() + ry + 20;
+        auto x = GetAbsLeft() + rx;
+        m_uiToolTip.SetToolTip_Skill(x, y, p.op_arrow(), true);
+        if (SkillIndexFromPoint != m_nMouseOver)
+        {
+            this->m_nMouseOver = SkillIndexFromPoint;
+            InvalidateRect(nullptr);
+        }
+        return 1;
+    }
 }
 
 void CUISkill::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_0044B710(this, nullptr, msg, wParam, rx, ry);
+    //__sub_0044B710(this, nullptr, msg, wParam, rx, ry);
+    auto ctx = CWvsContext::GetInstance();
+    auto cd = ctx->GetCharacterData();
+    auto skillInfo = CSkillInfo::GetInstance();
+
+    //WM_LBUTTONDBLCLK
+    if (msg == WM_LBUTTONDBLCLK)
+    {
+        auto skillIx = GetSkillIndexFromPoint(rx, ry, true);
+        if (skillIx >= 0)
+        {
+            auto& entry = GetSkillRootVisible(false)->aSkill[skillIx];
+            auto id = entry->nSkillID;
+            auto rootId = id / 1000 % 10;
+            if (rootId)
+            {
+                const SKILLENTRY* skillEntry{};
+                if (rootId != 9 && !is_nonslot_skill(id) && skillInfo->GetSkillLevel(*cd.op_arrow(), id, &skillEntry) >
+                    0)
+                {
+                    auto layer = get_gr()->CreateLayer(0, 0, 0, 0, 0, Ztl_variant_t(0), vtMissing);
+                    auto icon = entry->GetIconCanvas();
+                    layer->InsertCanvas(icon, vtMissing, vtMissing, vtMissing, vtMissing, vtMissing);
+                    layer->Putcolor(0x80FFFFFF);
+                    layer->PutOrigin(GetLayer());
+
+
+                    auto cy = icon->Getcy();
+                    auto cx = icon->Getcx();
+
+                    layer->RelMove(rx - cx - 16, ry - cy + 16, vtMissing, vtMissing);
+
+                    auto f = 0;
+                    auto drag = new CDraggableSkill(layer, id, this, false, -1, -1);
+                    auto wndMan = CWndMan::GetInstance();
+                    wndMan->BeginDragDrop(this, drag, false);
+                    play_ui_sound_str(0x75E);
+                }
+            }
+        }
+    }
+    else if (msg == WM_LBUTTONDOWN)
+    {
+        auto ix = GetSkillIndexFromPoint(rx, ry, false);
+        if (auto local = CUserLocal::GetInstance())
+        {
+            if (ix >= 0 && !CUniqueModeless::GetInstance())
+            {
+                auto& entry = GetSkillRootVisible(false)->aSkill[ix];
+                if (!is_keydown_skill(entry->nSkillID) && !is_command_skill(entry->nSkillID) && is_active_skill(
+                    entry->nSkillID))
+                    local->DoActiveSkill(entry->nSkillID, 0, nullptr);
+            }
+        }
+    }
 }
 
 void CUISkill::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2)
 {
-    __sub_00452160(this, nullptr, nId, param1, param2);
+    if (nId == 2001)
+    {
+        if (param1 >= 0x12C && param1 <= 0x130)
+        {
+            ResetInfo();
+            return;
+        }
+    }
+    else if (nId == 2000 && param1 == 500)
+    {
+        OnTabChanged(param2);
+        return;
+    }
+    if (param1 == 100)
+        this->OnButtonClicked(nId);
 }
 
 void CUISkill::OnButtonClicked(uint32_t nId)
 {
-    __sub_00451480(this, nullptr, nId);
+    if (nId - 2010 > 3)
+    {
+        if (nId == 2023)
+        {
+            ShiftMacroUIState();
+            CUIWnd::OnButtonClicked(0x7E7u);
+        }
+        else
+        {
+            if (nId - 3001 <= 3)
+                OpenSkillGuide(static_cast<int>(nId) - 3000);
+            CUIWnd::OnButtonClicked(nId);
+        }
+    }
+    else
+    {
+        OnSkillLevelUpButton(static_cast<int>(nId) - 2010);
+    }
 }
 
 void CUISkill::Draw(const tagRECT* arg0)
@@ -89,12 +220,17 @@ void CUISkill::Draw(const tagRECT* arg0)
 
 int32_t CUISkill::IsMyAddon(CWnd* pWnd)
 {
-    return __sub_0044E6C0(this, nullptr, pWnd);
+    return TSingleton<CUIMacroSys>::ms_pInstance && TSingleton<CUIMacroSys>::ms_pInstance == pWnd;
 }
 
 void CUISkill::ResetInfo()
 {
-    __sub_004514F0(this, nullptr);
+    //__sub_004514F0(this, nullptr);
+    GetSkillRootVisible( 1);
+    SetTabItems();
+    SetScrollBar();
+    SetButtons();
+    InvalidateRect(nullptr);
 }
 
 void CUISkill::ToggleTab()
@@ -105,23 +241,53 @@ void CUISkill::ToggleTab()
 
 void CUISkill::ShiftMacroUIState()
 {
-    __sub_0044A040(this, nullptr);
+    //__sub_0044A040(this, nullptr);
+    if (m_pUIMacroSys)
+    {
+        auto en = m_nMacroUIState != 0;
+        m_nMacroUIState = !m_nMacroUIState;
+        SetShow(en);
+        m_pUIMacroSys->SetEnable(en);
+        m_pUIMacroSys->ResetInfo();
+    }
 }
 
-long CUISkill::GetMacroUIState()
+long CUISkill::GetMacroUIState() const
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_nMacroUIState;
 }
 
-long CUISkill::GetRecommendSKill(const SKILLROOT* arg0)
+long CUISkill::GetRecommendSKill(const SKILLROOT* pSkillRoot)
 {
-    return __sub_0044E710(this, nullptr, arg0);
+    //return __sub_0044E710(this, nullptr, arg0);
+    static ZArray<RecommSkillPair> aRecommSkill;
+    auto skillInfo = CSkillInfo::GetInstance();
+    auto ctx = CWvsContext::GetInstance();
+    auto cd = ctx->GetCharacterData();
+    auto job = cd->characterStat._ZtlSecureGet_nJob();
+
+    if (!(job / 1000) && cd->characterStat.nSubJob == 1 && (pSkillRoot->nSkillRootID == 400 || pSkillRoot->nSkillRootID == 430))
+    {
+        SKILLROOT dualRogue;
+        skillInfo->GetSkillRootVisible(400, *cd.op_arrow(), dualRogue);
+        SKILLROOT dual1;
+        skillInfo->GetSkillRootVisible(430, *cd.op_arrow(), dual1);
+    }
+
+    //TODO(game)
+    return 0;
+
 }
 
 void CUISkill::OnTabChanged(long nTab)
 {
-    __sub_0044BFA0(this, nullptr, nTab);
+    //__sub_0044BFA0(this, nullptr, nTab);
+    this->m_nOption = nTab;
+    this->m_uiToolTip.ClearToolTip();
+    GetSkillRootVisible(1);
+    SetScrollBar();
+    SetButtons();
+    InvalidateRect();
 }
 
 void CUISkill::OnSkillLevelUpButton(long nIdx)
@@ -141,7 +307,16 @@ void CUISkill::SetTabItems()
 
 void CUISkill::SetScrollBar()
 {
-    __sub_0044B1C0(this, nullptr);
+    //__sub_0044B1C0(this, nullptr);
+    auto rootVis = GetSkillRootVisible(false);
+    if (m_pTab->GetTabNo() && rootVis)
+    {
+        m_pSBSkill->SetScrollRange(static_cast<int>(rootVis->aSkill.GetCount()) - 3);
+    }
+    else
+    {
+        m_pSBSkill->SetScrollRange(0);
+    }
 }
 
 void CUISkill::SetButtons()
@@ -151,7 +326,9 @@ void CUISkill::SetButtons()
 
 void CUISkill::SetButton(long nIdx, int32_t bShow, int32_t bEnable)
 {
-    __sub_0044A0A0(this, nullptr, nIdx, bShow, bEnable);
+    //__sub_0044A0A0(this, nullptr, nIdx, bShow, bEnable);
+    m_apBtUp[nIdx]->SetShow(bShow);
+    m_apBtUp[nIdx]->SetEnable(bEnable);
 }
 
 long CUISkill::GetSkillIndexFromPoint(long rx, long ry, int32_t bIcon)
@@ -212,7 +389,12 @@ void CUISkill::OpenCurSkillGuide()
 
 void CUISkill::CloseSkillGuide()
 {
-    __sub_0044A5B0(this, nullptr);
+    //__sub_0044A5B0(this, nullptr);
+    if (auto& guide = m_pWndSkillGuide)
+    {
+        guide->Destroy();
+        guide = 0;
+    }
 }
 
 CUISkill& CUISkill::operator=(const CUISkill& arg0)
@@ -228,19 +410,17 @@ CUISkill& CUISkill::_op_assign_39(CUISkill* pThis, const CUISkill& arg0)
 
 CUISkill::RecommSkillPair::RecommSkillPair(long arg0, long arg1)
 {
-    _ctor_0(arg0, arg1);
+    this->nSP = arg0;
+    this->nSkillID = arg1;
 }
 
 void CUISkill::RecommSkillPair::_ctor_0(long arg0, long arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) RecommSkillPair(arg0, arg1);
 }
 
 CUISkill::RecommSkillPair::RecommSkillPair()
-{
-    UNIMPLEMENTED; //_ctor_1();
-}
+= default;
 
 void CUISkill::RecommSkillPair::_ctor_1()
 {
@@ -250,7 +430,7 @@ void CUISkill::RecommSkillPair::_ctor_1()
 
 bool CUISkill::RecommSkillPair::operator<(const CUISkill::RecommSkillPair& arg0) const
 {
-    return _op_lt_2((CUISkill::RecommSkillPair*)this, arg0);
+    return nSkillID < arg0.nSkillID || nSkillID == arg0.nSkillID && nSP < arg0.nSP;
 }
 
 bool CUISkill::RecommSkillPair::_op_lt_2(CUISkill::RecommSkillPair* pThis, const CUISkill::RecommSkillPair& arg0)
@@ -261,7 +441,6 @@ bool CUISkill::RecommSkillPair::_op_lt_2(CUISkill::RecommSkillPair* pThis, const
 
 CWndSkillGuide::~CWndSkillGuide()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CWndSkillGuide::_dtor_0()
@@ -282,27 +461,55 @@ void CWndSkillGuide::_ctor_1(const CWndSkillGuide& arg0)
 
 CWndSkillGuide::CWndSkillGuide(long nGrade)
 {
-    _ctor_0(nGrade);
+    //_ctor_0(nGrade);
+    CreateWnd(0, 0, 800, 600, 10, true, nullptr, true, Origin_LT);
+    auto uol = ZXString16::FromFmt(L"UI/UIWindow.img/AranSkillGuide/%d", nGrade);
+
+    auto canvas = get_rm()->GetObjectT<IWzCanvas>(uol.c_str());
+    GetCanvas()->Copy(0, 0, canvas, vtMissing);
 }
 
 void CWndSkillGuide::_ctor_0(long nGrade)
 {
-    return __sub_00450310(this, nullptr, nGrade);
+    //return __sub_00450310(this, nullptr, nGrade);
+    new(this) CWndSkillGuide(nGrade);
 }
 
 void CWndSkillGuide::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_0044A5E0(this, nullptr, msg, wParam, rx, ry);
+    //__sub_0044A5E0(this, nullptr, msg, wParam, rx, ry);
+    if (msg == 514 || msg == 517)
+    {
+        if (auto uiSkill = TSingleton<CUISkill>::ms_pInstance)
+        {
+            //TODO(game)
+            /*p = TSingleton<CUISkill>::ms_pInstance->m_pWndSkillGuide.p;
+            v6 = TSingleton<CUISkill>::ms_pInstance;
+            if ( auto guide = TSingleton<CUISkill>::ms_pInstance->m_pW )
+            {
+                CWnd::Destroy(p);
+                p_m_pWndSkillGuide = &v6->m_pWndSkillGuide;
+                if ( p_m_pWndSkillGuide->p )
+                {
+                    ZRef<CWndSkillGuide>::_ReleaseRaw(p_m_pWndSkillGuide, 0);
+                    p_m_pWndSkillGuide->p = 0;
+                }
+            }*/
+        }
+    }
 }
 
-void CWndSkillGuide::OnKey(uint32_t wParam, uint32_t lParam)
+void CWndSkillGuide::OnKey(uint32_t wParam, int32_t lParam)
 {
-    __sub_0044A630(this, nullptr, wParam, lParam);
+    if (lParam >= 0 && wParam == 27)
+    {
+        if (auto uiSkill = TSingleton<CUISkill>::ms_pInstance)
+            uiSkill->CloseSkillGuide();
+    }
 }
 
 void CWndSkillGuide::OnMoveWnd()
 {
-    __sub_00450630(this, nullptr);
 }
 
 CWndSkillGuide& CWndSkillGuide::operator=(const CWndSkillGuide& arg0)
@@ -318,12 +525,12 @@ CWndSkillGuide& CWndSkillGuide::_op_assign_6(CWndSkillGuide* pThis, const CWndSk
 
 CUIMacroSys::~CUIMacroSys()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CUIMacroSys::_dtor_0()
 {
-    return __sub_0044C310(this, nullptr);
+    this->~CUIMacroSys();
 }
 
 CUIMacroSys::CUIMacroSys(const CUIMacroSys& arg0)
@@ -348,7 +555,7 @@ CUIMacroSys::CUIMacroSys(long nLeft, long nTop)
 void CUIMacroSys::_ctor_0(long nLeft, long nTop)
 {
     //return __sub_0044C0D0(this, nullptr, nLeft, nTop);
-    new (this) CUIMacroSys(nLeft, nTop);
+    new(this) CUIMacroSys(nLeft, nTop);
 }
 
 void CUIMacroSys::OnCreate(void* pData)
@@ -378,42 +585,79 @@ int32_t CUIMacroSys::OnMouseMove(long rx, long ry)
 
 void CUIMacroSys::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2)
 {
-    __sub_0044A310(this, nullptr, nId, param1, param2);
+    if (nId == 3010 && param1 >= 0x12C && param1 <= 0x130)
+    {
+        ResetInfo();
+    }
+    else if (param1 == 100)
+    {
+        this->OnButtonClicked(nId);
+    }
 }
 
-void CUIMacroSys::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIMacroSys::OnKey(uint32_t wParam, int32_t lParam)
 {
-    __sub_0044A010(this, nullptr, wParam, lParam);
+    if (lParam >= 0 && wParam == 27)
+        CWvsContext::GetInstance()->ProcessBasicUIKey(0x1Bu, lParam);
 }
 
 void CUIMacroSys::OnButtonClicked(uint32_t nId)
 {
-    __sub_0044D530(this, nullptr, nId);
+    //__sub_0044D530(this, nullptr, nId);
+    if (nId == 3000 && this->m_nSelected != -1)
+    {
+        auto txt = m_pEditName->GetText();
+        auto buf = txt.GetBuffer(1024, true);
+        auto code = 0;
+        auto tightLine = false;
+        if (CCurseProcess::ProcessString(buf, nullptr, true))
+        {
+            tightLine = m_pCheckShout->IsChecked();
+            CMacroSysMan::GetInstance()->SetMacroInfo(m_nSelected, txt, tightLine);
+            code = 3329;
+        }
+        else
+        {
+            tightLine = false;
+            code = 285;
+        }
+        auto msg = _GetStr(code);
+        CUtilDlg::Notice(msg, nullptr, nullptr, false, tightLine);
+    }
 }
 
 int32_t CUIMacroSys::HitTest(long rx, long ry, CCtrlWnd** ppCtrl)
 {
-    return __sub_00449D60(this, nullptr, rx, ry, ppCtrl);
+    //return __sub_00449D60(this, nullptr, rx, ry, ppCtrl);
+    auto result = this->IsEnabled();
+    if (result)
+        return CWnd::HitTest(rx, ry, ppCtrl);
+    return result;
 }
 
 void CUIMacroSys::SetEnable(int32_t bEnable)
 {
-    __sub_0044C1F0(this, nullptr, bEnable);
+    //__sub_0044C1F0(this, nullptr, bEnable);
+    m_nSelected = bEnable;
 }
 
 int32_t CUIMacroSys::IsEnabled()
 {
-    return __sub_0044C200(this, nullptr);
+    //return __sub_0044C200(this, nullptr);
+    return m_nSelected;
 }
 
 void CUIMacroSys::SetShow(int32_t bShow)
 {
-    __sub_0044C270(this, nullptr, bShow);
+    //__sub_0044C270(this, nullptr, bShow);
+    GetLayer()->Putvisible(bShow);
+    m_bEnable = bShow;
 }
 
 int32_t CUIMacroSys::IsShown()
 {
-    return __sub_0044C210(this, nullptr);
+    //return __sub_0044C210(this, nullptr);
+    return m_bShow;
 }
 
 void CUIMacroSys::Draw(const tagRECT* pRect)
@@ -423,17 +667,63 @@ void CUIMacroSys::Draw(const tagRECT* pRect)
 
 int32_t CUIMacroSys::GetIndexByPos(long rx, long ry, int32_t bIncludeCombinationSkill, long& nMacroIdx, long& nSkillIdx)
 {
-    return __sub_00449F70(this, nullptr, rx, ry, bIncludeCombinationSkill, nMacroIdx, nSkillIdx);
+    //return __sub_00449F70(this, nullptr, rx, ry, bIncludeCombinationSkill, nMacroIdx, nSkillIdx);
+    nMacroIdx = -1;
+    auto curPos = m_pSBMacro->GetCurPos();
+    auto v7 = 0;
+    auto v8 = 76;
+    while (v8 - 32 > ry || ry > v8)
+    {
+        v8 += 44;
+        ++v7;
+        if (v8 >= 208)
+            goto LABEL_7;
+    }
+    nMacroIdx = v7 + curPos;
+LABEL_7:
+    if (v7 == 3)
+        return 0;
+    auto v10 = 0;
+    auto v11 = 47;
+    while (v11 - 32 > rx || rx > v11)
+    {
+        v11 += 34;
+        ++v10;
+        if (v11 >= 149)
+            goto LABEL_15;
+    }
+    nSkillIdx = v10;
+LABEL_15:
+    if (v10 == 3)
+    {
+        if (!bIncludeCombinationSkill || (rx - 136) > 0x20)
+            return 0;
+        nSkillIdx = 3;
+    }
+    return 1;
 }
 
 void CUIMacroSys::ResetInfo()
 {
-    __sub_00449F00(this, nullptr);
+    //__sub_00449F00(this, nullptr);
+    auto uiSkill = CUISkill::GetInstance();
+    m_pCheckShout->SetShow(uiSkill->GetMacroUIState() == 1);
+    m_pEditName->SetShow(uiSkill->GetMacroUIState() == 1);
+    m_uiToolTip.ClearToolTip();
+    InvalidateRect();
 }
 
 void CUIMacroSys::OnSelected(long nMacroIdx)
 {
-    __sub_0044B0F0(this, nullptr, nMacroIdx);
+    //__sub_0044B0F0(this, nullptr, nMacroIdx);
+    auto macroSys = TSingleton<CMacroSysMan>::ms_pInstance;
+    this->m_nSelected = nMacroIdx;
+    auto macroName = macroSys->GetMacroName(nMacroIdx);
+    m_pEditName->SetText(macroName.c_str());
+    auto isShout = macroSys->IsShoutMacro(nMacroIdx);
+    m_pCheckShout->SetChecked(isShout);
+    m_pBtChangeName->SetEnable(m_nSelected >= 0);
+    ResetInfo();
 }
 
 CUIMacroSys& CUIMacroSys::operator=(const CUIMacroSys& arg0)

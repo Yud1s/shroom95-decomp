@@ -10,11 +10,11 @@ int32_t __cdecl is_novice_skill(long nSkillID);
 
 int __cdecl is_guild_skill(long skillId);
 
-bool is_guided_bullet_skill(int skillId);
+bool __cdecl is_guided_bullet_skill(int skillId);
 
 int __cdecl is_active_skill(long param_1);
 
-bool is_keydown_skill(int skillId);
+int __cdecl is_keydown_skill(int skillId);
 
 int __cdecl is_able_to_map_macrosys_skill(long skillId);
 
@@ -34,23 +34,23 @@ int __cdecl is_attack_area_set_by_data(long param_1);
 
 int __cdecl is_position_up_skill_on_riding(long param_1,long param_2);
 
-bool is_able_notweapon_skill(int skillId);
+bool __cdecl is_able_notweapon_skill(int skillId);
 
-bool is_prepare_bomb_skill(int skillId);
+bool __cdecl is_prepare_bomb_skill(int skillId);
 
-bool is_damage_shared_skill(int nSkillID);
+bool __cdecl is_damage_shared_skill(int nSkillID);
 
-bool is_mirror_excepted_skill(int skillId);
+bool __cdecl is_mirror_excepted_skill(int skillId);
 
-bool is_not_prepare_bomb_skill(int skillId);
+bool __cdecl is_not_prepare_bomb_skill(int skillId);
 
-bool is_shoot_skill_not_using_shooting_weapon(int skillId);
+bool __cdecl is_shoot_skill_not_using_shooting_weapon(int skillId);
 
-bool is_throw_bomb_skill(int skillId);
+bool __cdecl is_throw_bomb_skill(int skillId);
 
-bool is_mob_body_bomb(int nSkillID);
+bool __cdecl is_mob_body_bomb(int nSkillID);
 
-bool is_unregisterd_skill(int skillId);
+bool __cdecl is_unregisterd_skill(int skillId);
 
 int get_skill_id_from_vehicle_id(int nVehicleID);
 
@@ -71,7 +71,7 @@ int __cdecl is_antirepeat_buff_skill(long param_1);
 
 int get_max_gauge_time(int skillId);
 
-bool is_able_to_jumpshoot(int skillId, int job);
+bool __cdecl is_able_to_jumpshoot(int skillId, int job);
 
 int get_required_height_jump_rush(int skillId);
 
@@ -83,14 +83,14 @@ int __cdecl get_element_by_charged_skillid(int32_t nChargeSkillID);
 
 int __cdecl get_required_combo_count(int nSkillId);
 
-bool is_jaguar_melee_attack_skill(int skillId);
+bool __cdecl is_jaguar_melee_attack_skill(int skillId);
 
 
-bool is_delayed_hit_sfx_needed_skill(int skillId);
+bool __cdecl is_delayed_hit_sfx_needed_skill(int skillId);
 
 int get_skill_degree_from_skill_root(int skillId);
 
-bool is_summon_octopus_skill(int skillId);
+bool __cdecl is_summon_octopus_skill(int skillId);
 
 int __cdecl is_invulnerable_summon_skill(long moveAbility,long skillId);
 
@@ -100,25 +100,25 @@ long __cdecl get_summon_idx_from_skill_id(long param_1);
 
 int __cdecl is_self_destruct_summon_skill(long param_1);
 
-bool is_teleport_skill(int skillId);
+bool __cdecl is_teleport_skill(int skillId);
 
-bool is_dual_add_damage_except_skill(int nSkillID);
+bool __cdecl is_dual_add_damage_except_skill(int nSkillID);
 
 
-bool is_jump_rush_skill(int skillId);
+bool __cdecl is_jump_rush_skill(int skillId);
 
-bool is_event_vehicle_skill(int skillId);
+bool __cdecl is_event_vehicle_skill(int skillId);
 
-bool is_vehicle_skill(int skillId);
+bool __cdecl is_vehicle_skill(int skillId);
 
-bool is_shoot_skill_not_consuming_bullet(int skillId);
+bool __cdecl is_shoot_skill_not_consuming_bullet(int skillId);
 
 int get_skill_root_from_skill(int skillId);
 
 
 int get_novice_skill_as_race(int skillId, int job);
 
-bool is_teleport_mastery_skill(int skillId);
+bool __cdecl is_teleport_mastery_skill(int skillId);
 
 bool __cdecl is_ignore_master_level_for_common(long skillid);
 

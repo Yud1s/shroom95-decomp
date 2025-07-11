@@ -30,7 +30,7 @@ void CUIGetUserInfo::OnButtonClicked(uint32_t nID) {
 void CUIGetUserInfo::Draw(const tagRECT* pRect) {
 	__sub_001F3200(this, nullptr, pRect);
 }
-void CUIGetUserInfo::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIGetUserInfo::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_001F2280(this, nullptr, wParam, lParam);
 }
 void CUIGetUserInfo::Delete() {

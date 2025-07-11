@@ -528,7 +528,7 @@ public:
 	QuestDemand *GetCompleteDemand(uint16_t usQuestID);
 
 public:
-	int32_t CheckStartDemand(uint16_t stNow, unsigned long pStart, const CharacterData &st, const SecondaryStat &bIsEnable, long ftStart, long i, int32_t ft, long ftEnd);
+	int32_t CheckStartDemand(uint16_t usQuestId, unsigned long pStart, const CharacterData &st, const SecondaryStat &bIsEnable, long ftStart, long i, int32_t ft, long ftEnd);
 
 public:
 	long CheckCompleteDemand(uint16_t usQuestID, unsigned long dwNpcTemplateID, const CharacterData &cd, const SecondaryStat &ss);

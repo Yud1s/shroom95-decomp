@@ -1287,13 +1287,13 @@ __asm {
 	push edi
 	push esi
 	lea ecx,[esp+0x24]
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push esi
 	lea ecx,[esp+0x18]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov ebp,dword ptr [esp+0x14]
 
  Block26:
@@ -1391,7 +1391,7 @@ __asm {
  Block38:
 	add ebp,0xFFFFFFF4
 	push ebp
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	jmp Block74
 
@@ -1400,7 +1400,7 @@ __asm {
 	push 6
 	lea ecx,[esp+0x24]
 	mov dword ptr [esp+0x24],edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	mov ecx,dword ptr [_S_MORPH__1]
 	mov dword ptr [eax],ecx
 	mov edx,dword ptr [_S_MORPH__1+4]
@@ -1409,7 +1409,7 @@ __asm {
 	mov dword ptr [eax+8],ecx
 	push 6
 	lea ecx,[esp+0x20]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov byte ptr [esp+0xAC],0xD
 	cmp ebp,edi
 	je Block41
@@ -1426,7 +1426,7 @@ __asm {
 	push eax
 	push ebp
 	lea ecx,[esp+0x24]
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	mov esi,dword ptr [ZImports::_VariantInit]
 	lea edx,[esp+0x60]
 	push edx
@@ -1579,12 +1579,12 @@ __asm {
 	push edi
 	push 0x2E
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::Find_
+	call ZXString16::Find_
 	push eax
 	lea edx,[esp+0x24]
 	push edx
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::Left
+	call ZXString16::Left
 	mov eax,dword ptr [eax]
 	push eax
 	call __wtoi
@@ -1597,7 +1597,7 @@ __asm {
  Block61:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block62:
@@ -1640,7 +1640,7 @@ __asm {
  Block68:
 	add ebx,0xFFFFFFF4
 	push ebx
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block69:
@@ -1663,7 +1663,7 @@ __asm {
  Block72:
 	add ebp,0xFFFFFFF4
 	push ebp
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block73:

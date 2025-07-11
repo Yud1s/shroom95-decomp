@@ -41,7 +41,7 @@ public:
 	CUIPartySearch(const CUIPartySearch &arg0);
 
 public:
-	void _ctor_1( const CUIPartySearch &arg0);
+	void _ctor_3( const CUIPartySearch &arg0);
 
 public:
 	CUIPartySearch(long nDefaultTab);
@@ -53,7 +53,7 @@ public:
 	CUIPartySearch(long nLeft, long nTop, long nDefaultTab);
 
 public:
-	void _ctor_3( long nLeft, long nTop, long nDefaultTab);
+	void _ctor_1(long nLeft, long nTop, long nDefaultTab);
 
 public:
 	virtual void OnCreate(void *arg0);
@@ -65,7 +65,7 @@ public:
 	virtual void Draw(const tagRECT *pRect);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);

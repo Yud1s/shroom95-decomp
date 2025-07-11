@@ -2,9 +2,7 @@
 #include "CSCommon.hpp"
 #include "CSCommon_regen.ipp"
 
-ACTIONDATA::~ACTIONDATA()
-{
-}
+ACTIONDATA::~ACTIONDATA() = default;
 void ACTIONDATA::_dtor_0()
 {
 	this->~ACTIONDATA();

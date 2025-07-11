@@ -27,7 +27,7 @@ void CUINewYearCardDlg::OnCreate(void* pData) {
 void CUINewYearCardDlg::OnButtonClicked(uint32_t nId) {
 	__sub_0061C010(this, nullptr, nId);
 }
-void CUINewYearCardDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUINewYearCardDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0061C070(this, nullptr, wParam, lParam);
 }
 void CUINewYearCardDlg::Draw(const tagRECT* pRect) {

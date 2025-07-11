@@ -2428,7 +2428,7 @@ __asm {
 }
 // CMovePath::Flush
 _SUB_EXCEPTION_HANDLER(268160)
-__SUB_CLASS_THIS(00268160, __thiscall, 23164,  CMovePath, int32_t, COutPacket&, int32_t, CMovePath&) {
+__SUB_CLASS_THIS(00268160, __thiscall, 23164,  CMovePath, int32_t, COutPacket&, int32_t, CMovePath*) {
 __asm {
 
  Block0:
@@ -2448,7 +2448,7 @@ __asm {
 	mov dword ptr fs:[0],eax
 	mov ebp,ecx
 	xor ecx,ecx
-	int 3// TODO: 	mov dword ptr [esp+0x18],offset ZList<CMovePath::ELEM>::`vftable'
+	mov dword ptr [esp+0x18],0
 	mov dword ptr [esp+0x20],ecx
 	mov dword ptr [esp+0x24],ecx
 	mov dword ptr [esp+0x28],ecx
@@ -2647,7 +2647,7 @@ __asm {
 	lea ecx,[esp+0x18]
 	mov dword ptr [ebp+0x3C],edi
 	mov dword ptr [esp+0x34],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x18],offset ZList<CMovePath::ELEM>::`vftable'
+	mov dword ptr [esp+0x18], 0
 	call ZList<CMovePath::ELEM>::RemoveAll
 	mov eax,dword ptr [esp+0x40]
 	mov ecx,dword ptr [esp+0x2C]

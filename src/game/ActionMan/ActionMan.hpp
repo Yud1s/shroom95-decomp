@@ -1230,7 +1230,7 @@ protected:
 	ZMap<unsigned long, ZRef<CActionMan::MOBACTIONENTRY>, unsigned long> m_mMobAction;
 
 protected:
-	ZMap<unsigned short const *, ZRef<CActionMan::MELEEATTACKAFTERIMAGE>, ZXString<unsigned short>> m_mAfterimage;
+	ZMap<wchar_t const *, ZRef<CActionMan::MELEEATTACKAFTERIMAGE>, ZXString16> m_mAfterimage;
 
 protected:
 	ZList<ZRef<CActionMan::NPCIMGENTRY>> m_lNpcImgEntry;
@@ -1332,7 +1332,7 @@ public:
 	ZRef<CActionMan::MORPHIMGENTRY> GetMorphImgEntry(unsigned long dwTemplateID);
 
 public:
-	void LoadMobAction(unsigned long arg0, long arg1, ZList<ZRef<CActionMan::MOBACTIONFRAMEENTRY>> &arg2);
+	void LoadMobAction(unsigned long dwTemplateID, long nAction, ZList<ZRef<CActionMan::MOBACTIONFRAMEENTRY>> &lpFrame);
 
 public:
 	ZRef<CActionMan::MOBIMGENTRY> GetMobImgEntry(unsigned long dwTemplateID);
@@ -1440,6 +1440,8 @@ struct ActionData {
 	static Ztl_bstr_t m_sNpcAction[2];
 	static Ztl_bstr_t m_sPetAction[34];
 	static Ztl_bstr_t m_saEmployeeAction[1];
+	static Ztl_bstr_t m_saMobAction[43];
+	static Ztl_bstr_t m_saSummonedAction[19];
 };
 
 extern Ztl_bstr_t _D_S_SZMAPIMG;

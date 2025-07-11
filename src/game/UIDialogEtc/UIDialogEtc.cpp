@@ -128,7 +128,7 @@ void CUIClaim::OnCreate(void* pData) {
 void CUIClaim::SetRet(long nRet) {
 	__sub_00395D40(this, nullptr, nRet);
 }
-void CUIClaim::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIClaim::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00382060(this, nullptr, wParam, lParam);
 }
 void CUIClaim::GetResult(ZXString<char>& sCharacterName, long& nType, ZXString<char>& sContext) {
@@ -248,7 +248,7 @@ void CUIChangingLicenseNotice::OnCreate(void* pData) {
 void CUIChangingLicenseNotice::OnButtonClicked(uint32_t nId) {
 	__sub_00380EC0(this, nullptr, nId);
 }
-void CUIChangingLicenseNotice::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIChangingLicenseNotice::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0037F380(this, nullptr, wParam, lParam);
 }
 int32_t CUIChangingLicenseNotice::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
@@ -500,7 +500,7 @@ void CUIAvatarMegaphone::_ctor_0( long nItemID, int32_t bWhisper) {
 void CUIAvatarMegaphone::OnCreate(void* pData) {
 	__sub_0039E6B0(this, nullptr, pData);
 }
-void CUIAvatarMegaphone::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIAvatarMegaphone::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0037F4F0(this, nullptr, wParam, lParam);
 }
 void CUIAvatarMegaphone::Draw(const tagRECT* pRect) {
@@ -661,7 +661,7 @@ void CUISendGift::Draw(const tagRECT* pRect) {
 void CUISendGift::SetRet(long nRet) {
 	__sub_0039A4C0(this, nullptr, nRet);
 }
-void CUISendGift::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUISendGift::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0038B100(this, nullptr, wParam, lParam);
 }
 void CUISendGift::GetResult(ZXString<char>& sReceiver, ZXString<char>& sContent) {
@@ -757,7 +757,7 @@ void CUITransferWorldSelectDlg::Draw(const tagRECT* pRect) {
 void CUITransferWorldSelectDlg::OnButtonClicked(uint32_t nId) {
 	__sub_0037FB60(this, nullptr, nId);
 }
-void CUITransferWorldSelectDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUITransferWorldSelectDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0037FB20(this, nullptr, wParam, lParam);
 }
 void CUITransferWorldSelectDlg::GetResult(long& nTargetWorldID) {
@@ -836,7 +836,7 @@ void CUISendGifts::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry
 void CUISendGifts::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {
 	__sub_0037F1A0(this, nullptr, nId, param1, param2);
 }
-void CUISendGifts::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUISendGifts::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003891A0(this, nullptr, wParam, lParam);
 }
 void CUISendGifts::OnButtonClicked(uint32_t nId) {
@@ -1047,7 +1047,7 @@ void CUIHope::_ctor_0( long nItemID) {
 void CUIHope::OnCreate(void* pData) {
 	__sub_003824F0(this, nullptr, pData);
 }
-void CUIHope::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIHope::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0037F0A0(this, nullptr, wParam, lParam);
 }
 void CUIHope::Draw(const tagRECT* pRect) {
@@ -1088,7 +1088,7 @@ void CUIMapleTV::_ctor_0( long nItemID, long nTVType, int32_t bWhisper) {
 void CUIMapleTV::OnCreate(void* pData) {
 	__sub_0039DBF0(this, nullptr, pData);
 }
-void CUIMapleTV::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIMapleTV::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0037F450(this, nullptr, wParam, lParam);
 }
 void CUIMapleTV::Draw(const tagRECT* pRect) {
@@ -1145,7 +1145,7 @@ void CUITransferWorldLicenseNotice::OnCreate(void* pData) {
 void CUITransferWorldLicenseNotice::OnButtonClicked(uint32_t nId) {
 	__sub_00393FC0(this, nullptr, nId);
 }
-void CUITransferWorldLicenseNotice::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUITransferWorldLicenseNotice::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0037F420(this, nullptr, wParam, lParam);
 }
 int32_t CUITransferWorldLicenseNotice::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {

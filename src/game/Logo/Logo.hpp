@@ -88,7 +88,7 @@ public:
 	virtual void Update();
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);

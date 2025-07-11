@@ -211,7 +211,7 @@ protected:
 	long ItemTI_2_TabIndex(long nItemTI);
 
 private:
-	ZXString<unsigned short> _GetBackgroundUOL();
+	ZXString16 _GetBackgroundUOL();
 
 private:
 	void SetLastestGetItemEffect();

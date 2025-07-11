@@ -2,7 +2,7 @@
 #include "UIPartyAdverTab.hpp"
 
 // CCtrlSelectPartyQuest::GetBackUOL
-__SUB_CLASS_THIS0(00414020, __thiscall, 86078,  CCtrlSelectPartyQuest, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(00414020, __thiscall, 86078,  CCtrlSelectPartyQuest, ZXString16) {
 	_ASM_PLACEHOLDER(00414020, 86078)
 }
 // TabPartyAdver::OnMoveWnd
@@ -106,7 +106,7 @@ __SUB_CLASS_THIS(00414960, __thiscall, 85994,  TabPartyAdver, void, TabPartyAdve
 	_ASM_PLACEHOLDER(00414960, 85994)
 }
 // TabPartyAdver::AttachButton
-__SUB_CLASS_THIS(00414230, __thiscall, 85990,  TabPartyAdver, void, TabPartyAdver::ENUM_CTRL_ID, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(00414230, __thiscall, 85990,  TabPartyAdver, void, TabPartyAdver::ENUM_CTRL_ID, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(00414230, 85990)
 }
 // TabPartyAdver::SendPartyAdverRequestPacket

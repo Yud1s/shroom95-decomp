@@ -197,7 +197,7 @@ public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);
@@ -293,7 +293,7 @@ protected:
 	_x_com_ptr<IWzGr2DLayer> m_pLayerScroll;
 
 protected:
-	ZXString<unsigned short> m_sScrollNotice;
+	ZXString16 m_sScrollNotice;
 	// Methods
 public:
 	virtual ~CLoginUtilDlg();
@@ -335,10 +335,10 @@ public:
 	static long __cdecl AskBirthDate(ZRef<CDialog> *arg0);
 
 public:
-	static void __cdecl ScrollNotice(ZXString<unsigned short> arg0);
+	static void __cdecl ScrollNotice(ZXString16 arg0);
 
 public:
-	void Init_(long arg0, ZXString<unsigned short> arg1);
+	void Init_(long arg0, ZXString16 arg1);
 
 public:
 	void Init(long nType, long nMsg);
@@ -356,7 +356,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);

@@ -38,6 +38,10 @@ Ztl_variant_t::Ztl_variant_t(int lSrc, VARTYPE vtSrc) : xvariant_t(static_cast<l
 {
 }
 
+Ztl_variant_t::Ztl_variant_t(uint32_t lSrc, VARTYPE vtSrc): xvariant_t(static_cast<long>(lSrc), vtSrc)
+{
+}
+
 Ztl_variant_t::Ztl_variant_t(const Ztl_variant_t &other) = default;
 Ztl_variant_t::Ztl_variant_t() = default;
 Ztl_variant_t::~Ztl_variant_t() = default;
@@ -111,6 +115,47 @@ Ztl_variant_t::operator _xvariant_t *()
     return (xvariant_t *)this;
 }
 
+float Ztl_variant_t::GetFloat(float def) const
+{
+    Ztl_variant_t tmp;
+    if (!vt || vt == VT_ERROR || ZComAPI::ZComVariantChangeType(&tmp, this, 0, VT_R4) < 0)
+        return def;
+    return tmp.fltVal;
+}
+
+int32_t Ztl_variant_t::GetInt32(int32_t def ) const
+{
+    if (vt == VT_I4)
+    {
+        return lVal;
+    }
+
+    if(vt == VT_EMPTY || vt == VT_ERROR)
+    {
+        return def;
+    }
+
+    Ztl_variant_t tmp;
+    if (ZComAPI::ZComVariantChangeType(&tmp, this, 0, VT_I4) >= 0)
+    {
+        return tmp.lVal;
+    }
+
+    return def;
+}
+
+Ztl_bstr_t Ztl_variant_t::GetStr()
+{
+    if (vt == 8)
+    {
+        return {bstrVal};
+    }
+
+    Ztl_variant_t dst;
+    ZComAPI::ZComVarBstrFromVariant(&dst, this);
+    return {dst.bstrVal};
+}
+
 Ztl_variant_t::operator const _xvariant_t *() const
 {
     return (const xvariant_t *)this;
@@ -130,6 +175,12 @@ Ztl_bstr_t::Ztl_bstr_t(char const *s) : _xbstr_t(s)
 }
 Ztl_bstr_t::Ztl_bstr_t() = default;
 Ztl_bstr_t::~Ztl_bstr_t() = default;
+
+int32_t Ztl_bstr_t::ToInt()
+{
+    const wchar_t* p = this->op_ushort_str();
+    return _wtoi(p);
+}
 
 bool Ztl_bstr_t::operator==(wchar_t const *s) const
 {
@@ -176,12 +227,12 @@ bool Ztl_bstr_t::op_eq(const wchar_t *s)
     return _xbstr_t::operator==(s);
 }
 
-_xbstr_t Ztl_bstr_t::op_add_0(const wchar_t *s)
+_xbstr_t Ztl_bstr_t::op_add_1(const wchar_t *s)
 {
     return _xbstr_t::operator+(s);
 }
 
-_xbstr_t Ztl_bstr_t::op_add_1(const Ztl_bstr_t &other)
+_xbstr_t Ztl_bstr_t::op_add_0(const Ztl_bstr_t &other)
 {
     return _xbstr_t::operator+(other);
 }

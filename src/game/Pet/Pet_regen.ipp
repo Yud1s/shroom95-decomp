@@ -1245,7 +1245,7 @@ __asm {
 	lea edx,[esp+0x1C]
 	push edx
 	mov byte ptr [esp+0x58],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x24]
 	add esp,0xC
 	mov byte ptr [esp+0x4C],bl
@@ -1255,7 +1255,7 @@ __asm {
  Block4:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block5:
@@ -1355,7 +1355,7 @@ __asm {
 	lea edx,[esp+0x20]
 	push edx
 	mov byte ptr [esp+0x5C],5
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x2C]
 	add esp,0x10
 	mov byte ptr [esp+0x4C],bl
@@ -1365,7 +1365,7 @@ __asm {
  Block15:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block16:
@@ -1503,7 +1503,7 @@ __asm {
  Block29:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	jmp Block31
 
@@ -1920,7 +1920,7 @@ __asm {
 	lea edx,[esp+0x80]
 	push edx
 	mov byte ptr [esp+0x78],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x3C]
 	add esp,0x10
 	mov byte ptr [esp+0x68],0
@@ -1930,7 +1930,7 @@ __asm {
  Block8:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block9:
@@ -2070,7 +2070,7 @@ __asm {
  Block18:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block19:
@@ -3106,7 +3106,7 @@ je Block2
 	push eax
 	lea ecx,[esp+0x14]
 	mov byte ptr [esp+0x3C],2
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x40]
 	mov byte ptr [esp+0x38],bl
 	test eax,eax
@@ -3115,7 +3115,7 @@ je Block2
  Block3:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block4:
@@ -3128,7 +3128,7 @@ je Block2
 	push eax
 	lea ecx,[esp+0x18]
 	mov byte ptr [esp+0x3C],3
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x18]
 	mov byte ptr [esp+0x38],bl
 
@@ -3139,7 +3139,7 @@ je Block2
  Block6:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block7:
@@ -3194,7 +3194,7 @@ je Block2
  Block14:
 	add esi,0xFFFFFFF4
 	push esi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block15:
@@ -3207,7 +3207,7 @@ je Block2
 	push edi
 
  Block17:
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block18:
@@ -3230,7 +3230,7 @@ je Block2
 	push eax
 	lea ecx,[esp+0x14]
 	mov byte ptr [esp+0x3C],4
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x1C]
 	mov byte ptr [esp+0x38],bl
 	test eax,eax
@@ -3239,7 +3239,7 @@ je Block2
  Block20:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block21:
@@ -3252,7 +3252,7 @@ je Block2
 	push eax
 	lea ecx,[esp+0x18]
 	mov byte ptr [esp+0x3C],5
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x20]
 	mov byte ptr [esp+0x38],bl
 	jmp Block5
@@ -3267,7 +3267,7 @@ je Block2
 	push eax
 	lea ecx,[esp+0x14]
 	mov byte ptr [esp+0x3C],6
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x24]
 	mov byte ptr [esp+0x38],bl
 	test eax,eax
@@ -3276,7 +3276,7 @@ je Block2
  Block23:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	jmp Block8
 
@@ -3295,7 +3295,7 @@ je Block2
 	lea edx,[esp+0x18]
 	push edx
 	mov byte ptr [esp+0x44],7
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x34]
 	add esp,0xC
 	mov byte ptr [esp+0x38],bl
@@ -3305,7 +3305,7 @@ je Block2
  Block25:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block26:

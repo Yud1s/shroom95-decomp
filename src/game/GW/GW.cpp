@@ -1,16 +1,17 @@
 // GW.cpp
 #include "GW.hpp"
 #include "GW_regen.ipp"
+#include "spdlog/spdlog.h"
 
 
 GW_CharacterStat::~GW_CharacterStat()
 {
-    //UNIMPLEMENTED; // _dtor_0();
+
 }
 
 void GW_CharacterStat::_dtor_0()
 {
-    return __sub_000824E0(this, nullptr);
+    this->~GW_CharacterStat();
 }
 
 GW_CharacterStat::GW_CharacterStat(const GW_CharacterStat& arg0)
@@ -67,11 +68,12 @@ void GW_CharacterStat::EncodeMoney(COutPacket& arg0)
 void GW_CharacterStat::Decode(CInPacket& iPacket, int32_t bBackwardUpdate)
 {
     __sub_000F9D40(this, nullptr, iPacket, bBackwardUpdate);
+    spdlog::info("str: {}, dex: {}, int: {}, luk: {}", _ZtlSecureGet_nSTR(), _ZtlSecureGet_nDEX(), _ZtlSecureGet_nINT(), _ZtlSecureGet_nLUK());
 }
 
 void GW_CharacterStat::DecodeMoney(CInPacket& iPacket)
 {
-    __sub_000F52E0(this, nullptr, iPacket);
+    _ZtlSecurePut_nMoney(iPacket.Decode4());
 }
 
 void GW_CharacterStat::EncodeChangeStat(unsigned long arg0, COutPacket& arg1)
@@ -91,14 +93,12 @@ ZXString<char> GW_CharacterStat::GetString()
     UNIMPLEMENTED;
 }
 
-GW_CharacterStat& GW_CharacterStat::operator=(const GW_CharacterStat& __that)
-{
-    return _op_assign_44(this, __that);
-}
+GW_CharacterStat& GW_CharacterStat::operator=(const GW_CharacterStat& __that) = default;
 
 GW_CharacterStat& GW_CharacterStat::_op_assign_44(GW_CharacterStat* pThis, const GW_CharacterStat& __that)
 {
-    return __sub_001D8F80(pThis, nullptr, __that);
+    *pThis = __that;
+    return *pThis;
 }
 
 void* GW_GuildBBSComment::GetDataBlock()
@@ -151,7 +151,7 @@ void GW_WildHunterInfo::_ctor_0()
 
 long GW_WildHunterInfo::GetRidingType()
 {
-    return __sub_0053A170(this, nullptr);
+    return this->nRidingType;
 }
 
 long GW_WildHunterInfo::GetRidingItem()
@@ -188,7 +188,7 @@ unsigned long* GW_WildHunterInfo::GetCaptureMobList()
 
 long GW_WildHunterInfo::GetIdx()
 {
-    return __sub_0053A170(this, nullptr);
+    return this->nIdx;
 }
 
 void GW_WildHunterInfo::Decode(CInPacket& iPacket)
@@ -265,24 +265,35 @@ ExtendSP::ExtendSP()
 void ExtendSP::_ctor_0()
 {
     new(this) ExtendSP();
-    // TODO: No module found for method
-    //UNIMPLEMENTED;
 }
 
 unsigned char ExtendSP::Get(unsigned char nJobLevel)
 {
-    return __sub_000F44F0(this, nullptr, nJobLevel);
+    for (auto& sp: lSPSet)
+    {
+        if (sp._ZtlSecureGet_nJobLevel() == nJobLevel)
+            return sp._ZtlSecureGet_nSP();
+    }
+    return 0;
 }
 
 long ExtendSP::GetTotalSP()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto sum = 0;
+    for (auto& sp: lSPSet)
+    {
+        sum += sp._ZtlSecureGet_nSP();
+    }
+    return sum;
 }
 
 void ExtendSP::Decode(CInPacket& iPacket)
 {
-    __sub_000F9CB0(this, nullptr, iPacket);
+    auto len = iPacket.Decode1();
+    for (int i = 0; i < len; ++i)
+    {
+        lSPSet.Insert(SPSet(iPacket.Decode1(), iPacket.Decode1()));
+    }
 }
 
 void ExtendSP::Encode(COutPacket& arg0)
@@ -293,8 +304,7 @@ void ExtendSP::Encode(COutPacket& arg0)
 
 void ExtendSP::RemoveAll()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    lSPSet.RemoveAll();
 }
 
 void ExtendSP::Set(unsigned char arg0, unsigned char arg1)
@@ -349,14 +359,18 @@ bool __cdecl GW_NewYearCardRecord::IsExtraDataSaved(const char* arg0)
     UNIMPLEMENTED;
 }
 
+FUNCKEY_MAPPED::FUNCKEY_MAPPED(unsigned char type, long id): nType(type), nID(id)
+{
+}
+
 void FUNCKEY_MAPPED::Encode(COutPacket& oPacket)
 {
-    __sub_000F6D80(this, nullptr, oPacket);
+    oPacket.EncodeBuffer(this, sizeof(FUNCKEY_MAPPED));
 }
 
 void FUNCKEY_MAPPED::Decode(CInPacket& iPacket)
 {
-    __sub_000F2B20(this, nullptr, iPacket);
+    iPacket.DecodeBuffer(this, sizeof(FUNCKEY_MAPPED));
 }
 
 int32_t FUNCKEY_MAPPED::IsItemShortCut()
@@ -451,29 +465,8 @@ void SPSet::_ctor_1()
     new(this) SPSet();
 }
 
-unsigned char __fastcall SPSet::_ZtlSecureGet_nJobLevel() const
-{
-    // TODO: No module found for method
-    UNIMPLEMENTED;
-}
-
-unsigned char __fastcall SPSet::_ZtlSecurePut_nJobLevel(unsigned char arg0)
-{
-    // TODO: No module found for method
-    UNIMPLEMENTED;
-}
-
-unsigned char __fastcall SPSet::_ZtlSecureGet_nSP() const
-{
-    // TODO: No module found for method
-    UNIMPLEMENTED;
-}
-
-unsigned char __fastcall SPSet::_ZtlSecurePut_nSP(unsigned char arg0)
-{
-    // TODO: No module found for method
-    UNIMPLEMENTED;
-}
+_ZTL_SEC_GETSETI(unsigned char, SPSet, nJobLevel);
+_ZTL_SEC_GETSETI(unsigned char, SPSet, nSP);
 
 void GW_CoupleRecord::Encode(COutPacket& arg0)
 {
@@ -609,12 +602,11 @@ void* GW_GuildBBSEntryList::GetDataBlock()
 
 GW_ItemSlotBase::~GW_ItemSlotBase()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void GW_ItemSlotBase::_dtor_0()
 {
-    return __sub_000F4B80(this, nullptr);
+    this->~GW_ItemSlotBase();
 }
 
 GW_ItemSlotBase::GW_ItemSlotBase(const GW_ItemSlotBase& arg0)
@@ -630,7 +622,6 @@ void GW_ItemSlotBase::_ctor_1(const GW_ItemSlotBase& arg0)
 
 GW_ItemSlotBase::GW_ItemSlotBase()
 {
-    //__sub_000F5EF0(this, nullptr);
 }
 
 void GW_ItemSlotBase::_ctor_0()
@@ -689,55 +680,53 @@ int32_t GW_ItemSlotBase::IsCashItem()
 
 int32_t GW_ItemSlotBase::IsTimeLimitedItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return CompareFileTime(&this->dateExpire, &_D_DB_DATE_20790101) < 0;
 }
 
 long GW_ItemSlotBase::GetTypeIndex()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    //TODO(game)
+    return 0;
 }
 
 int32_t GW_ItemSlotBase::IsProtectedItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotBase::IsPreventSlipItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotBase::IsSupportWarmItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotBase::IsBindedItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotBase::IsPossibleTradingItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotBase::IsSharedOnceItem()
 {
-    return __sub_0009C620(this, nullptr);
+    return 0;
 }
 
 long GW_ItemSlotBase::GetType()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return 0;
 }
 
 long GW_ItemSlotBase::GetDataSize()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return 0;
 }
 
 long GW_ItemSlotBase::GetItemNumber()
@@ -747,20 +736,17 @@ long GW_ItemSlotBase::GetItemNumber()
 
 long GW_ItemSlotBase::GetLevelUpType()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return 0;
 }
 
 long GW_ItemSlotBase::GetLevel()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return 0;
 }
 
 long GW_ItemSlotBase::GetEXP()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return 0;
 }
 
 void GW_ItemSlotBase::SetItemNumber(short arg0)
@@ -783,42 +769,34 @@ void GW_ItemSlotBase::SetItemTitle(ZXString<char> arg0)
 
 void GW_ItemSlotBase::SetProtected()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::ResetProtected()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::SetPreventSlip()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::SetWarmSupport()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::SetBinded()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::SetPossibleTrading()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::SetSharedOnce()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::ResetPossibleTrading()
 {
-    __sub_000F4B80(this, nullptr);
 }
 
 void GW_ItemSlotBase::SetItemAttribute(short arg0)
@@ -869,25 +847,28 @@ void GW_ItemSlotBase::RawDecode(CInPacket& iPacket)
     nItemID = iPacket.Decode4();
     if (iPacket.Decode1())
     {
-        iPacket.DecodeBuffer(&liCashItemSN, 8);
+        liCashItemSN = iPacket.DecodeT<_LARGE_INTEGER>();
     }
     else
     {
         liCashItemSN.QuadPart = 0;
     }
 
-    iPacket.DecodeBuffer(&dateExpire, 8);
+    dateExpire = iPacket.DecodeFT();
 }
 
 void GW_ItemSlotBase::RawEncode(COutPacket& oPacket)
 {
-    __sub_000F6B90(this, nullptr, oPacket);
+    auto id = nItemID.GetData();
+    oPacket.Encode4(id);
+    auto isCash = IsCashItem();
+    oPacket.Encode1(isCash);
+    if (isCash)
+        oPacket.EncodeBuffer(&liCashItemSN, 8);
+    oPacket.EncodeBuffer(&dateExpire, 8);
 }
 
-GW_ItemSlotBase& GW_ItemSlotBase::operator=(GW_ItemSlotBase& arg0)
-{
-    return _op_assign_41(this, arg0);
-}
+GW_ItemSlotBase& GW_ItemSlotBase::operator=(GW_ItemSlotBase& arg0) = default;
 
 GW_ItemSlotBase& GW_ItemSlotBase::_op_assign_41(GW_ItemSlotBase* pThis, GW_ItemSlotBase& arg0)
 {
@@ -897,13 +878,12 @@ GW_ItemSlotBase& GW_ItemSlotBase::_op_assign_41(GW_ItemSlotBase* pThis, GW_ItemS
 
 GW_ItemSlotPet::~GW_ItemSlotPet()
 {
-    UNIMPLEMENTED; // _dtor_0();
+
 }
 
 void GW_ItemSlotPet::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~GW_ItemSlotPet();
 }
 
 GW_ItemSlotPet::GW_ItemSlotPet(const GW_ItemSlotPet& arg0)
@@ -919,12 +899,11 @@ void GW_ItemSlotPet::_ctor_1(const GW_ItemSlotPet& arg0)
 
 GW_ItemSlotPet::GW_ItemSlotPet()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void GW_ItemSlotPet::_ctor_0()
 {
-    return __sub_000F6900(this, nullptr);
+    new(this) GW_ItemSlotPet();
 }
 
 _ZTL_SEC_GETSETI(unsigned char, GW_ItemSlotPet, nLevel)
@@ -937,7 +916,7 @@ _ZTL_SEC_GETSETI(short, GW_ItemSlotPet, nAttribute)
 
 int32_t GW_ItemSlotPet::IsProtectedItem()
 {
-    return __sub_000F6920(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotPet::IsPreventSlipItem()
@@ -947,154 +926,145 @@ int32_t GW_ItemSlotPet::IsPreventSlipItem()
 
 int32_t GW_ItemSlotPet::IsSupportWarmItem()
 {
-    return __sub_000F6940(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotPet::IsBindedItem()
 {
-    return __sub_000F6950(this, nullptr);
+    return 0;
 }
 
 int32_t GW_ItemSlotPet::IsPossibleTradingItem()
 {
-    return __sub_000F6A70(this, nullptr);
+    return _ZtlSecureGet_nAttribute() & 1;
 }
 
 long GW_ItemSlotPet::GetType()
 {
-    return __sub_000F6960(this, nullptr);
+    return 3;
 }
 
 long GW_ItemSlotPet::GetDataSize()
 {
-    return __sub_000F6970(this, nullptr);
+    return 105;
 }
 
 long GW_ItemSlotPet::GetItemNumber()
 {
-    return __sub_000F6980(this, nullptr);
+    return 1;
 }
 
 long GW_ItemSlotPet::GetLevelUpType()
 {
-    return __sub_000F6990(this, nullptr);
+    return 0;
 }
 
 long GW_ItemSlotPet::GetLevel()
 {
-    return __sub_000F69A0(this, nullptr);
+    return 0;
 }
 
 long GW_ItemSlotPet::GetEXP()
 {
-    return __sub_000F69B0(this, nullptr);
+    return 0;
 }
 
 void GW_ItemSlotPet::SetItemNumber(short nNumber)
 {
-    __sub_000F69C0(this, nullptr, nNumber);
 }
 
 ZXString<char> GW_ItemSlotPet::GetItemTitle()
 {
-    return __sub_000F7E60(this, nullptr);
+    return ZXString<char>();
 }
 
 void GW_ItemSlotPet::SetItemTitle(ZXString<char> sName)
 {
-    __sub_000F74C0(this, nullptr, CreateNakedParam(sName));
 }
 
 void GW_ItemSlotPet::SetProtected()
 {
-    __sub_000F69D0(this, nullptr);
 }
 
 void GW_ItemSlotPet::ResetProtected()
 {
-    __sub_000F69E0(this, nullptr);
 }
 
 void GW_ItemSlotPet::SetPreventSlip()
 {
-    __sub_000F69F0(this, nullptr);
 }
 
 void GW_ItemSlotPet::SetWarmSupport()
 {
-    __sub_000F6A00(this, nullptr);
 }
 
 void GW_ItemSlotPet::SetBinded()
 {
-    __sub_000F6A10(this, nullptr);
 }
 
 void GW_ItemSlotPet::SetPossibleTrading()
 {
-    __sub_000F6AB0(this, nullptr);
+    _ZtlSecurePut_nAttribute(_ZtlSecureGet_nAttribute() | 1);
 }
 
 void GW_ItemSlotPet::ResetPossibleTrading()
 {
-    __sub_000F6AE0(this, nullptr);
+    _ZtlSecurePut_nAttribute(_ZtlSecureGet_nAttribute() & 0xFFFE);
 }
 
 void GW_ItemSlotPet::SetItemAttribute(short nNewAttribute)
 {
-    __sub_000F6B10(this, nullptr, nNewAttribute);
+    _ZtlSecurePut_nAttribute(nNewAttribute);
 }
 
 short GW_ItemSlotPet::GetItemAttribute()
 {
-    return __sub_000F6A90(this, nullptr);
+    return _ZtlSecureGet_nAttribute();
 }
 
 void GW_ItemSlotPet::SetLevel(unsigned char nNewLevel)
 {
-    __sub_000F6A20(this, nullptr, nNewLevel);
 }
 
 void GW_ItemSlotPet::SetEXP(long nNewEXP)
 {
-    __sub_000F6A30(this, nullptr, nNewEXP);
 }
 
 _LARGE_INTEGER GW_ItemSlotPet::GetSN()
 {
-    return __sub_000F6A40(this, nullptr);
+    return {};
 }
 
 void GW_ItemSlotPet::GetNewSN()
 {
-    __sub_000F6A60(this, nullptr);
 }
 
 void GW_ItemSlotPet::SetSyncSpeed()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
 }
 
 int32_t GW_ItemSlotPet::IsSyncSpeed()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    //TODO(game)
+    return 0;
 }
 
 int32_t GW_ItemSlotPet::IsDead()
 {
-    return __sub_000F6C30(this, nullptr);
+    if (CItemInfo::GetInstance()->IsLimitedLifePet(nItemID))
+        return _ZtlSecureGet_nRemainLife();
+
+    return IsDeadByDate();
 }
 
 int32_t GW_ItemSlotPet::IsDeadByDate()
 {
-    return __sub_000F1BE0(this, nullptr);
+    return CompareFileTime(&dateDead, &_D_DB_DATE_20790101) >= 0;
 }
 
 int32_t GW_ItemSlotPet::IsPetSkillExist(uint16_t usSkillID)
 {
-    return __sub_002B4D90(this, nullptr, usSkillID);
+    return _ZtlSecureGet_usPetSkill() & usSkillID != 0;
 }
 
 void GW_ItemSlotPet::BackwardUpdateCashItem(GW_ItemSlotBase* pSrc)
@@ -1104,7 +1074,7 @@ void GW_ItemSlotPet::BackwardUpdateCashItem(GW_ItemSlotBase* pSrc)
 
 ZXString<char> GW_ItemSlotPet::DumpString()
 {
-    return __sub_000F6C70(this, nullptr);
+    return ZXString<char>();
 }
 
 void GW_ItemSlotPet::RawDecode(CInPacket& iPacket)
@@ -1130,13 +1100,11 @@ GW_ItemSlotPet& GW_ItemSlotPet::_op_assign_53(GW_ItemSlotPet* pThis, GW_ItemSlot
 
 GW_ItemSlotEquip::~GW_ItemSlotEquip()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void GW_ItemSlotEquip::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~GW_ItemSlotEquip();
 }
 
 GW_ItemSlotEquip::GW_ItemSlotEquip(const GW_ItemSlotEquip& arg0)
@@ -1160,22 +1128,22 @@ GW_ItemSlotEquip::GW_ItemSlotEquip()
 
 void GW_ItemSlotEquip::_ctor_0()
 {
-    return __sub_000F5FD0(this, nullptr);
+    new(this) GW_ItemSlotEquip();
 }
 
 int32_t GW_ItemSlotEquip::IsProtectedItem()
 {
-    return __sub_000F60B0(this, nullptr);
+    return GetItemAttribute() & 1;
 }
 
 int32_t GW_ItemSlotEquip::IsPreventSlipItem()
 {
-    return __sub_000F60D0(this, nullptr);
+    return (GetItemAttribute() & 2) >> 1;
 }
 
 int32_t GW_ItemSlotEquip::IsSupportWarmItem()
 {
-    return __sub_000F60F0(this, nullptr);
+    return (GetItemAttribute() & 4) >> 2;
 }
 
 int32_t GW_ItemSlotEquip::IsBindedItem()
@@ -1190,17 +1158,17 @@ int32_t GW_ItemSlotEquip::IsPossibleTradingItem()
 
 long GW_ItemSlotEquip::GetType()
 {
-    return __sub_000F6070(this, nullptr);
+    return 1;
 }
 
 long GW_ItemSlotEquip::GetDataSize()
 {
-    return __sub_000F6080(this, nullptr);
+    return 301;
 }
 
 long GW_ItemSlotEquip::GetItemNumber()
 {
-    return __sub_000F6090(this, nullptr);
+    return 1;
 }
 
 long GW_ItemSlotEquip::GetLevelUpType()
@@ -1275,7 +1243,7 @@ void GW_ItemSlotEquip::SetItemAttribute(short nNewAttribute)
 
 short GW_ItemSlotEquip::GetItemAttribute()
 {
-    return __sub_000F61B0(this, nullptr);
+    return this->item._ZtlSecureGet_nAttribute();
 }
 
 void GW_ItemSlotEquip::SetLevel(unsigned char nNewLevel)
@@ -1362,13 +1330,11 @@ GW_ItemSlotEquip& GW_ItemSlotEquip::_op_assign_40(GW_ItemSlotEquip* pThis, GW_It
 
 GW_ItemSlotBundle::~GW_ItemSlotBundle()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void GW_ItemSlotBundle::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~GW_ItemSlotBundle();
 }
 
 GW_ItemSlotBundle::GW_ItemSlotBundle(const GW_ItemSlotBundle& arg0)
@@ -1384,35 +1350,15 @@ void GW_ItemSlotBundle::_ctor_1(const GW_ItemSlotBundle& arg0)
 
 GW_ItemSlotBundle::GW_ItemSlotBundle()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void GW_ItemSlotBundle::_ctor_0()
 {
-    return __sub_000F6690(this, nullptr);
+    new(this) GW_ItemSlotBundle();
 }
 
-uint16_t __fastcall GW_ItemSlotBundle::_ZtlSecureGet_nNumber() const
-{
-    // TODO: No module found for method
-    UNIMPLEMENTED;
-}
-
-uint16_t __fastcall GW_ItemSlotBundle::_ZtlSecurePut_nNumber(uint16_t arg0)
-{
-    return __sub_000F4CB0(this, arg0);
-}
-
-short __fastcall GW_ItemSlotBundle::_ZtlSecureGet_nAttribute() const
-{
-    // TODO: No module found for method
-    UNIMPLEMENTED;
-}
-
-short __fastcall GW_ItemSlotBundle::_ZtlSecurePut_nAttribute(short arg0)
-{
-    return __sub_000F4CD0(this, arg0);
-}
+_ZTL_SEC_GETSETI(uint16_t, GW_ItemSlotBundle, nNumber);
+_ZTL_SEC_GETSETI(short, GW_ItemSlotBundle, nAttribute);
 
 int32_t GW_ItemSlotBundle::IsProtectedItem()
 {
@@ -1441,12 +1387,12 @@ int32_t GW_ItemSlotBundle::IsPossibleTradingItem()
 
 long GW_ItemSlotBundle::GetType()
 {
-    return __sub_000F66E0(this, nullptr);
+    return 2;
 }
 
 long GW_ItemSlotBundle::GetDataSize()
 {
-    return __sub_000F66F0(this, nullptr);
+    return 65;
 }
 
 long GW_ItemSlotBundle::GetItemNumber()

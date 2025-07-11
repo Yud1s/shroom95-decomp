@@ -18,10 +18,10 @@ public:
 		// Nested
 		// Fields
 	public:
-		ZXString<unsigned short> sButtonName;
+		ZXString16 sButtonName;
 
 	public:
-		ZXString<unsigned short> sImagePath;
+		ZXString16 sImagePath;
 
 	public:
 		int32_t nIndex{};
@@ -164,7 +164,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	long GetSelectResult();

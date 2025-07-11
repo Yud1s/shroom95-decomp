@@ -14,7 +14,7 @@ __SUB_CLASS_THIS(00595E40, __thiscall, 80055,  CVecCtrlDragon, void, int32_t, IV
 	_ASM_PLACEHOLDER(00595E40, 80055)
 }
 // CVecCtrlDragon::WorkUpdatePassive
-__SUB_CLASS_THIS(00595E70, __thiscall, 80059,  CVecCtrlDragon, int64_t, long) {
+__SUB_CLASS_THIS(00595E70, __thiscall, 80059,  CVecCtrlDragon, int, long) {
 	_ASM_PLACEHOLDER(00595E70, 80059)
 }
 // CVecCtrlDragon::~CVecCtrlDragon

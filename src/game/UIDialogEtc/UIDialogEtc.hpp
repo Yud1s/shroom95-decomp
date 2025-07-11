@@ -325,7 +325,7 @@ public:
 	virtual void SetRet(long nRet);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	void GetResult(ZXString<char> &sCharacterName, long &nType, ZXString<char> &sContext);
@@ -536,7 +536,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);
@@ -933,7 +933,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);
@@ -1232,7 +1232,7 @@ public:
 	virtual void SetRet(long nRet);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	void GetResult(ZXString<char> &sReceiver, ZXString<char> &sContent);
@@ -1407,7 +1407,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	void GetResult(long &nTargetWorldID);
@@ -1697,7 +1697,7 @@ public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);
@@ -1981,7 +1981,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);
@@ -2081,7 +2081,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);
@@ -2192,7 +2192,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);

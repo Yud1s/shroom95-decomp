@@ -16,7 +16,7 @@ MY_UINT128::MY_UINT128(const MY_UINT128& value, uint32_t numBits)
 
 void MY_UINT128::_ctor_0(const MY_UINT128& value, uint32_t numBits)
 {
-    //return __sub_00410660(this, nullptr, value, numBits);
+    //UNIMPLEMENTED;//return __sub_00410660(this, nullptr, value, numBits);
     new(this) MY_UINT128(value, numBits);
 }
 
@@ -27,7 +27,7 @@ MY_UINT128::MY_UINT128(unsigned long value)
 
 void MY_UINT128::_ctor_1(unsigned long value)
 {
-    //return __sub_00410640(this, nullptr, value);
+    //UNIMPLEMENTED;//return __sub_00410640(this, nullptr, value);
     new(this) MY_UINT128(value);
 }
 
@@ -46,7 +46,7 @@ MY_UINT128::MY_UINT128()
 
 void MY_UINT128::_ctor_0()
 {
-    //return __sub_00410630(this, nullptr);
+    //UNIMPLEMENTED;//return __sub_00410630(this, nullptr);
     new(this) MY_UINT128();
 }
 
@@ -87,9 +87,16 @@ MY_UINT128& MY_UINT128::setValue(unsigned long value)
 
 MY_UINT128& MY_UINT128::setValue(const MY_UINT128& value)
 {
-    //return __sub_00410480(this, nullptr, value);
+    //UNIMPLEMENTED;//return __sub_00410480(this, nullptr, value);
     m_inner = value.m_inner;
     return *this;
+}
+
+MY_UINT128 MY_UINT128::operator~()
+{
+    MY_UINT128 result;
+    result.m_inner = ~m_inner;
+    return result;
 }
 
 int32_t MY_UINT128::compareTo(unsigned long value) const
@@ -135,7 +142,7 @@ MY_UINT128& MY_UINT128::operator+=(unsigned long value)
 
 MY_UINT128& MY_UINT128::_op_addassign_13(MY_UINT128* pThis, unsigned long value)
 {
-    //return __sub_004104A0(pThis, nullptr, value);
+    //UNIMPLEMENTED;//return __sub_004104A0(pThis, nullptr, value);
     UNIMPLEMENTED;
 
 }
@@ -158,7 +165,7 @@ MY_UINT128& MY_UINT128::operator-=(unsigned long value)
 
 MY_UINT128& MY_UINT128::_op_subassign_15(MY_UINT128* pThis, unsigned long value)
 {
-    return __sub_004104A0(pThis, nullptr, value);
+    UNIMPLEMENTED;//return __sub_004104A0(pThis, nullptr, value);
 }
 
 MY_UINT128& MY_UINT128::operator-=(const MY_UINT128& arg0)
@@ -179,17 +186,19 @@ MY_UINT128& MY_UINT128::_op_subassign_16(MY_UINT128* pThis, const MY_UINT128& ar
 
 MY_UINT128& MY_UINT128::_op_orassign_17(MY_UINT128* pThis, unsigned long value)
 {
-    return __sub_004104A0(pThis, nullptr, value);
+    UNIMPLEMENTED;//return __sub_004104A0(pThis, nullptr, value);
 }*/
 
 MY_UINT128& MY_UINT128::operator|=(const MY_UINT128& value)
 {
-    return _op_orassign_18(this, value);
+    //return _op_orassign_18(this, value);
+    this->m_inner |= value.m_inner;
+    return *this;
 }
 
 MY_UINT128& MY_UINT128::_op_orassign_18(MY_UINT128* pThis, const MY_UINT128& value)
 {
-    return __sub_004106F0(pThis, nullptr, value);
+    UNIMPLEMENTED;//return __sub_004106F0(pThis, nullptr, value);
 }
 
 /*MY_UINT128& MY_UINT128::operator&=(unsigned long value)
@@ -199,17 +208,19 @@ MY_UINT128& MY_UINT128::_op_orassign_18(MY_UINT128* pThis, const MY_UINT128& val
 
 MY_UINT128& MY_UINT128::_op_andassign_19(MY_UINT128* pThis, unsigned long value)
 {
-    return __sub_004104A0(pThis, nullptr, value);
+    UNIMPLEMENTED;//return __sub_004104A0(pThis, nullptr, value);
 }*/
 
 MY_UINT128& MY_UINT128::operator&=(const MY_UINT128& value)
 {
-    return _op_andassign_20(this, value);
+    m_inner &= value.m_inner;
+    return *this;
 }
 
 MY_UINT128& MY_UINT128::_op_andassign_20(MY_UINT128* pThis, const MY_UINT128& value)
 {
-    return __sub_00410780(pThis, nullptr, value);
+    *pThis = *pThis & value;
+    return *pThis;
 }
 
 MY_UINT128 MY_UINT128::operator+(const unsigned long arg0)
@@ -269,13 +280,16 @@ MY_UINT128 MY_UINT128::_op_bitor_25(MY_UINT128* pThis, const unsigned long arg0)
 
 MY_UINT128 MY_UINT128::operator|(const MY_UINT128& value)
 {
-    return _op_bitor_26(this, value);
+    MY_UINT128 res;
+    res.m_inner = this->m_inner | value.m_inner;
+    return res;
 }
 
 MY_UINT128 MY_UINT128::_op_bitor_26(MY_UINT128* pThis, const MY_UINT128& value)
 {
-    MY_UINT128 ret;
-    return *__sub_00410720(pThis, nullptr, &ret, value);
+    //MY_UINT128 ret;
+    //return *__sub_00410720(pThis, nullptr, &ret, value);
+    return *pThis | value;
 }
 
 /*MY_UINT128 MY_UINT128::operator&(const unsigned long arg0)
@@ -291,13 +305,17 @@ MY_UINT128 MY_UINT128::_op_bitand_27(MY_UINT128* pThis, const unsigned long arg0
 
 MY_UINT128 MY_UINT128::operator&(const MY_UINT128& value)
 {
-    return _op_bitand_28(this, value);
+    MY_UINT128 res;
+    res.m_inner = this->m_inner & value.m_inner;
+    return res;
 }
 
 MY_UINT128 MY_UINT128::_op_bitand_28(MY_UINT128* pThis, const MY_UINT128& value)
 {
-    MY_UINT128 ret;
-    return *__sub_004107B0(pThis, nullptr, &ret, value);
+    /*MY_UINT128 ret;
+    return *__sub_004107B0(pThis, nullptr, &ret, value);*/
+
+    return *pThis & value;
 }
 
 bool MY_UINT128::operator==(unsigned long arg0)
@@ -439,20 +457,20 @@ bool MY_UINT128::operator!()
 
 bool MY_UINT128::_op_not_41(MY_UINT128* pThis)
 {
-    return __sub_00410610(pThis, nullptr);
+    UNIMPLEMENTED;//return __sub_00410610(pThis, nullptr);
 }
 
-MY_UINT128::operator bool()
+MY_UINT128::operator bool() const
 {
-    return _op_42(this);
+    return static_cast<bool>(m_inner);
 }
 
 bool MY_UINT128::_op_42(MY_UINT128* pThis)
 {
-    return __sub_00410810(pThis, nullptr);
+    return static_cast<bool>(pThis->m_inner);
 }
 
 const MY_UINT128 __cdecl operator__86150(const MY_UINT128 value)
 {
-    return __sub_00410820(value);
+    UNIMPLEMENTED;//return __sub_00410820(value);
 }

@@ -145,7 +145,7 @@ public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
@@ -157,7 +157,7 @@ public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
 
 public:
-	int32_t OnKeyRet(uint32_t wParam, uint32_t lParam);
+	int32_t OnKeyRet(uint32_t wParam, int32_t lParam);
 
 public:
 	void ChangeCategory();
@@ -230,7 +230,7 @@ public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);
@@ -239,7 +239,7 @@ public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
 
 public:
-	int32_t OnKeyRet(uint32_t wParam, uint32_t lParam);
+	int32_t OnKeyRet(uint32_t wParam, int32_t lParam);
 
 public:
 	CCSWnd_Status &operator=(const CCSWnd_Status &arg0);
@@ -352,7 +352,7 @@ public:
 		long nY{};
 
 	public:
-		ZXString<unsigned short> sUOL;
+		ZXString16 sUOL;
 		// Methods
 	public:
 		~PICTURE_PLATE();
@@ -524,7 +524,7 @@ public:
 	virtual int32_t OnMouseWheel(long rx, long ry, long nWheel);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
@@ -545,7 +545,7 @@ public:
 	virtual void ClearToolTip();
 
 public:
-	int32_t OnKeyRet(uint32_t wParam, uint32_t lParam);
+	int32_t OnKeyRet(uint32_t wParam, int32_t lParam);
 
 public:
 	void SetCursorToPlate(long nPlate);

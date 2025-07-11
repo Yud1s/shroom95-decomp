@@ -52,7 +52,7 @@ public:
 	union
 	{
 	public:
-		SECRECT rcRange;
+		SECRECT rcRang;
 
 	public:
 		TzRange tzRange;
@@ -424,7 +424,7 @@ public:
 	long nEscortType{};
 
 public:
-	std::array<ZRef<MobAttackInfo>, 9> m_apAttackInfo;
+	std::array<ZRef<MobAttackInfo>, 9> m_apAttackInfo{};
 
 public:
 	ZArray<MobSkillInfo> m_aSkillInfo;
@@ -712,10 +712,10 @@ public:
 	long __fastcall _ZtlSecurePut_nHPTagBgColor(long arg0);
 
 public:
-	int32_t IsLevelVisible();
+	int32_t IsLevelVisible() const;
 
 public:
-	int32_t IsDamagedBySelectedSkill();
+	int32_t IsDamagedBySelectedSkill() const;
 
 public:
 	int32_t IsVulnerableTo(long nSkillID);

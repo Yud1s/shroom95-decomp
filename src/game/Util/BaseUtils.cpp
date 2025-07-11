@@ -1,6 +1,10 @@
 #include "BaseUtils.hpp"
 
+#include <skills_ids.h>
+#include <WvsStatics.h>
 #include <ActionFrame/ActionFrame.hpp>
+#include <QuestMan/QuestMan.hpp>
+#include <StringDecoder/StringDecoder.hpp>
 
 #include "WvsContext/WvsContext.hpp"
 
@@ -25,7 +29,7 @@ _x_com_ptr<IUnknown> __cdecl get_unknown(Ztl_variant_t& v)
     const auto unk = v.GetUnknown(false, false);
     if (!unk)
     {
-        return _x_com_ptr<IUnknown>();
+        return {};
         //_com_raise_error(E_POINTER);
     }
 
@@ -68,10 +72,42 @@ const uint32_t g_anWeaponType[18] =
 static std::array<IWzFont*, 0x61> spFontBasic{};
 
 /*NAKED */
+//TODO(NAKED)
 int get_magic_attack_element_attribute(wchar_t const* s, int32_t* nElemAttr)
 {
-    //_RASM_PLACEHOLDER(0x658fa0)
-    UNIMPLEMENTED;
+    int result; // eax
+
+    switch (*s)
+    {
+    case 0u:
+        *nElemAttr = 0;
+        result = 1;
+        break;
+    case 0x46u:
+    case 0x66u:
+        *nElemAttr = 2;
+        result = 1;
+        break;
+    case 0x49u:
+    case 0x69u:
+        *nElemAttr = 1;
+        result = 1;
+        break;
+    case 0x4Cu:
+    case 0x6Cu:
+        *nElemAttr = 3;
+        result = 1;
+        break;
+    case 0x53u:
+    case 0x73u:
+        *nElemAttr = 4;
+        result = 1;
+        break;
+    default:
+        result = 0;
+        break;
+    }
+    return result;
 }
 
 void GetModuleFolderName(char* sDir)
@@ -82,23 +118,60 @@ void GetModuleFolderName(char* sDir)
     UNIMPLEMENTED;
 }
 
-long _anon_calc_evar(long arg1, long arg2, long arg3, long arg4, long arg5)
+long _anon_calc_evar(long nEVA, long nMobACC, long nTargetLevel, long nAttackLevel, long nEr)
 {
-    // TODO 0x724d50
-    return 0;
+    int v5; // eax
+    long double v6; // st7
+    int v7; // eax
+    int result; // eax
+    int v9; // ecx
+
+    v5 = sqrt(nEVA);
+    v6 = sqrt(nMobACC);
+    v7 = v5 - v6 + nEr * (v5 - v6) / 100;
+    result = v7 <= 0 ? 0 : v7;
+    if (nAttackLevel > nTargetLevel)
+    {
+        v9 = 5 * (nAttackLevel - nTargetLevel);
+        if (v9 >= result)
+            v9 = result;
+        result -= v9;
+    }
+    return result;
 }
 
 ZXString<char> format_comma_integer(int32_t i)
 {
-    // TODO 0x965b20
-    return ZXString("");
+    auto commaStr = StringPool::GetInstance().GetString(0x1a15);
+    auto tmp = ZXString<char>::FromFmt(commaStr.c_str(), i);
+
+    //TODO(game) commas
+
+    return tmp;
 }
 
 int32_t get_mobspecies_code_from_name(Ztl_bstr_t sName)
 {
-    //_RASM_PLACEHOLDER(0x4baa20)
-    // UNIMPLEMENTED;
-    return 0;
+    static Ztl_bstr_t MOB_SPECIES_NAME[4] = {
+        _GetBSTR(0x4a8),
+        _GetBSTR(0x4a9),
+        _GetBSTR(0x1ae1),
+        _GetBSTR(0x4aa),
+    };
+
+    auto code = 0;
+
+    for (auto& name : MOB_SPECIES_NAME)
+    {
+        if (name == sName.op_ushort_str())
+        {
+            return code;
+        }
+
+        ++code;
+    }
+
+    return 3;
 }
 
 int is_fieldtype_upgradetomb_usable(long nFieldType, long nFieldID)
@@ -130,14 +203,61 @@ void make_SingleColor_alpha_blur_1(_x_com_ptr<IWzCanvas> pCanvas, uint16_t color
 
 int GetPersonalShopTax(int32_t nMoney)
 {
-    // TODO 0x697920
-    UNIMPLEMENTED;
+    int result; // eax
+
+    result = 0;
+    if (nMoney >= 100000000)
+        return (nMoney * 0.03);
+    if (nMoney >= 25000000)
+        return (nMoney * 0.025);
+    if (nMoney >= 0x989680)
+        return (nMoney * 0.02);
+    if (nMoney >= 0x4C4B40)
+        return (nMoney * 0.015);
+    if (nMoney >= 1000000)
+        return (nMoney * 0.008999999999999999);
+    if (nMoney >= 100000)
+        return (nMoney * 0.004);
+    return result;
 }
 
 bool isAllConditionsSatisfied(uint16_t questId)
 {
-    // TODO 0x0082c310
-    return false;
+    auto ctx = CWvsContext::GetInstance();
+    auto qm = CQuestMan::GetInstance();
+    auto itemInfo = CItemInfo::GetInstance();
+    auto demand = qm->GetCompleteDemand(questId);
+
+
+    for (auto& dem : demand->aDemandItem)
+    {
+        //auto name = itemInfo->GetItemName(dem.nItemID);
+        if (dem.nCount > ctx->GetItemCount(dem.nItemID))
+        {
+            return false;
+        }
+    }
+    auto cd = ctx->GetCharacterData();
+
+    auto nTo = 3;
+
+    ZXString<char> val;
+    if (!cd->GetQuest(questId, val))
+        return true;
+
+    //TODO(game) parse quest str
+    /*
+    for (auto& dem: demand->aDemandMob)
+    {
+
+
+        //if (dem.nCount > mobCount)
+
+        nTo += 3;
+    }*/
+
+
+    return true;
 }
 
 void make_SingleColor_alpha_blur_0(_x_com_ptr<IWzRawCanvas> pRawCanvas, uint16_t color, uint16_t radius)
@@ -147,7 +267,29 @@ void make_SingleColor_alpha_blur_0(_x_com_ptr<IWzRawCanvas> pRawCanvas, uint16_t
 
 int calculate_parbolic_motion_duration(int32_t y1, int32_t y2, int32_t bDropExplosiveNoOwn)
 {
-    return 0; // TODO 0x50f690
+    double v3; // st7
+    double v4; // st6
+    double v6; // st7
+    double t; // [esp+0h] [ebp-10h]
+    double v8; // [esp+8h] [ebp-8h]
+
+    v3 = 100.0;
+    v4 = 1.0;
+    t = 1.0;
+    if (bDropExplosiveNoOwn)
+    {
+        v3 = 180.0;
+        v4 = 1.8;
+        t = 1.8;
+    }
+    if (y1 <= y2)
+        return (v4 * 1000.0);
+    v8 = v4 * 1000.0;
+    v6 = (30 * (sqrt(1000.0 * (v3 + y2 - y1 + v3 + y2 - y1) / 800.0) + 1)) + t * 500.0;
+    if (v8 >= v6)
+        return v6;
+    else
+        return v8;
 }
 
 int _anon_FindGrade_(int grade)
@@ -169,10 +311,32 @@ int _anon_FindGrade_(int grade)
     return grades.size();
 }
 
-NAKED void DecSpeed(double* v, double f, double m, double vMax, double tSec)
+void DecSpeed(double* v, double f, double m, double vMax, double tSec)
 {
-    // TODO
-    _RASM_PLACEHOLDER(0x9908c0);
+    // st6
+
+    long double v5 = vMax;
+    long double v7 = 0.;
+    if (vMax >= 0.0)
+    {
+        if (vMax < *v)
+        {
+            long double v6 = *v - f / m * tSec;
+            *v = v6;
+            if (v6 >= vMax)
+                return;
+            goto LABEL_4;
+        }
+        v5 = -vMax;
+        if (-vMax > *v)
+        {
+            v7 = f / m * tSec + *v;
+            *v = v7;
+            if (v7 > v5)
+            LABEL_4:
+                *v = v5;
+        }
+    }
 }
 
 int DecMPVal(int nJob)
@@ -274,16 +438,64 @@ int IncMPVal(int nJob)
     }
 }
 
-void get_damage_adjusted_by_elemAttr_0(double damage, const SKILLENTRY* pSkill, const int32_t* aDamagedElemAttr,
-                                       const int32_t nSLV, double dAdjustByBuff, double dBoost)
+double get_damage_adjusted_by_elemAttr_0(double damage, const SKILLENTRY* pSkill, const int32_t* aDamagedElemAttr,
+                                         const int32_t nSLV, double dAdjustByBuff, double dBoost)
 {
-    // TODO 0x723270
+    if (!pSkill || !nSLV)
+        return damage;
+    const int nSkillID = pSkill->nSkillID;
+    if (pSkill->nSkillID > 3111003)
+    {
+        if (nSkillID != 3211003)
+            return get_damage_adjusted_by_elemAttr_1(damage, aDamagedElemAttr[pSkill->nAttackElemAttr], dAdjustByBuff,
+                                                     dBoost);
+    }
+    else if (pSkill->nSkillID != 3111003)
+    {
+        if (nSkillID == 2111006)
+        {
+            const auto damage_adjusted_by_elemAttr = get_damage_adjusted_by_elemAttr_1(
+                damage * 0.5, aDamagedElemAttr[4], 1.0, dBoost);
+            return get_damage_adjusted_by_elemAttr_1(damage * 0.5, aDamagedElemAttr[2], 1.0, 0.0) +
+                damage_adjusted_by_elemAttr;
+        }
+        if (nSkillID == 2211006)
+        {
+            const auto adj = get_damage_adjusted_by_elemAttr(damage * 0.5, aDamagedElemAttr[3], 1.0, dBoost);
+            return get_damage_adjusted_by_elemAttr_1(damage * 0.5, aDamagedElemAttr[1], 1.0, 0.0) + adj;
+        }
+        return get_damage_adjusted_by_elemAttr(damage, aDamagedElemAttr[pSkill->nAttackElemAttr], dAdjustByBuff,
+                                               dBoost);
+    }
+    auto& lvlData = pSkill->GetLevelData(nSLV);
+    auto x = lvlData._ZtlSecureGet_nX();
+    return get_damage_adjusted_by_elemAttr_1(damage, aDamagedElemAttr[pSkill->nAttackElemAttr], x / 100.0, dBoost);
 }
 
-int get_damage_adjusted_by_elemAttr_1(double damage, int32_t nAttr, double dAdjust, double dBoost)
+double get_damage_adjusted_by_elemAttr_1(double damage, int32_t nAttr, double dAdjust, double dBoost)
 {
-    // TODO 0x7231e0
-    return 0;
+    long double result; // st7
+
+    switch (nAttr)
+    {
+    case 1:
+        result = (1.0 - dAdjust) * damage;
+        break;
+    case 2:
+        result = (1.0 - (dAdjust * 0.5 + dBoost)) * damage;
+        break;
+    case 3:
+        result = (dAdjust * 0.5 + dBoost + 1.0) * damage;
+        if (damage >= result)
+            result = damage;
+        if (result >= 999999.0)
+            result = 999999.0;
+        break;
+    default:
+        result = damage;
+        break;
+    }
+    return result;
 }
 
 int get_next_level_exp(int level)
@@ -301,8 +513,36 @@ int get_next_level_exp(int level)
 int32_t get_random_magic_attack_action(int32_t nAttackActionType, int32_t nWT, const SKILLENTRY* pSkill, int32_t nSLV,
                                        uint32_t nRandNumber)
 {
-    // TODO 0x70b840
-    UNIMPLEMENTED;
+    int v6; // ecx
+    int v7; // esi
+
+    if ((nAttackActionType - 1) > 9)
+        return -1;
+    if (!pSkill)
+        goto LABEL_9;
+    if (!pSkill->IsCorrectWeaponType(nWT, -1))
+        return -1;
+    if (pSkill->IsActionAppointed(nSLV))
+    {
+        if (pSkill->nSkillType != 3)
+            return pSkill->GetRandomAppointedAction(nSLV, nRandNumber);
+        goto LABEL_8;
+    }
+    if (pSkill->nSkillType != 3)
+    {
+    LABEL_9:
+        v6 = 2 * nAttackActionType - 2;
+        goto LABEL_10;
+    }
+LABEL_8:
+    v6 = 2 * nAttackActionType - 1;
+LABEL_10:
+
+    auto n = _D_AMAGICATTACKACTI[v6][0];
+    if (n <= 0)
+        return -1;
+    auto randIx = nRandNumber % n;
+    return _D_AMAGICATTACKACTI[v6][randIx + 1];
 }
 
 long __cdecl get_weapon_typeindex_from_weapon_type(long param_1)
@@ -347,58 +587,51 @@ void MSLoop_Remove()
 
 ZXString<char> get_labeled_string_1(_x_com_ptr<IWzProperty> pProp, char* str, Ztl_bstr_t key)
 {
-    Ztl_bstr_t bstr(str);
-    auto item = pProp->Getitem(bstr).GetUnknown(false, false);
-    _x_com_ptr<IWzProperty> subProp(item);
-    if (!subProp)
+    auto sub = pProp->GetItemT<IWzProperty>(Ztl_bstr_t(str));
+    if (sub)
     {
-        // TODO verify
-        return ZXString<char>();
+        auto label = sub->Getitem(key);
+        if (label.vt == VT_BSTR)
+        {
+            ZXString<char> result;
+            result.AssignWideStr(static_cast<const wchar_t*>(label.bstrVal));
+            return result;
+        }
     }
-
-    auto label = subProp->Getitem(key);
-    if (label.vt == VT_BSTR)
-    {
-        ZXString<char> result;
-        result.AssignWideStr(static_cast<const wchar_t*>(label.bstrVal));
-        return result;
-    }
-    else
-    {
-        return ZXString<char>();
-    }
-
-    // 0095dbf0 TODO
-    // UNIMPLEMENTED;
+    return {};
 }
 
 ZXString<char> get_labeled_string_0(_x_com_ptr<IWzProperty> pProp, long id, Ztl_bstr_t sKey)
 {
-    wchar_t buf[16];
+    wchar_t buf[16]{};
     _itow_s(id, buf, 10);
-    Ztl_bstr_t bstr(buf);
 
-    auto item = pProp->Getitem(Ztl_bstr_t(buf)).GetUnknown(false, false);
-    _x_com_ptr<IWzProperty> subProp(item);
 
-    auto label = subProp->Getitem(sKey);
-    if (label.vt == VT_BSTR)
+    auto sub = pProp->GetItemT<IWzProperty>(buf);
+    if (sub)
     {
-        ZXString<char> result;
-        result.AssignWideStr(static_cast<const wchar_t*>(label.bstrVal));
-        return result;
+        auto label = sub->Getitem(sKey);
+        if (label.vt == VT_BSTR)
+        {
+            ZXString<char> result;
+            result.AssignWideStr(static_cast<const wchar_t*>(label.bstrVal));
+            return result;
+        }
     }
-    else
-    {
-        return ZXString<char>();
-    }
-    // 0x95d9d0 TODO
-    UNIMPLEMENTED;
+    return {};
 }
 
 bool is_treat_singly_1(GW_ItemSlotBase& item)
 {
-    UNIMPLEMENTED;
+    auto id = item.nItemID.GetData();
+    auto v1 = id / 1000000;
+    if (v1 == 2 || v1 == 3 || v1 == 4)
+    {
+        auto v2 = id / 10000;
+        if (v2 != 207 && v2 != 233 && CompareFileTime(&item.dateExpire, &_D_DB_DATE_20790101__3) >= 0)
+            return false;
+    }
+    return true;
 }
 
 ZXString<char> GetChannelName(int channel)
@@ -423,50 +656,177 @@ ZXString<char> GetChannelName(int channel)
 int32_t get_attack_speed_degree(int32_t nDegree, int32_t nSkillID, int32_t nWeaponBooster, int32_t nPartyBooster,
                                 int32_t nAuraBooster, int32_t nFrozen)
 {
-    // TODO 006ee880
-    //  TODO verify
-    switch (nSkillID)
+    int v6; // esi
+    // esi
+    // eax
+
+    if (nSkillID > DB4_BLOODY_STORM)
     {
-    case 4311003:
-    case 4321001:
-    case 4331000:
-    case 4331002:
-    case 4341002:
-    case 4341003:
+        if (nSkillID != DB4_FLYING_ASSAULTER && (nSkillID <= (DB5_MAPLE_WARRIOR | 0x1) || nSkillID > DB5_MONSTER_BOMB))
+            goto LABEL_12;
+        goto LABEL_11;
+    }
+    if (nSkillID == DB4_BLOODY_STORM)
+    {
+    LABEL_11:
+        nWeaponBooster = 0;
         nPartyBooster = 0;
-        nAuraBooster = 0;
         nFrozen = 0;
-        break;
-    case 4001334:
-        nDegree = nDegree - 2;
-        break;
-    default:
-        break;
+    LABEL_12:
+        v6 = nDegree;
+        goto LABEL_13;
     }
-
-    nDegree = (nDegree + (nWeaponBooster + nPartyBooster) + nAuraBooster);
-    // TODO
-    if (nFrozen && nDegree < 10)
+    if (nSkillID != THIEF_DOUBLE_STAB)
     {
-        auto nFrozenDegree = 10 - nDegree;
-        auto frozenRatio = ((double)nFrozen / 100.);
-        nDegree = nDegree + (int)(frozenRatio * nFrozenDegree);
+        if (nSkillID != DB2_SLASH_STORM && nSkillID != DB3_TORNADO_SPIN_ATTACK)
+            goto LABEL_12;
+        goto LABEL_11;
     }
-
-    // return std::clamp(nDegree, 2, 10);
-    return nDegree; // TODO
+    v6 = nDegree - 2;
+LABEL_13:
+    int v7 = nAuraBooster + nPartyBooster + nWeaponBooster + v6;
+    if (nFrozen && v7 < 10)
+        v7 += ((nFrozen * (10 - v7)) / 100.0);
+    if (v7 <= 2)
+        return 2;
+    int result = v7;
+    if (v7 >= 10)
+        return 10;
+    return result;
 }
 
-int get_shield_mastery(CharacterData* cd)
+int get_shield_mastery(const CharacterData& cd)
 {
-    // 00709e80
-    UNIMPLEMENTED;
+    static const SKILLENTRY* s_pThiefMaster_ShieldMastery = nullptr;
+    static const SKILLENTRY* s_pKnight_ShieldMastery = nullptr;
+
+    auto job = cd.characterStat._ZtlSecureGet_nJob();
+    auto skillInfo = CSkillInfo::GetInstance();
+    if (is_correct_job_for_skill_root(job, 121))
+    {
+        auto slvl = skillInfo->GetSkillLevel(cd, 1210001, &s_pKnight_ShieldMastery);
+        if (slvl)
+        {
+            auto& lvlData = s_pKnight_ShieldMastery->GetLevelData(slvl);
+            return lvlData._ZtlSecureGet_nX();
+        }
+    }
+    else
+    {
+        if (is_correct_job_for_skill_root(job, 421))
+        {
+            auto slvl = skillInfo->GetSkillLevel(
+                cd,
+                0x403D50,
+                &s_pThiefMaster_ShieldMastery);
+            if (slvl)
+            {
+                auto& lvlData = s_pThiefMaster_ShieldMastery->GetLevelData(slvl);
+                return lvlData._ZtlSecureGet_nX();
+            }
+        }
+    }
+    return 0;
 }
 
 bool IsAbleTamingMobOneTimeAction(int32_t nAction, int32_t nVehicleID)
 {
-    // 0x4b7e70
-    return false; // TODO
+    std::array RIDING_WILDHUNTER_JAGUAR_0 = {
+        0,
+        1932015,
+        1932030,
+        1932031,
+        1932032,
+        1932033,
+        1932036
+
+    };
+    //TODO(game) verify
+    for (const auto id : RIDING_WILDHUNTER_JAGUAR_0)
+    {
+        if (id != nVehicleID)
+            continue;
+
+        switch (nAction)
+        {
+        case 57:
+        case 142:
+        case 207:
+        case 208:
+        case 212:
+        case 214:
+        case 229:
+        case 247:
+        case 248:
+        case 249:
+        case 250:
+        case 251:
+        case 253:
+        case 255:
+        case 256:
+            return true;
+        default:
+            goto LABEL_4;
+        }
+    }
+LABEL_4:
+    if (nVehicleID != 1932016)
+        return false;
+    if (nAction > 222)
+    {
+        switch (nAction)
+        {
+        case 224:
+        case 225:
+        case 226:
+        case 228:
+        case 233:
+        case 235:
+        case 236:
+        case 238:
+        case 239:
+        case 240:
+        case 241:
+        case 242:
+        case 243:
+        case 244:
+        case 245:
+        case 246:
+        case 257:
+        case 258:
+        case 259:
+        case 260:
+        case 261:
+        case 262:
+        case 263:
+        case 264:
+            return true;
+        default:
+            return false;
+        }
+    }
+    if (nAction != 222)
+    {
+        switch (nAction)
+        {
+        case 9:
+        case 10:
+        case 64:
+        case 65:
+        case 116:
+        case 209:
+        case 211:
+        case 215:
+        case 216:
+        case 218:
+        case 219:
+        case 220:
+            return true;
+        default:
+            return false;
+        }
+    }
+    return true;
 }
 
 bool IsAbleTamingMobAction(int32_t nAction, int32_t nVehicleID)
@@ -526,31 +886,36 @@ bool is_pronestab_action(int action)
     return action == 0x29 || action == 0x39;
 }
 
-bool is_shoot_action(int action)
+bool is_shoot_action(int nAction)
 {
-    if (((((action < 0x1f) || (0x24 < action)) && (action != 0x4b)) &&
-            (((action != 0x74 && (action != 0x6f)) &&
-                ((action != 100 && ((action != 0x6d && (action != 0x6e)))))))) &&
-        ((action != 0x7a &&
-            (((((action != 0x73 && (action != 0x7b)) && (action != 0x8e)) &&
-                    ((action != 0x10c && (action != 0x10d)))) &&
-                ((action != 200 && (action != 0xcb))))))))
-    {
-        return false;
-    }
-    return true;
+    return nAction >= 31 && nAction <= 36
+        || nAction == 75
+        || nAction == 116
+        || nAction == 111
+        || nAction == 100
+        || nAction == 109
+        || nAction == 110
+        || nAction == 122
+        || nAction == 115
+        || nAction == 123
+        || nAction == 142
+        || nAction == 268
+        || nAction == 269
+        || nAction == 200
+        || nAction == 203;
 }
 
-bool is_stand_action(int action)
+bool is_stand_action(int nAction)
 {
-    if ((((((action < 2) || (3 < action)) && (action != 0x30)) &&
-                ((action != 0x31 && (action != 0x32)))) &&
-            ((action != 0x33 && ((action != 0x34 && (action != 0x35)))))) &&
-        ((action != 0x36 && (action != 0x7d))))
-    {
-        return false;
-    }
-    return true;
+    return nAction >= 2 && nAction <= 3
+        || nAction == 48
+        || nAction == 49
+        || nAction == 50
+        || nAction == 51
+        || nAction == 52
+        || nAction == 53
+        || nAction == 54
+        || nAction == 125;
 }
 
 int get_action_from_act_dir(int l)
@@ -563,19 +928,25 @@ bool is_magic_attack_action(int action)
     return (action - 37) < 3;
 }
 
-bool is_sticker_bodypart(int bodyPart)
+bool is_sticker_bodypart(int nBodyPart)
 {
-    if (((((((bodyPart != 1) && (bodyPart != 5)) && (bodyPart != 6)) &&
-                    ((bodyPart != 7 && (bodyPart != 8)))) &&
-                ((bodyPart != 0xb && ((bodyPart != 3 && (bodyPart != 2)))))) &&
-            (bodyPart != 0xc)) &&
-        ((((bodyPart != 0xd && (bodyPart != 0xf)) && (bodyPart != 0x10)) &&
-            (((bodyPart != 9 && (bodyPart != 4)) &&
-                ((bodyPart != 10 && ((bodyPart != 0x12 && (bodyPart != 0x13))))))))))
-    {
-        return false;
-    }
-    return true;
+    return nBodyPart == 1
+        || nBodyPart == 5
+        || nBodyPart == 6
+        || nBodyPart == 7
+        || nBodyPart == 8
+        || nBodyPart == 11
+        || nBodyPart == 3
+        || nBodyPart == 2
+        || nBodyPart == 12
+        || nBodyPart == 13
+        || nBodyPart == 15
+        || nBodyPart == 16
+        || nBodyPart == 9
+        || nBodyPart == 4
+        || nBodyPart == 10
+        || nBodyPart == 18
+        || nBodyPart == 19;
 }
 
 double get_damage_adjusted_by_assist_charged_elemAttr(double damage, long const* aDamagedElemAttr,
@@ -589,7 +960,7 @@ double get_damage_adjusted_by_assist_charged_elemAttr(double damage, long const*
 
     auto rCharge = ss->_ZtlSecureGet_rAssistCharge_();
     auto elem = get_element_by_charged_skillid(rCharge);
-    if (elem == 0)
+    if (!elem)
     {
         return 0.;
     }
@@ -609,88 +980,193 @@ double get_damage_adjusted_by_assist_charged_elemAttr(double damage, long const*
     auto z = lvlData._ZtlSecureGet_nZ();
     auto nDmg = lvlData._ZtlSecureGet_nDamage();
 
-    double dZ = (double)z / 100.;
-    double a = (((double)nDmg / 100.0 - 1.0)) * damage * 0.5;
-    // TODO use dZ
-    UNIMPLEMENTED;
     return get_damage_adjusted_by_elemAttr(
-        a, se, aDamagedElemAttr, lvl, 0.0, 0.0);
+        (nDmg - 1.0) * damage * 0.5,
+        aDamagedElemAttr[elem],
+        z,
+        0.0);
 }
 
 bool is_correct_magic_attack(int32_t nAttackActionType, int32_t nWT, int32_t nAction, const SKILLENTRY* pSkill,
                              int32_t nSLV)
 {
-    // 0x70ba60
-    UNIMPLEMENTED;
-}
+    if (nAttackActionType - 1 > 9)
+        return false;
+    auto act = 2 * nAttackActionType - 2;
 
-bool is_correct_siege_attack(int32_t nAction, int skillId)
-{
-    if (skillId < 0x217e775)
+    if (pSkill)
     {
-        if (skillId == 0x217e774)
+        if (!pSkill->IsCorrectWeaponType(nWT, -1))
+            return false;
+
+        if (pSkill->IsActionAppointed(nSLV) && pSkill->nSkillType != 3)
         {
-            if (nAction == 0xe0)
-            {
-                return true;
-            }
+            return pSkill->IsCorrectAppointedAction(nSLV, nAction);
         }
-        else if (skillId == 0x217c05c)
+        if (pSkill->nSkillType == 3)
         {
-            if (nAction == 0xd8)
-            {
-                return true;
-            }
-        }
-        else if ((skillId == 0x217e76d) && (nAction == 0xdc))
-        {
-            return true;
+            act = 2 * nAttackActionType - 1;
         }
     }
-    else if ((skillId == 0x217e775) && (nAction == 0xe2))
+
+    auto n = _D_AMAGICATTACKACTI[act][0];
+    for (auto i = 0; i < n; ++i)
+    {
+        if (_D_AMAGICATTACKACTI[act][i + 1] == nAction)
+            return true;
+    }
+
+    return false;
+}
+
+bool is_correct_siege_attack(int32_t nAction, int nSkillID)
+{
+    if (nSkillID == MECH4_MECH_SIEGE_MODE && nAction == 226)
+        return true;
+    if (nSkillID == MECH4_LASER_BLAST && nAction == 224)
+    {
+        return true;
+    }
+
+    if (nSkillID == MECH3_MECH_SIEGE_MODE && nAction == 216)
+    {
+        return true;
+    }
+    if (nSkillID == MECH4_MECH_MISSILE_TANK && nAction == 220)
     {
         return true;
     }
     return false;
 }
 
-bool is_town_field_id(int fieldId)
+bool is_town_field_id(int dwFieldId)
 {
-    if ((((((((fieldId != 100000000) && (fieldId != 101000000)) && (fieldId != 102000000)) &&
-                        (((fieldId != 103000000 && (fieldId != 104000000)) &&
-                            ((fieldId != 0x642c9ac && ((fieldId != 120000000 && (fieldId != 200000000)))))))) &&
-                    (fieldId != 211000000)) &&
-                (((fieldId != 220000000 && (fieldId != 221000000)) && (fieldId != 222000000)))) &&
-            (((fieldId != 230000000 && (fieldId != 240000000)) &&
-                ((fieldId != 250000000 && ((fieldId != 251000000 && (fieldId != 260000000)))))))) &&
-        (((fieldId != 261000000 &&
-                (((((fieldId != 500000000 && (fieldId != 600000000)) && (fieldId != 680000000)) &&
-                        ((fieldId != 701000000 && (fieldId != 0x29c86a08)))) &&
-                    ((fieldId != 702000000 && ((fieldId != 0x29d93220 && (fieldId != 740000000)))))))) &&
-            ((fieldId != 741000000 &&
-                (((fieldId != 742000000 && (fieldId != 800000000)) && (fieldId != 801000000))))))))
+    return dwFieldId == 100000000
+        || dwFieldId == 101000000
+        || dwFieldId == 102000000
+        || dwFieldId == 103000000
+        || dwFieldId == 104000000
+        || dwFieldId == 105040300
+        || dwFieldId == 120000000
+        || dwFieldId == 200000000
+        || dwFieldId == 211000000
+        || dwFieldId == 220000000
+        || dwFieldId == 221000000
+        || dwFieldId == 222000000
+        || dwFieldId == 230000000
+        || dwFieldId == 240000000
+        || dwFieldId == 250000000
+        || dwFieldId == 251000000
+        || dwFieldId == 260000000
+        || dwFieldId == 261000000
+        || dwFieldId == 500000000
+        || dwFieldId == 600000000
+        || dwFieldId == 680000000
+        || dwFieldId == 701000000
+        || dwFieldId == 701000200
+        || dwFieldId == 702000000
+        || dwFieldId == 702100000
+        || dwFieldId == 740000000
+        || dwFieldId == 741000000
+        || dwFieldId == 742000000
+        || dwFieldId == 800000000
+        || dwFieldId == 801000000;
+}
+
+ZXString<char> get_bodyaprt_name(int nBodyPart)
+{
+    auto v4 = 0;
+    switch (nBodyPart)
     {
-        return false;
+    case 1:
+        v4 = 634;
+        break;
+    case 2:
+        v4 = 635;
+        break;
+    case 3:
+        v4 = 636;
+        break;
+    case 4:
+        v4 = 637;
+        break;
+    case 5:
+        v4 = 639;
+        break;
+    case 6:
+        v4 = 640;
+        break;
+    case 7:
+        v4 = 641;
+        break;
+    case 8:
+        v4 = 642;
+        break;
+    case 9:
+        v4 = 643;
+        break;
+    case 10:
+        v4 = 644;
+        break;
+    case 12:
+    case 13:
+    case 15:
+    case 16:
+        v4 = 645;
+        break;
+    case 17:
+    case 59:
+        v4 = 646;
+        break;
+    case 18:
+        v4 = 3848;
+        break;
+    case 19:
+        v4 = 3849;
+        break;
+    case 20:
+        v4 = 3852;
+        break;
+    case 49:
+        v4 = 647;
+        break;
+    case 50:
+        v4 = 648;
+        break;
+    case 51:
+        v4 = 5717;
+        break;
+    default:
+        return {};
     }
-    return true;
+    return StringPool::GetInstance().GetString(v4);
 }
 
-ZXString<char> get_bodyaprt_name(int bodyPart)
+int GetParcelTax(int nMoney)
 {
-    UNIMPLEMENTED;
+    auto result = 0;
+    if (nMoney >= 100000000)
+        return (nMoney * 0.06);
+    if (nMoney >= 25000000)
+        return (nMoney * 0.05);
+    if (nMoney >= 0x989680)
+        return (nMoney * 0.04);
+    if (nMoney >= 0x4C4B40)
+        return (nMoney * 0.03);
+    if (nMoney >= 1000000)
+        return (nMoney * 0.018);
+    if (nMoney >= 100000)
+        return (nMoney * 0.008);
+    return result;
 }
 
-int GetParcelTax(int money)
+bool is_final_action(int nAction)
 {
-    UNIMPLEMENTED;
-}
-
-bool is_final_action(int action)
-{
-    if ((((action != 8) && (action != 0xc)) && (action != 0xf)) &&
-        (((action != 0x12 && (action != 0x15)) && ((action != 0x24 && (action != 0x27))))))
-    {
-        return false;
-    }
-    return true;
+    return nAction == 8
+        || nAction == 12
+        || nAction == 15
+        || nAction == 18
+        || nAction == 21
+        || nAction == 36
+        || nAction == 39;
 }

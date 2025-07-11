@@ -167,10 +167,10 @@ public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
-	int32_t OnKeyRet(uint32_t wParam, uint32_t lParam);
+	int32_t OnKeyRet(uint32_t wParam, int32_t lParam);
 
 public:
 	void OnTabChanged(long nTab);
@@ -287,7 +287,7 @@ protected:
 	void DeleteFloatNotice();
 
 protected:
-	void TransientLayer_Weather(ZXString<unsigned short> arg0, long arg1, long arg2, long arg3);
+	void TransientLayer_Weather(ZXString16 arg0, long arg1, long arg2, long arg3);
 
 protected:
 	void TransientLayer_Clear();

@@ -374,7 +374,7 @@ __SUB_CLASS_THIS(00035590, __thiscall, 130728,  CItemInfo, const CItemInfo::AREA
 	_ASM_PLACEHOLDER(00035590, 130728)
 }
 // get_equip_data_path
-__SUB(001A6060, __cdecl, 141485,  ZXString<unsigned short>, long) {
+__SUB(001A6060, __cdecl, 141485,  ZXString16, long) {
 	_ASM_PLACEHOLDER(001A6060, 141485)
 }
 // CItemInfo::LevelInfo::RandomSpeed::GetStatType
@@ -501,7 +501,7 @@ __SUB_CLASS_THIS(00102B60, __thiscall, 130708, CItemInfo, long, ZRef<GW_ItemSlot
 __SUB_CLASS_THIS(001008F0, __thiscall, 130730, CItemInfo, const CItemInfo::LOTTERYITEM *, long){
 	_ASM_PLACEHOLDER(001008F0, 130730)}
 // get_weekly_data_path
-__SUB(001A65F0, __cdecl, 141486, ZXString<unsigned short>, long, uint16_t){
+__SUB(001A65F0, __cdecl, 141486, ZXString16, long, uint16_t){
 	_ASM_PLACEHOLDER(001A65F0, 141486)}
 // CItemInfo::IterateBridleItem
 __SUB_CLASS_THIS0(001B3550, __thiscall, 78614, CItemInfo, void){

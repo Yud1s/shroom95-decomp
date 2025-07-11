@@ -12,12 +12,11 @@ FAKE_ZRef_CAnimationDisplayer_TAnimation_CAnimationDisplayer_CHAINLIGHTNINGINFO{
 
 CAfterImageBullet::~CAfterImageBullet()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAfterImageBullet::_dtor_0()
 {
-    return __sub_0003B470(this, nullptr);
+    this->~CAfterImageBullet();
 }
 
 CAfterImageBullet::CAfterImageBullet(const CAfterImageBullet& arg0)
@@ -33,17 +32,20 @@ void CAfterImageBullet::_ctor_1(const CAfterImageBullet& arg0)
 
 CAfterImageBullet::CAfterImageBullet(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                      _x_com_ptr<IWzVector2D> pVecTarget, int32_t bAfterImage, unsigned long tInterval,
-                                     long nAlpha_Start)
+                                     long nAlpha_Start): CBullet(tStart, tEnd, ptStart, ptEnd, pVecTarget)
 {
-    _ctor_0(tStart, tEnd, ptStart, ptEnd, pVecTarget, bAfterImage, tInterval, nAlpha_Start);
+    //_ctor_0(tStart, tEnd, ptStart, ptEnd, pVecTarget, bAfterImage, tInterval, nAlpha_Start);
+    m_bHasAfterImage = bAfterImage;
+    m_tInterval = tInterval;
+    m_nAlpha_Start = nAlpha_Start;
+    m_tLastUpdated = 0;
 }
 
 void CAfterImageBullet::_ctor_0(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                 _x_com_ptr<IWzVector2D> pVecTarget, int32_t bAfterImage, unsigned long tInterval,
                                 long nAlpha_Start)
 {
-    return __sub_0003B3B0(this, nullptr, tStart, tEnd, CreateNakedParam(ptStart), CreateNakedParam(ptEnd),
-                          CreateNakedParam(pVecTarget), bAfterImage, tInterval, nAlpha_Start);
+    new(this) CAfterImageBullet(tStart, tEnd, ptStart, ptEnd, pVecTarget, bAfterImage, tInterval, nAlpha_Start);
 }
 
 int32_t CAfterImageBullet::Update(long tCur)
@@ -64,6 +66,7 @@ CAfterImageBullet& CAfterImageBullet::_op_assign_4(CAfterImageBullet* pThis, con
 
 CAnimationDisplayer::~CAnimationDisplayer()
 {
+    ms_pInstance = nullptr;
 }
 
 void CAnimationDisplayer::_dtor_0()
@@ -84,12 +87,32 @@ void CAnimationDisplayer::_ctor_1(const CAnimationDisplayer& arg0)
 
 CAnimationDisplayer::CAnimationDisplayer()
 {
-    //TODO UNIMPLEMENTED; //_ctor_0();
+    ms_pInstance = this;
+
+    auto& sp = StringPool::GetInstance();
+
+    auto prop = get_rm()->GetObjectT<IWzProperty>(sp.GetBSTR(0x3dc));
+
+    m_pEffNo_Red0 = prop->GetItemT<IWzProperty>(sp.GetBSTR(989));
+    m_pEffNo_Red1 = prop->GetItemT<IWzProperty>(sp.GetBSTR(990));
+    m_pEffNo_Blue0 = prop->GetItemT<IWzProperty>(sp.GetBSTR(991));
+    m_pEffNo_Blue1 = prop->GetItemT<IWzProperty>(sp.GetBSTR(992));
+
+
+    m_pEffNo_Violet0 = prop->GetItemT<IWzProperty>(sp.GetBSTR(993));
+    m_pEffNo_Violet1 = prop->GetItemT<IWzProperty>(sp.GetBSTR(994));
+
+
+    m_pEffNo_Cri0 = prop->GetItemT<IWzProperty>(sp.GetBSTR(995));
+    m_pEffNo_Cri1 = prop->GetItemT<IWzProperty>(sp.GetBSTR(996));
+
+    SQUIBINFO::tLastSoundPlayed = get_update_time();
 }
 
 void CAnimationDisplayer::_ctor_0()
 {
-    return __sub_00049010(this, nullptr);
+    new(this) CAnimationDisplayer();
+    //return __sub_00049010(this, nullptr);
 }
 
 _x_com_ptr<IWzGr2DLayer> __cdecl CAnimationDisplayer::LoadLayer(_x_com_ptr<IWzProperty> pProp, int32_t bFlip,
@@ -97,8 +120,48 @@ _x_com_ptr<IWzGr2DLayer> __cdecl CAnimationDisplayer::LoadLayer(_x_com_ptr<IWzPr
                                                                 _x_com_ptr<IWzGr2DLayer> pOverlay, long z, long alpha,
                                                                 long magLevel)
 {
-    return __sub_0004A8F0(CreateNakedParam(pProp), bFlip, CreateNakedParam(pOrigin), rx, ry, CreateNakedParam(pOverlay),
-                          z, alpha, magLevel);
+    //return __sub_0004A8F0(CreateNakedParam(pProp), bFlip, CreateNakedParam(pOrigin), rx, ry, CreateNakedParam(pOverlay),
+    //                     z, alpha, magLevel);
+
+    auto layer = _x_com_ptr<IWzGr2DLayer>(get_gr()->CreateLayer_());
+    if (pOrigin)
+    {
+        layer->PutOrigin(pOrigin);
+    }
+
+    if (pOverlay)
+    {
+        layer->PutOverlay(pOverlay);
+    }
+
+    auto vFlip = pProp->Getitem(_GetBSTR(0x3e9));
+    layer->Putflip(!vFlip.GetInt32(0) && bFlip);
+
+    auto vZ = pProp->Getitem(_GetBSTR(0x3E7));
+    layer->Putz(vZ.GetInt32(z));
+    layer->Putcolor(0xFFFFFF | alpha << 24);
+    layer->RelMove(rx, ry, vtMissing, vtMissing);
+
+    auto i = 0;
+    while (true)
+    {
+        wchar_t key[32]{};
+        _itow_s(i, key, 10);
+        auto item = pProp->Getitem(key);
+        auto unk = get_unknown(item);
+
+        auto canvas = unk.Cast<IWzCanvas>();
+        if (!canvas)
+            break;
+
+        if (magLevel > 0)
+            canvas->PutMagLevel(magLevel);
+
+        LoadCanvas(layer, canvas);
+        ++i;
+    }
+
+    return layer;
 }
 
 _x_com_ptr<IWzGr2DLayer> __cdecl CAnimationDisplayer::LoadLayer(const wchar_t* sLayerUOL, int32_t bFlip,
@@ -106,8 +169,20 @@ _x_com_ptr<IWzGr2DLayer> __cdecl CAnimationDisplayer::LoadLayer(const wchar_t* s
                                                                 _x_com_ptr<IWzGr2DLayer> pOverlay, long z, long alpha,
                                                                 long magLevel)
 {
-    return __sub_00051B10(sLayerUOL, bFlip, CreateNakedParam(pOrigin), rx, ry, CreateNakedParam(pOverlay), z, alpha,
-                          magLevel);
+    //return __sub_00051B10(sLayerUOL, bFlip, CreateNakedParam(pOrigin), rx, ry, CreateNakedParam(pOverlay), z, alpha,
+    //                     magLevel);
+
+    auto vProp = get_rm()->GetObjectA(sLayerUOL, vtMissing, vtMissing);
+    auto prop = get_unknown(vProp).Cast<IWzProperty>();
+
+    if (!prop)
+        return {};
+
+    auto count = prop->Getcount();
+    if (!count)
+        return {};
+
+    return LoadLayer(_x_com_ptr<IWzProperty>(prop), bFlip, pOrigin, rx, ry, pOverlay, z, alpha, magLevel);
 }
 
 _x_com_ptr<IWzGr2DLayer> __cdecl CAnimationDisplayer::LoadRandomLayer(const wchar_t* sLayerUOL, int32_t bFlip,
@@ -149,7 +224,16 @@ _x_com_ptr<IWzGr2DLayer> __cdecl CAnimationDisplayer::LoadSingleLayer(_x_com_ptr
 
 void __cdecl CAnimationDisplayer::LoadCanvas(_x_com_ptr<IWzGr2DLayer> pLayer, _x_com_ptr<IWzCanvas> pCanvas)
 {
-    __sub_00046E60(CreateNakedParam(pLayer), CreateNakedParam(pCanvas));
+    //__sub_00046E60(CreateNakedParam(pLayer), CreateNakedParam(pCanvas));
+    auto prop = pCanvas->Getproperty();
+
+    auto delay = prop->Getitem(_GetBSTR(0x1aa9)).GetInt32(120);
+    auto a0 = prop->Getitem(_GetBSTR(0x1A98)).GetInt32(-1);
+    auto a1 = prop->Getitem(_GetBSTR(0x1A99)).GetInt32(-1);
+    auto zoom0 = prop->Getitem(_GetBSTR(0x3D7)).GetInt32(0);
+    auto zoom1 = prop->Getitem(_GetBSTR(0x3D8)).GetInt32(0);
+
+    pLayer->InsertCanvas_(pCanvas, delay, a0, a1, zoom0, zoom1);
 }
 
 unsigned long __cdecl CAnimationDisplayer::CalcTotalDelay(_x_com_ptr<IWzGr2DLayer> pLayer)
@@ -160,28 +244,55 @@ unsigned long __cdecl CAnimationDisplayer::CalcTotalDelay(_x_com_ptr<IWzGr2DLaye
 void CAnimationDisplayer::RegisterOneTimeAnimation(_x_com_ptr<IWzGr2DLayer> pLayer, long tDelayBeforeStart,
                                                    _x_com_ptr<IWzGr2DLayer> pFlipOrigin)
 {
-    __sub_00044410(this, nullptr, CreateNakedParam(pLayer), tDelayBeforeStart, CreateNakedParam(pFlipOrigin));
+    //__sub_00044410(this, nullptr, CreateNakedParam(pLayer), tDelayBeforeStart, CreateNakedParam(pFlipOrigin));
+    auto& anim = m_OneTime.Add();
+    anim.pLayer = pLayer;
+    anim.pFlipOrigin = pFlipOrigin;
+    anim.tDelayBeforeStart = 0;
+    anim.bWaiting = false;
+
+
+    if (tDelayBeforeStart > 0)
+    {
+        pLayer->Animate(GA_STOP, vtMissing, vtMissing);
+        pLayer->Putcolor(0xFFFFFF);
+        anim.bWaiting = true;
+        anim.tDelayBeforeStart = tDelayBeforeStart;
+    }
 }
 
 void CAnimationDisplayer::RegisterRepeatAnimation(_x_com_ptr<IWzGr2DLayer> pLayer, long tDelay)
 {
-    __sub_00044620(this, nullptr, CreateNakedParam(pLayer), tDelay);
+    //__sub_00044620(this, nullptr, CreateNakedParam(pLayer), tDelay);
+    auto& anim = m_Repeat.Add();
+    anim.tDelayLeft = tDelay;
+    anim.pLayer = pLayer;
 }
 
 void CAnimationDisplayer::RegisterBulletAnimation(long tStart, long tEnd, tagPOINT pt1, tagPOINT pt2,
                                                   _x_com_ptr<IWzVector2D> pVecTarget, long z,
                                                   Ztl_bstr_t sBulletEffectUOL, long nWeaponItemID, long nBulletItemID)
 {
-    __sub_00055410(this, nullptr, tStart, tEnd, CreateNakedParam(pt1), CreateNakedParam(pt2),
-                   CreateNakedParam(pVecTarget), z, CreateNakedParam(sBulletEffectUOL), nWeaponItemID, nBulletItemID);
+    //__sub_00055410(this, nullptr, tStart, tEnd, CreateNakedParam(pt1), CreateNakedParam(pt2),
+    //             CreateNakedParam(pVecTarget), z, CreateNakedParam(sBulletEffectUOL), nWeaponItemID, nBulletItemID);
+
+    auto bullet = new NormalBullet(tStart, tEnd, pt1, pt2, pVecTarget, z, sBulletEffectUOL, nWeaponItemID,
+                                   nBulletItemID);
+    m_Bullets.Insert(ZRef<CBullet>(bullet, true));
 }
 
 void CAnimationDisplayer::RegisterMagicBulletAnimation(long tStart, long tEnd, tagPOINT pt1, tagPOINT pt2,
                                                        _x_com_ptr<IWzVector2D> pVecTarget, long z, Ztl_bstr_t sBallUOL,
                                                        int32_t bAfterImage)
 {
-    __sub_00055570(this, nullptr, tStart, tEnd, CreateNakedParam(pt1), CreateNakedParam(pt2),
-                   CreateNakedParam(pVecTarget), z, CreateNakedParam(sBallUOL), bAfterImage);
+    //__sub_00055570(this, nullptr, tStart, tEnd, CreateNakedParam(pt1), CreateNakedParam(pt2),
+    //              CreateNakedParam(pVecTarget), z, CreateNakedParam(sBallUOL), bAfterImage);
+
+    if (sBallUOL.length() == 0)
+        return;
+
+    ZRef<CBullet> bullet(new MagicBullet(tStart, tEnd, pt1, pt2, pVecTarget, z, sBallUOL, bAfterImage), true);
+    m_Bullets.Insert(bullet);
 }
 
 void CAnimationDisplayer::RegisterAbsorbItemAnimation(unsigned long dwCharacterID, unsigned long dwMobID, tagPOINT pt,
@@ -224,7 +335,7 @@ void CAnimationDisplayer::RemoveNewYearAnimation()
     UNIMPLEMENTED;
 }
 
-void CAnimationDisplayer::RegisterNewYearAnimation(const wchar_t* sUOL, ZXString<unsigned short> sSoundUOL,
+void CAnimationDisplayer::RegisterNewYearAnimation(const wchar_t* sUOL, ZXString16 sSoundUOL,
                                                    const tagRECT& rcArea, long tUpdateInterval, long nUpdateCount,
                                                    long tUpdateNext, long tDuration)
 {
@@ -235,7 +346,19 @@ void CAnimationDisplayer::RegisterNewYearAnimation(const wchar_t* sUOL, ZXString
 void CAnimationDisplayer::RegisterFootHoldAnimation(const wchar_t* sUOL, const tagRECT& rcArea, long tStartDelay,
                                                     long tDuration, long a0, long a1, int32_t bRandomPos)
 {
-    __sub_0005A990(this, nullptr, sUOL, rcArea, tStartDelay, tDuration, a0, a1, bRandomPos);
+    //__sub_0005A990(this, nullptr, sUOL, rcArea, tStartDelay, tDuration, a0, a1, bRandomPos);
+    auto prop = get_rm()->GetObjectT<IWzProperty>(sUOL);
+    if (prop)
+    {
+        auto item = prop->Getitem(_GetBSTR(2952)).GetInt32();
+        auto t = get_update_time();
+        auto& anim = m_FootHold.Add();
+        anim.a0 = a0;
+        anim.a1 = a1;
+        anim.tEnd = tDuration + t + tStartDelay;
+        anim.tStart = t + tStartDelay;
+        MakeLayer_FootHold(sUOL, rcArea, anim.apLayer, item, bRandomPos);
+    }
 }
 
 ZRef<AnimationState> CAnimationDisplayer::RegisterFollowAnimation(const CAnimationDisplayer::FOLLOWINFO& fi)
@@ -269,7 +392,8 @@ void CAnimationDisplayer::SetLocalFadeLayer(long z, long nAlpha)
 
 void CAnimationDisplayer::ResetLocalFadeLayer()
 {
-    __sub_0003B6F0(this, nullptr);
+    //__sub_0003B6F0(this, nullptr);
+    m_pLocalFadeLayer = 0;
 }
 
 void CAnimationDisplayer::RegisterMobSwallowAnimation(long tStart, long tEnd, tagPOINT pt1, tagPOINT pt2,
@@ -291,7 +415,24 @@ void CAnimationDisplayer::RegisterMobBulletAnimation(long tStart, long tEnd, tag
 
 void CAnimationDisplayer::RemoveAll()
 {
-    __sub_000415A0(this, nullptr);
+    //__sub_000415A0(this, nullptr);
+    m_OneTime.RemoveAll();
+    m_Repeat.RemoveAll();
+    m_Bullets.RemoveAll();
+    m_Squib.RemoveAll();
+    m_Reserved.RemoveAll();
+    m_AbsorbItem.RemoveAll();
+    m_Falling.RemoveAll();
+    m_Explosion.RemoveAll();
+    m_Chainlightning.RemoveAll();
+    m_FireCracker.RemoveAll();
+    m_Newyear.RemoveAll();
+    m_Follow.RemoveAll();
+    m_MotionBlur.RemoveAll();
+    m_Fade.RemoveAll();
+    m_mChainlightning.RemoveAll();
+    m_UserState.RemoveAll();
+    ResetLocalFadeLayer();
 }
 
 void CAnimationDisplayer::RegisterPrepareAnimation(unsigned long dwCharacterID,
@@ -342,22 +483,86 @@ void CAnimationDisplayer::RegisterUserStateAnimation(_x_com_ptr<IWzGr2DLayer> pS
 
 void CAnimationDisplayer::Update()
 {
-    __sub_000498C0(this, nullptr);
+    //__sub_000498C0(this, nullptr);
+    auto t = get_update_time();
+    if (m_dTrembleForce > 0. && t - m_tTrembleStart > 0)
+    {
+        auto center = get_gr()->Getcenter();
+
+        if (t - m_tTrembleEnd < 0)
+        {
+            auto force = static_cast<int>(m_dTrembleForce * 2);
+            if (force > 0)
+            {
+                auto rndA = get_rand_range(force, 0) - m_dTrembleForce;
+                auto rndB = get_rand_range(force, 0) - m_dTrembleForce;
+                center->RelMove(rndA, rndB, vtMissing, vtMissing);
+            }
+
+            m_dTrembleForce *= m_dTrembleReduction;
+        }
+        if (t - m_tTrembleEnd >= 0 || m_dTrembleForce < 1.0)
+        {
+            center->RelMove(0, 0, vtMissing, vtMissing);
+            m_dTrembleForce = 0.;
+        }
+
+        if (auto field = get_field())
+        {
+            auto rc = field->GetViewRangeRect();
+            center->WrapClip(vtMissing, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, Ztl_variant_t(1));
+        }
+    }
+
+
+    for (auto& prep : m_lPrepare)
+    {
+        if (prep->Update(t))
+            RemovePrepareAnimation(prep->dwCharacterID);
+    }
+
+    NonFieldUpdate(t);
 }
 
 void CAnimationDisplayer::NonFieldUpdate(long tCur)
 {
-    __sub_0005B6C0(this, nullptr, tCur);
+    //__sub_0005B6C0(this, nullptr, tCur);
+    m_OneTime.Update(tCur);
+    m_Repeat.Update(tCur);
+    m_Bullets.CallUpdate(BulletContainer<CBullet>::CallUpdateFunc(tCur));
+    m_Squib.Update(tCur);
+    m_Reserved.Update(tCur);
+    m_AbsorbItem.Update(tCur);
+    m_Falling.Update(tCur);
+    m_Explosion.Update(tCur);
+    m_FootHold.Update(tCur);
+    m_Chainlightning.Update(tCur);
+    m_HookingChain.Update(tCur);
+    m_FireCracker.Update(tCur);
+    m_Newyear.Update(tCur);
+    m_Follow.Update(tCur);
+    m_Fade.Update(tCur);
+    m_UserState.Update(tCur);
+
+    auto cur = m_mChainlightning.GetHeadPosition();
+    while (cur)
+    {
+        ZRef<CAnimationDisplayer::TAnimation<CAnimationDisplayer::CHAINLIGHTNINGINFO>> p{};
+        m_mChainlightning.GetNext(cur, &p);
+        p->Update(tCur);
+    }
 }
 
 void CAnimationDisplayer::UpdateBeforeUserUpdate()
 {
-    __sub_000498C0(this, nullptr);
+    //__sub_000498C0(this, nullptr);
+    m_MotionBlur.Update(get_update_time());
 }
 
 void CAnimationDisplayer::SetCenterOrigin(_x_com_ptr<IWzVector2D> pOrigin)
 {
     __sub_00042E10(this, nullptr, CreateNakedParam(pOrigin));
+    //auto origin = G_PCOM.CreateVector2D();
 }
 
 void CAnimationDisplayer::Effect_HP(long arg0, long arg1, long arg2, long arg3, int32_t arg4)
@@ -399,7 +604,7 @@ void CAnimationDisplayer::Effect_Reserved(const wchar_t* arg0, long arg1, long a
 }
 
 void CAnimationDisplayer::Effect_Squib(_x_com_ptr<IWzProperty> pVisual, double dX, double dY, long width, long height,
-                                       ZXString<unsigned short> sSound, long duration, double probability, long z)
+                                       ZXString16 sSound, long duration, double probability, long z)
 {
     __sub_00055F30(this, nullptr, CreateNakedParam(pVisual), dX, dY, width, height, CreateNakedParam(sSound), duration,
                    probability, z);
@@ -409,8 +614,28 @@ void CAnimationDisplayer::Effect_SkillUse(const wchar_t* sEffect, int32_t bFlip,
                                           _x_com_ptr<IWzGr2DLayer> pOverlay, long nDelayRate, long nLast, long z,
                                           long x, long y, int32_t bAutoFlip)
 {
-    __sub_00059100(this, nullptr, sEffect, bFlip, CreateNakedParam(pOrigin), CreateNakedParam(pOverlay), nDelayRate,
-                   nLast, z, x, y, bAutoFlip);
+    /*__sub_00059100(this, nullptr, sEffect, bFlip, CreateNakedParam(pOrigin), CreateNakedParam(pOverlay), nDelayRate,
+                   nLast, z, x, y, bAutoFlip);*/
+    if (nLast >= -1)
+    {
+        for (auto i = -1; i < nLast; ++i)
+        {
+            wchar_t key[32]{};
+            if (i >= 0)
+                _itow_s(i, key, 10);
+
+            auto fmt = _GetStrW(986);
+            auto uol = ZXString16::FromFmt(fmt.c_str(), sEffect, key);
+
+            auto layer = LoadLayer(uol.c_str(), bFlip, pOrigin, x, y, pOverlay, z, 0, 0);
+            if (!layer)
+                break;
+            layer->Animate(GA_STOP, Ztl_variant_t(nDelayRate), vtMissing);
+
+            auto flip = bAutoFlip ? pOverlay : _x_com_ptr<IWzGr2DLayer>();
+            RegisterOneTimeAnimation(layer, 0, flip);
+        }
+    }
 }
 
 void CAnimationDisplayer::Effect_Quest(long nEffect, _x_com_ptr<IWzVector2D> pOrigin)
@@ -507,7 +732,7 @@ void CAnimationDisplayer::Effect_CashItemGachapon(int32_t bFlip, _x_com_ptr<IWzV
     __sub_00057F30(this, nullptr, bFlip, CreateNakedParam(pOrigin), CreateNakedParam(pOverlay), bJackpotAni);
 }
 
-void CAnimationDisplayer::Effect_FullChargedAngerGauge(ZXString<unsigned short> sUOL, _x_com_ptr<IWzVector2D> pOrigin,
+void CAnimationDisplayer::Effect_FullChargedAngerGauge(ZXString16 sUOL, _x_com_ptr<IWzVector2D> pOrigin,
                                                        _x_com_ptr<IWzGr2DLayer> pOverlay)
 {
     __sub_00057D00(this, nullptr, CreateNakedParam(sUOL), CreateNakedParam(pOrigin), CreateNakedParam(pOverlay));
@@ -635,7 +860,35 @@ void CAnimationDisplayer::ONETIMEINFO::_ctor_0()
 
 int32_t CAnimationDisplayer::ONETIMEINFO::Update(long tCur)
 {
-    return __sub_00039370(this, nullptr, tCur);
+    //return __sub_00039370(this, nullptr, tCur);
+    if (pFlipOrigin)
+    {
+        auto orgFlip = pFlipOrigin->Getflip();
+        auto flip = pLayer->Getflip();
+
+        if (orgFlip != flip)
+        {
+            pLayer->Putflip(orgFlip);
+        }
+    }
+
+    if (bWaiting)
+    {
+        auto wait = tDelayBeforeStart - 30 >= 0;
+        tDelayBeforeStart -= 30;
+
+        if (!wait)
+        {
+            bWaiting = false;
+            pLayer->Animate(GA_STOP, vtMissing, vtMissing);
+            pLayer->Putcolor(0xFFFFFFFF);
+        }
+        return 0;
+    }
+    else
+    {
+        return pLayer->GetanimationState() == 0;
+    }
 }
 
 CAnimationDisplayer::ONETIMEINFO& CAnimationDisplayer::ONETIMEINFO::operator=(
@@ -653,7 +906,6 @@ CAnimationDisplayer::ONETIMEINFO& CAnimationDisplayer::ONETIMEINFO::_op_assign_4
 
 CAnimationDisplayer::REPEATINFO::~REPEATINFO()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::REPEATINFO::_dtor_0()
@@ -675,19 +927,17 @@ void CAnimationDisplayer::REPEATINFO::_ctor_1(const CAnimationDisplayer::REPEATI
 
 CAnimationDisplayer::REPEATINFO::REPEATINFO()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CAnimationDisplayer::REPEATINFO::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
 }
 
 int32_t CAnimationDisplayer::REPEATINFO::Update(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto v6 = this->tDelayLeft - 30 < 0;
+    this->tDelayLeft -= 30;
+    return v6;
 }
 
 CAnimationDisplayer::REPEATINFO& CAnimationDisplayer::REPEATINFO::operator=(const CAnimationDisplayer::REPEATINFO& arg0)
@@ -755,7 +1005,6 @@ CAnimationDisplayer::USERSTATEINFO& CAnimationDisplayer::USERSTATEINFO::_op_assi
 
 CAnimationDisplayer::NormalBullet::~NormalBullet()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::NormalBullet::_dtor_0()
@@ -776,24 +1025,106 @@ void CAnimationDisplayer::NormalBullet::_ctor_1(const CAnimationDisplayer::Norma
 
 CAnimationDisplayer::NormalBullet::NormalBullet(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                                 _x_com_ptr<IWzVector2D> pVecTarget, long z, Ztl_bstr_t sBulletEffectUOL,
-                                                long nWeaponItemID, long nBulletItemID)
+                                                long nWeaponItemID, long nBulletItemID) : CBullet(
+    tStart, tEnd, ptStart, ptEnd, pVecTarget)
 {
-    _ctor_0(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, sBulletEffectUOL, nWeaponItemID, nBulletItemID);
+    m_nZ = z;
+    m_sBulletEffectUOL = sBulletEffectUOL;
+    m_nBulletItemID = nBulletItemID;
+    m_nWeaponItemID = nWeaponItemID;
 }
 
 void CAnimationDisplayer::NormalBullet::_ctor_0(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                                 _x_com_ptr<IWzVector2D> pVecTarget, long z, Ztl_bstr_t sBulletEffectUOL,
                                                 long nWeaponItemID, long nBulletItemID)
 {
-    return __sub_00047760(this, nullptr, tStart, tEnd, CreateNakedParam(ptStart), CreateNakedParam(ptEnd),
+    /*return __sub_00047760(this, nullptr, tStart, tEnd, CreateNakedParam(ptStart), CreateNakedParam(ptEnd),
                           CreateNakedParam(pVecTarget), z, CreateNakedParam(sBulletEffectUOL), nWeaponItemID,
-                          nBulletItemID);
+                          nBulletItemID);*/
+
+    new(this) NormalBullet(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, sBulletEffectUOL, nWeaponItemID, nBulletItemID);
 }
 
 _x_com_ptr<IWzGr2DLayer> CAnimationDisplayer::NormalBullet::PrepareBulletLayer(
-    _x_com_ptr<IWzVector2D> arg0, int32_t arg1)
+    _x_com_ptr<IWzVector2D> pOrigin, int32_t bClockwise)
 {
-    return __sub_0004C380(this, nullptr, CreateNakedParam(arg0), arg1);
+    _x_com_ptr<IWzGr2DLayer> ret;
+    ret = __sub_0004C380(this, nullptr, &ret, CreateNakedParam(pOrigin), bClockwise);
+    return ret;
+    /*auto layer = get_gr()->CreateLayer_(0, 0, 0, 0, m_nZ, 0, 0);
+    layer->Putcolor(-1);
+    layer->PutOrigin(pOrigin);
+
+    auto itemInfo = CItemInfo::GetInstance();
+
+    if (m_nBulletItemID)
+    {
+        auto itemProp = itemInfo->GetItemProp(m_nBulletItemID);
+        if (itemProp)
+        {
+            auto sub = itemProp->GetItemT<IWzProperty>(_GetBSTR(0x3ea));
+            auto count = sub->Getcount();
+
+            for (auto i = 0; i < count; ++i)
+            {
+                wchar_t sKey[32]{};
+                _itow_s(i, sKey, 10);
+                auto vItem = sub->Getitem(sKey);
+                auto canvas = get_unknown(vItem).Cast<IWzCanvas>();
+                if (canvas)
+                {
+                    if (m_sBulletEffectUOL.length() == 0) //TODO check unequal || m_sBulletEffectUOL == "Skill/322.img/skill/3221003/ball")
+                    {
+                        layer->InsertCanvas(canvas, Ztl_variant_t(60), vtMissing, vtMissing, vtMissing, vtMissing);
+                    }
+                }
+            }
+
+            //TODO something with the item
+
+            if (bClockwise)
+            {
+                auto lt = layer->Getlt();
+                auto rx = lt->Getrx();
+                auto ry = lt->Getry();
+                auto w = layer->Getwidth();
+                lt->RelMove(rx + w, ry, vtMissing, vtMissing);
+
+                auto rb = layer->Getrb();
+                auto h = layer->Getheight();
+                w = layer->Getwidth();
+                rb->RelMove(-w, h, vtMissing, vtMissing);
+            }
+
+            layer->Animate(GA_REPEAT, vtMissing, vtMissing);
+        }
+        if (m_sBulletEffectUOL.length() == 0)
+        {
+            //TODO set itemprop
+            auto rotate = itemProp->Getitem(_GetBSTR(0xB20)).GetInt32(0);
+
+            if (rotate)
+            {
+                auto rotateVal = bClockwise ? rotate : -rotate;
+                pOrigin->Rotate(0., Ztl_variant_t(rotateVal));
+            }
+
+            auto imgEntry = CActionMan::GetInstance()->GetCharacterImgEntry(m_nWeaponItemID);
+            if (imgEntry && imgEntry->sSfx.length() > 0)
+            {
+                auto vol = get_sound_volume_by_pos(pOrigin->Getx(), pOrigin->Gety());
+                play_weapon_sound(imgEntry->sSfx, SE_WEAPON_ATTACK2, vol);
+            }
+
+            return _x_com_ptr<IWzGr2DLayer>(layer);
+        }
+    }
+
+    auto prop = get_rm()->GetObjectT<IWzProperty>(m_sBulletEffectUOL);
+    UNIMPLEMENTED;
+
+
+    return _x_com_ptr<IWzGr2DLayer>(layer);*/
 }
 
 CAnimationDisplayer::NormalBullet& CAnimationDisplayer::NormalBullet::operator=(
@@ -811,7 +1142,6 @@ CAnimationDisplayer::NormalBullet& CAnimationDisplayer::NormalBullet::_op_assign
 
 CAnimationDisplayer::MagicBullet::~MagicBullet()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::MagicBullet::_dtor_0()
@@ -833,23 +1163,48 @@ void CAnimationDisplayer::MagicBullet::_ctor_1(const CAnimationDisplayer::MagicB
 
 CAnimationDisplayer::MagicBullet::MagicBullet(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                               _x_com_ptr<IWzVector2D> pVecTarget, long z, Ztl_bstr_t sBallUOL,
-                                              int32_t bAfterImage)
+                                              int32_t bAfterImage): CAfterImageBullet(
+    tStart, tEnd, ptStart, ptEnd, pVecTarget, bAfterImage, 0xC8u, 200)
 {
-    _ctor_0(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, sBallUOL, bAfterImage);
+    m_nZ = z;
+    m_sBallUOL = sBallUOL;
+    //_ctor_0(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, sBallUOL, bAfterImage);
 }
 
 void CAnimationDisplayer::MagicBullet::_ctor_0(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                                _x_com_ptr<IWzVector2D> pVecTarget, long z, Ztl_bstr_t sBallUOL,
                                                int32_t bAfterImage)
 {
-    return __sub_00047910(this, nullptr, tStart, tEnd, CreateNakedParam(ptStart), CreateNakedParam(ptEnd),
-                          CreateNakedParam(pVecTarget), z, CreateNakedParam(sBallUOL), bAfterImage);
+    new(this) MagicBullet(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, sBallUOL, bAfterImage);
 }
 
 _x_com_ptr<IWzGr2DLayer> CAnimationDisplayer::MagicBullet::PrepareBulletLayer(
     _x_com_ptr<IWzVector2D> pOrigin, int32_t bClockwise)
 {
-    return __sub_00052290(this, nullptr, CreateNakedParam(pOrigin), bClockwise);
+    //return __sub_00052290(this, nullptr, CreateNakedParam(pOrigin), bClockwise);
+    auto layer = CAnimationDisplayer::GetInstance()->LoadLayer(m_sBallUOL, 0, pOrigin, 0, 0, {}, m_nZ, 255, 0);
+
+    if (layer)
+    {
+        if (bClockwise)
+        {
+            auto lt = layer->Getlt();
+            auto rx = layer->Getrx();
+            auto ry = layer->Getry();
+
+            auto w = layer->Getwidth();
+
+            lt->RelMove(w + rx, ry, vtMissing, vtMissing);
+
+            auto rb = layer->Getrb();
+            auto h = layer->Getheight();
+            rb->RelMove(-w, h, vtMissing, vtMissing);
+        }
+
+        layer->Animate(GA_REPEAT, vtMissing, vtMissing);
+    }
+
+    return layer;
 }
 
 CAnimationDisplayer::MagicBullet& CAnimationDisplayer::MagicBullet::operator=(
@@ -867,7 +1222,6 @@ CAnimationDisplayer::MagicBullet& CAnimationDisplayer::MagicBullet::_op_assign_4
 
 CAnimationDisplayer::ABSORBITEM::~ABSORBITEM()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::ABSORBITEM::_dtor_0()
@@ -889,7 +1243,6 @@ void CAnimationDisplayer::ABSORBITEM::_ctor_1(const CAnimationDisplayer::ABSORBI
 
 CAnimationDisplayer::ABSORBITEM::ABSORBITEM()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CAnimationDisplayer::ABSORBITEM::_ctor_0()
@@ -968,13 +1321,10 @@ CAnimationDisplayer::FALLINGINFO& CAnimationDisplayer::FALLINGINFO::_op_assign_4
 
 CAnimationDisplayer::EXPLOSIONINFO::~EXPLOSIONINFO()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::EXPLOSIONINFO::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
 }
 
 CAnimationDisplayer::EXPLOSIONINFO::EXPLOSIONINFO(const CAnimationDisplayer::EXPLOSIONINFO& arg0)
@@ -990,18 +1340,64 @@ void CAnimationDisplayer::EXPLOSIONINFO::_ctor_1(const CAnimationDisplayer::EXPL
 
 CAnimationDisplayer::EXPLOSIONINFO::EXPLOSIONINFO()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CAnimationDisplayer::EXPLOSIONINFO::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
 }
 
 int32_t CAnimationDisplayer::EXPLOSIONINFO::Update(long tCur)
 {
-    return __sub_0004DDF0(this, nullptr, tCur);
+    ///return __sub_0004DDF0(this, nullptr, tCur);
+    if (tCur - this->tEnd > 0)
+        return 1;
+
+    auto next = this->tUpdateNext;
+    if (tCur - next >= 0)
+    {
+        nHeight = this->nHeight;
+        auto v6 = next + this->tUpdateInterval;
+        nCurWidth = this->nCurWidth;
+        auto w = this->nWidth - nCurWidth;
+        this->nCurWidth = 3 * nCurWidth / 4;
+        nCurHeight = this->nCurHeight;
+        auto h = nHeight - nCurHeight;
+        auto v11 = this->nUpdateCount <= 0;
+        this->tUpdateNext = v6;
+        this->nCurHeight = 3 * nCurHeight / 4;
+        auto i = 0;
+        if (!v11)
+        {
+            auto v12 = h / 2;
+            auto v34 = w / 2;
+            while (true)
+            {
+                auto v13 = this->nY - v12;
+                auto ry = _D_G_RAND.Random();
+                if (h)
+                    ry = v13 + ry % h;
+                auto v15 = this->nX - v34;
+                auto rx = _D_G_RAND.Random();
+                if (w)
+                    rx = v15 + rx % w;
+                auto v19 = 0;
+                auto n = apProperty.GetCount();
+                if (n)
+                    v19 = _D_G_RAND.Random() % n;
+                else
+                    v19 = _D_G_RAND.Random();
+                auto layer = CAnimationDisplayer::LoadLayer(this->apProperty[v19], 0, {}, rx, ry, {}, 0xC00614A4, 255,
+                                                            0);
+                layer->Animate(GA_STOP, vtMissing, vtMissing);
+                ms_pInstance->RegisterOneTimeAnimation(layer, 0,
+                                                       {});
+                v11 = ++i < this->nUpdateCount;
+                if (!v11)
+                    break;
+            }
+        }
+    }
+    return 0;
 }
 
 CAnimationDisplayer::EXPLOSIONINFO& CAnimationDisplayer::EXPLOSIONINFO::operator=(
@@ -1218,7 +1614,6 @@ CAnimationDisplayer::SQUIBINFO& CAnimationDisplayer::SQUIBINFO::_op_assign_4(
 
 CAnimationDisplayer::FOOTHOLDINFO::~FOOTHOLDINFO()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::FOOTHOLDINFO::_dtor_0()
@@ -1240,18 +1635,43 @@ void CAnimationDisplayer::FOOTHOLDINFO::_ctor_1(const CAnimationDisplayer::FOOTH
 
 CAnimationDisplayer::FOOTHOLDINFO::FOOTHOLDINFO()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CAnimationDisplayer::FOOTHOLDINFO::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) FOOTHOLDINFO();
 }
 
 int32_t CAnimationDisplayer::FOOTHOLDINFO::Update(long tCur)
 {
-    return __sub_00047A30(this, nullptr, tCur);
+    //return __sub_00047A30(this, nullptr, tCur);
+    if (tCur - tEnd <= 0)
+    {
+        if (tStart && tCur - tStart > 0)
+        {
+            for (auto& layer : apLayer)
+            {
+                long rnd = tCur + 100 * (_D_G_RAND.Random() % 5 + 1);
+                auto alpha = layer->Getalpha();
+                alpha->RelMove(0, 0, Ztl_variant_t(rnd), vtMissing);
+                layer->Animate(GA_REPEAT, vtMissing, vtMissing);
+            }
+
+            tStart = 0;
+        }
+
+        return 0;
+    }
+
+    for (auto& layer : apLayer)
+    {
+        auto t = layer->GetcurrentTime();
+        auto alpha = layer->Getalpha();
+        alpha->RelMove(0, 0, Ztl_variant_t(t + 500), vtMissing);
+        CAnimationDisplayer::GetInstance()->RegisterRepeatAnimation(layer, 500);
+    }
+
+    return 1;
 }
 
 CAnimationDisplayer::FOOTHOLDINFO& CAnimationDisplayer::FOOTHOLDINFO::operator=(
@@ -1269,7 +1689,6 @@ CAnimationDisplayer::FOOTHOLDINFO& CAnimationDisplayer::FOOTHOLDINFO::_op_assign
 
 CAnimationDisplayer::PREPAREINFO::~PREPAREINFO()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::PREPAREINFO::_dtor_0()
@@ -1291,7 +1710,6 @@ void CAnimationDisplayer::PREPAREINFO::_ctor_1(const CAnimationDisplayer::PREPAR
 
 CAnimationDisplayer::PREPAREINFO::PREPAREINFO()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CAnimationDisplayer::PREPAREINFO::_ctor_0()
@@ -1302,7 +1720,29 @@ void CAnimationDisplayer::PREPAREINFO::_ctor_0()
 
 int32_t CAnimationDisplayer::PREPAREINFO::Update(long tCur)
 {
-    return __sub_0003C5D0(this, nullptr, tCur);
+    //return __sub_0003C5D0(this, nullptr, tCur);
+    auto n = apLayer.GetCount();
+    for (auto& layer : apLayer)
+    {
+        if (!layer)
+        {
+            continue;
+        }
+
+        if (!layer->GetanimationState())
+        {
+            continue;
+        }
+
+        if (pFlipLayer)
+        {
+            auto flip = pFlipLayer->Getflip();
+            layer->Putflip(flip);
+        }
+        return false;
+    }
+
+    return true;
 }
 
 CAnimationDisplayer::PREPAREINFO& CAnimationDisplayer::PREPAREINFO::operator=(
@@ -1502,7 +1942,17 @@ void CAnimationDisplayer::FADEINFO::_ctor_0()
 
 int32_t CAnimationDisplayer::FADEINFO::Update(long tCur)
 {
-    return __sub_0003B780(this, nullptr, tCur);
+    //return __sub_0003B780(this, nullptr, tCur);
+    if (tCur >= tStartFadeOut + this->tFadeOut)
+        return 1;
+    if (tCur >= tStartFadeOut && !this->bStartFadeOut)
+    {
+        this->bStartFadeOut = 1;
+        auto v7 = this->tFadeOut + pLayer->GetcurrentTime();
+        auto alpha = pLayer->Getalpha();
+        alpha->RelMove(0, 0, Ztl_variant_t(v7), vtMissing);
+    }
+    return 0;
 }
 
 CAnimationDisplayer::FADEINFO& CAnimationDisplayer::FADEINFO::operator=(const CAnimationDisplayer::FADEINFO& arg0)
@@ -1580,13 +2030,11 @@ CAnimationDisplayer::MobSwallowedBullet& CAnimationDisplayer::MobSwallowedBullet
 
 CAnimationDisplayer::MobBullet::~MobBullet()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CAnimationDisplayer::MobBullet::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~MobBullet();
 }
 
 CAnimationDisplayer::MobBullet::MobBullet(const CAnimationDisplayer::MobBullet& arg0)
@@ -1602,18 +2050,23 @@ void CAnimationDisplayer::MobBullet::_ctor_1(const CAnimationDisplayer::MobBulle
 
 CAnimationDisplayer::MobBullet::MobBullet(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                           _x_com_ptr<IWzVector2D> pVecTarget, long z, int32_t bAfterImage,
-                                          _x_com_ptr<IWzCanvas> pCanvas, Ztl_bstr_t sBallUOL)
+                                          _x_com_ptr<IWzCanvas> pCanvas, Ztl_bstr_t sBallUOL): CAfterImageBullet(
+    tStart, tEnd, ptStart, ptEnd, pVecTarget, bAfterImage, 0xC8u, 200)
 {
-    _ctor_0(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, bAfterImage, pCanvas, sBallUOL);
+    m_pCanvas = pCanvas;
+    m_nZ = z;
+    m_tLastUpdate = tStart;
+    m_sBallUOL = sBallUOL;
 }
 
 void CAnimationDisplayer::MobBullet::_ctor_0(long tStart, long tEnd, tagPOINT ptStart, tagPOINT ptEnd,
                                              _x_com_ptr<IWzVector2D> pVecTarget, long z, int32_t bAfterImage,
                                              _x_com_ptr<IWzCanvas> pCanvas, Ztl_bstr_t sBallUOL)
 {
-    return __sub_000489F0(this, nullptr, tStart, tEnd, CreateNakedParam(ptStart), CreateNakedParam(ptEnd),
+    new(this) MobBullet(tStart, tEnd, ptStart, ptEnd, pVecTarget, z, bAfterImage, pCanvas, sBallUOL);
+    /*return __sub_000489F0(this, nullptr, tStart, tEnd, CreateNakedParam(ptStart), CreateNakedParam(ptEnd),
                           CreateNakedParam(pVecTarget), z, bAfterImage, CreateNakedParam(pCanvas),
-                          CreateNakedParam(sBallUOL));
+                          CreateNakedParam(sBallUOL));*/
 }
 
 _x_com_ptr<IWzGr2DLayer> CAnimationDisplayer::MobBullet::PrepareBulletLayer(
@@ -1624,19 +2077,26 @@ _x_com_ptr<IWzGr2DLayer> CAnimationDisplayer::MobBullet::PrepareBulletLayer(
 
 int32_t CAnimationDisplayer::MobBullet::Update(long tCur)
 {
-    return __sub_0003C500(this, nullptr, tCur);
+    //return __sub_0003C500(this, nullptr, tCur);
+    if (GetStartTime() != m_tLastUpdate)
+    {
+        auto t = tCur - m_tLastUpdate;
+        m_nAngle = t / 3.0 + m_nAngle;
+        GetOrigin()->Putra(m_nAngle);
+    }
+
+    m_tLastUpdate = tCur;
+    return 0;
 }
 
 _x_com_ptr<IWzGr2DLayer> CAnimationDisplayer::MobBullet::GetBallLayer()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_pBallLayer;
 }
 
 void CAnimationDisplayer::MobBullet::SetBallLayer(_x_com_ptr<IWzGr2DLayer> arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_pBallLayer = arg0;
 }
 
 CAnimationDisplayer::MobBullet& CAnimationDisplayer::MobBullet::operator=(const CAnimationDisplayer::MobBullet& arg0)
@@ -1668,7 +2128,7 @@ double __cdecl get_double(Ztl_variant_t& v, double dDefault)
     //return __sub_00038BB0(v, dDefault);
     const auto vt = v.vt;
     Ztl_variant_t vReal;
-    if ( !vt || vt == VT_ERROR || ZComAPI::ZComVariantChangeType(&vReal, &v, 0, VT_R8) < 0 )
+    if (!vt || vt == VT_ERROR || ZComAPI::ZComVariantChangeType(&vReal, &v, 0, VT_R8) < 0)
         return dDefault;
     else
         return vReal.dblVal;
@@ -1682,7 +2142,7 @@ int32_t __cdecl _ZtlSecureFuse_int_(const int32_t* at, uint32_t uCS)
 uint32_t __cdecl get_rand_range(uint32_t nRange, uint32_t nStart)
 {
     //return __sub_0003B6C0(nRange, nStart);
-    if ( nRange )
+    if (nRange)
         return nStart + _D_G_RAND.Random() % nRange;
     else
         return nStart;
@@ -1691,7 +2151,7 @@ uint32_t __cdecl get_rand_range(uint32_t nRange, uint32_t nStart)
 HRESULT __cdecl _com_util__UIntAdd(uint32_t uAugend, uint32_t uAddend, uint32_t* puResult)
 {
     auto v3 = uAddend + uAugend;
-    if ( v3 < uAddend )
+    if (v3 < uAddend)
         return -1;
     *puResult = v3;
     return 0;
@@ -1700,14 +2160,11 @@ HRESULT __cdecl _com_util__UIntAdd(uint32_t uAugend, uint32_t uAddend, uint32_t*
 const wchar_t* __cdecl get_string(Ztl_variant_t& v, const wchar_t* sDefault)
 {
     //return __sub_00038C80(v, sDefault);
-    if ( v.vt == VT_BSTR )
+    if (v.vt == VT_BSTR)
         return v.bstrVal;
     else
         return sDefault;
 }
-
-
-
 
 
 //TODO(game) flyorigin

@@ -128,7 +128,7 @@ struct PlayTimeRecord
     // Nested
     // Fields
 public:
-    _FILETIME ftLastUpdated;
+    _FILETIME ftLastUpdated{};
 
 public:
     unsigned char bDone{};
@@ -541,10 +541,10 @@ public:
     ZXString<char> sChatMsg;
 
 public:
-    _FILETIME ftStart;
+    _FILETIME ftStart{};
 
 public:
-    _FILETIME ftEnd;
+    _FILETIME ftEnd{};
 
 public:
     int32_t bStart{};
@@ -1030,7 +1030,7 @@ public:
     };
 };
 
-class CWndGuildBoard : TSingleton<CWndGuildBoard>
+class CWndGuildBoard : public TSingleton<CWndGuildBoard>
 {
     // TODO
 };

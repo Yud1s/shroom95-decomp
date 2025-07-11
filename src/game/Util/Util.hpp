@@ -18,7 +18,7 @@ uint32_t __cdecl get_sound_volume_by_pos(long x1, long y1);
 _x_com_ptr<IWzFont> __cdecl get_basic_font(FONT_TYPE fType);
 long __cdecl draw_text_by_image(_x_com_ptr<IWzCanvas> pCanvas, long nLeft, long nTop, ZXString<char> sText, _x_com_ptr<IWzProperty> pBase, long nHorzSpace);
 _x_com_ptr<IWzProperty> __cdecl get_labeled_sub_1(_x_com_ptr<IWzProperty> pProp, ZXString<char> sID);
-void __cdecl DrawGrayImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString<unsigned short> sUOL, long x, long y, long nAlpha);
+void __cdecl DrawGrayImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString16 sUOL, long x, long y, long nAlpha);
 void __cdecl format_largeinteger(ZXString<char> &sFormat, _LARGE_INTEGER li, int32_t bComma);
 void __cdecl msgbox_com_error(const _com_error &e);
 void __cdecl string_newline_by_width(ZXString<char> &sText, long nWidth, _x_com_ptr<IWzFont> pFont);
@@ -28,15 +28,15 @@ ZXString<char> __cdecl get_stringByKey(_x_com_ptr<IWzProperty> pProp, Ztl_bstr_t
 _x_com_ptr<IWzProperty> __cdecl get_labeled_sub_0(_x_com_ptr<IWzProperty> pProp, long nID);
 void __cdecl play_pet_sound(long nItemID, const wchar_t *sAction, uint32_t uVol);
 int32_t __cdecl activate_web_site(const char *sTitle);
-ZXString<unsigned short> __cdecl UOL_Index(long sPath, long nIndex);
+ZXString16 __cdecl UOL_Index(long sPath, long nIndex);
 void __cdecl format_integer(ZXString<char> &sFormat, long i, int32_t bComma);
 int32_t __cdecl format_string(ZXString<char> &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth);
-static int32_t __cdecl format_string_0(ZXString<char> &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth)
+static int32_t __cdecl format_string_1(ZXString<char> &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth)
 {
     return format_string(sFormat, pFont, nWidth);
 }
-int32_t __cdecl format_string(ZXString<unsigned short> &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth);
-static int32_t __cdecl format_string_1(ZXString<unsigned short> &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth)
+int32_t __cdecl format_string(ZXString16 &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth);
+static int32_t __cdecl format_string_0(ZXString16 &sFormat, _x_com_ptr<IWzFont> pFont, long nWidth)
 {
     return format_string(sFormat, pFont, nWidth);
 }
@@ -50,7 +50,7 @@ void __cdecl save_error_log(const ZXString<char> &errmsg);
 void __cdecl play_mob_sound(unsigned long dwTemplateId, SE_TYPE seType, uint32_t uVol);
 void __cdecl separate_string_by_line(ZArray<ZXString<char>> &asResult, ZXString<char> sInput);
 void __cdecl play_ui_sound(const wchar_t *sSndName);
-void __cdecl DrawImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString<unsigned short> sUOL, long x, long y);
+void __cdecl DrawImage(_x_com_ptr<IWzCanvas> pCanvas, ZXString16 sUOL, long x, long y);
 void __cdecl play_game_sound(const wchar_t *sSndName, uint32_t uVol);
 void __cdecl make_SingleColor_alpha_blur(_x_com_ptr<IWzCanvas> pCanvas, uint16_t wColor, uint16_t wRadius);
 void __cdecl play_summon_sound(long nType, uint32_t uVol);

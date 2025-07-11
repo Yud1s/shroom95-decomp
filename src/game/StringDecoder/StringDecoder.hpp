@@ -66,7 +66,7 @@ public:
 	// Fields
 private:
 	ZArray<ZXString<char> *> m_apZMString;
-	ZArray<ZXString<unsigned short> *> m_apZWString;
+	ZArray<ZXString16 *> m_apZWString;
 	ZFatalSection m_lock;
 
 	// Methods
@@ -87,18 +87,25 @@ public:
 	ZXString<char> GetString(uint32_t nIdx);
 	ZXString<char> GetString_0(uint32_t nIdx);
 	ZXString<char> GetStringA(uint32_t nIdx);
-	ZXString<unsigned short> GetStringW(uint32_t nIdx);
+	ZXString16 GetStringW(uint32_t nIdx);
 	Ztl_bstr_t GetBSTR(uint32_t nIdx);
 	StringPool &operator=(const StringPool &arg0);
 	static StringPool &_op_assign_10(StringPool *pThis, const StringPool &arg0);
 
 private:
-    ZXString<unsigned short> GetStringW_(uint32_t nIdx, wchar_t __formal);
-    ZXString<unsigned short> GetString_2(uint32_t nIdx, wchar_t __formal);
+    ZXString16 GetStringW_(uint32_t nIdx, wchar_t __formal);
+    ZXString16 GetString_2(uint32_t nIdx, wchar_t __formal);
     ZXString<char> GetString(uint32_t nIdx, char __formal);
     ZXString<char> GetString_1(uint32_t nIdx, char __formal);
 };
 STATIC_ASSERT_SIZE(StringPool, 16);
+
+
+ZXString16 _GetStrW(uint32_t nIdx);
+
+ZXString<char> _GetStr(uint32_t nIdx);
+
+Ztl_bstr_t _GetBSTR(uint32_t nIdx);
 
 void __cdecl rotatel_unsignedchar_(unsigned char *array, uint32_t size, uint32_t shift);
 void __cdecl _anon_Decode_char_(ZXString<char> &sSrc, const unsigned char *pKey, uint32_t nKeySize, uint32_t nSeed);

@@ -33,7 +33,7 @@ void CUIUnreleaseDlg::Draw(const tagRECT* pRect) {
 void CUIUnreleaseDlg::OnButtonClicked(uint32_t nId) {
 	__sub_004AA6A0(this, nullptr, nId);
 }
-void CUIUnreleaseDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIUnreleaseDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_004AA560(this, nullptr, wParam, lParam);
 }
 void CUIUnreleaseDlg::SetEItemPos(long arg0) {

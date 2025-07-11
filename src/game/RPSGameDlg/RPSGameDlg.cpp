@@ -36,7 +36,7 @@ void CRPSGameDlg::OnButtonClicked(uint32_t nId) {
 void CRPSGameDlg::Update() {
 	__sub_002D8E80(this, nullptr);
 }
-void CRPSGameDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CRPSGameDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_002D6D20(this, nullptr, wParam, lParam);
 }
 void CRPSGameDlg::ShowResult() {

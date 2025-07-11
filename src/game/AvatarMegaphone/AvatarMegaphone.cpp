@@ -33,7 +33,7 @@ void CAvatarMegaphone::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, lon
 int32_t CAvatarMegaphone::OnMouseMove(long rx, long ry) {
 	return __sub_0006D5F0(this, nullptr, rx, ry);
 }
-void CAvatarMegaphone::OnKey(uint32_t wParam, uint32_t lParam) {
+void CAvatarMegaphone::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0006D500(this, nullptr, wParam, lParam);
 }
 void CAvatarMegaphone::ByeAvatarMegaphone() {

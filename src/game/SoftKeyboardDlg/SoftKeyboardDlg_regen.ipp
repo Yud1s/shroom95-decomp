@@ -250,12 +250,12 @@ __asm {
 	push offset _S_UILOGINIMGCOMMON__9
 	push edx
 	mov byte ptr [esp+0x74],9
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0xC
 	push eax
 	lea ecx,[esp+0x2C]
 	mov dword ptr [esp+0x2C],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x24]
 	mov byte ptr [esp+0x68],0xB
 	cmp eax,ebx
@@ -264,7 +264,7 @@ __asm {
  Block14:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block15:
@@ -345,12 +345,12 @@ __asm {
 	push offset _S_UILOGINIMGCOMMON__8
 	push ecx
 	mov byte ptr [esp+0x74],5
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0xC
 	push eax
 	lea ecx,[esp+0x2C]
 	mov dword ptr [esp+0x2C],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x2C]
 	mov byte ptr [esp+0x68],7
 	cmp eax,ebx
@@ -359,7 +359,7 @@ __asm {
  Block25:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block26:
@@ -444,12 +444,12 @@ __asm {
 	push offset _S_UILOGINIMGCOMMON__7
 	push edx
 	mov byte ptr [esp+0x74],1
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0xC
 	push eax
 	lea ecx,[esp+0x2C]
 	mov dword ptr [esp+0x2C],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x30]
 	mov byte ptr [esp+0x68],3
 	cmp eax,ebx
@@ -458,7 +458,7 @@ __asm {
  Block36:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block37:
@@ -527,7 +527,7 @@ __asm {
  Block46:
 	add edi,0xFFFFFFF4
 	push edi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block47:

@@ -88,6 +88,9 @@ public:
 
 public:
 	static KeySequence &_op_assign_3(KeySequence *pThis, const KeySequence &arg0);
+
+
+	void AddElem(KeySequenceElement* seq);
 };
 STATIC_ASSERT_SIZE(KeySequence, 8);
 class CSequencedKeyMan : public TSingleton<CSequencedKeyMan>

@@ -36,7 +36,7 @@ void CUIEnchantDlg::OnButtonClicked(uint32_t nId) {
 void CUIEnchantDlg::Update() {
 	__sub_003A1E40(this, nullptr);
 }
-void CUIEnchantDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIEnchantDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003A1C10(this, nullptr, wParam, lParam);
 }
 int32_t CUIEnchantDlg::OnMouseMove(long rx, long ry) {

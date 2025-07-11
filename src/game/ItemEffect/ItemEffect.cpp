@@ -9,7 +9,6 @@ static Additional::TCond<Additional::SKILL> FAKE_Additional_TCondAdditionalSKILL
 
 CItemEffectManager::~CItemEffectManager()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CItemEffectManager::_dtor_0()

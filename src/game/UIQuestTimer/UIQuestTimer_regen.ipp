@@ -2563,7 +2563,7 @@ __asm {
 	push eax
 	lea ecx,[ebp+0x48]
 	mov dword ptr [ebp+0x48],edi
-	call ZXString<unsigned short>::Assign
+	call ZXString16::Assign
 	mov byte ptr [ebp-4],0x16
 	cmp word ptr [ebp-0x6C],bx
 	jne Block42
@@ -3081,7 +3081,7 @@ __asm {
 	call CWnd::CreateWnd
 	push offset _S_DEFAULT
 	lea ecx,[ebp+0x48]
-	call ZXString<unsigned short>::Compare
+	call ZXString16::Compare
 	test eax,eax
 	jne Block111
 
@@ -3115,7 +3115,7 @@ __asm {
  Block112:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block113:
@@ -3557,7 +3557,7 @@ __asm {
  Block42:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block43:
@@ -4399,7 +4399,7 @@ __asm {
 	push eax
 	lea ecx,[ebp-0x14]
 	mov byte ptr [ebp-4],0xA
-	call ZXString<unsigned short>::op_add_assign_other_1
+	call ZXString16::op_add_assign_other_1
 	mov eax,dword ptr [ebp-0x1C]
 	mov byte ptr [ebp-4],bl
 	test eax,eax
@@ -4408,7 +4408,7 @@ __asm {
  Block30:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block31:
@@ -4427,7 +4427,7 @@ __asm {
  Block32:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block33:

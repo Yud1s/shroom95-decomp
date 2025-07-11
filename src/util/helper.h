@@ -63,7 +63,8 @@ wchar_t *__cdecl __itow(int value, wchar_t *buffer, int radix);
 int _atoi(const char *str);
 
 #define __atoi64 _atoi64
-#define _atof atof
+//#define _atof atof
+double __cdecl _atof(const char* s);
 
 double get_rand_0(unsigned int rand, double f0, double f1);
 
@@ -84,11 +85,11 @@ int abs_0(int n);
 
 double abs_1(double n);
 
-int _zmin_int(int a, int b);
+int __cdecl _zmin_int(int a, int b);
 
-long _zmin_long(long a, long b);
+long __cdecl _zmin_long(long a, long b);
 
-long _zmax_long(long a, long b);
+long __cdecl _zmax_long(long a, long b);
 
 double _zmin_double(double a, double b);
 

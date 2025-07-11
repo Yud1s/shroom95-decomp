@@ -48,7 +48,7 @@ int32_t CShopDlg::OnMouseMove(long rx, long ry) {
 void CShopDlg::OnMouseEnter(int32_t bEnter) {
 	__sub_002E3930(this, nullptr, bEnter);
 }
-void CShopDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CShopDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_002E3950(this, nullptr, wParam, lParam);
 }
 void CShopDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {

@@ -33,7 +33,7 @@ void CSoftKeyboardDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t par
 void CSoftKeyboardDlg::OnButtonClicked(uint32_t nId) {
 	__sub_00316C20(this, nullptr, nId);
 }
-void CSoftKeyboardDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CSoftKeyboardDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00316E20(this, nullptr, wParam, lParam);
 }
 void CSoftKeyboardDlg::Update() {

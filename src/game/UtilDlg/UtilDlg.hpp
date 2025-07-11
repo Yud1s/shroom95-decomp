@@ -93,7 +93,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	CUICancelCharacterCouponRequests &operator=(const CUICancelCharacterCouponRequests &arg0);
@@ -208,14 +208,14 @@ public:
 
 public:
 	static int32_t __cdecl YesNo(ZXString<char> sMsg, int32_t bCenter, int32_t bFixedW);
-	static int32_t __cdecl YesNo_0(ZXString<char> sMsg, int32_t bCenter, int32_t bFixedW)
+	static int32_t __cdecl YesNo_1(ZXString<char> sMsg, int32_t bCenter, int32_t bFixedW)
 	{
 		return YesNo(sMsg, bCenter, bFixedW);
 	}
 
 public:
 	static int32_t __cdecl YesNo(ZXString<char> sMsg, const wchar_t *sSndName, ZRef<CDialog> *ppDialog, int32_t bAutoSeparated, int32_t bNoEnterInput);
-	static int32_t __cdecl YesNo_1(ZXString<char> sMsg, const wchar_t *sSndName, ZRef<CDialog> *ppDialog, int32_t bAutoSeparated, int32_t bNoEnterInput)
+	static int32_t __cdecl YesNo_0(ZXString<char> sMsg, const wchar_t *sSndName, ZRef<CDialog> *ppDialog, int32_t bAutoSeparated, int32_t bNoEnterInput)
 	{
 		return YesNo(sMsg, sSndName, ppDialog, bAutoSeparated, bNoEnterInput);
 	}
@@ -236,7 +236,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);
@@ -354,7 +354,7 @@ public:
 	virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t HitTest(long rx, long ry, CCtrlWnd **ppCtrl);
@@ -497,7 +497,7 @@ public:
 	virtual void Update();
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void ClearToolTip();
@@ -590,7 +590,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	void GetResult(unsigned long &nDuration, unsigned long &nBlockReason, ZXString<char> &sDescription);
@@ -725,7 +725,7 @@ public:
 	virtual void Update();
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnMouseMove(long rx, long ry);
@@ -795,7 +795,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	CUIGachaponBox &operator=(const CUIGachaponBox &arg0);
@@ -1200,7 +1200,7 @@ public:
 	virtual void OnButtonClicked(uint32_t nId);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	CUICancelCharacterCouponResults &operator=(const CUICancelCharacterCouponResults &arg0);
@@ -1217,7 +1217,7 @@ protected:
 	ZRef<CCtrlButton> m_pBtOk;
 
 protected:
-	ZXString<unsigned short> m_sMesoReceiveMessage;
+	ZXString16 m_sMesoReceiveMessage;
 
 protected:
 	ZXString<char> m_sMesoAmount;

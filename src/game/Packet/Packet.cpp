@@ -209,7 +209,7 @@ void COutPacket::MakeBufferList(ZList<ZRef<ZSocketBuffer>>& l, uint16_t uSeqBase
                                 unsigned long dwKey) const
 {
     auto start = &m_aSendBuff[0];
-    spdlog::info("S: {:Xpn}", spdlog::to_hex(start, start + m_uOffset));
+    //spdlog::info("S: {:Xpn}", spdlog::to_hex(start, start + m_uOffset));
 
     if (bEnc && !m_bIsEncryptedByShanda)
     {
@@ -577,6 +577,22 @@ uint16_t CInPacket::Decode2()
     //return __sub_0002A2A0(this, nullptr);
 }
 
+tagPOINT CInPacket::DecodePoint16()
+{
+    tagPOINT pt{};
+    pt.x = Decode2();
+    pt.y = Decode2();
+    return pt;
+}
+
+tagPOINT CInPacket::DecodePoint32()
+{
+    tagPOINT pt{};
+    pt.x = Decode4();
+    pt.y = Decode4();
+    return pt;
+}
+
 unsigned long CInPacket::Decode4()
 {
     unsigned long v = 0;
@@ -597,6 +613,20 @@ ZXString<char> CInPacket::DecodeStr()
         m_uLength - m_uOffset);
     return ret;
     //return __sub_00084140(this, nullptr);
+}
+
+int64_t CInPacket::Decode8()
+{
+    int64_t v = 0;
+    DecodeBuffer(&v, 8);
+    return v;
+}
+
+FILETIME CInPacket::DecodeFT()
+{
+    FILETIME ft{};
+    DecodeBuffer(&ft, 8);
+    return ft;
 }
 
 void CInPacket::DecodeBuffer(void* p, uint32_t uSize)
@@ -766,7 +796,7 @@ int32_t CInPacket::DecryptData(unsigned long dwKey)
         m_uDataLen);
 
     const auto start = &m_aRecvBuff[4];
-    spdlog::info("R: {:Xpn}", spdlog::to_hex(start, start + m_uDataLen));
+    //spdlog::info("R: {:Xpn}", spdlog::to_hex(start, start + m_uDataLen));
 
     return 1;
     //return __sub_0028CCA0(this, nullptr, dwKey);

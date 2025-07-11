@@ -60,7 +60,7 @@ void CUIMessenger::OnDestroy()
     __sub_003F03F0(this, nullptr);
 }
 
-void CUIMessenger::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIMessenger::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_003F6400(this, nullptr, wParam, lParam);
 }
@@ -230,7 +230,7 @@ void CUIMessenger::StartBlink(int32_t bStart)
     __sub_003EFBA0(this, nullptr, bStart);
 }
 
-void CUIMessenger::AddChatText(ZXString<unsigned short> sText, long nIdx)
+void CUIMessenger::AddChatText(ZXString16 sText, long nIdx)
 {
     __sub_003F4250(this, nullptr, CreateNakedParam(sText), nIdx);
 }

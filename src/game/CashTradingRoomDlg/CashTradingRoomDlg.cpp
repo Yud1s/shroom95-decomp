@@ -154,7 +154,7 @@ void CMiniRoomBaseDlg::EnableChat(long left, long top, long width, long height, 
 void CMiniRoomBaseDlg::CheckAndSendChat(ZXString<char> strChatMsg) {
 	__sub_002382A0(this, nullptr, CreateNakedParam(strChatMsg));
 }
-void CMiniRoomBaseDlg::AddChatText(ZXString<unsigned short> sText, FONT_TYPE nFontColor) {
+void CMiniRoomBaseDlg::AddChatText(ZXString16 sText, FONT_TYPE nFontColor) {
 	__sub_00239130(this, nullptr, CreateNakedParam(sText), nFontColor);
 }
 void CMiniRoomBaseDlg::MakeGameMessage(ZXString<char>& sText, long nMessageCode, ZXString<char> sCharacterName) {
@@ -235,7 +235,7 @@ void CCashTradingRoomDlg::SetRet(long nRet) {
 void CCashTradingRoomDlg::OnCreate(void* pData) {
 	__sub_0009E8C0(this, nullptr, pData);
 }
-void CCashTradingRoomDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCashTradingRoomDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0009DBF0(this, nullptr, wParam, lParam);
 }
 int32_t CCashTradingRoomDlg::OnMouseMove(long rx, long ry) {

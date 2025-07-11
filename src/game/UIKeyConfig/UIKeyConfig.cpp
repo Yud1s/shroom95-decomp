@@ -11,7 +11,6 @@ static ZRef<CUIKeyConfig::CNoticeDlg> FAKE_ZRef_CUIKeyConfig_CNoticeDlg{};
 
 CDraggableSkill::~CDraggableSkill()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CDraggableSkill::_dtor_0()
@@ -33,13 +32,18 @@ void CDraggableSkill::_ctor_1(const CDraggableSkill& arg0)
 CDraggableSkill::CDraggableSkill(IWzGr2DLayer* pLayer, long nSkillID, IUIMsgHandler* pSource, int32_t bMacroSkill,
                                  long nMacroIdx, long nSkillIdx)
 {
-    _ctor_0(pLayer, nSkillID, pSource, bMacroSkill, nMacroIdx, nSkillIdx);
+    m_pLayer = pLayer;
+    m_nSkillID = nSkillID;
+    m_pSource = pSource;
+    m_bMacroSysSkill = bMacroSkill;
+    m_nMacroIdx = nMacroIdx;
+    m_nSkillIdx = nSkillIdx;
 }
 
 void CDraggableSkill::_ctor_0(IWzGr2DLayer* pLayer, long nSkillID, IUIMsgHandler* pSource, int32_t bMacroSkill,
                               long nMacroIdx, long nSkillIdx)
 {
-    return __sub_003D8F60(this, nullptr, pLayer, nSkillID, pSource, bMacroSkill, nMacroIdx, nSkillIdx);
+    new(this) CDraggableSkill(pLayer, nSkillID, pSource, bMacroSkill, nMacroIdx, nSkillIdx);
 }
 
 int32_t CDraggableSkill::OnDropped(IUIMsgHandler* pFrom, IUIMsgHandler* pTo, long rx, long ry)
@@ -359,7 +363,7 @@ void CUIKeyConfig::CNoticeDlg::OnButtonClicked(uint32_t nId)
     __sub_003D8350(this, nullptr, nId);
 }
 
-void CUIKeyConfig::CNoticeDlg::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIKeyConfig::CNoticeDlg::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_003D8370(this, nullptr, wParam, lParam);
 }

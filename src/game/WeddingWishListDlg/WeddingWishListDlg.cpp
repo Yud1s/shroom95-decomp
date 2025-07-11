@@ -42,7 +42,7 @@ void CWishListInputDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t pa
 int32_t CWishListInputDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 	return __sub_005A60B0(this, nullptr, rx, ry, ppCtrl);
 }
-void CWishListInputDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CWishListInputDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_005A9920(this, nullptr, wParam, lParam);
 }
 void CWishListInputDlg::OnEnter() {

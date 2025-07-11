@@ -189,7 +189,7 @@ public:
 		virtual void OnButtonClicked(uint32_t nId);
 
 	public:
-		virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 	public:
 		virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);

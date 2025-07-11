@@ -8,8 +8,8 @@
 #include "PCom.h"
 #include "spdlog/include/spdlog/spdlog.h"
 
-const wchar_t *LOAD_PATH = L"/home/dev/shared_vm/maplestory";
-const wchar_t *PCOM_PATH = L"/home/dev/shared_vm/maplestory/PCOM.dll";
+const wchar_t *LOAD_PATH = L"/home/jonas/shared_vm/maplestory";
+const wchar_t *PCOM_PATH = L"/home/jonas/shared_vm/maplestory/PCOM.dll";
 
 
 // Small test tool for pcom

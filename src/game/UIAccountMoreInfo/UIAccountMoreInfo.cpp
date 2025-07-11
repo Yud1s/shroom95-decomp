@@ -39,7 +39,7 @@ void CUIAccountMoreInfo::OnButtonClicked(uint32_t nId) {
 int32_t CUIAccountMoreInfo::OnSetFocus(int32_t bFocus) {
 	return __sub_0036AF30(this, nullptr, bFocus);
 }
-void CUIAccountMoreInfo::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIAccountMoreInfo::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0036AD20(this, nullptr, wParam, lParam);
 }
 void CUIAccountMoreInfo::SetAregComboBox(long nAregIndex) {

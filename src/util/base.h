@@ -66,101 +66,6 @@ static void __xsecurity_check_cookie() {
 }
 
 
-struct UINT128
-{
-public:
-    static constexpr UINT128 CreateShifted(size_t shift) {
-        return UINT128{true, 1};
-    }
-
-    UINT128() {
-
-    }
-    constexpr UINT128(bool f, size_t shift) {
-
-    }
-
-    CTOR_DEFAULT(UINT128)
-
-    void _ctor_0()
-    {
-    }
-    void _ctor_1()
-    {
-    }
-
-    void _ctor_2()
-    {
-    }
-
-    void op_neg() {
-
-    }
-
-    void compareTo_1()
-    {
-    }
-
-    void op_negate()
-    {
-    }
-
-    void shiftLeft()
-    {
-    }
-
-    void setValue_1() {
-
-    }
-
-    void getBitNumber() {
-
-    }
-
-    void setBitNumber() {
-
-    }
-
-    UINT128 &operator&=(const UINT128 &other)
-    {
-        return *this;
-    }
-
-    bool op_bool()
-    {
-        return false;
-    }
-
-    UINT128 &operator&(const UINT128 &other)
-    {
-        return *this;
-    }
-
-    void setValue_0()
-    {
-    }
-
-    void compareTo_0()
-    {
-    }
-
-    UINT128 &operator|=(const UINT128 &other)
-    {
-        return *this;
-    }
-    UINT128 &operator|(const UINT128 &other)
-    {
-        return *this;
-    }
-
-    bool operator!=(const UINT128 &other)
-    {
-        return false;
-    }
-};
-
-
-
 typedef int none;
 
 struct RANGE
@@ -177,9 +82,6 @@ public:
 
 
 
-static void Negate_U128() {
-    //TODO
-}
 
 #define ZTL_SEC_GET(ty, name) _ZtlSecureFuseHelper<ty>::call(&this->_ZtlSecureTear_##name[0], this->_ZtlSecureTear_##name##_CS)
 #define ZTL_SEC_SET(ty, name, val) this->_ZtlSecureTear_##name##_CS = _ZtlSecureTearHelper<ty>::call(val, &this->_ZtlSecureTear_##name[0])
@@ -266,6 +168,39 @@ struct SECRECT
     _ZTL_SEC_GETSETI_(int32_t, SECRECT, right)
     _ZTL_SEC_GETSETI_(int32_t, SECRECT, bottom)
 
+    SECRECT()
+    {
+        _ZtlSecurePut_bottom(0);
+        _ZtlSecurePut_top(0);
+        _ZtlSecurePut_right(0);
+        _ZtlSecurePut_left(0);
+    }
+
+    explicit SECRECT(const tagRECT& rc)
+    {
+        _ZtlSecurePut_bottom(rc.bottom);
+        _ZtlSecurePut_top(rc.top);
+        _ZtlSecurePut_right(rc.right);
+        _ZtlSecurePut_left(rc.left);
+    }
+
+    explicit operator tagRECT() const {
+        return ToRect(*this);
+    }
+
+    void Set(int l, int t, int r, int b)
+    {
+        _ZtlSecurePut_bottom(b);
+        _ZtlSecurePut_top(t);
+        _ZtlSecurePut_right(r);
+        _ZtlSecurePut_left(l);
+    }
+
+    void SetEmpty()
+    {
+        Set(0, 0, 0, 0);
+    }
+
     static bool __cdecl SetRect(SECRECT& secret, int l, int t, int r, int b) {
         secret._ZtlSecurePut_left(l);
         secret._ZtlSecurePut_top(t);
@@ -274,7 +209,7 @@ struct SECRECT
         return true;
     }
 
-    static tagRECT __cdecl ToRect(SECRECT& src) {
+    static tagRECT __cdecl ToRect(const SECRECT& src) {
         tagRECT dst{};
         dst.left = src._ZtlSecureGet_left();
         dst.top = src._ZtlSecureGet_top();

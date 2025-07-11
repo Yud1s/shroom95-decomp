@@ -262,7 +262,7 @@ __SUB_CLASS_THIS(000C4160, __thiscall, 48410,  CCSWnd_Inventory, void, uint32_t,
 	_ASM_PLACEHOLDER(000C4160, 48410)
 }
 // CCSWnd_Char::TransientLayer_Weather
-__SUB_CLASS_THIS(000C0F30, __thiscall, 48169,  CCSWnd_Char, void, NakedParam<ZXString<unsigned short>>, long, long, long) {
+__SUB_CLASS_THIS(000C0F30, __thiscall, 48169,  CCSWnd_Char, void, NakedParam<ZXString16>, long, long, long) {
 	_ASM_PLACEHOLDER(000C0F30, 48169)
 }
 // CCSWnd_Char::OnMouseButton

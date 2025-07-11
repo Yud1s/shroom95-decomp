@@ -128,10 +128,7 @@ namespace Field
 
         void Parse(_x_com_ptr<IWzProperty> pPropSkill);
 
-        bool IsSkill(long nSkillID)
-        {
-            return false;
-        }
+        bool IsSkill(long nSkillID);
 
         // Methods
         /*

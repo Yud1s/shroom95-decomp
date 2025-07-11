@@ -12253,7 +12253,7 @@ __asm {
  Block12:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block13:
@@ -14398,7 +14398,7 @@ __asm {
  Block4:
 	push eax
 	lea ecx,[esp+0x2C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -14460,7 +14460,7 @@ __asm {
  Block9:
 	push offset _S_UIUIWINDOW2IMGUS__49
 	lea ecx,[esp+0x2C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -14520,7 +14520,7 @@ __asm {
  Block15:
 	push offset _S_UIUIWINDOW2IMGUS__48
 	lea ecx,[esp+0x2C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -14582,7 +14582,7 @@ __asm {
  Block21:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block22:
@@ -15346,7 +15346,7 @@ __asm {
  Block5:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block6:
@@ -15372,7 +15372,7 @@ __asm {
  Block7:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block8:
@@ -31967,13 +31967,13 @@ __asm {
 	push 0x27
 	mov ecx,edi
 	mov dword ptr [edi],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x27
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov eax,dword ptr [ebp+0x70]
 	push eax
 	mov ecx,esi
@@ -32989,7 +32989,7 @@ __asm {
  Block136:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block137:
@@ -33015,7 +33015,7 @@ __asm {
  Block138:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block139:
@@ -33041,7 +33041,7 @@ __asm {
  Block140:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block141:
@@ -33067,7 +33067,7 @@ __asm {
  Block142:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block143:
@@ -33093,7 +33093,7 @@ __asm {
  Block144:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block145:
@@ -33119,7 +33119,7 @@ __asm {
  Block146:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block147:
@@ -36290,13 +36290,13 @@ __asm {
 	push 0x2D
 	lea ecx,[esp+0x24]
 	mov dword ptr [esp+0x24],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x2D
 	lea ecx,[esp+0x18]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov eax,dword ptr [esi+0x7C]
 	push ecx
 	add eax,0xC60
@@ -36317,13 +36317,13 @@ __asm {
 	push ebx
 	push 0x2F
 	lea ecx,[esp+0x24]
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x2F
 	lea ecx,[esp+0x18]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 
  Block19:
 	push ecx
@@ -36332,7 +36332,7 @@ __asm {
 	mov dword ptr [esp+0x1C],esp
 	push edx
 	mov dword ptr [ecx],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov ecx,dword ptr [esi+0x78]
 	call CCtrlButton::SetButtonImage
 	mov esi,dword ptr [esi+0x78]
@@ -36349,7 +36349,7 @@ __asm {
  Block20:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	mov ecx,dword ptr [esp+0x50]
 	mov dword ptr fs:[0],ecx
@@ -36421,13 +36421,13 @@ __asm {
 	push 0x2D
 	lea ecx,[esp+0x28]
 	mov dword ptr [esp+0x28],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x2D
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov byte ptr [esp+0x58],4
 	cmp dword ptr [esp+0x44],ebx
 	jne Block28
@@ -36443,7 +36443,7 @@ __asm {
 	push offset _S_UIUIWINDOW2IMGUS__90
 	lea ecx,[esp+0x1C]
 	mov dword ptr [eax],0xB
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	mov ebp,dword ptr [esp+0x14]
 
  Block29:
@@ -36453,7 +36453,7 @@ __asm {
 	mov dword ptr [esp+0x20],esp
 	push edx
 	mov dword ptr [ecx],ebx
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov ecx,dword ptr [esi+0x78]
 	call CCtrlButton::SetButtonImage
 	xor edi,edi
@@ -36521,7 +36521,7 @@ __asm {
  Block40:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block41:
@@ -43578,7 +43578,7 @@ __asm {
  Block97:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block98:
@@ -43652,7 +43652,7 @@ __asm {
  Block107:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block108:
@@ -47125,7 +47125,7 @@ __asm {
  Block4:
 	push eax
 	lea ecx,[esp+0x2C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -47178,7 +47178,7 @@ __asm {
  Block9:
 	push offset _S_UIUIWINDOW2IMGUS__49
 	lea ecx,[esp+0x2C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -47233,7 +47233,7 @@ __asm {
  Block15:
 	push offset _S_UIUIWINDOW2IMGUS__48
 	lea ecx,[esp+0x2C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -47292,7 +47292,7 @@ __asm {
  Block21:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block22:
@@ -49877,7 +49877,7 @@ __asm {
  Block11:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block12:

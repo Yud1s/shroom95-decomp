@@ -211,7 +211,6 @@ CNpcTemplate::ACT& CNpcTemplate::ACT::_op_assign_4(CNpcTemplate::ACT* pThis, con
 
 CNpcTemplate::QUEST_CONDITION::~QUEST_CONDITION()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CNpcTemplate::QUEST_CONDITION::_dtor_0()
@@ -233,7 +232,6 @@ void CNpcTemplate::QUEST_CONDITION::_ctor_1(const CNpcTemplate::QUEST_CONDITION&
 
 CNpcTemplate::QUEST_CONDITION::QUEST_CONDITION()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CNpcTemplate::QUEST_CONDITION::_ctor_0()
@@ -256,7 +254,6 @@ CNpcTemplate::QUEST_CONDITION& CNpcTemplate::QUEST_CONDITION::_op_assign_3(
 
 CNpcTemplate::QuestLine::~QuestLine()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CNpcTemplate::QuestLine::_dtor_0()
@@ -277,7 +274,6 @@ void CNpcTemplate::QuestLine::_ctor_1(const CNpcTemplate::QuestLine& arg0)
 
 CNpcTemplate::QuestLine::QuestLine()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CNpcTemplate::QuestLine::_ctor_0()
@@ -300,7 +296,6 @@ CNpcTemplate::QuestLine& CNpcTemplate::QuestLine::_op_assign_3(CNpcTemplate::Que
 
 CNpcTemplate::CLIENT_ACTION_SET::~CLIENT_ACTION_SET()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CNpcTemplate::CLIENT_ACTION_SET::_dtor_0()
@@ -321,7 +316,6 @@ void CNpcTemplate::CLIENT_ACTION_SET::_ctor_1(const CNpcTemplate::CLIENT_ACTION_
 
 CNpcTemplate::CLIENT_ACTION_SET::CLIENT_ACTION_SET()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void CNpcTemplate::CLIENT_ACTION_SET::_ctor_0()

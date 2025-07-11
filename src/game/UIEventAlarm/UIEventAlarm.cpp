@@ -39,7 +39,7 @@ void CUIEventAlarm::Draw(const tagRECT* pRect) {
 void CUIEventAlarm::SetBackground() {
 	__sub_003AB010(this, nullptr);
 }
-const wchar_t* CUIEventAlarm::MakeUOLByUIType(ZXString<unsigned short>& sOut, const wchar_t* sUOL, const wchar_t* sUOL2) {
+const wchar_t* CUIEventAlarm::MakeUOLByUIType(ZXString16& sOut, const wchar_t* sUOL, const wchar_t* sUOL2) {
 	return __sub_003AAD40(this, nullptr, sOut, sUOL, sUOL2);
 }
 void CUIEventAlarm::Update() {

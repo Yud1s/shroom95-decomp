@@ -103,7 +103,7 @@ public:
 	virtual int32_t OnMouseMove(long rx, long ry);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);

@@ -66,7 +66,7 @@ __SUB_CLASS_THIS0(0046F5A0, __thiscall, 37954,  CUIStatusBar::CQuickSlot, void) 
 	_ASM_PLACEHOLDER(0046F5A0, 37954)
 }
 // ExtractCharacterName_ZXString_unsignedshort__
-__SUB(00477040, __cdecl, 85127,  ZXString<unsigned short>, NakedParam<ZXString<unsigned short>>) {
+__SUB(00477040, __cdecl, 85127,  ZXString16, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(00477040, 85127)
 }
 // CUIStatusBar::Draw
@@ -182,7 +182,7 @@ __SUB_CLASS_THIS(0046D640, __thiscall, 37835,  CUIStatusBar, long, long, long) {
 	_ASM_PLACEHOLDER(0046D640, 37835)
 }
 // CUIStatusBar::CChatLog::CChatLog
-__SUB_CLASS_THIS(004718C0, __thiscall, 37885,  CUIStatusBar::CChatLog, void, NakedParam<ZXString<unsigned short>>, long, long, long, int32_t, int32_t, NakedParam<ZRef<GW_ItemSlotBase>>) {
+__SUB_CLASS_THIS(004718C0, __thiscall, 37885,  CUIStatusBar::CChatLog, void, NakedParam<ZXString16>, long, long, long, int32_t, int32_t, NakedParam<ZRef<GW_ItemSlotBase>>) {
 	_ASM_PLACEHOLDER(004718C0, 37885)
 }
 // CUIStatusBar::SetNumberValue
@@ -282,7 +282,7 @@ __SUB_CLASS_THIS(0046D430, __thiscall, 37831,  CUIStatusBar, void, const char*, 
 	_ASM_PLACEHOLDER(0046D430, 37831)
 }
 // CUIStatusBar::ConvertWhisperToNormal
-__SUB_CLASS_THIS(004771C0, __thiscall, 37850,  CUIStatusBar, ZXString<unsigned short>*, ZXString<unsigned short>*, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(004771C0, __thiscall, 37850,  CUIStatusBar, ZXString16*, ZXString16*, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(004771C0, 37850)
 }
 // CUIStatusBar::CQuickSlot::GetIndexByPos

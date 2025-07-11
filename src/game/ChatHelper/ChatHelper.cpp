@@ -9,12 +9,12 @@ static ExtractCharacterNameHelper<ZXString<char>> FAKE_ExtractCharacterNameHelpe
 
 CClaimChatLog::~CClaimChatLog()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CClaimChatLog::_dtor_0()
 {
-    return __sub_00602B90(this, nullptr);
+    //return __sub_00602B90(this, nullptr);
+    this->~CClaimChatLog();
 }
 
 CClaimChatLog::CClaimChatLog(const CClaimChatLog& arg0)
@@ -30,12 +30,15 @@ void CClaimChatLog::_ctor_1(const CClaimChatLog& arg0)
 
 CClaimChatLog::CClaimChatLog(ZArray<ZXString<char>>& asChatLog, ZXString<char> sCharacterName)
 {
-    _ctor_0(asChatLog, sCharacterName);
+
+    m_asChatLog = asChatLog;
+    m_asCharacterName = asChatLog;
 }
 
 void CClaimChatLog::_ctor_0(ZArray<ZXString<char>>& asChatLog, ZXString<char> sCharacterName)
 {
-    return __sub_000AAAC0(this, nullptr, asChatLog, CreateNakedParam(sCharacterName));
+    //return __sub_000AAAC0(this, nullptr, asChatLog, CreateNakedParam(sCharacterName));
+    new(this) CClaimChatLog(asChatLog, sCharacterName);
 }
 
 int32_t CClaimChatLog::IsClaimAbleCharacter(ZXString<char> sCharacterName)
@@ -75,12 +78,11 @@ CClaimChatLog& CClaimChatLog::_op_assign_7(CClaimChatLog* pThis, const CClaimCha
 
 CChatHelper::~CChatHelper()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CChatHelper::_dtor_0()
 {
-    return __sub_000AA4F0(this, nullptr);
+    this->~CChatHelper();
 }
 
 CChatHelper::CChatHelper(const CChatHelper& arg0)
@@ -101,7 +103,7 @@ CChatHelper::CChatHelper()
 
 void CChatHelper::_ctor_0()
 {
-    return __sub_000AA4C0(this, nullptr);
+    new(this) CChatHelper();
 }
 
 int32_t CChatHelper::TryChat(ZXString<char>& sChat)
@@ -116,7 +118,28 @@ ZXString<char> CChatHelper::HistoryUp()
 
 ZXString<char> CChatHelper::HistoryDown()
 {
-    return __sub_000AA2C0(this, nullptr);
+    //return __sub_000AA2C0(this, nullptr);
+    m_nHistoryIndex = this->m_nHistoryIndex;
+
+    auto n = m_asHistory.GetCount();
+
+    auto v5 = false;
+    if ( m_nHistoryIndex < 0 )
+    {
+        v5 = m_nHistoryIndex == n;
+    }
+    else
+    {
+        v5 = m_nHistoryIndex == n;
+        if ( m_nHistoryIndex < n )
+        {
+            this->m_nHistoryIndex = ++m_nHistoryIndex;
+            return this->m_asHistory[m_nHistoryIndex];
+        }
+    }
+    if ( v5 )
+        return this->m_asHistory[m_nHistoryIndex];
+    return {};
 }
 
 void CChatHelper::HistoryAddforCommand(ZXString<char> sCommand)
@@ -142,5 +165,6 @@ CChatHelper& CChatHelper::_op_assign_8(CChatHelper* pThis, const CChatHelper& ar
 
 void __cdecl CHATLOG_ADD(ZXString<char>& sString, uint16_t nType)
 {
-    return __sub_000AA000(sString, nType);
+    if (auto bar = CUIStatusBar::GetInstance())
+        bar->ChatLogAdd(sString.c_str(), nType, -1, false, {});
 }

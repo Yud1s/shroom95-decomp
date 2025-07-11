@@ -25,13 +25,13 @@ public:
 
 	void _ctor_default()
 	{
-
+		new(this) MY_UINT128();
 	}
 
 
 	bool op_bool()
 	{
-		return compareTo(0) != 0;
+		return static_cast<bool>(m_inner);
 	}
 
 	bool op_neg() const
@@ -98,12 +98,13 @@ public:
 	static MY_UINT128 __cdecl op_negate(MY_UINT128 value)
 	{
 		MY_UINT128 result;
-		//TODO(game) result.m_inner = ~value.m_inner;
+		result.m_inner = ~value.m_inner;
 		return result;
 	}
 
 
 public:
+	MY_UINT128 operator~();
 	int32_t compareTo(unsigned long value) const;
 
 public:
@@ -300,7 +301,7 @@ public:
 	static bool _op_not_41(MY_UINT128 *pThis);
 
 public:
-	operator bool();
+	operator bool() const;
 
 public:
 	static bool _op_42(MY_UINT128 *pThis);

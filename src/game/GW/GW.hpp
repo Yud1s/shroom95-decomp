@@ -118,6 +118,10 @@ public:
 public:
 	unsigned char nType{};
 
+	FUNCKEY_MAPPED() = default;
+
+	FUNCKEY_MAPPED(unsigned char type, long id);
+
 public:
 	long nID{};
 	// Methods
@@ -652,7 +656,7 @@ protected:
 	unsigned char nRidingType{};
 
 protected:
-	std::array<unsigned long, 5> adwCapturedMob;
+	std::array<unsigned long, 5> adwCapturedMob{};
 
 protected:
 	long nIdx{};
@@ -1172,13 +1176,13 @@ struct SPSet
 	// Nested
 	// Fields
 public:
-	std::array<unsigned char, 2> _ZtlSecureTear_nJobLevel;
+	std::array<unsigned char, 2> _ZtlSecureTear_nJobLevel{};
 
 public:
 	uint32_t _ZtlSecureTear_nJobLevel_CS{};
 
 public:
-	std::array<unsigned char, 2> _ZtlSecureTear_nSP;
+	std::array<unsigned char, 2> _ZtlSecureTear_nSP{};
 
 public:
 	uint32_t _ZtlSecureTear_nSP_CS{};
@@ -1831,10 +1835,10 @@ public:
 	TSecType<long> nItemID;
 
 public:
-	_LARGE_INTEGER liCashItemSN;
+	_LARGE_INTEGER liCashItemSN{};
 
 public:
-	_FILETIME dateExpire;
+	_FILETIME dateExpire{};
 	// Methods
 public:
 	virtual ~GW_ItemSlotBase();

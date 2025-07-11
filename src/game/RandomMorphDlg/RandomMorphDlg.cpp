@@ -30,7 +30,7 @@ void CUIRandomMorphDlg::OnCreate(void* pData) {
 void CUIRandomMorphDlg::OnButtonClicked(uint32_t nId) {
 	__sub_0061F0B0(this, nullptr, nId);
 }
-void CUIRandomMorphDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIRandomMorphDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0061F100(this, nullptr, wParam, lParam);
 }
 void __cdecl CUIRandomMorphDlg::ShowDlg(long nPOS, long nItemID) {

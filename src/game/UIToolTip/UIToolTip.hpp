@@ -264,7 +264,7 @@ public:
         long nITCSalePrice{};
 
     public:
-        _FILETIME ftITCDateExpired;
+        _FILETIME ftITCDateExpired{};
 
     public:
         const char* sOrderComment{};
@@ -444,7 +444,7 @@ protected:
     std::array<std::array<_x_com_ptr<IWzCanvas>, 2>, 6> m_pCanvasEquip_JobItem{};
 
 protected:
-    std::array<_x_com_ptr<IWzCanvas>, 3> m_pCanvasDot;
+    std::array<_x_com_ptr<IWzCanvas>, 3> m_pCanvasDot{};
 
 protected:
     std::array<std::array<_x_com_ptr<IWzCanvas>, 2>, 4> m_pCanvasEquip_GrowthItem{};
@@ -491,7 +491,7 @@ public:
     void SetToolTip_String(long x, long y, const char* sToolTip);
 
 public:
-    void SetToolTip_String_MultiLine(long x, long y, ZXString<char> sToolTip, long nWidth, int32_t bTrimLeft);
+    void SetToolTip_String_MultiLine(long x, long y, ZXString<char> sToolTip, long nTy, int32_t bTrimLeft);
 
 public:
     void SetToolTip_String2(long x, long y, ZXString<char> sToolTipTitle, ZXString<char> sToolTipDesc, int32_t bUpDir,
@@ -688,6 +688,9 @@ public:
 
 public:
     static CUIToolTip& _op_assign_63(CUIToolTip* pThis, const CUIToolTip& __that);
+
+    friend class CWnd;
+    friend class CUIStatusBar;
 };
 
 STATIC_ASSERT_SIZE(CUIToolTip, 2632);

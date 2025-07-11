@@ -1636,7 +1636,7 @@ je Block184
 
  Block185:
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	mov eax,dword ptr [esp+0x18]
 	cmp eax,ebx
 	je Block187
@@ -1856,7 +1856,7 @@ je Block184
  Block205:
 	add edi,0xFFFFFFF4
 	push edi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block206:

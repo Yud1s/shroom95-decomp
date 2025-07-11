@@ -29,7 +29,7 @@ class CUIUnreleaseDlg: public CUniqueModeless {
 		public:  virtual int32_t HitTest(long rx, long ry, CCtrlWnd** ppCtrl);
 		public:  virtual void Draw(const tagRECT* pRect);
 		public:  virtual void OnButtonClicked(uint32_t nId);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:   void SetEItemPos(long arg0);
 		public:   long GetEItemPos();
 		public:   int32_t UnreleaseEquipItem();

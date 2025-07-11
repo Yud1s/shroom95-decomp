@@ -38,7 +38,7 @@ void CCtrlWnd::_ctor_0()
     //return __sub_000EFFC0(this, nullptr);
 }
 
-void CCtrlWnd::OnKey(uint32_t wParam, uint32_t lParam)
+void CCtrlWnd::OnKey(uint32_t wParam, int32_t lParam)
 {
     m_pParent->OnKey(wParam, lParam);
     //__sub_000892E0(this, nullptr, wParam, lParam);
@@ -52,13 +52,11 @@ int32_t CCtrlWnd::OnSetFocus(int32_t bFocus)
 
 void CCtrlWnd::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    //__sub_000D80D0(this, nullptr, msg, wParam, rx, ry);
 }
 
 int32_t CCtrlWnd::OnMouseMove(long rx, long ry)
 {
     return 0;
-    //return __sub_000892F0(this, nullptr, rx, ry);
 }
 
 void CCtrlWnd::OnMouseEnter(int32_t bEnter)
@@ -68,39 +66,34 @@ void CCtrlWnd::OnMouseEnter(int32_t bEnter)
     {
         inpSys->SetCursorState(0);
     }
-    //__sub_000EFDE0(this, nullptr, bEnter);
 }
 
 int32_t CCtrlWnd::OnDragDrop(long nState, DRAGCTX& ctx, long rx, long ry)
 {
     return 0;
-    //return __sub_00071800(this, nullptr, nState, ctx, rx, ry);
 }
 
 long CCtrlWnd::GetAbsLeft()
 {
     return m_pParent->GetAbsLeft() + m_pLTCtrl->Getrx();
-    //return __sub_00071890(this, nullptr);
 }
 
 long CCtrlWnd::GetAbsTop()
 {
     return m_pParent->GetAbsTop() + m_pLTCtrl->Getry();
-    //return __sub_000718F0(this, nullptr);
 }
 
 void CCtrlWnd::Update()
 {
-    //__sub_00071820(this, nullptr);
 }
 
 void CCtrlWnd::CreateCtrl(CWnd* pParent, uint32_t nId, long l, long t, long w, long h, void* pData)
 {
     m_nCtrlId = nId;
     m_pParent = pParent;
-    PcCreate_IWzVector2D(L"Shape2D#Vector2D", m_pLTCtrl);
+    m_pLTCtrl = G_PCOM.CreateVector2D();
     const auto parentLayer = pParent->GetLayer();
-    m_pLTCtrl->Putorigin(Ztl_variant_t(static_cast<IUnknown*>(parentLayer)));
+    m_pLTCtrl->PutOrigin(pParent->GetLayer());
     Z_CHECK_HR(m_pLTCtrl->RelMove(l, t, vtMissing, vtMissing));
 
     m_width = w;
@@ -120,19 +113,17 @@ void CCtrlWnd::Destroy()
     CWndMan::GetInstance()->Unlink(this);
     OnDestroy();
     m_pParent->RemoveChild(this);
+    m_pParent = nullptr;
     m_pLTCtrl = 0;
     m_nCtrlId = -1;
-    //__sub_00071820(this, nullptr);
 }
 
 void CCtrlWnd::OnCreate(void* pData)
 {
-    //__sub_00071810(this, nullptr, pData);
 }
 
 void CCtrlWnd::OnDestroy()
 {
-    //__sub_00071820(this, nullptr);
 }
 
 int32_t CCtrlWnd::HitTest(long rx, long ry)
@@ -144,7 +135,6 @@ int32_t CCtrlWnd::HitTest(long rx, long ry)
         .bottom = m_height
     };
     return PtInRect(&rc, tagPOINT{rx, ry});
-    //return __sub_000EFD30(this, nullptr, rx, ry);
 }
 
 tagRECT CCtrlWnd::GetRect()
@@ -158,7 +148,6 @@ tagRECT CCtrlWnd::GetRect()
         .right = x + m_width,
         .bottom = y + m_height
     };
-    //return __sub_000EFE10(this, nullptr);
 }
 
 void CCtrlWnd::SetAbove(CCtrlWnd* pCtrl)
@@ -167,7 +156,6 @@ void CCtrlWnd::SetAbove(CCtrlWnd* pCtrl)
     m_pParent->RemoveChild(this);
     auto pos = pCtrl ? m_pParent->FindChild(pCtrl) : nullptr;
     m_pParent->InsertChildAfter(this, pos);
-    //__sub_000F0B50(this, nullptr, pCtrl);
 }
 
 void CCtrlWnd::SetBelow(CCtrlWnd* pCtrl)
@@ -176,7 +164,6 @@ void CCtrlWnd::SetBelow(CCtrlWnd* pCtrl)
     m_pParent->RemoveChild(this);
     auto pos = pCtrl ? m_pParent->FindChild(pCtrl) : nullptr;
     m_pParent->InsertChildBefore(this, pos);
-    //__sub_000F0C00(this, nullptr, pCtrl);
 }
 
 uint32_t CCtrlWnd::GetCtrlId() const
@@ -199,19 +186,16 @@ _x_com_ptr<IWzCanvas> CCtrlWnd::GetCanvas(const long idx) const
 int32_t CCtrlWnd::IsFocused() const
 {
     return CWndMan::GetInstance()->GetFocus() == this;
-    //return __sub_000EFF40(this, nullptr);
 }
 
 void CCtrlWnd::InvalidateRect()
 {
     auto rect = GetRect();
     m_pParent->InvalidateRect(&rect);
-    //__sub_00071820(this, nullptr);
 }
 
 void CCtrlWnd::Draw(long rx, long ry, const tagRECT* pRect)
 {
-    //__sub_000F0010(this, nullptr, rx, ry, pRect);
 }
 
 void CCtrlWnd::SetEnable(int32_t bEnable)
@@ -287,7 +271,6 @@ int32_t CCtrlWnd::IsAcceptFocus() const
 void CCtrlWnd::NotifyToParent(uint32_t param1, uint32_t param2) const
 {
     m_pParent->OnChildNotify(m_nCtrlId, param1, param2);
-    //__sub_000D44B0(this, nullptr, param1, param2);
 }
 
 CCtrlWnd& CCtrlWnd::operator=(const CCtrlWnd& arg0)

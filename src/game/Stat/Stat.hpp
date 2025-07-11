@@ -5294,7 +5294,7 @@ public:
     long GetMDD(long nBaseMDD, const CharacterData &cd, long nPsdMDDR, long *pIncinOrg, int32_t bShieldEquiped);
 
 public:
-    long GetACC(const CharacterData &cd, long nPdsACCR, long nBaseACC, long *pIncinOrg);
+    long GetACC(const CharacterData &cd, long nPdsACCR, long nBaseACC, long *pIncinOrg) const;
 
 public:
     long GetEVA(const CharacterData &cd, long nPdsEVAR, long nBaseEVA, long *pIncinOrg);
@@ -5309,7 +5309,7 @@ public:
     long GetIncPAD(const CharacterData &cd);
 
 public:
-    long GetIncACC(const CharacterData &cd);
+    long GetIncACC(const CharacterData &cd)const;
 
 public:
     long GetIncEVA(const CharacterData &cd);
@@ -5519,13 +5519,13 @@ public:
     long __fastcall _ZtlSecurePut_nMMP(long arg0);
 
 public:
-    long CalcBasePDD();
+    long CalcBasePDD() const;
 
 public:
     long CalcBaseMDD();
 
 public:
-    long CalcBasePACC();
+    long CalcBasePACC() const;
 
 public:
     long CalcBaseMACC();
@@ -5830,14 +5830,14 @@ public:
     static double __cdecl GetMsateryConstByWT(long nWT);
 
 public:
-    static double __cdecl CalcDamageByWT(long arg0, const BasicStat &arg1, long arg2, long arg3);
+    static double __cdecl CalcDamageByWT(long nWT, const BasicStat &bs, long nPAD, long nMAD);
 
 public:
-    long PDamage(const MobStat &ms, const CharacterData &cd, const BasicStat &bs, const SecondaryStat &ss,
+    long PDamage(const MobStat &ms, const CharacterData &cd, const BasicStat &bs, SecondaryStat &ss,
                  MobAttackInfo *pInfo, uint32_t nRandForMissCheck, const ZRef<PassiveSkillData> pPsd, long *pnReduce,
                  unsigned long dwMobTemplateID, int32_t bShieldEquiped, long nDarkForcePddr);
 
-    long PDamage_0(const MobStat &ms, const CharacterData &cd, const BasicStat &bs, const SecondaryStat &ss,
+    long PDamage_0(const MobStat &ms, const CharacterData &cd, const BasicStat &bs, SecondaryStat &ss,
                    MobAttackInfo *pInfo, uint32_t nRandForMissCheck, const ZRef<PassiveSkillData> pPsd, long *pnReduce,
                    unsigned long dwMobTemplateID, int32_t bShieldEquiped, long nDarkForcePddr)
     {
@@ -5973,7 +5973,7 @@ public:
     int32_t CalcMImmune(const MobStat &ms, const SecondaryStat &ss, long nRand);
 
 public:
-    int32_t CalcPImmune(const MobStat &ms, const SecondaryStat &ss, long nRand);
+    int32_t CalcPImmune(const MobStat &ms, const SecondaryStat &ss, long nRand) const;
 
 public:
     int32_t IsCounterAttackHit(const MobStat &ms, const CharacterData &cd, const BasicStat &bs, const SecondaryStat &ss,
@@ -6009,44 +6009,44 @@ struct MobStat
 {
 
 public:
-    static constexpr UINT128 MS_PAD{true, 0};
-    static constexpr UINT128 MS_PDR{true, 1};
-    static constexpr UINT128 MS_MAD{true, 2};
-    static constexpr UINT128 MS_MDR{true, 3};
-    static constexpr UINT128 MS_ACC{true, 4};
-    static constexpr UINT128 MS_EVA{true, 5};
-    static constexpr UINT128 MS_Speed{true, 6};
-    static constexpr UINT128 MS_Stun{true, 7};
-    static constexpr UINT128 MS_Freeze{true, 8};
-    static constexpr UINT128 MS_Poison{true, 9};
-    static constexpr UINT128 MS_Seal{true, 10};
-    static constexpr UINT128 MS_Darkness{true, 11};
-    static constexpr UINT128 MS_PowerUp{true, 12};
-    static constexpr UINT128 MS_MagicUp{true, 13};
-    static constexpr UINT128 MS_PGuardUp{true, 14};
-    static constexpr UINT128 MS_MGuardUp{true, 15};
-    static constexpr UINT128 MS_Doom{true, 16};
-    static constexpr UINT128 MS_Web{true, 17};
-    static constexpr UINT128 MS_PImmune{true, 18};
-    static constexpr UINT128 MS_MImmune{true, 19};
-    static constexpr UINT128 MS_Showdown{true, 20};
-    static constexpr UINT128 MS_HardSkin{true, 21};
-    static constexpr UINT128 MS_Ambush{true, 22};
-    static constexpr UINT128 MS_DamagedElemAttr{true, 23};
-    static constexpr UINT128 MS_Venom{true, 24};
-    static constexpr UINT128 MS_Blind{true, 25};
-    static constexpr UINT128 MS_SealSkill{true, 26};
-    static constexpr UINT128 MS_Burned{true, 27};
-    static constexpr UINT128 MS_Dazzle{true, 28};
-    static constexpr UINT128 MS_PCounter{true, 29};
-    static constexpr UINT128 MS_MCounter{true, 30};
-    static constexpr UINT128 MS_Disable{true, 31};
-    static constexpr UINT128 MS_RiseByToss{true, 32};
-    static constexpr UINT128 MS_BodyPressure{true, 33};
-    static constexpr UINT128 MS_Weakness{true, 34};
-    static constexpr UINT128 MS_TimeBomb{true, 35};
-    static constexpr UINT128 MS_MagicCrash{true, 36};
-    static constexpr UINT128 MS_HealByDamage{true, 37};
+    static inline MY_UINT128 MS_PAD{true, 0};
+    static inline MY_UINT128 MS_PDR{true, 1};
+    static inline MY_UINT128 MS_MAD{true, 2};
+    static inline MY_UINT128 MS_MDR{true, 3};
+    static inline MY_UINT128 MS_ACC{true, 4};
+    static inline MY_UINT128 MS_EVA{true, 5};
+    static inline MY_UINT128 MS_Speed{true, 6};
+    static inline MY_UINT128 MS_Stun{true, 7};
+    static inline MY_UINT128 MS_Freeze{true, 8};
+    static inline MY_UINT128 MS_Poison{true, 9};
+    static inline MY_UINT128 MS_Seal{true, 10};
+    static inline MY_UINT128 MS_Darkness{true, 11};
+    static inline MY_UINT128 MS_PowerUp{true, 12};
+    static inline MY_UINT128 MS_MagicUp{true, 13};
+    static inline MY_UINT128 MS_PGuardUp{true, 14};
+    static inline MY_UINT128 MS_MGuardUp{true, 15};
+    static inline MY_UINT128 MS_Doom{true, 16};
+    static inline MY_UINT128 MS_Web{true, 17};
+    static inline MY_UINT128 MS_PImmune{true, 18};
+    static inline MY_UINT128 MS_MImmune{true, 19};
+    static inline MY_UINT128 MS_Showdown{true, 20};
+    static inline MY_UINT128 MS_HardSkin{true, 21};
+    static inline MY_UINT128 MS_Ambush{true, 22};
+    static inline MY_UINT128 MS_DamagedElemAttr{true, 23};
+    static inline MY_UINT128 MS_Venom{true, 24};
+    static inline MY_UINT128 MS_Blind{true, 25};
+    static inline MY_UINT128 MS_SealSkill{true, 26};
+    static inline MY_UINT128 MS_Burned{true, 27};
+    static inline MY_UINT128 MS_Dazzle{true, 28};
+    static inline MY_UINT128 MS_PCounter{true, 29};
+    static inline MY_UINT128 MS_MCounter{true, 30};
+    static inline MY_UINT128 MS_Disable{true, 31};
+    static inline MY_UINT128 MS_RiseByToss{true, 32};
+    static inline MY_UINT128 MS_BodyPressure{true, 33};
+    static inline MY_UINT128 MS_Weakness{true, 34};
+    static inline MY_UINT128 MS_TimeBomb{true, 35};
+    static inline MY_UINT128 MS_MagicCrash{true, 36};
+    static inline MY_UINT128 MS_HealByDamage{true, 37};
 
     // Nested
 public:
@@ -6514,7 +6514,7 @@ public:
 public:
     void Reset(MY_UINT128 uReset, CInPacket &iPacket);
 
-    void Reset_0(MY_UINT128 uReset, CInPacket &iPacket)
+    void Reset_1(MY_UINT128 uReset, CInPacket &iPacket)
     {
         return this->Reset(uReset, iPacket);
     }
@@ -6522,7 +6522,7 @@ public:
 public:
     void Reset(MY_UINT128 uReset);
 
-    void Reset_1(MY_UINT128 uReset)
+    void Reset_0(MY_UINT128 uReset)
     {
         return this->Reset(uReset);
     }
@@ -6577,7 +6577,7 @@ long __cdecl _anon_calc_base_damage(long p1, long p2, long p3, long ad, double k
 
 int32_t __cdecl GetIdealStatUp(const BasicStat &bs, int32_t bWantToBeInfighter, ZArray<StatPair> &aStatUp);
 
-double __cdecl _anon_calc_mob_base_damamge(long p1, long nRand, long nAttackLevel, long nTargetLevel);
+double __cdecl _anon_calc_mob_base_damamge(long p1, long nRand);
 
 double __cdecl _anon_adjust_base_depense(double damage, long nADD, long nAttackLevel, long nTargetLevel, long nPsdDR);
 

@@ -41,7 +41,7 @@ long __cdecl GetLevel() {
 CFontContainer* __cdecl GetFont() {
 	return __sub_0058FDC0();
 }
-void __cdecl DoDraw(const PartyQuestInfo* pCanvas, _x_com_ptr<IWzCanvas> x, long y, long bSelected, int32_t sUOL, ZXString<unsigned short> arg5) {
+void __cdecl DoDraw(const PartyQuestInfo* pCanvas, _x_com_ptr<IWzCanvas> x, long y, long bSelected, int32_t sUOL, ZXString16 arg5) {
 	return __sub_00590180(pCanvas, CreateNakedParam(x), y, bSelected, sUOL, CreateNakedParam(arg5));
 }
 void __cdecl DrawDigitForLevel(_x_com_ptr<IWzCanvas> pCanvas, long x, long y, long number, int32_t bGray) {

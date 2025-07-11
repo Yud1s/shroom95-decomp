@@ -39,7 +39,7 @@ public:
 		int32_t bResultEffect{};
 
 	public:
-		ZXString<unsigned short> sResultEffUOL;
+		ZXString16 sResultEffUOL;
 		// Methods
 	public:
 		~UIinfo();
@@ -101,13 +101,13 @@ protected:
 	_x_com_ptr<IWzProperty> m_pPropUIroot;
 
 protected:
-	ZXString<unsigned short> m_sUIRoot;
+	ZXString16 m_sUIRoot;
 
 protected:
 	_x_com_ptr<IWzProperty> m_pPropUIInfo;
 
 protected:
-	ZXString<unsigned short> m_sUIInfo;
+	ZXString16 m_sUIInfo;
 
 protected:
 	CUIIncubator::UIinfo m_UIinfo;

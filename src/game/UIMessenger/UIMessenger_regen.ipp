@@ -749,7 +749,7 @@ __asm {
 	push eax
 	mov byte ptr [esp+0x68],9
 	mov dword ptr [ecx],0
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	mov esi,dword ptr [esp+0x28]
 	mov ecx,esi
 	call CUIMessenger::AddChatText
@@ -1020,7 +1020,7 @@ __asm {
  Block19:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block20:
@@ -3046,7 +3046,7 @@ __asm {
 	push 0xFFFFFFFF
 	push eax
 	mov dword ptr [ecx],0
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	mov ecx,esi
 	call CUIMessenger::AddChatText
 	push 0x8F
@@ -3208,7 +3208,7 @@ __asm {
 	push 0xFFFFFFFF
 	push esi
 	mov dword ptr [ecx],0
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	mov ecx,dword ptr [TSingleton<CUIMessenger>::ms_pInstance]
 	call CUIMessenger::AddChatText
 	mov byte ptr [esp+0x1C],0
@@ -3449,7 +3449,7 @@ __asm {
  Block20:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block21:
@@ -6329,7 +6329,7 @@ __asm {
 	push eax
 	lea ecx,[esp+0x2C]
 	push ecx
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x18]
 	add esp,0xC
 	mov byte ptr [esp+0x1C],0
@@ -6339,7 +6339,7 @@ __asm {
  Block5:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block6:
@@ -6350,7 +6350,7 @@ __asm {
 	mov dword ptr [esp+0x18],esp
 	push edx
 	mov dword ptr [ecx],0
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov ecx,esi
 	call CUIMessenger::AddChatText
 	cmp dword ptr [esi+0x80],2
@@ -6372,7 +6372,7 @@ __asm {
  Block9:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block10:
@@ -8147,7 +8147,7 @@ __asm {
 	push eax
 	lea ecx,[esp+0x78]
 	mov byte ptr [esp+0xC4],1
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x20]
 	mov byte ptr [esp+0xC0],bl
 	cmp eax,ebx
@@ -8156,7 +8156,7 @@ __asm {
  Block22:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block23:
@@ -8778,7 +8778,7 @@ __asm {
  Block92:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block93:
@@ -8846,7 +8846,7 @@ __asm {
 	push offset _S___31
 	lea ecx,[esp+0x20]
 	mov dword ptr [esp+0x20],ebx
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	mov esi,dword ptr [esp+0x18]
 	mov byte ptr [esp+0x6C],2
 	cmp esi,ebx
@@ -8864,7 +8864,7 @@ __asm {
 	push eax
 	push esi
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	mov byte ptr [esp+0x6C],1
 	cmp esi,ebx
 	je Block10
@@ -8872,7 +8872,7 @@ __asm {
  Block9:
 	add esi,0xFFFFFFF4
 	push esi
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block10:
@@ -8903,7 +8903,7 @@ __asm {
 	push eax
 	push edx
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	mov ebp,dword ptr [esp+0x14]
 	mov esi,dword ptr [esp+0x24]
 
@@ -8944,7 +8944,7 @@ __asm {
 	push ecx
 	push eax
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	mov eax,dword ptr [esp+0x20]
 	mov byte ptr [esp+0x6C],1
 	cmp eax,ebx
@@ -8953,7 +8953,7 @@ __asm {
  Block23:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block24:
@@ -9111,7 +9111,7 @@ __asm {
 	push edx
 	lea ecx,[esp+0x28]
 	mov byte ptr [esp+0x80],0xB
-	call ZXString<unsigned short>::Left
+	call ZXString16::Left
 	mov eax,dword ptr [eax]
 	push ecx
 	mov dword ptr [esp+0x40],esp
@@ -9189,7 +9189,7 @@ __asm {
  Block51:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block52:
@@ -9270,7 +9270,7 @@ __asm {
  Block64:
 	add ebp,0xFFFFFFF4
 	push ebp
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block65:
@@ -9602,7 +9602,7 @@ __asm {
 }
 // CUIMessenger::AddChatText
 _SUB_EXCEPTION_HANDLER(3F4250)
-__SUB_CLASS_THIS(003F4250, __thiscall, 56079,  CUIMessenger, void, NakedParam<ZXString<unsigned short>>, long) {
+__SUB_CLASS_THIS(003F4250, __thiscall, 56079,  CUIMessenger, void, NakedParam<ZXString16>, long) {
 __asm {
 
  Block0:
@@ -9825,20 +9825,20 @@ je Block10
 	push 4
 	lea ecx,[esp+0x20]
 	mov dword ptr [esp+0x20],ebx
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	mov edx,dword ptr [_S___30]
 	mov dword ptr [eax],edx
 	mov ecx,dword ptr [_S___30+4]
 	mov dword ptr [eax+4],ecx
 	push 4
 	lea ecx,[esp+0x1C]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push ebp
 	lea edx,[esp+0x30]
 	push edx
 	lea ecx,[esp+0x60]
 	mov byte ptr [esp+0x58],5
-	call ZXString<unsigned short>::Left
+	call ZXString16::Left
 	mov eax,dword ptr [eax]
 	mov byte ptr [esp+0x50],6
 	cmp eax,ebx
@@ -9856,7 +9856,7 @@ je Block10
 	push ecx
 	push eax
 	lea ecx,[esp+0x20]
-	call ZXString<unsigned short>::_Cat
+	call ZXString16::_Cat
 	mov eax,dword ptr [esp+0x2C]
 	mov byte ptr [esp+0x50],5
 	cmp eax,ebx
@@ -9865,7 +9865,7 @@ je Block10
  Block33:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block34:
@@ -9881,7 +9881,7 @@ je Block10
  Block36:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	mov dword ptr [edi],ebx
 	jmp Block40
@@ -9906,13 +9906,13 @@ je Block10
 	push ebx
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 
  Block40:
 	mov byte ptr [esp+0x50],bl
@@ -9922,7 +9922,7 @@ je Block10
  Block41:
 	add ebp,0xFFFFFFF4
 	push ebp
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block42:
@@ -9945,7 +9945,7 @@ je Block10
 	lea ecx,[esp+0x34]
 	push ecx
 	lea ecx,[esp+0x60]
-	call ZXString<unsigned short>::Left
+	call ZXString16::Left
 	mov edx,dword ptr [eax]
 	mov byte ptr [esp+0x50],7
 	cmp edx,ebx
@@ -9959,7 +9959,7 @@ je Block10
  Block47:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	mov dword ptr [edi],ebx
 	jmp Block51
@@ -9984,13 +9984,13 @@ je Block10
 	push ebx
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	mov esi,dword ptr [esp+0x14]
 
  Block51:
@@ -10002,7 +10002,7 @@ je Block10
  Block52:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 	jmp Block43
 
@@ -10035,11 +10035,11 @@ je Block10
 	lea edx,[esp+0x38]
 	push edx
 	lea ecx,[esp+0x60]
-	call ZXString<unsigned short>::Right
+	call ZXString16::Right
 	push eax
 	lea ecx,[esp+0x5C]
 	mov byte ptr [esp+0x54],8
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x58]
 	cmp eax,ebx
 	je Block62
@@ -10064,7 +10064,7 @@ je Block10
  Block64:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block65:
@@ -10143,7 +10143,7 @@ je Block10
  Block78:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block79:
@@ -10253,7 +10253,7 @@ __asm {
  Block8:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block9:
@@ -10721,7 +10721,7 @@ __asm {
 	push 0xFFFFFFFF
 	push esi
 	mov dword ptr [ecx],0
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	mov ecx,edi
 	call CUIMessenger::AddChatText
 	mov byte ptr [esp+0x20],0
@@ -11297,7 +11297,7 @@ __asm {
 	push 0xFFFFFFFF
 	push esi
 	mov dword ptr [ecx],ebx
-	call ZXString<unsigned short>::AssignCharStr
+	call ZXString16::AssignCharStr
 	mov ecx,edi
 	call CUIMessenger::AddChatText
 	xor eax,eax

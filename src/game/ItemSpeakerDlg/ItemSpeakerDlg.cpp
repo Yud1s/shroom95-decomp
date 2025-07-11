@@ -36,7 +36,7 @@ int32_t CItemSpeakerDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 void CItemSpeakerDlg::OnButtonClicked(uint32_t nId) {
 	__sub_001CAB10(this, nullptr, nId);
 }
-void CItemSpeakerDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CItemSpeakerDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_001CAB60(this, nullptr, wParam, lParam);
 }
 int32_t CItemSpeakerDlg::PutItem(long nTI, long nPOS) {

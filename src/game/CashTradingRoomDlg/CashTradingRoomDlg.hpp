@@ -32,7 +32,7 @@ public:
 		// Nested
 		// Fields
 	public:
-		ZXString<unsigned short> sChatText;
+		ZXString16 sChatText;
 
 	public:
 		FONT_TYPE ftColor;
@@ -270,7 +270,7 @@ protected:
 	void CheckAndSendChat(ZXString<char> strChatMsg);
 
 protected:
-	void AddChatText(ZXString<unsigned short> sText, FONT_TYPE nFontColor);
+	void AddChatText(ZXString16 sText, FONT_TYPE nFontColor);
 
 protected:
 	void MakeGameMessage(ZXString<char> &sText, long nMessageCode, ZXString<char> sCharacterName);
@@ -430,7 +430,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnMouseMove(long rx, long ry);

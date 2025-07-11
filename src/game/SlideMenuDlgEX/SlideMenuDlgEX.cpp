@@ -48,7 +48,7 @@ void CSlideMenuDlgEX::OnButtonClicked(uint32_t nId)
 {
 	__sub_00314410(this, nullptr, nId);
 }
-void CSlideMenuDlgEX::OnKey(uint32_t wParam, uint32_t lParam)
+void CSlideMenuDlgEX::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_00313540(this, nullptr, wParam, lParam);
 }

@@ -211,11 +211,25 @@ public:
 public:
     uint16_t Decode2();
 
+    tagPOINT DecodePoint16();
+    tagPOINT DecodePoint32();
+
 public:
     unsigned long Decode4();
 
 public:
     ZXString<char> DecodeStr();
+
+    int64_t Decode8();
+
+    FILETIME DecodeFT();
+
+    template<typename T>
+    T DecodeT() {
+        T t;
+        DecodeBuffer(&t, sizeof(T));
+        return t;
+    }
 
 public:
     void DecodeBuffer(void *p, uint32_t uSize);

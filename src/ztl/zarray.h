@@ -14,17 +14,17 @@ public:
         size_t _count{};
         T _data[0];
 
-        static Header *Alloc(const size_t cap, size_t count)
+        static Header* Alloc(const size_t cap, size_t count)
         {
-            void *hdr_ = z_anon_alloc(sizeof(Header) + sizeof(T) * cap);
-            auto hdr = static_cast<Header *>(hdr_);
+            void* hdr_ = z_anon_alloc(sizeof(Header) + sizeof(T) * cap);
+            auto hdr = static_cast<Header*>(hdr_);
             hdr->_count = count;
             return hdr;
         }
 
         void Free()
         {
-            z_anon_free(reinterpret_cast<void *>(this));
+            z_anon_free(reinterpret_cast<void*>(this));
         }
 
         void FreeDestroy()
@@ -38,7 +38,7 @@ public:
 
         [[nodiscard]] size_t BytesCap() const
         {
-            const auto size = ZAllocBase::_MemSize(static_cast<const void *>(this));
+            const auto size = ZAllocBase::_MemSize(static_cast<const void*>(this));
             return size - sizeof(Header);
         }
 
@@ -62,29 +62,29 @@ public:
             return std::span<T>(_data, _count);
         }
 
-        T *Start()
+        T* Start()
         {
             return _data;
         }
 
-        T *End()
+        T* End()
         {
             return _data + _count;
         }
     };
 
     // Fields
-    T *_a{};
+    T* _a{};
 
     // Functions
-    Header *GetHeader()
+    Header* GetHeader()
     {
-        return _a ? reinterpret_cast<Header *>(_a) - 1 : nullptr;
+        return _a ? reinterpret_cast<Header*>(_a) - 1 : nullptr;
     }
 
-    Header *GetHeader() const
+    Header* GetHeader() const
     {
-        return _a ? reinterpret_cast<Header *>(_a) - 1 : nullptr;
+        return _a ? reinterpret_cast<Header*>(_a) - 1 : nullptr;
     }
 
     static size_t NextSize(size_t size)
@@ -112,19 +112,20 @@ public:
         Alloc(size, ZAllocHelper(1));
     }
 
-    explicit ZArray(const size_t size, const ZAllocHelper &alloc)
+    explicit ZArray(const size_t size, const ZAllocHelper& alloc)
     {
         Alloc(size, alloc);
     }
 
-    ZArray(const ZArray<T> &rhs)
+    ZArray(const ZArray<T>& rhs)
     {
         copyFrom(rhs._a, rhs.GetCount());
     }
 
-    ZArray(const T *data, size_t size)
+    ZArray(const T* data, size_t size)
     {
-        if(!size ){
+        if (!size)
+        {
             return;
         }
         // Allocate new memory
@@ -132,17 +133,20 @@ public:
         std::memmove(_a, data, size * sizeof(T));
     }
 
-    T* begin() {
+    T* begin()
+    {
         return _a;
     }
 
-    T* end() {
+    T* end()
+    {
         return _a + GetCount();
     }
 
     T* At(size_t ix)
     {
-        if (ix >= GetCount()) {
+        if (ix >= GetCount())
+        {
             return nullptr;
         }
 
@@ -151,7 +155,8 @@ public:
 
     const T* At(size_t ix) const
     {
-        if (ix >= GetCount()) {
+        if (ix >= GetCount())
+        {
             return nullptr;
         }
 
@@ -159,12 +164,13 @@ public:
     }
 
 
-
-    const T* begin() const {
+    const T* begin() const
+    {
         return _a;
     }
 
-    const T* end() const {
+    const T* end() const
+    {
         return _a + GetCount();
     }
 
@@ -185,20 +191,20 @@ public:
         return hdr ? hdr->Cap() : 0;
     }
 
-    T &GetAt(size_t i)
+    T& GetAt(size_t i)
     {
         ZTL_CHECK_BOUNDS(i, GetCount());
         return _a[i];
     }
 
-    T *Insert(const T &e, size_t ix = SIZE_MAX)
+    T* Insert(const T& e, size_t ix = SIZE_MAX)
     {
         ix = ix == SIZE_MAX ? GetCount() : ix;
         InsertBefore(ix) = e;
         return &_a[ix];
     }
 
-    T &InsertBefore(size_t ix = SIZE_MAX)
+    T& InsertBefore(size_t ix = SIZE_MAX)
     {
         const auto len = GetCount();
         ix = ix == SIZE_MAX ? len : ix;
@@ -214,12 +220,12 @@ public:
         ++hdr->_count;
         auto tail = &hdr->_data[ix];
         std::memmove(
-                &tail[1],
-                tail,
-                sizeof(T) * (len - ix));
+            &tail[1],
+            tail,
+            sizeof(T) * (len - ix));
 
         // Initialize the new object
-        new (&hdr->_data[ix]) T();
+        new(&hdr->_data[ix]) T();
         return hdr->_data[ix];
     }
 
@@ -231,12 +237,12 @@ public:
         }
     }
 
-    const T *GetData() const
+    const T* GetData() const
     {
         return _a;
     }
 
-    T *GetData_()
+    T* GetData_()
     {
         return _a;
     }
@@ -247,7 +253,7 @@ public:
         this->RemoveAt(&_a[nIdx]);
     }
 
-    void RemoveAt(T *item) // TODO test this
+    void RemoveAt(T* item) // TODO test this
     {
         ZTL_CHECK_BOUNDS_PTR(item, GetStart(), GetEnd());
         item->~T();
@@ -255,41 +261,41 @@ public:
         auto hdr = GetHeader();
         auto ix = IndexOf(item);
         std::memmove(
-                item,
-                item + 1,
-                sizeof(T) * (GetCount() - ix - 1));
+            item,
+            item + 1,
+            sizeof(T) * (GetCount() - ix - 1));
         --hdr->_count;
     }
 
-    inline size_t IndexOf(T *pos)
+    inline size_t IndexOf(T* pos)
     {
         ZTL_CHECK_BOUNDS_PTR(pos, GetStart(), GetEnd());
         return pos - _a;
     }
 
-    T &GetNext(T *&pos)
+    T& GetNext(T*& pos)
     {
-        T *cur = pos;
+        T* cur = pos;
         pos = cur > _a ? cur - 1 : nullptr;
 
         return *cur;
     }
 
-    T &GetPrev(T *&pos)
+    T& GetPrev(T*& pos)
     {
-        T *cur = pos;
+        T* cur = pos;
         pos = cur < _a + GetCount() ? cur + 1 : nullptr;
 
         return *cur;
     }
 
-    T *GetHeadPosition()
+    T* GetHeadPosition()
     {
         auto hdr = GetHeader();
         return hdr ? &hdr->_data[hdr->_count - 1] : nullptr;
     }
 
-    T *GetTailPosition() const
+    T* GetTailPosition() const
     {
         return _a;
     }
@@ -309,29 +315,37 @@ public:
         _a = nullptr;
     }
 
-    T *FindIndex(size_t ix)
+    T* FindIndex(size_t ix)
     {
         ZTL_CHECK_BOUNDS(ix, GetCount());
         return &_a[ix];
     }
 
-    size_t FindIndexOf(const T& value)
+    size_t FindIndexOf(const T& value) const
     {
         auto pos = std::find(begin(), end(), value);
-        if (pos == end()) {
+        if (pos == end())
+        {
             return -1;
         }
         return std::distance(begin(), pos);
     }
 
-    void Move(ZArray &other)
+    size_t SortedFindIndexOf(const T& value) const
+    {
+        auto it = std::lower_bound(begin(), end(), value);
+        if (it == end() || *it != value) return -1; // Not found
+        return std::distance(begin(), it);
+    }
+
+    void Move(ZArray& other)
     {
         this->RemoveAll();
         _a = other._a;
         other._a = nullptr;
     }
 
-    void ReAlloc(size_t newSize, int mode, const ZAllocHelper &h)
+    void ReAlloc(size_t newSize, int mode, const ZAllocHelper& h)
     {
         size_t old_size = this->GetCount();
         auto hdr = GetHeader();
@@ -368,12 +382,12 @@ public:
         newHdr->_count = newSize;
         // TODO initialize the newly allocated data
         _a = newHdr->_data;
-
     }
 
     void copyFrom(const T* data, size_t count)
     {
-        if (!count) {
+        if (!count)
+        {
             return;
         }
 
@@ -381,11 +395,11 @@ public:
         _a = hdr->_data;
         for (auto i = 0; i < count; i++)
         {
-            new (&hdr->_data[i]) T(data[i]);
+            new(&hdr->_data[i]) T(data[i]);
         }
     }
 
-    ZArray &operator=(const ZArray &other)
+    ZArray& operator=(const ZArray& other)
     {
         if (this == &other)
         {
@@ -399,33 +413,34 @@ public:
         return *this;
     }
 
-    T &operator[](size_t i)
+    T& operator[](size_t i)
     {
         ZTL_CHECK_BOUNDS(i, GetCount());
         return _a[i];
     }
 
-    const T &operator[](size_t i) const
+    const T& operator[](size_t i) const
     {
         ZTL_CHECK_BOUNDS(i, GetCount());
         return _a[i];
     }
 
-    T *operator*()
+    T* operator*()
     {
         return *_a;
     }
 
-    const T *operator*() const
+    const T* operator*() const
     {
         return *_a;
     }
 
-      void Alloc(size_t size, const ZAllocHelper &h = ZAllocHelper(1))
+    void Alloc(size_t size, const ZAllocHelper& h = ZAllocHelper(1))
     {
         this->RemoveAll();
 
-        if (!size) {
+        if (!size)
+        {
             return;
         }
 
@@ -435,30 +450,32 @@ public:
     }
 
 private:
-    static void Construct(T *start, T *end)
+    static void Construct(T* start, T* end)
     {
-        for (auto cur = start; cur < end; ++cur) {
-            new (cur) T();
+        for (auto cur = start; cur < end; ++cur)
+        {
+            new(cur) T();
         }
     }
 
-    static void Destroy(T *start, T *end)
+    static void Destroy(T* start, T* end)
     {
-        for (auto cur = start; cur < end; ++cur) {
+        for (auto cur = start; cur < end; ++cur)
+        {
             cur->~T();
         }
     }
 
-  
 
-    void _Alloc(const size_t size, const ZAllocHelper &h)
+    void _Alloc(const size_t size, const ZAllocHelper& h)
     {
         Alloc(size, ZAllocHelper(1));
     }
 
     void Reserve(size_t requestCap)
     {
-        if (const auto cap = GetCapacity(); cap >= requestCap) {
+        if (const auto cap = GetCapacity(); cap >= requestCap)
+        {
             return;
         }
 
@@ -474,12 +491,12 @@ private:
         _a = newHdr->_data;
     }
 
-    T *GetStart()
+    T* GetStart()
     {
         return _a;
     }
 
-    T *GetEnd()
+    T* GetEnd()
     {
         return _a + GetCount();
     }
@@ -488,15 +505,15 @@ public:
     // Helper
     void _ctor_default()
     {
-        new (this) ZArray();
+        new(this) ZArray();
     }
 
-    void _ctor_alloc(size_t n, const ZAllocHelper &alloc)
+    void _ctor_alloc(size_t n, const ZAllocHelper& alloc)
     {
-        new (this) ZArray(n, alloc);
+        new(this) ZArray(n, alloc);
     }
 
-    void _Realloc(const size_t newSize, const int mode, const ZAllocHelper &h)
+    void _Realloc(const size_t newSize, const int mode, const ZAllocHelper& h)
     {
         this->ReAlloc(newSize, mode, h);
     }

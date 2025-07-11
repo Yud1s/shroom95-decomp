@@ -487,7 +487,7 @@ protected:
 	ZArray<ZXString<char>> m_asHelpMsg;
 
 protected:
-	ZXString<unsigned short> m_sMapSpecificEffectUOL;
+	ZXString16 m_sMapSpecificEffectUOL;
 
 protected:
 	ZArray<tagPOINT> m_aSeat;
@@ -577,7 +577,7 @@ protected:
 	long m_tWhisperSent{};
 
 protected:
-	_FILETIME m_ftRel;
+	_FILETIME m_ftRel{};
 
 public:
 	long m_nBlowType{};
@@ -668,7 +668,7 @@ public:
 	virtual void Update();
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
@@ -827,7 +827,7 @@ public:
 	int32_t IsEventMap(int32_t bExceptETC);
 
 public:
-	ZXString<unsigned short> GetMapSpecificEffectUOL();
+	ZXString16 GetMapSpecificEffectUOL();
 
 public:
 	void OnTownPortalChanged(int32_t bParty, const PARTYDATA &rpd, const PARTYDATA::TOWNPORTAL &rtp, int32_t bOnlyPortalChange);
@@ -851,7 +851,7 @@ public:
 	int32_t IsTown();
 
 public:
-	int32_t IsSwimmingMap();
+	int32_t IsSwimmingMap() const;
 
 public:
 	int32_t IsFlyingMap();
@@ -1130,7 +1130,7 @@ protected:
 	void OnItemUpgrade(long nType, CInPacket &iPacket);
 
 protected:
-	void ShowScreenEffect(ZXString<unsigned short> sName);
+	void ShowScreenEffect(ZXString16 sName);
 
 public:
 	// TODO

@@ -103,7 +103,7 @@ public:
     void _ctor_0();
 
 public:
-    virtual void OnKey(uint32_t wParam, uint32_t lParam);
+    virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
     virtual int32_t OnSetFocus(int32_t bFocus);
@@ -203,7 +203,7 @@ public:
     long GetHeight() const;
 
 public:
-    void InvalidateRect(const tagRECT *pRect);
+    void InvalidateRect(const tagRECT *pRect = nullptr);
 
 public:
     virtual void Draw(const tagRECT *pRect);
@@ -224,7 +224,7 @@ public:
     void RemoveChild(CCtrlWnd *pCtrl);
 
 public:
-    void CoverBackgrnd(ZXString<unsigned short> arg0, long arg1, long arg2, int32_t arg3);
+    void CoverBackgrnd(ZXString16 arg0, long arg1, long arg2, int32_t arg3);
 
 protected:
     __POSITION *FindChild(CCtrlWnd *pCtrl) const;

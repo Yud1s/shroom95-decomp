@@ -30,7 +30,7 @@ void CPersonalShopDlg::OnCreate(void* paramButton) {
 void CPersonalShopDlg::OnButtonClicked(uint32_t nId) {
 	__sub_0029C080(this, nullptr, nId);
 }
-void CPersonalShopDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CPersonalShopDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00298AE0(this, nullptr, wParam, lParam);
 }
 void CPersonalShopDlg::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {

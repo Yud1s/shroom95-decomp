@@ -70,7 +70,7 @@ protected:
 	long m_nDistanceX_for_Walk{};
 
 protected:
-	MoveCtx m_moveCtx;
+	MoveCtx m_moveCtx{};
 
 protected:
 	tagPOINT m_ptReference{};

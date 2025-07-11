@@ -37,7 +37,7 @@ int32_t CUIRevive::OnSetFocus(int32_t bFocus) {
 void CUIRevive::OnButtonClicked(uint32_t nId) {
 	__sub_0043CE40(this, nullptr, nId);
 }
-void CUIRevive::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIRevive::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0043CD90(this, nullptr, wParam, lParam);
 }
 int32_t CUIRevive::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {

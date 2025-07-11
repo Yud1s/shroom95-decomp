@@ -48,7 +48,7 @@ void CUIItemUpgrade::OnButtonClicked(uint32_t nId) {
 void CUIItemUpgrade::Update() {
 	__sub_003BEF50(this, nullptr);
 }
-void CUIItemUpgrade::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIItemUpgrade::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003BE290(this, nullptr, wParam, lParam);
 }
 int32_t CUIItemUpgrade::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
@@ -110,7 +110,7 @@ void CUIVega::OnButtonClicked(uint32_t nId) {
 void CUIVega::Update() {
 	__sub_003BE330(this, nullptr);
 }
-void CUIVega::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIVega::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003BE300(this, nullptr, wParam, lParam);
 }
 int32_t CUIVega::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {

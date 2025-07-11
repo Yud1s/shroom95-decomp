@@ -4,13 +4,11 @@
 
 CLayoutMan::~CLayoutMan()
 {
-    //_dtor_0();
 }
 
 void CLayoutMan::_dtor_0()
 {
     this->~CLayoutMan();
-    //return __sub_001CE660(this, nullptr);
 }
 
 CLayoutMan::CLayoutMan(const CLayoutMan& arg0)
@@ -70,7 +68,11 @@ ZRef<CCtrlOriginButton> CLayoutMan::AddButton(const wchar_t* sButtonUOL, uint32_
         params.bAnimateOnce = pParam->bAnimateOnce;
         params.sUOL = pParam->sUOL;
     }
-    params.sUOL = (unsigned short*)sButtonUOL;
+    else
+    {
+        params.bAcceptFocus = false;
+    }
+    params.sUOL = sButtonUOL;
 
 
     ZRef pBtn(new CCtrlOriginButton(), true);

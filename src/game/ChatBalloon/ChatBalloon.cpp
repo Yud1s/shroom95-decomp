@@ -7,7 +7,6 @@ static ZList<Ztl_bstr_t> FAKE_ZList_Ztl_bstr_t_{};
 
 CChatBalloon::~CChatBalloon()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CChatBalloon::_dtor_0()

@@ -670,7 +670,7 @@ __SUB_CLASS_THIS(005F70B0, __thiscall, 8302,  CWvsContext, void, uint16_t, unsig
 	_ASM_PLACEHOLDER(005F70B0, 8302)
 }
 // CWvsContext::GetAutoQuestIconUOL
-__SUB_CLASS_THIS0(005DDE40, __thiscall, 8145,  CWvsContext, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(005DDE40, __thiscall, 8145,  CWvsContext, ZXString16) {
 	_ASM_PLACEHOLDER(005DDE40, 8145)
 }
 // CWvsContext::CFriend::FindIndex
@@ -986,7 +986,7 @@ __SUB_CLASS_THIS0(005DFAC0, __thiscall, 45448,  GUILDDATA, void) {
 	_ASM_PLACEHOLDER(005DFAC0, 45448)
 }
 // CWvsContext::GetAutoQuestIconAppearUOL
-__SUB_CLASS_THIS0(005DDF60, __thiscall, 8145,  CWvsContext, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(005DDF60, __thiscall, 8145,  CWvsContext, ZXString16) {
 	_ASM_PLACEHOLDER(005DDF60, 8145)
 }
 // CUISkillChangeConfirm::~CUISkillChangeConfirm
@@ -1258,7 +1258,7 @@ __SUB_CLASS_THIS0(005E7840, __thiscall, 8080,  CWvsContext, void) {
 	_ASM_PLACEHOLDER(005E7840, 8080)
 }
 // CWvsContext::GetWebBoardAuthKey
-__SUB_CLASS_THIS(004DCCF0, __thiscall, 8190,  CWvsContext, ZXString<unsigned short>*, ZXString<unsigned short>*, long) {
+__SUB_CLASS_THIS(004DCCF0, __thiscall, 8190,  CWvsContext, ZXString16*, ZXString16*, long) {
 	_ASM_PLACEHOLDER(004DCCF0, 8190)
 }
 // COpenGatePool::OnOpenGateCreated

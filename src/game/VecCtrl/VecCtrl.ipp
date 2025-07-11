@@ -378,7 +378,7 @@ __SUB_CLASS_THIS(00590C00, __thiscall, 23403,  RelPos, void, AbsPos&, CStaticFoo
 	_ASM_PLACEHOLDER(00590C00, 23403)
 }
 // CVecCtrl::WorkUpdatePassive
-__SUB_CLASS_THIS(00591BE0, __thiscall, 23323,  CVecCtrl, int64_t, long, const long*, const long*) {
+__SUB_CLASS_THIS(00591BE0, __thiscall, 23323,  CVecCtrl, int, long, const long*, const long*) {
 	_ASM_PLACEHOLDER(00591BE0, 23323)
 }
 // CVecCtrl::put_value

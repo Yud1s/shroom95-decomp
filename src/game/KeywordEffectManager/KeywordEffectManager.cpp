@@ -7,7 +7,6 @@ static ZRef<ZMap<long, _x_com_ptr<IWzProperty>, long>> _FAKE_ZRef_ZMap_long__x_c
 
 CKeywordEffectManager::~CKeywordEffectManager()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CKeywordEffectManager::_dtor_0()

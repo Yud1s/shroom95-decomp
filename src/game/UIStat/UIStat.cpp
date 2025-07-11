@@ -8,16 +8,19 @@ static _ZtlSecureFuseHelper<long> FAKE_ZtlSecureFuseHelperLong{};
 
 #include "UIStat_regen.ipp"
 
-ZXString<char> CUIStat::ms_aStatName[4]{};
+ZXString<char> CUIStat::ms_aStatName[4]
+{
+    ZXString<char>("STR"), ZXString<char>("DEX"), ZXString<char>("INT"), ZXString<char>("LUK")
+};
 
 CUIStatDetail::~CUIStatDetail()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CUIStatDetail::_dtor_0()
 {
-    return __sub_00467690(this, nullptr);
+    this->~CUIStatDetail();
 }
 
 CUIStatDetail::CUIStatDetail(const CUIStatDetail& arg0)
@@ -51,7 +54,6 @@ void CUIStatDetail::OnCreate(void* pData)
 
 void CUIStatDetail::OnDestroy()
 {
-    __sub_00467660(this, nullptr);
 }
 
 int32_t CUIStatDetail::OnSetFocus(int32_t bFocus)
@@ -61,17 +63,21 @@ int32_t CUIStatDetail::OnSetFocus(int32_t bFocus)
 
 void CUIStatDetail::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_00461430(this, nullptr, msg, wParam, rx, ry);
+    if (msg == 513)
+        m_uiToolTip.ClearToolTip();
 }
 
 int32_t CUIStatDetail::OnMouseMove(long rx, long ry)
 {
-    return __sub_00461450(this, nullptr, rx, ry);
+//    return __sub_00461450(this, nullptr, rx, ry);
+    m_ttHelper.CheckAndShow(m_uiToolTip, rx, ry, 0, 0);
+    return 0;
 }
 
 void CUIStatDetail::OnMouseEnter(int32_t bEnter)
 {
-    __sub_00461410(this, nullptr, bEnter);
+    CWnd::OnMouseEnter(bEnter);
+    m_uiToolTip.ClearToolTip();
 }
 
 void CUIStatDetail::OnButtonClicked(uint32_t nId)
@@ -86,7 +92,7 @@ void CUIStatDetail::Draw(const tagRECT* arg0)
 
 void CUIStatDetail::ClearToolTip()
 {
-    __sub_00467670(this, nullptr);
+    m_uiToolTip.ClearToolTip();
 }
 
 long CUIStatDetail::GetCriticalProp()
@@ -107,7 +113,7 @@ CUIStatDetail& CUIStatDetail::_op_assign_13(CUIStatDetail* pThis, const CUIStatD
 
 CUIStat::~CUIStat()
 {
-    //UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 CUIStat::CUIStat(): CUIWnd(2, 5, 150, 6, 1, 0, 0)
@@ -121,7 +127,7 @@ CUIStat::CUIStat(): CUIWnd(2, 5, 150, 6, 1, 0, 0)
 
 void CUIStat::_dtor_0()
 {
-    return __sub_004679F0(this, nullptr);
+    this->~CUIStat();
 }
 
 CUIStat::CUIStat(const CUIStat& arg0)

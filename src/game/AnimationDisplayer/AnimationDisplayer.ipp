@@ -310,7 +310,7 @@ __SUB_CLASS_THIS(00050BA0, __thiscall, 18619,  CAnimationDisplayer, _x_com_ptr<I
 	_ASM_PLACEHOLDER(00050BA0, 18619)
 }
 // CAnimationDisplayer::Effect_Squib
-__SUB_CLASS_THIS(00055F30, __thiscall, 18590,  CAnimationDisplayer, void, NakedParam<_x_com_ptr<IWzProperty>>, double, double, long, long, NakedParam<ZXString<unsigned short>>, long, double, long) {
+__SUB_CLASS_THIS(00055F30, __thiscall, 18590,  CAnimationDisplayer, void, NakedParam<_x_com_ptr<IWzProperty>>, double, double, long, long, NakedParam<ZXString16>, long, double, long) {
 	_ASM_PLACEHOLDER(00055F30, 18590)
 }
 // CAnimationDisplayer::Effect_QuestDeliveryItemUse
@@ -450,7 +450,7 @@ __SUB_CLASS_THIS(00042870, __thiscall, 18560,  CAnimationDisplayer, void, long, 
 	_ASM_PLACEHOLDER(00042870, 18560)
 }
 // CAnimationDisplayer::Effect_FullChargedAngerGauge
-__SUB_CLASS_THIS(00057D00, __thiscall, 18617,  CAnimationDisplayer, void, NakedParam<ZXString<unsigned short>>, NakedParam<_x_com_ptr<IWzVector2D>>, NakedParam<_x_com_ptr<IWzGr2DLayer>>) {
+__SUB_CLASS_THIS(00057D00, __thiscall, 18617,  CAnimationDisplayer, void, NakedParam<ZXString16>, NakedParam<_x_com_ptr<IWzVector2D>>, NakedParam<_x_com_ptr<IWzGr2DLayer>>) {
 	_ASM_PLACEHOLDER(00057D00, 18617)
 }
 // TAnimation<CAnimationDisplayer::CHAINLIGHTNINGINFO>::~TAnimation<CAnimationDisplayer::CHAINLIGHTNINGINFO>
@@ -470,7 +470,7 @@ __SUB_CLASS_THIS(0003B930, __thiscall, 19008,  CAnimationDisplayer::MobSwallowed
 	_ASM_PLACEHOLDER(0003B930, 19008)
 }
 // CAnimationDisplayer::RegisterNewYearAnimation
-__SUB_CLASS_THIS(000556F0, __thiscall, 18548,  CAnimationDisplayer, void, const wchar_t*, NakedParam<ZXString<unsigned short>>, const tagRECT&, long, long, long, long) {
+__SUB_CLASS_THIS(000556F0, __thiscall, 18548,  CAnimationDisplayer, void, const wchar_t*, NakedParam<ZXString16>, const tagRECT&, long, long, long, long) {
 	_ASM_PLACEHOLDER(000556F0, 18548)
 }
 // CAnimationDisplayer::FOLLOWINFO::Update

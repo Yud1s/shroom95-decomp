@@ -33,7 +33,7 @@ void CTradingRoomDlg::OnCreate(void* pData) {
 int32_t CTradingRoomDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 	return __sub_00363730(this, nullptr, rx, ry, ppCtrl);
 }
-void CTradingRoomDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CTradingRoomDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00364E00(this, nullptr, wParam, lParam);
 }
 int32_t CTradingRoomDlg::OnMouseMove(long rx, long ry) {

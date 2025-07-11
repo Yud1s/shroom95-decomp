@@ -12,14 +12,11 @@ typedef TFHTree<ZRef<CStaticFoothold>> FHTree;
 
 #include "WvsPhysicalSpace2D_regen.ipp"
 
-CAttrField::~CAttrField()
-{
-}
+CAttrField::~CAttrField() = default;
 
 void CAttrField::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~CAttrField();
 }
 
 CAttrField::CAttrField(const CAttrField& arg0)
@@ -46,24 +43,24 @@ void CAttrField::_ctor_0()
     new(this) CAttrField();
 }
 
-bool CAttrField::IsSwimMap()
+bool CAttrField::IsSwimMap() const
 {
-    return nMapType == (long)CAttrField::UnnamedEnum16431::SWIM;
+    return nMapType.GetData() == SWIM;
 }
 
-bool CAttrField::IsUserFlyMap()
+bool CAttrField::IsUserFlyMap() const
 {
-    return nMapType == (long)CAttrField::UnnamedEnum16431::USERFLY;
+    return nMapType.GetData() == USERFLY;
 }
 
 void CAttrField::SetSwimMap()
 {
-    nMapType = (long)CAttrField::UnnamedEnum16431::SWIM;
+    nMapType = SWIM;
 }
 
 void CAttrField::SetUserFlyMap()
 {
-    nMapType = (long)CAttrField::UnnamedEnum16431::USERFLY;
+    nMapType = USERFLY;
 }
 
 CAttrField& CAttrField::operator=(CAttrField& arg0)
@@ -83,8 +80,7 @@ CAttrFoothold::~CAttrFoothold()
 
 void CAttrFoothold::_dtor_0()
 {
-    //return __sub_00614DA0(this, nullptr);
-    UNIMPLEMENTED;
+    this->~CAttrFoothold();
 }
 
 CAttrFoothold::CAttrFoothold(const CAttrFoothold& arg0)
@@ -192,7 +188,7 @@ CWvsPhysicalSpace2D::CWvsPhysicalSpace2D()
 
     v = phys->Getitem(L"gravityAcc");
     m_constants->dGravityAcc = get_double(v, 0.);
-    m_constants->dGravityAcc = 1.;
+    //m_constants->dGravityAcc = 1.;
 
     v = phys->Getitem(L"fallSpeed");
     m_constants->dFallSpeed = get_double(v, 0.);
@@ -220,12 +216,12 @@ void CWvsPhysicalSpace2D::_ctor_0()
     new(this) CWvsPhysicalSpace2D();
 }
 
-const tagRECT& CWvsPhysicalSpace2D::GetMBR()
+const tagRECT& CWvsPhysicalSpace2D::GetMBR() const
 {
     return m_rcMBR;
 }
 
-long CWvsPhysicalSpace2D::GetBaseZMass()
+auto CWvsPhysicalSpace2D::GetBaseZMass() -> long
 {
     return m_nBaseZMass;
 }
@@ -467,7 +463,31 @@ CStaticFoothold* CWvsPhysicalSpace2D::GetFoothold(unsigned long dwSN)
 
 CStaticFoothold* CWvsPhysicalSpace2D::GetFootholdAbove(long x, long y, long* pcy, long yMax)
 {
-    return __sub_00616320(this, nullptr, x, y, pcy, yMax);
+    //return __sub_00616320(this, nullptr, x, y, pcy, yMax);
+    if (yMax > y)
+        return nullptr;
+
+
+    ZList<ZRef<CStaticFoothold>> fhs;
+    GetCrossCandidate(x - 1, yMax, x + 1, y + 1, fhs);
+    CStaticFoothold* pfhAbove{};
+    for (auto& fh: fhs)
+    {
+        if (fh->GetX1() < fh->GetX2() && fh->GetX1() <= x && fh->GetX2() >= x )
+        {
+            auto dx = fh->GetX2() - fh->GetX1();
+            auto dy = fh->GetY2() - fh->GetY1();
+            auto cur = fh->GetY1() + (x - fh->GetX1()) * dy / dx;
+            if ( cur <= y && cur > yMax )
+            {
+                yMax = cur;
+                *pcy = cur;
+                pfhAbove = fh.op_arrow();
+            }
+        }
+    }
+
+    return pfhAbove;
 
 
     //return nullptr;
@@ -518,13 +538,33 @@ long CWvsPhysicalSpace2D::FindLeftEndX_CanWalkThrough(ZRef<CStaticFoothold> arg0
 
 CLadderOrRope* CWvsPhysicalSpace2D::GetLadderOrRope(long x1, long y1, long x2, long y2)
 {
-    return __sub_00613860(this, nullptr, x1, y1, x2, y2);
+    //return __sub_00613860(this, nullptr, x1, y1, x2, y2);
+    auto xMin = std::min(x1, x2) - 10;
+    auto xMax = std::max(x1, x2) + 10;
+    auto yMin = std::min(y1, y2);
+    auto yMax = std::max(y1, y2);
+
+
+    for (auto& lr: m_aLadderOrRope)
+    {
+        if ( xMin <= lr.x && lr.x <= xMax && yMin <= lr.y2 && lr.y1 <= yMax )
+            return &lr;
+    }
+
+    return nullptr;
+
+
 }
 
 CLadderOrRope* CWvsPhysicalSpace2D::GetLadderOrRopeBySN(unsigned long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    for (auto& lr: m_aLadderOrRope)
+    {
+        if (lr.dwSN == arg0)
+            return &lr;
+    }
+
+    return nullptr;
 }
 
 CAttrField* CWvsPhysicalSpace2D::GetFieldAttr()
@@ -568,7 +608,7 @@ void CWvsPhysicalSpace2D::FootHoldMove(unsigned long dwSN, long x, long y)
 
 void CWvsPhysicalSpace2D::FootHoldStateChange(unsigned long dwSN, long nState)
 {
-    if (auto fh = GetFoothold(dwSN))
+    if (const auto fh = GetFoothold(dwSN))
     {
         fh->SetFootHoldState(nState);
     }
@@ -629,6 +669,9 @@ CStaticFoothold::CStaticFoothold(unsigned long dwSN, long x1, long y1, long x2, 
 
     m_x2 = x2;
     m_xReal2 = x2;
+
+    m_y2 = y2;
+    m_yReal2 = y2;
 
     m_lZMass = ZMass;
     m_pAttrFoothold = pAttrFoothold;
@@ -744,8 +787,7 @@ const CStaticFoothold* CStaticFoothold::GetForwardLink(const double d, const dou
 
     if (distanceLeft <= 0.0) return this; // Already at the limit
 
-    CStaticFoothold* current = this;
-
+    auto current = this;
     while (current) {
         current = (d > 0.0) ? current->m_pfhNext : current->m_pfhPrev;
         if (!current) return nullptr; // Reached the end
@@ -783,8 +825,8 @@ void CStaticFoothold::SetPosition(long x1, long x2, long y1, long y2)
     m_y1 = y1;
     m_y2 = y2;
 
-    auto dx = (double)(x2 - x1);
-    auto dy = (double)(y2 - y1);
+    auto dx = static_cast<double>(x2 - x1);
+    auto dy = static_cast<double>(y2 - y1);
     m_len = sqrt(dx * dx + dy * dy);
     m_uvx = dx / m_len;
     m_uvy = dy / m_len;

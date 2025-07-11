@@ -18,7 +18,7 @@ __SUB_CLASS_THIS(004DD550, __thiscall, 11769,  IUIMsgHandler, void, uint32_t, ui
 	_ASM_PLACEHOLDER(004DD550, 11769)
 }
 // CUIWnd::OnCreate
-__SUB_CLASS_THIS(004DDB30, __thiscall, 11764,  CUIWnd, void, void*, NakedParam<ZXString<unsigned short>>, int32_t) {
+__SUB_CLASS_THIS(004DDB30, __thiscall, 11764,  CUIWnd, void, void*, NakedParam<ZXString16>, int32_t) {
 	_ASM_PLACEHOLDER(004DDB30, 11764)
 }
 // CUIWnd::CUIWnd
@@ -70,7 +70,7 @@ __SUB_CLASS_THIS(003734B0, __thiscall, 11768,  IUIMsgHandler, int32_t, int32_t) 
 	_ASM_PLACEHOLDER(003734B0, 11768)
 }
 // CUIWnd::GetResName
-__SUB_CLASS_THIS0(004DD860, __thiscall, 11775,  CUIWnd, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(004DD860, __thiscall, 11775,  CUIWnd, ZXString16) {
 	_ASM_PLACEHOLDER(004DD860, 11775)
 }
 // CUIWnd::~CUIWnd

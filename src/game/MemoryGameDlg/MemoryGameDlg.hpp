@@ -102,7 +102,7 @@ enum GAME_ {
 		public: void _ctor_0();
 	public:  virtual void OnCreate(void* pData);
 		public:  virtual int32_t HitTest(long rx, long ry, CCtrlWnd** ppCtrl);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
 		public:  virtual int32_t OnMouseMove(long rx, long ry);
 		public:  virtual void OnButtonClicked(uint32_t uId);

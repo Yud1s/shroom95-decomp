@@ -586,7 +586,7 @@ __asm {
 
  Block2:
 	xor edi,edi
-	int 3// TODO: 	mov dword ptr [esp+0x14],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x14],0
 	mov dword ptr [esp+0x1C],edi
 	mov dword ptr [esp+0x20],edi
 	mov dword ptr [esp+0x24],edi
@@ -670,7 +670,7 @@ __asm {
  Block12:
 	lea ecx,[esp+0x14]
 	mov dword ptr [esp+0x30],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x14],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x14],0
 	call ZList<ZRef<CStaticFoothold>>::RemoveAll
 	mov eax,dword ptr [esp+0x48]
 
@@ -4874,7 +4874,7 @@ __asm {
 	lea eax,[esp+0x38]
 	mov dword ptr fs:[0],eax
 	xor eax,eax
-	int 3// TODO: 	mov dword ptr [esp+0x24],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x24],0
 	mov dword ptr [esp+0x2C],eax
 	mov dword ptr [esp+0x30],eax
 	mov dword ptr [esp+0x34],eax
@@ -4976,7 +4976,7 @@ __asm {
  Block14:
 	lea ecx,[esp+0x24]
 	mov dword ptr [esp+0x40],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x24],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x24],0
 	call ZList<ZRef<CStaticFoothold>>::RemoveAll
 	mov ecx,dword ptr [esp+0x38]
 	mov dword ptr fs:[0],ecx
@@ -5039,7 +5039,7 @@ __asm {
 	mov dword ptr [esp+0x20],2
 	mov dword ptr [esp+0x18],eax
 	mov dword ptr [esp+0x1C],eax
-	int 3// TODO: 	mov dword ptr [esp+0x44],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x44],0
 	mov dword ptr [esp+0x4C],eax
 	mov dword ptr [esp+0x50],eax
 	mov dword ptr [esp+0x54],eax
@@ -5348,7 +5348,7 @@ __asm {
 	lea ecx,[esp+0x44]
 	mov dword ptr [edx],eax
 	mov dword ptr [esp+0x60],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x44],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x44],0
 	call ZList<ZRef<CStaticFoothold>>::RemoveAll
 	xor eax,eax
 	jmp Block44
@@ -5356,7 +5356,7 @@ __asm {
  Block42:
 	lea ecx,[esp+0x44]
 	mov dword ptr [esp+0x60],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x44],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x44],0
 	call ZList<ZRef<CStaticFoothold>>::RemoveAll
 
  Block43:
@@ -6396,7 +6396,7 @@ __asm {
 
  Block2:
 	xor edi,edi
-	int 3// TODO: 	mov dword ptr [esp+0x18],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x18],0
 	mov dword ptr [esp+0x20],edi
 	mov dword ptr [esp+0x24],edi
 	mov dword ptr [esp+0x28],edi
@@ -6470,7 +6470,7 @@ __asm {
  Block10:
 	lea ecx,[esp+0x18]
 	mov dword ptr [esp+0x34],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0x18],offset ZList<ZRef<CStaticFoothold>>::`vftable'
+	mov dword ptr [esp+0x18],0
 	call ZList<ZRef<CStaticFoothold>>::RemoveAll
 	mov eax,dword ptr [esp+0x14]
 

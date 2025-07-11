@@ -82,7 +82,7 @@ __SUB_CLASS0(005A40F0, __stdcall, 39752,  CWebWnd, HRESULT) {
 	_ASM_PLACEHOLDER(005A40F0, 39752)
 }
 // CWebWnd::OnCreate
-__SUB_CLASS_THIS(005A5250, __thiscall, 39727,  CWebWnd, void, void*, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(005A5250, __thiscall, 39727,  CWebWnd, void, void*, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(005A5250, 39727)
 }
 // CWebWnd::OnUIActivate

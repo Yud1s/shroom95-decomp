@@ -558,7 +558,7 @@ void CUIItemSearch::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2
     __sub_004AA7D0(this, nullptr, nId, param1, param2);
 }
 
-void CUIItemSearch::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIItemSearch::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_004B2AF0(this, nullptr, wParam, lParam);
 }

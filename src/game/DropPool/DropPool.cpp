@@ -10,7 +10,6 @@ static ZList<CMob*> FAKE_ZListCMob_{};
 
 DROP::~DROP()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void DROP::_dtor_0()
@@ -31,7 +30,6 @@ void DROP::_ctor_1(const DROP& arg0)
 
 DROP::DROP()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void DROP::_ctor_0()
@@ -52,7 +50,7 @@ DROP& DROP::_op_assign_3(DROP* pThis, const DROP& arg0)
 
 CDropPool::~CDropPool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CDropPool::_dtor_0()
@@ -73,6 +71,7 @@ void CDropPool::_ctor_1(const CDropPool& arg0)
 
 CDropPool::CDropPool()
 {
+    ms_pInstance = this;
     auto img900 = StringPool::GetInstance().GetBSTR(0x6de);
     m_pPropMoneyIcon = get_rm()->GetObjectT<IWzProperty>(img900);
 }
@@ -120,8 +119,7 @@ void CDropPool::GetExplosiveDropInRect(const tagRECT& rc, ZArray<DROP*>& aDrop, 
 
 void CDropPool::SetFieldAttr(const CAttrField* arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_pAttrField = arg0;
 }
 
 void CDropPool::RecordRecentPickupItem(unsigned long dwItemID)
@@ -167,7 +165,12 @@ void CDropPool::Remove(ZRef<DROP> pr)
 
 long CDropPool::GetMoneyIconType(long nMoney)
 {
-    return __sub_0010F440(this, nullptr, nMoney);
+    //return __sub_0010F440(this, nullptr, nMoney);
+    if ( nMoney < 50 )
+        return 0;
+    if ( nMoney >= 100 )
+        return (nMoney >= 1000) + 2;
+    return 1;
 }
 
 _x_com_ptr<IWzCanvas> CDropPool::GetMoneyIcon(long nMoney, long nCanvasNo)

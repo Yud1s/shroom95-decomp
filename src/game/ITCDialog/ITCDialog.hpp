@@ -79,7 +79,7 @@ public: enum  ID_CTRL_ {
 	public:  virtual void OnCreate(void* pData);
 		public:  virtual void OnDestroy();
 		public:  virtual void Draw(const tagRECT* pRect);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 		public:  virtual void OnButtonClicked(uint32_t nId);
 		public:  virtual void OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry);
@@ -131,7 +131,7 @@ enum  ID_CTRL_CB_REGISTRATIONFEE_ {
 		public:  virtual void OnCreate(void* pData);
 		public:  virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 		public:  virtual void Draw(const tagRECT* pRect);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  static int32_t __cdecl Confirm(long nTI, GW_ItemSlotBase* pItem, void* pData, long& nBeginPrice, long& nEndPrice, long& nSaleCount, unsigned char& bSaleDuration, unsigned char& bRegisterFeeType, long& nBidRange);
 		public:   CRegisterAuctionEntryDlg& operator=(const CRegisterAuctionEntryDlg& arg0);
 		public: static CRegisterAuctionEntryDlg& _op_assign_9(CRegisterAuctionEntryDlg* pThis, const CRegisterAuctionEntryDlg& arg0);
@@ -172,7 +172,7 @@ enum  ID_CTRL_CB_REGISTRATIONFEE_ {
 		public:  virtual void OnCreate(void* pData);
 		public:  virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 		public:  virtual void Draw(const tagRECT* pRect);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  static int32_t __cdecl Confirm(long nTI, GW_ItemSlotBase* pItem, void* pData, long& nSalePrice, long& nSaleCount, unsigned char& bSaleDuration, unsigned char& bRegisterFeeType);
 		public:   CRegisterSaleEntryDlg& operator=(const CRegisterSaleEntryDlg& arg0);
 		public: static CRegisterSaleEntryDlg& _op_assign_9(CRegisterSaleEntryDlg* pThis, const CRegisterSaleEntryDlg& arg0);
@@ -214,7 +214,7 @@ enum  ID_CTRL_CB_REGISTRATIONFEE_ {
 		public:  virtual void OnCreate(void* pData);
 		public:  virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 		public:  virtual void Draw(const tagRECT* pRect);
-		public:  virtual void OnKey(uint32_t wParam, uint32_t lParam);
+		public:  virtual void OnKey(uint32_t wParam, int32_t lParam);
 		public:  static int32_t __cdecl Confirm(long nItemID, void* pData, long& nSalePrice, long& nSaleCount, unsigned char& bSaleDuration, unsigned char& bRegisterFeeType, ZXString<char>& sDesc);
 		public:   CRegisterWishEntryDlg& operator=(const CRegisterWishEntryDlg& arg0);
 		public: static CRegisterWishEntryDlg& _op_assign_9(CRegisterWishEntryDlg* pThis, const CRegisterWishEntryDlg& arg0);

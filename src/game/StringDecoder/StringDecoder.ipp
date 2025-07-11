@@ -30,11 +30,11 @@ __SUB_CLASS_THIS(00346470, __thiscall, 88738,  StringPool::Key, void, const unsi
 	_ASM_PLACEHOLDER(00346470, 88738)
 }
 // StringPool::GetStringW
-__SUB_CLASS_THIS(00003B60, __thiscall, 107256,  StringPool, ZXString<unsigned short>*, ZXString<unsigned short>*, uint32_t) {
+__SUB_CLASS_THIS(00003B60, __thiscall, 107256,  StringPool, ZXString16*, ZXString16*, uint32_t) {
 	_ASM_PLACEHOLDER(00003B60, 107256)
 }
 // StringPool::GetString
-__SUB_CLASS_THIS(00346880, __thiscall, 88770,  StringPool, ZXString<unsigned short>*, ZXString<unsigned short>*, uint32_t, wchar_t) {
+__SUB_CLASS_THIS(00346880, __thiscall, 88770,  StringPool, ZXString16*, ZXString16*, uint32_t, wchar_t) {
 	_ASM_PLACEHOLDER(00346880, 88770)
 }
 // StringPool::GetInstance

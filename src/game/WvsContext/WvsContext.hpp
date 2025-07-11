@@ -813,6 +813,7 @@ class CUISkillDec : public CDialog
 {
 	// Nested
 public:
+public:
 	enum ID_CTRL_
 	{
 		ID_CTRL_TAB = 2000,
@@ -897,7 +898,7 @@ public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);
@@ -1178,7 +1179,7 @@ public:
 	virtual void Draw(const tagRECT *pRect);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void SetRet(long nRet);
@@ -1291,7 +1292,7 @@ public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);
@@ -1480,7 +1481,7 @@ public:
 		void Remove(unsigned long arg0);
 
 	public:
-		long GetCount();
+		long GetCount() const;
 
 	public:
 		long FindIndex(ZXString<char> sFriendName);
@@ -1822,25 +1823,25 @@ protected:
 	GUILDDATA m_guild;
 
 protected:
-	ZXString<unsigned short> m_sGuildBoardAuthkey;
+	ZXString16 m_sGuildBoardAuthkey;
 
 protected:
 	unsigned long m_dwGuildBoardAuthkeyLastUpdated{};
 
 protected:
-	ZXString<unsigned short> m_sConsultAuthkey;
+	ZXString16 m_sConsultAuthkey;
 
 protected:
 	unsigned long m_dwConsultAuthkeyLastUpdated{};
 
 protected:
-	ZXString<unsigned short> m_sClassCompetitionAuthkey;
+	ZXString16 m_sClassCompetitionAuthkey;
 
 protected:
 	unsigned long m_dwClassCompetitionAuthkeyLastUpdated{};
 
 protected:
-	std::array<ZXString<unsigned short>, 1> m_sWebBoardAuthKey{};
+	std::array<ZXString16, 1> m_sWebBoardAuthKey{};
 
 protected:
 	std::array<unsigned long, 1> m_dwWebBoardAuthkeyLastUpdated{};
@@ -2666,10 +2667,10 @@ public:
 	long GetFuncKeyMappedType(uint32_t arg0, uint32_t arg1);
 
 public:
-	int32_t ProcessBasicUIKey(uint32_t wParam, uint32_t lParam);
+	int32_t ProcessBasicUIKey(uint32_t wParam, int32_t lParam);
 
 public:
-	int32_t UseFuncKeyMapped(uint32_t lParam);
+	int32_t UseFuncKeyMapped(int32_t lParam);
 
 public:
 	int32_t MonsterCarnivalDlgKeyHook(uint32_t wParam);
@@ -2771,10 +2772,10 @@ public:
 	void ClearNewAutoQuestStartList();
 
 public:
-	ZXString<unsigned short> GetAutoQuestIconUOL();
+	ZXString16 GetAutoQuestIconUOL();
 
 public:
-	ZXString<unsigned short> GetAutoQuestIconAppearUOL();
+	ZXString16 GetAutoQuestIconAppearUOL();
 
 public:
 	long GetSkillLevelUpState(const SKILLENTRY *p);
@@ -2948,7 +2949,7 @@ public:
 	ZXString<char> GetAllianceNotice() const;
 
 public:
-	ZXString<unsigned short> GetGuildBoardAuthKey();
+	ZXString16 GetGuildBoardAuthKey();
 
 public:
 	unsigned long GetGuildBoardAuthKeyLastUpdated() const;
@@ -2993,19 +2994,19 @@ public:
 	void GetOnlineExpeditionMemberID(ZArray<unsigned long> &arg0);
 
 public:
-	ZXString<unsigned short> GetConsultAuthKey();
+	ZXString16 GetConsultAuthKey();
 
 public:
 	unsigned long GetConsultAuthKeyLastUpdated();
 
 public:
-	ZXString<unsigned short> GetClassCompetitionAuthKey();
+	ZXString16 GetClassCompetitionAuthKey();
 
 public:
 	unsigned long GetClassCompetitionAuthKeyLastUpdated();
 
 public:
-	ZXString<unsigned short> GetWebBoardAuthKey(long nType);
+	ZXString16 GetWebBoardAuthKey(long nType);
 
 public:
 	unsigned long GetWebBoardAuthKeyLastUpdated(long arg0);
@@ -3107,7 +3108,7 @@ public:
 	const ZRef<CS_COMMODITY> GetCommodityByIndex(long nCommSN);
 
 public:
-	int32_t IsValidCommodity(long nPsdNo);
+	int32_t IsValidCommodity(long nItemId);
 
 public:
 	void LoadAreaCode();
@@ -3128,7 +3129,7 @@ public:
 	int32_t GetMigrateFromWishItem();
 
 public:
-	int32_t CanSendExclRequest(long tTimeInterval, int32_t bIgnoreDeadState);
+	int32_t CanSendExclRequest(long tTimeInterval = 500, int32_t bIgnoreDeadState = false);
 
 public:
 	int32_t CanSendExclRequestQ(long arg0, int32_t arg1, int32_t arg2);
@@ -3388,19 +3389,19 @@ public:
 	void ShowGuildInfo();
 
 public:
-	void OnInventoryOperation(CInPacket &arg0);
+	void OnInventoryOperation(CInPacket &pkt);
 
 public:
 	void OnInventoryGrow(CInPacket &arg0);
 
 public:
-	void OnStatChanged(CInPacket &arg0);
+	void OnStatChanged(CInPacket &pkt);
 
 public:
-	void OnTemporaryStatSet(CInPacket &arg0);
+	void OnTemporaryStatSet(CInPacket &pkt);
 
 public:
-	void OnTemporaryStatReset(CInPacket &arg0);
+	void OnTemporaryStatReset(CInPacket &pkt);
 
 public:
 	void OnForcedStatSet(CInPacket &arg0);
@@ -3487,7 +3488,7 @@ public:
 	void OnTownPortal(CInPacket &arg0);
 
 public:
-	void OnOpenGate(CInPacket &arg0);
+	void OnOpenGate(CInPacket &pkt);
 
 public:
 	void OnBroadcastMsg(CInPacket &arg0);
@@ -3505,7 +3506,7 @@ public:
 	void OnInitialSpeedQuiz(CInPacket &arg0);
 
 public:
-	void OnQuestClear(CInPacket &arg0);
+	void OnQuestClear(CInPacket &pkt);
 
 public:
 	void OnQuestProgressUpdated(uint16_t usQuestID, long nItemID, ZXString<char> sOldInfo);
@@ -4396,7 +4397,7 @@ public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);

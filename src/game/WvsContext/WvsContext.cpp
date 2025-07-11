@@ -1,6 +1,9 @@
 // WvsContext.cpp
 #include "WvsContext.hpp"
 
+#include <skills_ids.h>
+#include <BattleRecordMan/BattleRecordMan.hpp>
+
 #include "UIStatusBar/UIStatusBar.hpp"
 #include "UtilDlg/UtilDlg.hpp"
 #include "UIMenuDlgs/UIMenuDlgs.hpp"
@@ -125,7 +128,6 @@ FamilyInfo& FamilyInfo::_op_assign_4(FamilyInfo* pThis, const FamilyInfo& arg0)
 
 GUILDDATA::~GUILDDATA()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void GUILDDATA::_dtor_0()
@@ -201,7 +203,24 @@ long GUILDDATA::FindIndex(unsigned long dwCharacterID)
 
 void GUILDDATA::Clear()
 {
-    __sub_005DFAC0(this, nullptr);
+    this->nGuildID = 0;
+    this->nPoint = 0;
+    this->nLevel = 1;
+    this->sGuildName.Clear();
+
+    asGradeName.RemoveAll();
+    adwCharacterID.RemoveAll();
+    aMemberData.RemoveAll();
+
+    this->nMaxMemberNum = 0;
+    this->nMark = 0;
+    this->nMarkBg = 0;
+    this->nMarkColor = 0;
+    this->nMarkBgColor = 0;
+    this->sNotice.Clear();
+    this->nAllianceID = 0;
+    mSkillRecord.RemoveAll();
+    aSkillRecordOnlyID.RemoveAll();
 }
 
 long GUILDDATA::CalcGuildLevel(long arg0)
@@ -326,7 +345,6 @@ CTemporaryStatView::~CTemporaryStatView()
 void CTemporaryStatView::_dtor_0()
 {
     this->~CTemporaryStatView();
-    //return __sub_005D3710(this, nullptr);
 }
 
 CTemporaryStatView::CTemporaryStatView(const CTemporaryStatView& arg0)
@@ -354,33 +372,69 @@ void CTemporaryStatView::_ctor_0()
 void CTemporaryStatView::Clear()
 {
     m_lTemporaryStat.RemoveAll();
-    //__sub_005D3710(this, nullptr);
 }
 
 void
 CTemporaryStatView::SetTemporary(long nType, long nID, long tDuration, MY_UINT128 uFlagTemp, ZXString<char> sToolTip,
                                  long nSubID, long nHideTime)
 {
-    __sub_0035FA50(this, nullptr, nType, nID, tDuration, CreateNakedParam(uFlagTemp), CreateNakedParam(sToolTip),
-                   nSubID, nHideTime);
+    //__sub_0035FA50(this, nullptr, nType, nID, tDuration, CreateNakedParam(uFlagTemp), CreateNakedParam(sToolTip),nSubID, nHideTime);
+    if (is_guided_bullet_skill(nID))
+        return;
+
+    for (auto& cur : m_lTemporaryStat)
+    {
+        //TODO(game) Delete
+    }
+
+    ZRef<TEMPORARY_STAT> pStat(new TEMPORARY_STAT(nType, nID, tDuration, uFlagTemp, sToolTip, nSubID, nHideTime), true);
+    if (nType == 3)
+    {
+        m_lTemporaryStat.AddTail(pStat);
+    }
+    else
+    {
+        m_lTemporaryStat.AddHead(pStat);
+    }
+
+    AdjustPosition();
 }
 
 void CTemporaryStatView::ResetTemporary(long nType, long nID, MY_UINT128 uFlagTemp)
 {
-    __sub_0035D100(this, nullptr, nType, nID, CreateNakedParam(uFlagTemp));
+    //__sub_0035D100(this, nullptr, nType, nID, CreateNakedParam(uFlagTemp));
+    const MY_UINT128 uFlagTmp = ~uFlagTemp;
+    m_lTemporaryStat.Retain([=](auto& stat)
+    {
+        stat->uFlagTemp &= uFlagTmp;
+        if (stat->nType == 3)
+            return false;
+
+        if (stat->nType == 4)
+        {
+            return stat->nID != nID;
+        }
+
+        return !static_cast<bool>(uFlagTmp) || stat->uFlagTemp.compareTo(0);
+    });
+
+    AdjustPosition();
 }
 
 void CTemporaryStatView::ResetTemporary(long nType, long nID)
 {
-    __sub_0035D030(this, nullptr, nType, nID);
+    //__sub_0035D030(this, nullptr, nType, nID);
+    m_lTemporaryStat.Retain([=](auto& stat)
+    {
+        return stat->nID != nID;
+    });
 }
 
 void CTemporaryStatView::Update()
 {
-    //__sub_005D3710(this, nullptr);
     for (auto pos : m_lTemporaryStat)
     {
-        if (pos->nID != 5221006 && pos->nID != 35001002)
+        if (pos->nID != CORSAIR_BATTLESHIP && pos->nID != MECH1_MECH_PROTOTYPE)
         {
             pos->SetLeft(pos->GetLeft() - 30);
         }
@@ -396,7 +450,6 @@ void CTemporaryStatView::UpdatePassively(long nID, long nLeft, long nMax)
 
 void CTemporaryStatView::Show()
 {
-    //__sub_005D3710(this, nullptr);
     auto pos = m_lTemporaryStat.GetHeadPosition();
     while (pos)
     {
@@ -409,7 +462,11 @@ void CTemporaryStatView::Show()
 
 void CTemporaryStatView::Hide()
 {
-    __sub_005D3710(this, nullptr);
+    for (auto& stat : m_lTemporaryStat)
+    {
+        auto alpha = stat->pLayer->Getalpha();
+        alpha->RelMove(0, 0, vtMissing, vtMissing);
+    }
 }
 
 int32_t CTemporaryStatView::ShowToolTip(CUIToolTip& uiToolTip, const tagPOINT& ptCursor, long rx, long ry)
@@ -424,7 +481,22 @@ void CTemporaryStatView::FindIcon(const tagPOINT& ptCursor, long& nType, long& n
 
 void CTemporaryStatView::AdjustPosition()
 {
-    __sub_005D3710(this, nullptr);
+    const auto LN = 32;
+    auto i = (int)m_lTemporaryStat.GetCount() * -LN;
+    for (auto& stat : m_lTemporaryStat)
+    {
+        auto h = stat->pLayer->Getheight();
+        auto w = stat->pLayer->Getwidth();
+        stat->pLayer->RelMove((LN - w) / 2 + i - 3,
+                              (LN - h) / 2 + 23, vtMissing, vtMissing);
+
+        h = stat->pLayerShadow->Getheight();
+        w = stat->pLayerShadow->Getwidth();
+        stat->pLayerShadow->RelMove((LN - w) / 2 + i - 3,
+                                    (LN - h) / 2 + 23, vtMissing, vtMissing);
+
+        i += 32;
+    }
 }
 
 CTemporaryStatView& CTemporaryStatView::operator=(const CTemporaryStatView& arg0)
@@ -536,7 +608,7 @@ _com_ptr_t<_com_IIID<IWzCanvas, &__uuidof(IWzCanvas)>> createTempIcon3(int spKey
     Z_CHECK_HR(icon->raw_Create(32, 32, vtMissing, vtMissing));
 
     auto wStr = sp.GetStringW(spKey);
-    auto wIconUOL = ZXString<unsigned short>::FromFmt(wStr.c_str(), nID);
+    auto wIconUOL = ZXString16::FromFmt(wStr.c_str(), nID);
     auto iconCanvas = get_rm()->GetObjectT<IWzCanvas>(Ztl_bstr_t((const wchar_t*)wIconUOL.c_str()));
     if (iconCanvas)
     {
@@ -603,6 +675,8 @@ CTemporaryStatView::TEMPORARY_STAT::TEMPORARY_STAT(long nType, long nID, long tD
     pLayerShadow->Putorigin(Ztl_variant_t(org));
     pLayerShadow->Putcolor(0xD2FFFFFF);
 
+
+    tLeftUnit = tMaxDuration / 16;
     SetLeft(tDuration);
     if (tHideTime && get_update_time() < tHideTime)
     {
@@ -638,7 +712,18 @@ long CTemporaryStatView::TEMPORARY_STAT::GetLeft()
 
 void CTemporaryStatView::TEMPORARY_STAT::SetLeft(long tNewLeft)
 {
-    __sub_0035DA00(this, nullptr, tNewLeft);
+    //__sub_0035DA00(this, nullptr, tNewLeft);
+    tLeft = tNewLeft;
+    UpdateShadowIndex();
+    auto leftUnit = 3000;
+    if (nID == CORSAIR_BATTLESHIP || nID == MECH1_MECH_PROTOTYPE)
+        leftUnit = this->tLeftUnit;
+
+    if (tLeft > leftUnit && tLeft <= leftUnit)
+    {
+        pLayer->Animate(GA_REPEAT, vtMissing, vtMissing);
+        pLayerShadow->Animate(GA_REPEAT, vtMissing, vtMissing);
+    }
 }
 
 void CTemporaryStatView::TEMPORARY_STAT::UpdateShadowIndex()
@@ -694,7 +779,6 @@ CTemporaryStatView::TEMPORARY_STAT::_op_assign_10(CTemporaryStatView::TEMPORARY_
 
 ALLIANCEDATA::~ALLIANCEDATA()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void ALLIANCEDATA::_dtor_0()
@@ -755,7 +839,13 @@ long ALLIANCEDATA::FindIndex(unsigned long arg0)
 
 void ALLIANCEDATA::Clear()
 {
-    __sub_005DFB40(this, nullptr);
+    //__sub_005DFB40(this, nullptr);
+    nAllianceID = 0;
+    sAllianceName.Clear();
+    asGradeName.RemoveAll();
+    adwGuildID.RemoveAll();
+    nMaxMemberNum = 0;
+    sNotice.Clear();
 }
 
 ALLIANCEDATA& ALLIANCEDATA::operator=(const ALLIANCEDATA& __that)
@@ -770,7 +860,7 @@ ALLIANCEDATA& ALLIANCEDATA::_op_assign_9(ALLIANCEDATA* pThis, const ALLIANCEDATA
 
 CTownPortalPool::~CTownPortalPool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void CTownPortalPool::_dtor_0()
@@ -791,7 +881,7 @@ void CTownPortalPool::_ctor_1(const CTownPortalPool& arg0)
 
 CTownPortalPool::CTownPortalPool()
 {
-    //UNIMPLEMENTED; //_ctor_0();
+    ms_pInstance = this;
 }
 
 void CTownPortalPool::_ctor_0()
@@ -904,7 +994,7 @@ CTownPortalPool::TOWNPORTAL::_op_assign_3(CTownPortalPool::TOWNPORTAL* pThis, co
 
 COpenGatePool::~COpenGatePool()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    ms_pInstance = nullptr;
 }
 
 void COpenGatePool::_dtor_0()
@@ -925,6 +1015,7 @@ void COpenGatePool::_ctor_1(const COpenGatePool& arg0)
 
 COpenGatePool::COpenGatePool()
 {
+    ms_pInstance = this;
 }
 
 void COpenGatePool::_ctor_0()
@@ -1085,7 +1176,7 @@ void CUISkillDec::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2)
     __sub_00458A60(this, nullptr, nId, param1, param2);
 }
 
-void CUISkillDec::OnKey(uint32_t wParam, uint32_t lParam)
+void CUISkillDec::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_005EB050(this, nullptr, wParam, lParam);
 }
@@ -1417,7 +1508,7 @@ void CUIStatChange::Draw(const tagRECT* pRect)
     __sub_0046BF90(this, nullptr, pRect);
 }
 
-void CUIStatChange::OnKey(uint32_t wParam, uint32_t lParam)
+void CUIStatChange::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_005DFE20(this, nullptr, wParam, lParam);
 }
@@ -1520,7 +1611,7 @@ void CUISkillInc::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2)
     __sub_00458DF0(this, nullptr, nId, param1, param2);
 }
 
-void CUISkillInc::OnKey(uint32_t wParam, uint32_t lParam)
+void CUISkillInc::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_005EB240(this, nullptr, wParam, lParam);
 }
@@ -1715,7 +1806,6 @@ void CWvsContext::_ctor_1(const CWvsContext& arg0)
 CWvsContext::CWvsContext()
 {
     ms_pInstance = this;
-    //TODO(ctor) UNIMPLEMENTED; //_ctor_0();
     m_basicStat.Clear();
     m_forcedStat.Clear();
 
@@ -1736,7 +1826,7 @@ CWvsContext::CWvsContext()
     m_tAutoAcceptQuestRequest = t;
     m_tLastStatResetRequest = t;
 
-    m_tNextNoticePlaytime = 3600000;
+    m_tNextNoticePlaytime = t + 3600000;
     m_nPlaytimeHour = 1;
 
     m_tLastGivePopularity = t - 300000;
@@ -1749,7 +1839,7 @@ CWvsContext::CWvsContext()
 
 void CWvsContext::_ctor_0()
 {
-    return __sub_005E90F0(this, nullptr);
+    new(this) CWvsContext();
 }
 
 void CWvsContext::IssueConnect(const ZInetAddr* pAddr)
@@ -1765,7 +1855,6 @@ void CWvsContext::IssueConnect(const ZInetAddr* pAddr)
 
 void CWvsContext::ReturnToTitle()
 {
-    // TODO: No module found for method
     //UNIMPLEMENTED;
     m_pUIRaiseManager->ClearWindows();
     auto app = CWvsApp::ms_pInstance;
@@ -1789,7 +1878,7 @@ void CWvsContext::OnEnterGame()
 
 void CWvsContext::OnPostEnterGame()
 {
-    __sub_005E6750(this, nullptr);
+    _CheckExpiredProtectItems();
 }
 
 void CWvsContext::OnEnterField()
@@ -1824,7 +1913,11 @@ void CWvsContext::SendMigrateToITCRequest()
 
 long CWvsContext::GetCurFieldID()
 {
-    return __sub_005DB0A0(this, nullptr);
+    //return __sub_005DB0A0(this, nullptr);
+    if (auto field = get_field())
+        return field->GetFieldID();
+
+    return -1;
 }
 
 void CWvsContext::UI_Toggle(int32_t nUIType, int32_t nDefaultTab)
@@ -1849,7 +1942,12 @@ void CWvsContext::UI_OpenRevive()
 
 void CWvsContext::UI_CloseRevive()
 {
-    __sub_005CCCD0(this, nullptr);
+    //__sub_005CCCD0(this, nullptr);
+    if (auto revive = CUIRevive::GetInstance())
+    {
+        revive->Destroy();
+        delete revive;
+    }
 }
 
 void CWvsContext::UI_Menu()
@@ -2257,7 +2355,9 @@ const char* CWvsContext::GetChannelName(long nIdx)
 
 const char* CWvsContext::GetChannelName_()
 {
-    return __sub_0009C800(this, nullptr);
+    if (m_nChannelID == -1)
+        return nullptr;
+    return m_aChannelName[m_nChannelID].c_str();
 }
 
 int32_t CWvsContext::GetAdultChannel(long arg0)
@@ -2317,12 +2417,12 @@ long CWvsContext::GetFuncKeyMappedType(uint32_t arg0, uint32_t arg1)
     UNIMPLEMENTED;
 }
 
-int32_t CWvsContext::ProcessBasicUIKey(uint32_t wParam, uint32_t lParam)
+int32_t CWvsContext::ProcessBasicUIKey(uint32_t wParam, int32_t lParam)
 {
     return __sub_005E8500(this, nullptr, wParam, lParam);
 }
 
-int32_t CWvsContext::UseFuncKeyMapped(uint32_t lParam)
+int32_t CWvsContext::UseFuncKeyMapped(int32_t lParam)
 {
     return __sub_005DD890(this, nullptr, lParam);
 }
@@ -2339,13 +2439,384 @@ void CWvsContext::ChannelShift()
 
 void CWvsContext::OnPacket(long nType, CInPacket& iPacket)
 {
-    __sub_005E5830(this, nullptr, nType, iPacket);
+    //__sub_005E5830(this, nullptr, nType, iPacket);
+    switch (nType)
+    {
+    case 28:
+        OnInventoryOperation(iPacket);
+        break;
+    case 29:
+        OnInventoryGrow(iPacket);
+        break;
+    case 30:
+        OnStatChanged(iPacket);
+        break;
+    case 31:
+        OnTemporaryStatSet(iPacket);
+        break;
+    case 32:
+        OnTemporaryStatReset(iPacket);
+        break;
+    case 33:
+        OnForcedStatSet(iPacket);
+        break;
+    case 34:
+        OnForcedStatReset(iPacket);
+        break;
+    case 35:
+        OnChangeSkillRecordResult(iPacket);
+        break;
+    case 36:
+        OnSkillUseResult(iPacket);
+        break;
+    case 37:
+        OnGivePopularityResult(iPacket);
+        break;
+    case 38:
+        OnMessage(iPacket);
+        break;
+    case 39:
+        OnOpenFullClientDownloadLink(iPacket);
+        break;
+    case 40:
+        OnMemoResult(iPacket);
+        break;
+    case 41:
+        OnMapTransferResult(iPacket);
+        break;
+    case 42:
+        OnAntiMacroResult(iPacket);
+        break;
+    case 44:
+        OnClaimResult(iPacket);
+        break;
+    case 45:
+        OnSetClaimSvrAvailableTime(iPacket);
+        break;
+    case 46:
+        OnClaimSvrStatusChanged(iPacket);
+        break;
+    case 47:
+        OnSetTamingMobInfo(iPacket);
+        break;
+    case 48:
+        OnQuestClear(iPacket);
+        break;
+    case 49:
+        OnEntrustedShopCheckResult(iPacket);
+        break;
+    case 50:
+        OnSkillLearnItemResult(iPacket);
+        break;
+    case 51:
+        OnSkillResetItemResult(iPacket);
+        break;
+    case 52:
+        OnGatherItemResult(iPacket);
+        break;
+    case 53:
+        OnSortItemResult(iPacket);
+        break;
+    case 55:
+        OnSueCharacterResult(iPacket);
+        break;
+    case 57:
+        OnTradeMoneyLimit(iPacket);
+        break;
+    case 58:
+        OnSetGender(iPacket);
+        break;
+    case 59:
+        OnGuildBBSPacket(iPacket);
+        break;
+    case 61:
+        OnCharacterInfo(iPacket);
+        break;
+    case 62:
+        OnPartyResult(iPacket);
+        break;
+    case 64:
+        OnExpedtionResult(iPacket);
+        break;
+    case 65:
+        OnFriendResult(iPacket);
+        break;
+    case 67:
+        OnGuildResult(iPacket);
+        break;
+    case 68:
+        OnAllianceResult(iPacket);
+        break;
+    case 69:
+        OnTownPortal(iPacket);
+        break;
+    case 70:
+        OnOpenGate(iPacket);
+        break;
+    case 71:
+        OnBroadcastMsg(iPacket);
+        break;
+    case 72:
+        OnIncubatorResult(iPacket);
+        break;
+    case 73:
+        OnShopScannerResult(iPacket);
+        break;
+    case 74:
+        OnShopLinkResult(iPacket);
+        break;
+    case 75:
+        OnMarriageRequest(iPacket);
+        break;
+    case 76:
+        OnMarriageResult(iPacket);
+        break;
+    case 77:
+        OnWeddingGiftResult(iPacket);
+        break;
+    case 78:
+        OnNotifyMarriedPartnerMapTransfer(iPacket);
+        break;
+    case 79:
+        OnCashPetFoodResult(iPacket);
+        break;
+    case 80:
+        OnSetWeekEventMessage(iPacket);
+        break;
+    case 81:
+        OnSetPotionDiscountRate(iPacket);
+        break;
+    case 82:
+        OnBridleMobCatchFail(iPacket);
+        break;
+    case 83:
+        OnImitatedNPCResult(iPacket);
+        break;
+    case 84:
+        OnImitatedNPCData(iPacket);
+        break;
+    case 85:
+        OnLimitedNPCDisableInfo(iPacket);
+        break;
+    case 86:
+        OnMonsterBookSetCard(iPacket);
+        break;
+    case 87:
+        OnMonsterBookSetCover(iPacket);
+        break;
+    case 88:
+        OnHourChanged(iPacket);
+        break;
+    case 89:
+        OnMiniMapOnOff(iPacket);
+        break;
+    case 90:
+        OnConsultAuthkeyUpdate(iPacket);
+        break;
+    case 91:
+        OnClassCompetitionAuthkeyUpdate(iPacket);
+        break;
+    case 92:
+        OnWebBoardAuthkeyUpdate(iPacket);
+        break;
+    case 93:
+        OnSessionValue(iPacket);
+        break;
+    case 94:
+        OnPartyValue(iPacket);
+        break;
+    case 95:
+        OnFieldSetVariable(iPacket);
+        break;
+    case 96:
+        OnBonusExpRateChanged(iPacket);
+        break;
+    case 97:
+        OnPotionDiscountRateChanged(iPacket);
+        break;
+    case 98:
+        OnFamilyChartResult(iPacket);
+        break;
+    case 99:
+        OnFamilyInfoResult(iPacket);
+        break;
+    case 100:
+        OnFamilyResult(iPacket);
+        break;
+    case 101:
+        OnFamilyJoinRequest(iPacket);
+        break;
+    case 102:
+        OnFamilyJoinRequestResult(iPacket);
+        break;
+    case 103:
+        OnFamilyJoinAccepted(iPacket);
+        break;
+    case 104:
+        OnFamilyPrivilegeList(iPacket);
+        break;
+    case 105:
+        OnFamilyFamousPointIncResult(iPacket);
+        break;
+    case 106:
+        OnFamilyNotifyLoginOrLogout(iPacket);
+        break;
+    case 107:
+        OnFamilySetPrivilege(iPacket);
+        break;
+    case 108:
+        OnFamilySummonRequest(iPacket);
+        break;
+    case 109:
+        OnNotifyLevelUp(iPacket);
+        break;
+    case 110:
+        OnNotifyWedding(iPacket);
+        break;
+    case 111:
+        OnNotifyJobChange(iPacket);
+        break;
+    case 113:
+        OnMapleTVUseRes(iPacket);
+        break;
+    case 114:
+        OnAvatarMegaphoneRes(iPacket);
+        break;
+    case 115:
+        OnSetAvatarMegaphone(iPacket);
+        break;
+    case 116:
+        OnClearAvatarMegaphone(iPacket);
+        break;
+    case 117:
+        OnCancelNameChangeResult(iPacket);
+        break;
+    case 118:
+        OnCancelTransferWorldResult(iPacket);
+        break;
+    case 119:
+        OnDestroyShopResult(iPacket);
+        break;
+    case 120:
+        OnFakeGMNotice(iPacket);
+        break;
+    case 121:
+        OnSuccessInUsegachaponBox(iPacket);
+        break;
+    case 122:
+        OnNewYearCardRes(iPacket);
+        break;
+    case 123:
+        OnRandomMorphRes(iPacket);
+        break;
+    case 124:
+        OnCancelNameChangebyOther(iPacket);
+        break;
+    case 125:
+        OnSetBuyEquipExt(iPacket);
+        break;
+    case 126:
+        OnSetPassenserRequest(iPacket);
+        break;
+    case 127:
+        OnScriptProgressMessage(iPacket);
+        break;
+    case 128:
+        OnDataCRCCheckFailed(iPacket);
+        break;
+    case 129:
+        OnCakePieEventResult(iPacket);
+        break;
+    case 130:
+        OnUpdateGMBoard(iPacket);
+        break;
+    case 131:
+        OnShowSlotMessage(iPacket);
+        break;
+    case 132:
+        OnWildHunterInfo(iPacket);
+        break;
+    case 133:
+        OnAccountMoreInfo(iPacket);
+        break;
+    case 134:
+        OnFindFirend(iPacket);
+        break;
+    case 135:
+        OnStageChange(iPacket);
+        break;
+    case 136:
+        OnDragonBallBox(iPacket);
+        break;
+    case 137:
+        OnAskWhetherUsePamsSong(iPacket);
+        break;
+    case 138:
+        OnTransferChannel(iPacket);
+        break;
+    case 139:
+        OnDisallowedDeliveryQuestList(iPacket);
+        break;
+    case 140:
+        OnMacroSysDataInit(iPacket);
+        break;
+    default:
+        return;
+    }
 }
 
-void CWvsContext::OnMessage(CInPacket& arg0)
+void CWvsContext::OnMessage(CInPacket& iPacket)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    switch (iPacket.Decode1())
+    {
+    case 0u:
+        this->OnDropPickUpMessage(iPacket);
+        break;
+    case 1u:
+        this->OnQuestRecordMessage(iPacket);
+        break;
+    case 2u:
+        this->OnCashItemExpireMessage(iPacket);
+        break;
+    case 3u:
+        this->OnIncEXPMessage(iPacket);
+        break;
+    case 4u:
+        this->OnIncSPMessage(iPacket);
+        break;
+    case 5u:
+        this->OnIncPOPMessage(iPacket);
+        break;
+    case 6u:
+        this->OnIncMoneyMessage(iPacket);
+        break;
+    case 7u:
+        this->OnIncGPMessage(iPacket);
+        break;
+    case 8u:
+        this->OnGiveBuffMessage(iPacket);
+        break;
+    case 9u:
+        this->OnGeneralItemExpireMessage(iPacket);
+        break;
+    case 0xAu:
+        this->OnSystemMessage(iPacket);
+        break;
+    case 0xBu:
+        this->OnQuestRecordExMessage(iPacket);
+        break;
+    case 0xCu:
+        this->OnItemProtectExpireMessage(iPacket);
+        break;
+    case 0xDu:
+        this->OnItemExpireReplaceMessage(iPacket);
+        break;
+    case 0xEu:
+        this->OnSkillExpireMessage(iPacket);
+        break;
+    default:
+        return;
+    }
 }
 
 void CWvsContext::OnOpenFullClientDownloadLink(CInPacket& arg0)
@@ -2480,127 +2951,132 @@ CalcDamage& CWvsContext::GetCalcDamage()
 
 void CWvsContext::ValidateStat()
 {
-    //__sub_005E8670(this, nullptr);
-    /* auto charData = GetCharacterData();
-     if (charData)
-     {
-         charData->ClearVisitorLog();
-     }
+    __sub_005E8670(this, nullptr);
+    return;
+    auto charData = GetCharacterData();
+    if (charData)
+    {
+        charData->ClearVisitorLog();
+    }
 
-     if (!charData)
-     {
-         //TODO some other reset
+    if (!charData)
+    {
+        auto& charStat = charData->characterStat;
 
-         auto& charStat = charData->characterStat;
-         auto lockerSn = charStat.aliPetLockerSN.data();
-         //auto maxInc = charStat.
-         ZRef<GW_ItemSlotPet> petSlot;
-         while (true)
-         {
-             auto pos = charData->FindCashItemSlotPosition(5, *lockerSn);
-             if (pos)
-             {
-                 auto item = charData->GetItem(5, pos);
-             }
-             break;
+        ZRef<GW_ItemSlotPet> petItems[3]{};
+        auto i = 0;
 
-             //TODO(game)
-         }
+        for (auto& pet : charStat.aliPetLockerSN)
+        {
+            auto cashSlot = charData->FindCashItemSlotPosition(5, pet);
+            if (!cashSlot)
+            {
+                continue;
+            }
 
-
-         auto basicStatUp = m_secondaryStat._ZtlSecureGet_nBasicStatUp_();
-         get_real_equip(
-             *charData.op_arrow(),
-             &petSlot,
-             m_aRealEquip.data(),
-             m_aRealEquip2.data(),
-             m_aRealDragonEquip.data(),
-             m_aRealMechanicEquip.data(),
-             basicStatUp,
-             0,
-             0);
-
-         CheckEquippedSetItem();
+            auto item = charData->GetItem(5, cashSlot);
+            petItems[i].Attach(dynamic_cast<GW_ItemSlotPet*>(item.op_arrow()));
+            ++i;
+        }
 
 
-         //TODO(game) more
+        auto basicStatUp = m_secondaryStat._ZtlSecureGet_nBasicStatUp_();
+        get_real_equip(
+            *charData.op_arrow(),
+            &petItems[0],
+            m_aRealEquip.data(),
+            m_aRealEquip2.data(),
+            m_aRealDragonEquip.data(),
+            m_aRealMechanicEquip.data(),
+            basicStatUp,
+            0,
+            0);
+
+        CheckEquippedSetItem();
+
+        auto psd = CUserLocal::GetInstance()->GetPassiveSkillData();
+        auto nPdsMHPr = 0;
+        auto nPdsMMPr = 0;
+        if (psd)
+        {
+            nPdsMHPr = psd->nMHPr;
+            nPdsMMPr = psd->nMMPr;
+        }
 
 
-         auto nPdsMHPr = 0;
-         auto nPdsMMPr = 0;
-         m_basicStat.SetFrom(
-             *charData.op_arrow(),
-             m_forcedStat,
-             m_aRealEquip.data(),
-             m_aRealEquip2.data(),
-             m_aRealDragonEquip.data(),
-             m_aRealMechanicEquip.data(),
-             m_secondaryStat._ZtlSecureGet_nMaxHP_(),
-             m_secondaryStat._ZtlSecureGet_nMaxMP_(),
-             m_secondaryStat._ZtlSecureGet_nBasicStatUp_(),
-             m_secondaryStat._ZtlSecureGet_nEMHP_(),
-             m_secondaryStat._ZtlSecureGet_nEMMP_(),
-             m_secondaryStat._ZtlSecureGet_nSwallowMaxMP_(),
-             m_secondaryStat._ZtlSecureGet_nConversion_(),
-             m_secondaryStat._ZtlSecureGet_nMorewildMaxHP_(),
-             nPdsMHPr,
-             nPdsMMPr,
-             m_secondaryStat.GetJaguarRidingMaxHPUp(*charData.op_arrow())
-         );
+        m_basicStat.SetFrom(
+            *charData.op_arrow(),
+            m_forcedStat,
+            m_aRealEquip.data(),
+            m_aRealEquip2.data(),
+            m_aRealDragonEquip.data(),
+            m_aRealMechanicEquip.data(),
+            m_secondaryStat._ZtlSecureGet_nMaxHP_(),
+            m_secondaryStat._ZtlSecureGet_nMaxMP_(),
+            m_secondaryStat._ZtlSecureGet_nBasicStatUp_(),
+            m_secondaryStat._ZtlSecureGet_nEMHP_(),
+            m_secondaryStat._ZtlSecureGet_nEMMP_(),
+            m_secondaryStat._ZtlSecureGet_nSwallowMaxMP_(),
+            m_secondaryStat._ZtlSecureGet_nConversion_(),
+            m_secondaryStat._ZtlSecureGet_nMorewildMaxHP_(),
+            nPdsMHPr,
+            nPdsMMPr,
+            m_secondaryStat.GetJaguarRidingMaxHPUp(*charData.op_arrow())
+        );
 
 
-         m_secondaryStat.SetFrom(
-             *charData.op_arrow(),
-             m_basicStat,
-             m_forcedStat,
-             m_aRealEquip.data(),
-             m_aRealEquip2.data(),
-             m_aRealDragonEquip.data(),
-             m_aRealMechanicEquip.data()
-         );
+        m_secondaryStat.SetFrom(
+            *charData.op_arrow(),
+            m_basicStat,
+            m_forcedStat,
+            m_aRealEquip.data(),
+            m_aRealEquip2.data(),
+            m_aRealDragonEquip.data(),
+            m_aRealMechanicEquip.data()
+        );
 
 
-         if (auto p = CUIStat::GetInstance())
-             p->ResetInfo();
-         // CUIStatusBar
-         if (auto p = CUIStatusBar::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIKeyConfig::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIItem::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIEquip::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIDragonEquip::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIMechanicEquip::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUserLocal::GetInstance(); p && m_bDirectionMode)
-             p->OnFeatureChanged();
-         if (auto p = CUISkill::GetInstance())
-             p->ResetInfo();
-         if (auto p = CUISkillEx::GetInstance())
-             p->ResetInfo();
-         if (auto p = CUniqueModeless::GetInstance())
-             p->ResetInfo();
-         if (auto p = CUIPartyHP::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIUserList::GetInstance())
-             p->OnStatChanged();
-         if (auto p = CUIPartySearch::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIGuildBBS::GetInstance())
-             p->InvalidateRect(nullptr);
-         if (auto p = CUIPetEquip::GetInstance())
-             p->InvalidateRect(nullptr);
+        if (auto p = CUIStat::GetInstance())
+            p->ResetInfo();
+        // CUIStatusBar
+        if (auto p = CUIStatusBar::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIKeyConfig::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIItem::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIEquip::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIDragonEquip::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIMechanicEquip::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUserLocal::GetInstance(); p && m_bDirectionMode)
+            p->OnFeatureChanged();
+        if (auto p = CUISkill::GetInstance())
+            p->ResetInfo();
+        if (auto p = CUISkillEx::GetInstance())
+            p->ResetInfo();
+        if (auto p = CUniqueModeless::GetInstance())
+            p->ResetInfo();
+        if (auto p = CUIPartyHP::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIUserList::GetInstance())
+            p->OnStatChanged();
+        if (auto p = CUIPartySearch::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIGuildBBS::GetInstance())
+            p->InvalidateRect(nullptr);
+        if (auto p = CUIPetEquip::GetInstance())
+            p->InvalidateRect(nullptr);
 
-         ValidateAdditionalItemEffect();
-         if (CUserLocal::GetInstance())
-         {
-             if (CheckNormalAutoStartQuest(true))
-                 UpdateAutoQuestAlertIcon();
-         }
-     }*/
+        ValidateAdditionalItemEffect();
+        if (CUserLocal::GetInstance())
+        {
+            if (CheckNormalAutoStartQuest(true))
+                UpdateAutoQuestAlertIcon();
+        }
+    }
 }
 
 void CWvsContext::CheckEquippedSetItem()
@@ -2648,12 +3124,12 @@ void CWvsContext::ClearNewAutoQuestStartList()
     UNIMPLEMENTED;
 }
 
-ZXString<unsigned short> CWvsContext::GetAutoQuestIconUOL()
+ZXString16 CWvsContext::GetAutoQuestIconUOL()
 {
     return __sub_005DDE40(this, nullptr);
 }
 
-ZXString<unsigned short> CWvsContext::GetAutoQuestIconAppearUOL()
+ZXString16 CWvsContext::GetAutoQuestIconAppearUOL()
 {
     return __sub_005DDF60(this, nullptr);
 }
@@ -2749,7 +3225,7 @@ int32_t CWvsContext::GetPartyTownPortal(long nIdx, PARTYDATA::TOWNPORTAL& pt)
 
 void CWvsContext::GetMyTownPortal(PARTYDATA::TOWNPORTAL& pt)
 {
-    __sub_0012A180(this, nullptr, pt);
+    pt = m_townPortal;
 }
 
 unsigned long CWvsContext::GetPartyMemberByName(ZXString<char> sName)
@@ -3047,7 +3523,7 @@ ZXString<char> CWvsContext::GetAllianceNotice() const
     return m_alliance.sNotice;
 }
 
-ZXString<unsigned short> CWvsContext::GetGuildBoardAuthKey()
+ZXString16 CWvsContext::GetGuildBoardAuthKey()
 {
     return m_sGuildBoardAuthkey;
 }
@@ -3139,44 +3615,39 @@ void CWvsContext::GetOnlineExpeditionMemberID(ZArray<unsigned long>& arg0)
     UNIMPLEMENTED;
 }
 
-ZXString<unsigned short> CWvsContext::GetConsultAuthKey()
+ZXString16 CWvsContext::GetConsultAuthKey()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_sConsultAuthkey;
 }
 
 unsigned long CWvsContext::GetConsultAuthKeyLastUpdated()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_dwConsultAuthkeyLastUpdated;
 }
 
-ZXString<unsigned short> CWvsContext::GetClassCompetitionAuthKey()
+ZXString16 CWvsContext::GetClassCompetitionAuthKey()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_sClassCompetitionAuthkey;
 }
 
 unsigned long CWvsContext::GetClassCompetitionAuthKeyLastUpdated()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_dwClassCompetitionAuthkeyLastUpdated;
 }
 
-ZXString<unsigned short> CWvsContext::GetWebBoardAuthKey(long nType)
+ZXString16 CWvsContext::GetWebBoardAuthKey(long nType)
 {
     if (nType < m_sWebBoardAuthKey.size())
     {
         return m_sWebBoardAuthKey[nType];
     }
-    return ZXString<unsigned short>{};
+    return ZXString16{};
     //return __sub_004DCCF0(this, nullptr, nType);
 }
 
 unsigned long CWvsContext::GetWebBoardAuthKeyLastUpdated(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_dwWebBoardAuthkeyLastUpdated[arg0];
 }
 
 void CWvsContext::SetDirectionMode(int32_t arg0)
@@ -3192,13 +3663,13 @@ int32_t CWvsContext::GetDirectionMode()
 
 void CWvsContext::SetStandAloneMode(int32_t arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_bStandAloneMode = arg0;
 }
 
 int32_t CWvsContext::GetStandAloneMode()
 {
-    return __sub_005FA230(this, nullptr);
+    //return __sub_005FA230(this, nullptr);
+    return m_bStandAloneMode;
 }
 
 _x_com_ptr<IWzCanvas> CWvsContext::GetBattleTeamMarkCanvas(long nTeamCategory)
@@ -3209,19 +3680,33 @@ _x_com_ptr<IWzCanvas> CWvsContext::GetBattleTeamMarkCanvas(long nTeamCategory)
 
 void CWvsContext::LoadFriend()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    COutPacket pkt(Cp::Friendrequest);
+    pkt.Encode1(1);
+    SendPacket(pkt);
 }
 
 void CWvsContext::CheckReqFriend()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (IsFadeWndExist(1, 0, {}))
+        return;
+
+    for (auto i = 0; i < m_pFriendArray->m_aFriend.GetCount(); ++i)
+    {
+        m_pFriendArray->IsDataTwisted();
+        auto& frd = m_pFriendArray->m_aFriend[i];
+
+        if (frd.nFlag == 1)
+        {
+            auto fade = new CUIFadeYesNo();
+            fade->CreateFriendReg(ZXString<char>(frd.sFriendName.data()), 0, 0, frd.dwFriendID);
+            SetNewFadeWnd(fade);
+        }
+    }
 }
 
 long CWvsContext::GetFriendCount()
 {
-    return __sub_0012B0E0(this, nullptr);
+    return m_pFriendArray->m_aFriend.GetCount();
 }
 
 void CWvsContext::GetFriendByID(unsigned long dwFriendID, GW_Friend* f)
@@ -3236,8 +3721,18 @@ void CWvsContext::GetFriendByName(ZXString<char> sFriendName, GW_Friend* f)
 
 void CWvsContext::GetOnlineFriendID(ZArray<unsigned long>& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    arg0.RemoveAll();
+
+    int i = 0;
+    for (auto& frnd : m_pFriendArray->m_aFriend)
+    {
+        if (is_online(frnd, m_pFriendArray->m_aListenBlocked[i]))
+        {
+            arg0.Insert(frnd.dwFriendID);
+        }
+
+        ++i;
+    }
 }
 
 void CWvsContext::GetOnlineFriendIDByGroup(ZXString<char> sGroupName, ZArray<unsigned long>& adwFriendMemberID)
@@ -3350,9 +3845,12 @@ const ZRef<CS_COMMODITY> CWvsContext::GetCommodityByIndex(long nCommSN)
     //return __sub_00605BD0(this, nullptr, nCommSN);
 }
 
-int32_t CWvsContext::IsValidCommodity(long nPsdNo)
+int32_t CWvsContext::IsValidCommodity(long nItemId)
 {
-    return __sub_005CC9F0(this, nullptr, nPsdNo);
+    //return __sub_005CC9F0(this, nullptr, nPsdNo);
+    auto cd = GetCharacterData();
+    auto job = cd->characterStat._ZtlSecureGet_nJob();
+    return is_matched_itemid_job(nItemId, job);
 }
 
 void CWvsContext::LoadAreaCode()
@@ -3408,12 +3906,15 @@ void CWvsContext::GetPresentInfo(long& arg0, ZXString<char>& arg1)
 
 int32_t CWvsContext::GetMigrateFromWishItem()
 {
-    return __sub_005FA230(this, nullptr);
+    //return __sub_005FA230(this, nullptr);
+    UNIMPLEMENTED;
 }
 
 int32_t CWvsContext::CanSendExclRequest(long tTimeInterval, int32_t bIgnoreDeadState)
 {
-    return __sub_0009C980(this, nullptr, tTimeInterval, bIgnoreDeadState);
+    //return __sub_0009C980(this, nullptr, tTimeInterval, bIgnoreDeadState);
+    return !m_bExclRequestSent && (bIgnoreDeadState || m_pCharacterData->characterStat._ZtlSecureGet_nHP() > 0)
+        && get_update_time() - m_tExclRequestSent >= tTimeInterval;
 }
 
 int32_t CWvsContext::CanSendExclRequestQ(long arg0, int32_t arg1, int32_t arg2)
@@ -3430,13 +3931,33 @@ void CWvsContext::SetExclRequestSent(int32_t arg0)
 
 void CWvsContext::SetExclRequestSentQ(int32_t arg0, int32_t arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_tExclRequestSentQ = {arg0, arg1};
 }
 
 int32_t CWvsContext::IsAbleToConsume(long nItemID, int32_t bShowChatLog)
 {
-    return __sub_005DA770(this, nullptr, nItemID, bShowChatLog);
+    //return __sub_005DA770(this, nullptr, nItemID, bShowChatLog);
+    auto itemInfo = CItemInfo::GetInstance();
+    auto check = itemInfo->CheckUseRequirement(nItemID, 0);
+    if (bShowChatLog)
+    {
+        auto v5 = check - 2;
+        auto& sp = StringPool::GetInstance();
+        if (v5)
+        {
+            if (v5 != 1)
+                return check == 0;;
+            auto msg = sp.GetString(0x1573);
+            CHATLOG_ADD(msg, 0xCu);
+        }
+        else
+        {
+            auto msg = sp.GetString(0xC96u);
+            CHATLOG_ADD(msg, 0xCu);
+        }
+    }
+
+    return check == 0;
 }
 
 void CWvsContext::SetExclRequestSentTime(long arg0)
@@ -3598,8 +4119,15 @@ void CWvsContext::SendAbilityUpRequest(unsigned long dwFlag)
 
 void CWvsContext::SendSkillUpRequest(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (CanSendExclRequest())
+    {
+        COutPacket pkt(Cp::Userskilluprequest);
+        pkt.Encode4(get_update_time());
+        pkt.Encode4(arg0);
+        SendPacket(pkt);
+
+        SetExclRequestSent(true);
+    }
 }
 
 void CWvsContext::SendStatChangeRequest(long nHP, long nMP, long nOption)
@@ -3876,10 +4404,231 @@ void CWvsContext::ShowGuildInfo()
     UNIMPLEMENTED;
 }
 
-void CWvsContext::OnInventoryOperation(CInPacket& arg0)
+void CWvsContext::OnInventoryOperation(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (pkt.Decode1())
+    {
+        SetExclRequestSent(false);
+    }
+
+    auto cd = GetCharacterData();
+    ZMap<long, long, long> itemCounts;
+    for (auto i = 1; i < 6; ++i)
+    {
+        for (auto j = 1; j < cd->GetItemSlotCount(i); ++j)
+        {
+            if (auto item = cd->GetItem(i, j))
+            {
+                auto id = item->nItemID.GetData();
+                auto count = GetItemCount(id);
+                itemCounts.Insert(id, count);
+            }
+        }
+    }
+
+
+    ZMap<long, long, long> oldItems1;
+    ZArray<long> checkQuestEquipIds;
+    auto local = CUserLocal::GetInstance();
+
+    auto ops = pkt.Decode1();
+
+
+    auto beforePos = -1;
+    auto statChanged = false;
+    for (auto i = 0; i < ops; ++i)
+    {
+        auto op = pkt.Decode1();
+        auto invTy = pkt.Decode1();
+        auto slot = (int16_t)pkt.Decode2();
+
+        if (op == 0)
+        {
+            auto item = GW_ItemSlotBase::Decode(pkt);
+            auto id = item->nItemID.GetData();
+            if (slot > 0)
+            {
+                oldItems1.Insert(id, slot);
+            }
+
+            long pastCount = 0;
+            itemCounts.GetAt(id, &pastCount);
+
+            cd->SetItem(invTy, slot, item);
+            CheckQuestCompleteByItem(id, pastCount);
+            CheckInventoryOnAutoStartQuest(id, true);
+        }
+        else if (op == 1) // Update
+        {
+            auto quantity = (int16_t)pkt.Decode2();
+            auto item = cd->GetItem(invTy, slot);
+            auto id = item->nItemID.GetData();
+            if (slot > 0)
+            {
+                oldItems1.Insert(id, slot);
+            }
+            item->SetItemNumber(quantity);
+
+            long pastCount = 0;
+            itemCounts.GetAt(id, &pastCount);
+
+            CheckInventoryOnAutoStartQuest(id, true);
+            CheckQuestCompleteByItem(id, pastCount);
+        }
+        else if (op == 2) // Move
+        {
+            auto to = (int16_t)pkt.Decode2();
+            auto oldItem = cd->GetItem(invTy, slot);
+            auto newItem = cd->GetItem(invTy, to);
+
+            if (invTy == 1 && (slot < 0 || to <= 0))
+                statChanged = true;
+
+            if (newItem)
+            {
+                checkQuestEquipIds.Insert(newItem->nItemID.GetData());
+            }
+
+            if (oldItem)
+            {
+                checkQuestEquipIds.Insert(oldItem->nItemID.GetData());
+            }
+
+            if (slot > 0 || to > 0)
+            {
+                if (newItem && m_nLastestGetItemID == newItem->nItemID.GetData() && m_nLastestGetItemPos == to)
+                {
+                    oldItems1.Insert(newItem->nItemID.GetData(), to);
+                    beforePos = m_nLastestGetItemPos;
+                }
+                else if (oldItem && m_nLastestGetItemID == oldItem->nItemID.GetData() && m_nLastestGetItemPos == slot)
+                {
+                    oldItems1.Insert(oldItem->nItemID.GetData(), slot);
+                    beforePos = m_nLastestGetItemPos;
+                }
+
+                cd->SetItem(invTy, to, oldItem);
+                cd->SetItem(invTy, slot, newItem);
+
+                if (oldItem)
+                {
+                    CheckInventoryOnAutoStartQuest(oldItem->nItemID.GetData(), true);
+                }
+                if (newItem)
+                {
+                    CheckInventoryOnAutoStartQuest(newItem->nItemID.GetData(), true);
+                }
+            }
+        }
+        else if (op == 3) // Remove
+        {
+            auto item = cd->GetItem(invTy, slot);
+            auto id = item->nItemID.GetData();
+
+            long pastCount = 0;
+            itemCounts.GetAt(id, &pastCount);
+            if (slot > 0)
+                oldItems1.Insert(id, slot);
+
+            if (local && local->IsSit() && local->GetPortableChairID() == id && cd->GetItemCount(invTy, id) == 1)
+            {
+                SendGetUpFromChairRequest(false);
+            }
+
+            if (invTy == 1 && slot < 0)
+                statChanged = true;
+
+            checkQuestEquipIds.Insert(id);
+            cd->SetItem(invTy, slot, nullptr);
+            CheckInventoryOnAutoStartQuest(id, true);
+            CheckQuestCompleteByItem(id, pastCount);
+        }
+        else if (op == 4) // Exp
+        {
+            auto exp = pkt.Decode4();
+            cd->GetItem(invTy, slot)->SetEXP(exp);
+        }
+
+        if (i == ops - 1 && statChanged)
+        {
+            local->SetSecondaryStatChangedPoint(pkt.Decode1());
+            for (auto& checkId : checkQuestEquipIds)
+                CheckEquipOnAutoStartQuest(checkId, true);
+            UpdateAutoQuestAlertIcon();
+        }
+    }
+
+    ValidateStat();
+    if (auto userInfo = CUIUserInfo::GetInstance())
+    {
+        userInfo->ResetInfo();
+        userInfo->ResetInfo_TamingMob();
+        userInfo->ResetInfo_Pet();
+    }
+
+    if (auto medalInfo = CUIMedalQuestInfo::GetInstance())
+    {
+        medalInfo->ResetWearedMedal();
+    }
+
+    auto cur = oldItems1.GetHeadPosition();
+    while (cur)
+    {
+        long pos = 0;
+        auto id = oldItems1.GetNext(cur, &pos);
+
+        long pastCount = 0;
+        itemCounts.GetAt(id, &pastCount);
+
+        auto newCount = GetItemCount(id);
+
+        if (pastCount < newCount)
+        {
+            m_nLastestGetItemID = id;
+            m_nLastestGetItemPos = pos;
+            if (!pastCount)
+                InsertItemMsg(id);
+
+            if (CItemInfo::GetInstance()->IsEquipItem(id))
+            {
+                auto item = cd->GetItem(1, pos);
+                auto eq = dynamic_cast<GW_ItemSlotEquip*>(item.op_arrow());
+                if (eq && eq->GetItemGrade() && !eq->IsReleased())
+                {
+                    auto str = _GetStr(5875);
+                    CHATLOG_ADD(str, 12);
+                }
+            }
+        }
+
+        if (pastCount > newCount && id == m_nLastestGetItemID && pos == m_nLastestGetItemPos)
+        {
+            m_nLastestGetItemPos = 0;
+            m_nLastestGetItemID = 0;
+            if (!newCount)
+                RemoveItemMsg(id);
+        }
+
+        if (pastCount && id == m_nLastestGetItemID && m_nLastestGetItemPos == beforePos && pos !=
+            m_nLastestGetItemPos)
+        {
+            if (pos >= 0)
+            {
+                m_nLastestGetItemPos = pos;
+                if (auto uiItem = CUIItem::GetInstance())
+                {
+                    //TODO uiItem->m_nLastestGetItemID = 0;
+                    m_nLastestGetItemPos = 0;
+                }
+            }
+            else
+            {
+                m_nLastestGetItemPos = 0;
+                m_nLastestGetItemID = 0;
+            }
+        }
+        //TODO
+    }
 }
 
 void CWvsContext::OnInventoryGrow(CInPacket& arg0)
@@ -3888,46 +4637,337 @@ void CWvsContext::OnInventoryGrow(CInPacket& arg0)
     UNIMPLEMENTED;
 }
 
-void CWvsContext::OnStatChanged(CInPacket& arg0)
+bool is_jobchange_level_in_evan(short nLevel)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    switch (nLevel)
+    {
+    case 10:
+    case 20:
+    case 30:
+    case 40:
+    case 50:
+    case 60:
+    case 80:
+    case 100:
+    case 120:
+    case 160:
+        return true;
+    default:
+        return false;
+    }
 }
 
-void CWvsContext::OnTemporaryStatSet(CInPacket& arg0)
+void CWvsContext::OnStatChanged(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (pkt.Decode1())
+    {
+        m_bExclRequestSent = false;
+        m_tExclRequestSent = get_update_time();
+    }
+
+    auto charData = GetCharacterData();
+
+
+    auto hp = charData->characterStat._ZtlSecureGet_nHP();
+    auto mp = charData->characterStat._ZtlSecureGet_nMP();
+    auto lvl = charData->characterStat._ZtlSecureGet_nLevel();
+    charData->characterStat.DecodeChangeStat(pkt);
+
+    auto localUser = CUserLocal::GetInstance();
+
+    if (pkt.Decode1())
+    {
+        localUser->
+            SetSecondaryStatChangedPoint(pkt.Decode1());
+    }
+
+    if (pkt.Decode1())
+    {
+        CBattleRecordMan::GetInstance()->SetBattleRecoveryInfo(
+            pkt.Decode4(),
+            pkt.Decode4(),
+            hp,
+            mp
+        );
+    }
+
+    ValidateStat();
+    ///TODO(game)
+    /*auto newLvl = charData->characterStat._ZtlSecureGet_nLevel();
+    if (newLvl > lvl && localUser)
+    {
+        auto job = charData->characterStat._ZtlSecureGet_nJob();
+        if (job / 100 != 22 && job != 2001  || !is_jobchange_level_in_evan(job))
+        {
+
+        }
+    }*/
+
+    //TODO reset
 }
 
-void CWvsContext::OnTemporaryStatReset(CInPacket& arg0)
+void CWvsContext::OnTemporaryStatSet(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto skillInfo = CSkillInfo::GetInstance();
+    auto oldRidingItem = m_secondaryStat.GetVechicleID();
+
+    ZMap<long, ZRef<SecondaryStat::VIEWELEM>, long> viewMap;
+
+    auto flag = m_secondaryStat.DecodeForLocal(pkt, viewMap);
+    auto tDelay = pkt.Decode2();
+    const auto cd = GetCharacterData();
+    auto job = cd->characterStat._ZtlSecureGet_nJob();
+    auto& ss = m_secondaryStat;
+    auto local = CUserLocal::GetInstance();
+
+    auto viewTy = 2;
+    if (flag)
+    {
+        bool combo = flag & CTS_COMBO_ABILITY_BUFF;
+        bool notDamaged = flag & CTS_NOT_DAMAGED;
+        bool aura = flag & CTS_AURA;
+        if (!combo && !notDamaged && !aura)
+        {
+            auto cur = viewMap.GetHeadPosition();
+            while (cur)
+            {
+                viewTy = 0;
+                ZRef<SecondaryStat::VIEWELEM> viewElem{};
+                auto id = viewMap.GetNext(cur, &viewElem);
+                auto skill = skillInfo->GetSkill(id);
+
+                if (skillInfo->GetSkill(id))
+                {
+                    viewTy = 2;
+                    if (id == CORSAIR_BATTLESHIP)
+                    {
+                        auto slvl = skillInfo->GetSkillLevel(*cd, CORSAIR_BATTLESHIP, nullptr);
+                        auto charLvl = cd->characterStat._ZtlSecureGet_nLevel();
+                        auto dur = get_max_durability_of_vehicle(CORSAIR_BATTLESHIP, slvl, charLvl);
+                        m_temporaryStatView.SetTemporary(2, id, dur, viewElem->uFlag, {}, 0, 0);
+                    }
+                    else if (id == THIEF_DARK_SIGHT)
+                    {
+                        auto subId = 0;
+                        if (job / 10 == 43 && skillInfo->GetSkillLevel(*cd, DB4_ADVANCED_DARK_SIGHT, nullptr) > 0)
+                        {
+                            subId = DB4_ADVANCED_DARK_SIGHT;
+                        }
+                        m_temporaryStatView.SetTemporary(2, id, viewElem->tDuration, viewElem->uFlag, {}, subId, 0);
+                    }
+                    else if (id == MARAUDER_ROLL_OF_THE_DICE
+                        || id == OUTLAW_ROLL_OF_THE_DICE
+                        || id == MECH3_ROLL_OF_THE_DICE)
+                    {
+                        m_temporaryStatView.SetTemporary(2, id, viewElem->tDuration, viewElem->uFlag, {}, 0,
+                                                         get_update_time() + 1500);
+                        auto dice = m_secondaryStat._ZtlSecureGet_nDice_();
+                        if (dice > 0)
+                        {
+                            play_skill_sound(id, dice == 1 ? SE_SKILL_USE2 : SE_SKILL_USE3, 0);
+                        }
+                    }
+                    else
+                    {
+                        if (id == PALADIN_DIVINE_SHIELD)
+                            play_skill_sound(PALADIN_DIVINE_SHIELD, SE_SKILL_USE, 0);
+
+                        m_temporaryStatView.SetTemporary(viewTy, id, viewElem->tDuration,
+                                                         viewElem->uFlag, {}, 0,
+                                                         0);
+                    }
+                }
+                else
+                {
+                    viewTy = 1;
+                    m_temporaryStatView.SetTemporary(viewTy, -id, viewElem->tDuration,
+                                                     viewElem->uFlag, {}, 0,
+                                                     0);
+                }
+            }
+
+
+            if (flag & CTS_RIDE_VEHICLE)
+            {
+                auto ridingJaguar = ss.IsWildhunterJaguarVehicle();
+                if (ss.IsRidingSkillVehicle() || ss.IsEventVehicle() || ridingJaguar || ss.
+                    IsMechanicVehicle() || !local->IsOnLadderOrRope())
+                {
+                    if ((ridingJaguar || ss.IsMechanicVehicle()) && oldRidingItem)
+                    {
+                        local->SetRidingVehicle(ss[3]->GetValue(), false);
+                        auto vid = ridingJaguar ? 3300 : 3500;
+                        auto sid = ridingJaguar ? WH1_JAGUAR_RIDER : MECH1_MECH_PROTOTYPE;
+
+                        auto fmtStr = _GetStrW(2535);
+                        auto uol = ZXString16::FromFmt(fmtStr.c_str(), vid, sid);
+
+                        auto layer = local->GetLayerUnderFace();
+                        auto og = local->GetOrigin();
+
+                        // TODO verify
+                        CAnimationDisplayer::GetInstance()->Effect_SkillUse(
+                            (const wchar_t*)uol.c_str(),
+                            !local->IsLeft(),
+                            og,
+                            {},
+                            1000,
+                            0x7FFFFFFF,
+                            3,
+                            0,
+                            0,
+                            false
+                        );
+                        uol += L"0";
+                        //uol._Cat(L"0");
+                        CAnimationDisplayer::GetInstance()->Effect_SkillUse(
+                            uol.c_str(),
+                            !local->IsLeft(),
+                            og,
+                            {},
+                            1000,
+                            0x7FFFFFFF,
+                            3,
+                            0,
+                            0,
+                            false
+                        );
+                    }
+                    else
+                    {
+                        local->ShowRideVehicleEffect(ss[3]->GetValue());
+                    }
+                }
+                else
+                {
+                    local->SendSkillCancelRequest(CORSAIR_BATTLESHIP);
+                }
+            }
+
+            local->OnTemporaryStatChanged(flag, tDelay, false);
+            if (SecondaryStat::IsMovementAffectingStat(flag))
+            {
+                local->SetSecondaryStatChangedPoint(pkt.Decode1());
+            }
+
+            if (flag & CTS_BARRIER)
+                local->LoadBarrier();
+            if (flag & CTS_GUIDED_BULLET && ss[5]->IsActivated())
+            {
+                if (auto bullet = ss[5])
+                {
+                    auto gBullet = dynamic_cast<TemporaryStat_GuidedBullet*>(bullet);
+                    auto mobPool = CMobPool::GetInstance();
+                    if (auto mob = mobPool->GetMob(gBullet->GetMobID()))
+                    {
+                        mob->SetGuided(gBullet->GetReason(), 0);
+                    }
+                }
+            }
+
+            if (flag & CTS_MAXHP)
+            {
+                if (auto party = CUIPartyHP::GetInstance())
+                {
+                    party->Destroy();
+                    party->Create();
+                }
+            }
+        }
+    }
+
+
+    CUserLocal::GetInstance()->UpdatePassiveSkillData(false);
+    ValidateStat();
+    if (IsCalcDamageStat(flag))
+    {
+        SendPacket(COutPacket(Cp::Usercalcdamagestatsetrequest));
+    }
+}
+
+void CWvsContext::OnTemporaryStatReset(CInPacket& pkt)
+{
+    auto flag = pkt.DecodeT<MY_UINT128>();
+    auto local = CUserLocal::GetInstance();
+    if (flag & CTS_RIDE_VEHICLE)
+    {
+        local->ShowRideVehicleEffect(m_secondaryStat[3]->GetValue());
+    }
+
+    if (flag & CTS_GUIDED_BULLET && m_secondaryStat[5]->IsActivated())
+    {
+        CMobPool::GetInstance()->ResetGuidedMob(m_secondaryStat[5]->GetReason(), m_secondaryStat[5]->GetValue());
+    }
+
+    local->OnTemporaryStatChanged(flag, 0, false);
+
+    m_secondaryStat.Reset(flag);
+    if (SecondaryStat::IsMovementAffectingStat(flag))
+    {
+        local->SetSecondaryStatChangedPoint(pkt.Decode1());
+    }
+
+    m_temporaryStatView.ResetTemporary(0, 0, flag);
+    if (flag & CTS_BARRIER)
+        local->RemoveBarrier();
+    local->UpdatePassiveSkillData(false);
+    ValidateStat();
+    if (IsCalcDamageStat(flag))
+    {
+        SendPacket(COutPacket(Cp::Usercalcdamagestatsetrequest));
+    }
 }
 
 void CWvsContext::OnForcedStatSet(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_forcedStat.Decode(arg0);
+    ValidateStat();
 }
 
 void CWvsContext::OnForcedStatReset(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_forcedStat.Clear();
+    ValidateStat();
 }
 
-void CWvsContext::OnChangeSkillRecordResult(CInPacket& arg0)
+void CWvsContext::OnChangeSkillRecordResult(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (pkt.Decode1())
+    {
+        SetExclRequestSent(0);
+    }
+
+
+    auto local = CUserLocal::GetInstance();
+    auto cd = GetCharacterData();
+    auto len = pkt.Decode2();
+    for (auto i = 0; i < len; ++i)
+    {
+        auto skillId = pkt.Decode4();
+        auto lvl = (int)pkt.Decode4(); //TODO verify
+        if (lvl >= 0)
+            cd->mSkillRecord.Insert(skillId, lvl);
+        else
+            cd->mSkillRecord.RemoveKey(skillId);
+        auto masteryLevel = pkt.Decode4();
+        if (is_skill_need_master_level(skillId))
+            cd->mSkillMasterLev.Insert(skillId, masteryLevel);
+        FILETIME ft{};
+        pkt.DecodeBuffer(&ft, 8);
+        cd->mSkillExpired.Insert(skillId, ft);
+    }
+
+
+    local->SetSecondaryStatChangedPoint(pkt.Decode1());
+    local->UpdatePassiveSkillData(false);
+    ValidateStat();
+    CSequencedKeyMan::GetInstance()->Restore();
 }
 
 void CWvsContext::OnSkillUseResult(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    SetExclRequestSent(false);
+    arg0.Decode1();
 }
 
 void CWvsContext::OnGivePopularityResult(CInPacket& arg0)
@@ -3938,8 +4978,8 @@ void CWvsContext::OnGivePopularityResult(CInPacket& arg0)
 
 void CWvsContext::OnDropPickUpMessage(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    //TODO(game)
+    spdlog::info("Drop pickup msg");
 }
 
 void CWvsContext::OnQuestRecordMessage(CInPacket& arg0)
@@ -3986,14 +5026,20 @@ void CWvsContext::OnSkillExpireMessage(CInPacket& arg0)
 
 void CWvsContext::OnSystemMessage(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto msg = arg0.DecodeStr();
+    if (!msg.IsEmpty())
+    {
+        if (auto statusBar = CUIStatusBar::GetInstance())
+            statusBar->ChatLogAdd(msg.c_str(), 12, -1, false, {});
+    }
 }
 
-void CWvsContext::OnIncEXPMessage(CInPacket& arg0)
+void CWvsContext::OnIncEXPMessage(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto color = pkt.Decode1();
+    auto exp = pkt.Decode4();
+    spdlog::info("Got exp: {}", exp);
+    //TODO
 }
 
 void CWvsContext::OnIncSPMessage(CInPacket& arg0)
@@ -4079,7 +5125,6 @@ void CWvsContext::OnCharacterInfo(CInPacket& pkt)
                 if (avatar)
                     userInfo->SetTamingMobInfo(tmLvl, tmExp, tmFat);
             }
-
         }
 
         if (auto wishItems = pkt.Decode1())
@@ -4139,14 +5184,33 @@ void CWvsContext::OnTownPortal(CInPacket& pkt)
 {
     spdlog::info("On town portal...");
     //TODO
-    auto x = pkt.Decode4();
-    auto y = pkt.Decode4();
+    auto townId = pkt.Decode4();
+    auto fieldId = pkt.Decode4();
+    tagPOINT pt{};
+    auto skillId = 0;
+
+
+    if (townId != 999999999 && fieldId != 999999999)
+    {
+        skillId = pkt.Decode4();
+        pt = pkt.DecodePoint32();
+    }
+
+
+    m_townPortal.Set(townId, fieldId, skillId, pt);
+    if (const auto field = get_field())
+    {
+        field->OnTownPortalChanged(this->m_nPartyID != 0, this->m_party, this->m_townPortal, 1);
+    }
 }
 
-void CWvsContext::OnOpenGate(CInPacket& arg0)
+void CWvsContext::OnOpenGate(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto pt = pkt.DecodePoint16();
+    if (auto field = get_field())
+    {
+        field->OnOpenGate();
+    }
 }
 
 void CWvsContext::OnBroadcastMsg(CInPacket& arg0)
@@ -4157,8 +5221,16 @@ void CWvsContext::OnBroadcastMsg(CInPacket& arg0)
 
 void CWvsContext::OnRevive()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_secondaryStat.Clear();
+    m_secondaryStat.SetFrom(
+        *m_pCharacterData.op_arrow(),
+        m_basicStat,
+        m_forcedStat,
+        m_aRealEquip.data(),
+        m_aRealEquip2.data(),
+        m_aRealDragonEquip.data(),
+        m_aRealMechanicEquip.data());
+    m_temporaryStatView.Clear();
 }
 
 void CWvsContext::OnAntiMacroResult(CInPacket& arg0)
@@ -4179,10 +5251,15 @@ void CWvsContext::OnInitialSpeedQuiz(CInPacket& arg0)
     UNIMPLEMENTED;
 }
 
-void CWvsContext::OnQuestClear(CInPacket& arg0)
+void CWvsContext::OnQuestClear(CInPacket& pkt)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto qid = pkt.Decode2();
+    if (!IsFadeWndExist(7, 0, {}))
+    {
+        auto wnd = new CUIFadeYesNo();
+        wnd->CreateQuestClear(qid);
+        SetNewFadeWnd(wnd);
+    }
 }
 
 void CWvsContext::OnQuestProgressUpdated(uint16_t usQuestID, long nItemID, ZXString<char> sOldInfo)
@@ -4204,8 +5281,8 @@ void CWvsContext::OnClaimSvrStatusChanged(CInPacket& arg0)
 
 void CWvsContext::OnSetClaimSvrAvailableTime(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_nClaimSvrOpenTime = arg0.Decode1();
+    m_nClaimSvrCloseTime = arg0.Decode1();
 }
 
 void CWvsContext::OnSetTamingMobInfo(CInPacket& arg0)
@@ -4282,8 +5359,10 @@ void CWvsContext::OnSkillResetItemResult(CInPacket& arg0)
 
 void CWvsContext::OnGatherItemResult(CInPacket& arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    arg0.Decode1();
+    auto v2 = arg0.Decode1();
+    if ( auto uiItem = TSingleton<CUIItem>::ms_pInstance )
+        uiItem->SetArrangeButton(v2, 1);
 }
 
 void CWvsContext::OnSortItemResult(CInPacket& arg0)
@@ -4529,8 +5608,11 @@ void CWvsContext::SetNewFadeWnd(CUIFadeYesNo* pWnd)
 
 void CWvsContext::ClearFadeWnd()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    for (auto& fadeWnd : m_apFadeWnd)
+    {
+        fadeWnd->Destroy();
+    }
+    m_apFadeWnd.RemoveAll();
 }
 
 void CWvsContext::DeleteFadeWnd(ZRef<CUIFadeYesNo> pWnd)
@@ -4561,7 +5643,7 @@ int32_t CWvsContext::IsTopFadeWnd(ZRef<CUIFadeYesNo> pWnd)
 
 long CWvsContext::GetReceivedMemoCount()
 {
-    return __sub_0012B0E0(this, nullptr);
+    return m_lReceivedMemo.GetCount();
 }
 
 void CWvsContext::ExtractReceivedMemo(ZList<GW_Memo>& arg0)
@@ -4635,8 +5717,11 @@ void CWvsContext::ResetQuestTimer(uint16_t usQuestID, int32_t bNewAlertCheck)
 
 void CWvsContext::ClearQuestTimer()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    for (auto& questTimer : m_lpUIQuestTimer)
+    {
+        questTimer->Destroy();
+    }
+    m_lpUIQuestTimer.RemoveAll();
 }
 
 ZRef<CUIQuestTimer> CWvsContext::GetQuestTimer(uint16_t usQuestID, int32_t bTimeKeepQuestTimer)
@@ -4660,26 +5745,23 @@ void CWvsContext::OnMapTransferResult(CInPacket& arg0)
 
 long CWvsContext::GetActiveEffectItemID()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_nActiveEffectItemID;
 }
 
 void CWvsContext::SetActiveEffectItemID(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_nActiveEffectItemID = arg0;
 }
 
 void CWvsContext::SetAntiMacroRemainTime(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_tRemainAntiMacroQuestion = arg0;
 }
 
 void CWvsContext::ShowAntiMacroNotice(long arg0, long arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    ZRef wnd(new CUIAntiMacroNotice(arg0, arg1), true);
+    wnd->DoModal();
 }
 
 void CWvsContext::SaveAntiMacroScreenShot(ZXString<char> sUserName)
@@ -4720,8 +5802,7 @@ ZXString<char> CWvsContext::GetQuestMobCount(long nIndex)
 
 void CWvsContext::CheckQuestCompleteByItem(long arg0, long arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    //TODO(game)
 }
 
 void CWvsContext::CheckQuestCompleteByMeso(long arg0)
@@ -4773,8 +5854,7 @@ void CWvsContext::ShowPremiumArgument(unsigned long ulArgument, long nSessionCou
 
 void CWvsContext::SetPurchaseExp(unsigned char arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_nPurchaseExp = arg0;
 }
 
 void CWvsContext::PersonalShopOpen()
@@ -4913,7 +5993,7 @@ void CWvsContext::RemoveSkillCooltimeOver(long nSkillID)
 {
     if (nSkillID == 5221999)
     {
-        m_temporaryStatView.ResetTemporary(2, 5221006);
+        m_temporaryStatView.ResetTemporary(2, CORSAIR_BATTLESHIP);
     }
     m_mSkillCooltimeOver.RemoveKey(nSkillID);
     //__sub_005CCF80(this, nullptr, nSkillID);
@@ -5152,19 +6232,20 @@ void CWvsContext::OnCancelNameChangebyOther(CInPacket& arg0)
 
 void CWvsContext::GetLastestGetItemID(long& arg0, long& arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    arg0 = m_nLastestGetItemID;
+    arg1 = m_nLastestGetItemPos;
 }
 
 void CWvsContext::SetLastestGetItemID(long arg0, long arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    m_nLastestGetItemID = arg0;
+    m_nLastestGetItemPos = arg1;
 }
 
 void CWvsContext::ClearLastestGetItemID()
 {
     m_nLastestGetItemID = 0;
+    m_nLastestGetItemPos = 0;
 }
 
 long CWvsContext::GetSwallowBuffType()
@@ -5541,7 +6622,7 @@ int32_t CWvsContext::IsBambooUsed() const
 
 void CWvsContext::ValidateAdditionalItemEffect()
 {
-    __sub_005E6D30(this, nullptr);
+    //TODO(game) __sub_005E6D30(this, nullptr);
 }
 
 void CWvsContext::SetImpactNextBySessionValue(const ZXString<char>& strKey, const ZXString<char>& strValue, double vx,
@@ -5635,14 +6716,28 @@ ZXString<char> CWvsContext::GetGMBoardURL()
 
 void CWvsContext::LoadItemMsg(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    //TODO(game)
 }
 
 void CWvsContext::InsertItemMsg(long arg0)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    if (!CItemInfo::GetInstance()->IsMsgItem(arg0))
+        return;
+
+    bool show = true;
+    for (auto& msg : m_lItemMsg)
+    {
+        if (msg.nItemID != arg0)
+        {
+            show = true;
+            break;
+        }
+    }
+
+    if (show)
+    {
+        LoadItemMsg(arg0);
+    }
 }
 
 void CWvsContext::RemoveItemMsg(long arg0)
@@ -5837,7 +6932,7 @@ void CWvsContext::CFriend::Remove(unsigned long arg0)
     UNIMPLEMENTED;
 }
 
-long CWvsContext::CFriend::GetCount()
+long CWvsContext::CFriend::GetCount() const
 {
     return m_aFriend.GetCount();
 }
@@ -5946,7 +7041,6 @@ CWvsContext::ITEMMSGINFO::_op_assign_3(CWvsContext::ITEMMSGINFO* pThis, const CW
 
 CWvsContext::ITEMMSG::~ITEMMSG()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CWvsContext::ITEMMSG::_dtor_0()
@@ -6040,7 +7134,7 @@ void CUISkillDecEX::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2
     __sub_00458170(this, nullptr, nId, param1, param2);
 }
 
-void CUISkillDecEX::OnKey(uint32_t wParam, uint32_t lParam)
+void CUISkillDecEX::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_005E6610(this, nullptr, wParam, lParam);
 }
@@ -6103,8 +7197,14 @@ void CUISkillDecEX::SetTabItems()
 
 void CUISkillDecEX::SetScrollBar()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto range = 0;
+    if (auto root = GetSkillRootVisible(false))
+    {
+        auto n = root->aSkill.GetCount();
+        range = (long)n - 3;
+    }
+
+    m_pSBSkill->SetScrollRange(range);
 }
 
 void CUISkillDecEX::SetButtons()
@@ -6115,7 +7215,9 @@ void CUISkillDecEX::SetButtons()
 
 int32_t CUISkillDecEX::IsEnableSkill(const SKILLENTRY* p)
 {
-    return __sub_004529D0(this, nullptr, p);
+    //return __sub_004529D0(this, nullptr, p);
+    auto cd = CWvsContext::_S()->GetCharacterData();
+    return IsRequiredSkill(p->nSkillID) && CSkillInfo::_S()->GetSkillLevel(*cd.op_arrow(), p->nSkillID, nullptr) > 0;
 }
 
 int32_t CUISkillDecEX::IsRequiredSkill(long nReqSkillID)
@@ -6148,7 +7250,7 @@ CUISkillDecEX& CUISkillDecEX::_op_assign_24(CUISkillDecEX* pThis, const CUISkill
 
 int32_t __cdecl _anon__IsGuildSupplyQuest(uint16_t usQuestID)
 {
-    return __sub_005CCEB0(usQuestID);
+    return (usQuestID - 26000) <= 0x3E7u;
 }
 
 int32_t __cdecl TryToggleTab(CUIWnd* arg0)

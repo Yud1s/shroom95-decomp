@@ -146,7 +146,7 @@ __SUB_CLASS_THIS(003EFB30, __thiscall, 56058,    IUIMsgHandler, void, int32_t) {
 	_ASM_PLACEHOLDER(003EFB30, 56058)
 }
 // CUIMessenger::AddChatText
-__SUB_CLASS_THIS(003F4250, __thiscall, 56079,  CUIMessenger, void, NakedParam<ZXString<unsigned short>>, long) {
+__SUB_CLASS_THIS(003F4250, __thiscall, 56079,  CUIMessenger, void, NakedParam<ZXString16>, long) {
 	_ASM_PLACEHOLDER(003F4250, 56079)
 }
 // CUIMessenger::OnCreate

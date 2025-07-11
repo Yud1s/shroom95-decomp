@@ -17,12 +17,12 @@ void CInputSystem::_dtor_0()
     this->~CInputSystem();
 }
 
-CInputSystem::CInputSystem(const CInputSystem &arg0)
+CInputSystem::CInputSystem(const CInputSystem& arg0)
 {
     _ctor_1(arg0);
 }
 
-void CInputSystem::_ctor_1(const CInputSystem &arg0)
+void CInputSystem::_ctor_1(const CInputSystem& arg0)
 {
     // TODO: No module found for method
     UNIMPLEMENTED;
@@ -37,11 +37,11 @@ CInputSystem::CInputSystem()
 
 void CInputSystem::_ctor_0()
 {
-    new (this) CInputSystem();
+    new(this) CInputSystem();
     // return __sub_005C5D60(this, nullptr);
 }
 
-void CInputSystem::Init(HWND__ *hWnd, void **ahEvent)
+void CInputSystem::Init(HWND__* hWnd, void** ahEvent)
 {
     //__sub_00171A60(this, nullptr, hWnd, ahEvent);
     m_hWnd = hWnd;
@@ -57,7 +57,7 @@ void CInputSystem::Init(HWND__ *hWnd, void **ahEvent)
         }
     }
 
-    auto hr = DirectInput8Create(GetModuleHandleA(nullptr), 0x800, IID_IDirectInput8, (void **)&m_pDI, nullptr);
+    auto hr = DirectInput8Create(GetModuleHandleA(nullptr), 0x800, IID_IDirectInput8, (void**)&m_pDI, nullptr);
     if (FAILED(hr))
     {
         _com_raise_error(hr);
@@ -66,20 +66,21 @@ void CInputSystem::Init(HWND__ *hWnd, void **ahEvent)
     m_aVk2Dik.fill(0);
     m_aDik2Vk.fill(0);
     const uint8_t data[208] =
-        {
-            0x30, 0x0b, 0x31, 0x02, 0x32, 0x03, 0x33, 0x04, 0x34, 0x05, 0x35, 0x06, 0x36, 0x07, 0x37, 0x08,
-            0x38, 0x09, 0x39, 0x0a, 0x41, 0x1e, 0x42, 0x30, 0x43, 0x2e, 0x44, 0x20, 0x45, 0x12, 0x46, 0x21,
-            0x47, 0x22, 0x48, 0x23, 0x49, 0x17, 0x4a, 0x24, 0x4b, 0x25, 0x4c, 0x26, 0x4d, 0x32, 0x4e, 0x31,
-            0x4f, 0x18, 0x50, 0x19, 0x51, 0x10, 0x52, 0x13, 0x53, 0x1f, 0x54, 0x14, 0x55, 0x16, 0x56, 0x2f,
-            0x57, 0x11, 0x58, 0x2d, 0x59, 0x15, 0x5a, 0x2c, 0x08, 0x0e, 0x09, 0x0f, 0x0d, 0x9c, 0x0d, 0x1c,
-            0xa0, 0x2a, 0xa1, 0x36, 0xa2, 0x1d, 0xa3, 0x9d, 0xa4, 0x38, 0xa5, 0xb8, 0x14, 0x3a, 0x1b, 0x01,
-            0x20, 0x39, 0x21, 0xc9, 0x22, 0xd1, 0x23, 0xcf, 0x24, 0xc7, 0x25, 0xcb, 0x26, 0xc8, 0x27, 0xcd,
-            0x28, 0xd0, 0x2d, 0xd2, 0x2e, 0xd3, 0x5b, 0xdb, 0x5c, 0xdc, 0x5d, 0xdd, 0x60, 0x52, 0x61, 0x4f,
-            0x62, 0x50, 0x63, 0x51, 0x64, 0x4b, 0x65, 0x4c, 0x66, 0x4d, 0x67, 0x47, 0x68, 0x48, 0x69, 0x49,
-            0x6a, 0x37, 0x6b, 0x4e, 0x6d, 0x4a, 0x6e, 0x53, 0x6f, 0xb5, 0x70, 0x3b, 0x71, 0x3c, 0x72, 0x3d,
-            0x73, 0x3e, 0x74, 0x3f, 0x75, 0x40, 0x76, 0x41, 0x77, 0x42, 0x78, 0x43, 0x79, 0x44, 0x7a, 0x57,
-            0x7b, 0x58, 0x90, 0x45, 0x91, 0x46, 0xba, 0x27, 0xbb, 0x0d, 0xbc, 0x33, 0xbd, 0x0c, 0xbe, 0x34,
-            0xbf, 0x35, 0xc0, 0x29, 0xdb, 0x1a, 0xdc, 0x2b, 0xdd, 0x1b, 0xde, 0x28, 0x2d, 0x00, 0x00, 0x00};
+    {
+        0x30, 0x0b, 0x31, 0x02, 0x32, 0x03, 0x33, 0x04, 0x34, 0x05, 0x35, 0x06, 0x36, 0x07, 0x37, 0x08,
+        0x38, 0x09, 0x39, 0x0a, 0x41, 0x1e, 0x42, 0x30, 0x43, 0x2e, 0x44, 0x20, 0x45, 0x12, 0x46, 0x21,
+        0x47, 0x22, 0x48, 0x23, 0x49, 0x17, 0x4a, 0x24, 0x4b, 0x25, 0x4c, 0x26, 0x4d, 0x32, 0x4e, 0x31,
+        0x4f, 0x18, 0x50, 0x19, 0x51, 0x10, 0x52, 0x13, 0x53, 0x1f, 0x54, 0x14, 0x55, 0x16, 0x56, 0x2f,
+        0x57, 0x11, 0x58, 0x2d, 0x59, 0x15, 0x5a, 0x2c, 0x08, 0x0e, 0x09, 0x0f, 0x0d, 0x9c, 0x0d, 0x1c,
+        0xa0, 0x2a, 0xa1, 0x36, 0xa2, 0x1d, 0xa3, 0x9d, 0xa4, 0x38, 0xa5, 0xb8, 0x14, 0x3a, 0x1b, 0x01,
+        0x20, 0x39, 0x21, 0xc9, 0x22, 0xd1, 0x23, 0xcf, 0x24, 0xc7, 0x25, 0xcb, 0x26, 0xc8, 0x27, 0xcd,
+        0x28, 0xd0, 0x2d, 0xd2, 0x2e, 0xd3, 0x5b, 0xdb, 0x5c, 0xdc, 0x5d, 0xdd, 0x60, 0x52, 0x61, 0x4f,
+        0x62, 0x50, 0x63, 0x51, 0x64, 0x4b, 0x65, 0x4c, 0x66, 0x4d, 0x67, 0x47, 0x68, 0x48, 0x69, 0x49,
+        0x6a, 0x37, 0x6b, 0x4e, 0x6d, 0x4a, 0x6e, 0x53, 0x6f, 0xb5, 0x70, 0x3b, 0x71, 0x3c, 0x72, 0x3d,
+        0x73, 0x3e, 0x74, 0x3f, 0x75, 0x40, 0x76, 0x41, 0x77, 0x42, 0x78, 0x43, 0x79, 0x44, 0x7a, 0x57,
+        0x7b, 0x58, 0x90, 0x45, 0x91, 0x46, 0xba, 0x27, 0xbb, 0x0d, 0xbc, 0x33, 0xbd, 0x0c, 0xbe, 0x34,
+        0xbf, 0x35, 0xc0, 0x29, 0xdb, 0x1a, 0xdc, 0x2b, 0xdd, 0x1b, 0xde, 0x28, 0x2d, 0x00, 0x00, 0x00
+    };
 
     for (size_t i = 0; i < 204; i += 2)
     {
@@ -91,9 +92,9 @@ void CInputSystem::Init(HWND__ *hWnd, void **ahEvent)
     m_pVectorCursor = G_PCOM.CreateObjectPtr<IWzVector2D>(L"Shape2D#Vector2D");
     auto gr = get_gr();
 
-    IWzVector2D *pCenterVec = nullptr;
+    IWzVector2D* pCenterVec = nullptr;
     gr->get_center(&pCenterVec); // TODO check return
-    Ztl_variant_t vCenter((IUnknown *)pCenterVec);
+    Ztl_variant_t vCenter((IUnknown*)pCenterVec);
     m_pVectorCursor->put_origin(vCenter); // TODO check return
 
     SetCursorVectorPos(m_MouseState.x, m_MouseState.y);
@@ -114,7 +115,7 @@ void CInputSystem::Close()
 {
     for (auto i = 0; i < 3; i++)
     {
-        auto &dev = m_apDevice[i];
+        auto& dev = m_apDevice[i];
         if (dev)
         {
             dev->Unacquire();
@@ -122,7 +123,7 @@ void CInputSystem::Close()
             dev = nullptr;
         }
 
-        auto &event = m_ahEvent[i];
+        auto& event = m_ahEvent[i];
         if (event)
         {
             CloseHandle(event);
@@ -252,7 +253,7 @@ void CInputSystem::UpdateDevice(int32_t nDeviceIndex)
     }
 }
 
-int32_t CInputSystem::GetISMessage(ISMSG *pISMsg)
+int32_t CInputSystem::GetISMessage(ISMSG* pISMsg)
 {
     if (m_lISMsg.IsEmpty())
     {
@@ -267,7 +268,6 @@ int32_t CInputSystem::GetISMessage(ISMSG *pISMsg)
 
 void CInputSystem::SetAcquireKeyboard(int32_t bAcquire)
 {
-
     auto p = this->m_apDevice[0];
     if (!p || bAcquire == m_bAcquireKeyboard)
     {
@@ -318,7 +318,7 @@ unsigned long CInputSystem::GetSpecialKeyFlag()
     return __sub_0016F890(this, nullptr);
 }
 
-int32_t CInputSystem::GenerateAutoKeyDown(ISMSG *pISMsg)
+int32_t CInputSystem::GenerateAutoKeyDown(ISMSG* pISMsg)
 {
     if (!m_apDevice[0] || !m_bAcquireKeyboard || !m_nVkLastKeyDown)
     {
@@ -344,9 +344,10 @@ int32_t CInputSystem::GenerateAutoKeyDown(ISMSG *pISMsg)
     // TODO return __sub_0016F990(this, nullptr, pISMsg);
 }
 
-void CInputSystem::SetCursor(_x_com_ptr<IWzGr2DLayer> &newCursor) const
+void CInputSystem::SetCursor(_x_com_ptr<IWzGr2DLayer>& newCursor) const
 {
-    if(!newCursor) { 
+    if (!newCursor)
+    {
         return;
     }
 
@@ -357,7 +358,7 @@ void CInputSystem::SetCursor(_x_com_ptr<IWzGr2DLayer> &newCursor) const
     //__sub_0016FDC0(this, nullptr, m_pLayerCursor);
 }
 
-void CInputSystem::SetCursorInChange(_x_com_ptr<IWzGr2DLayer> &m_pLayerCursor)
+void CInputSystem::SetCursorInChange(_x_com_ptr<IWzGr2DLayer>& m_pLayerCursor)
 {
     //TODO correct?
     m_pCursorType[m_nCursorState] = m_pLayerCursor;
@@ -373,7 +374,7 @@ void CInputSystem::ShowCursor(int32_t bShow)
     //__sub_0016FD60(this, nullptr, bShow);
 }
 
-int32_t CInputSystem::GetCursorPos(tagPOINT *lpPoint)
+int32_t CInputSystem::GetCursorPos(tagPOINT* lpPoint)
 {
     if (m_apDevice[1])
     {
@@ -385,9 +386,15 @@ int32_t CInputSystem::GetCursorPos(tagPOINT *lpPoint)
     // return __sub_0016F830(this, nullptr, lpPoint);
 }
 
+tagPOINT CInputSystem::GetCursorPotPt()
+{
+    tagPOINT pt{};
+    GetCursorPos(&pt);
+    return pt;
+}
+
 int32_t CInputSystem::SetCursorPos(long x, long y)
 {
-
     long w = get_screen_width();
     long h = get_screen_height();
 
@@ -406,7 +413,6 @@ int32_t CInputSystem::SetCursorPos(long x, long y)
     }
     else
     {
-    
         SetCursorVectorPos(pt.x, pt.y);
         return ClientToScreen(m_hWnd, &pt) && ::SetCursorPos(pt.x, pt.y);
     }
@@ -415,9 +421,7 @@ int32_t CInputSystem::SetCursorPos(long x, long y)
 
 void CInputSystem::SetMouseSpeed(long speed)
 {
-    //TODO
     m_nMouseSpeed = speed;
-    //__sub_001717C0(this, nullptr, tCur);
 }
 
 void CInputSystem::SetCursorVectorPos(long x, long y)
@@ -457,7 +461,7 @@ void CInputSystem::SetCursorState(const long nCursorState)
     {
         return;
     }
-    
+
     // Hide cursor
     ShowCursor(false);
     m_pLayerCursor = ty;
@@ -474,7 +478,19 @@ void CInputSystem::SetCursorState(const long nCursorState)
 
 void CInputSystem::LoadCursorState()
 {
-    __sub_001717E0(this, nullptr);
+    auto anim = CAnimationDisplayer::GetInstance();
+    auto uol = StringPool::GetInstance().GetStringW(2943);
+    for (auto i = 0; i < 17; ++i)
+    {
+        auto uolFmt = ZXString16::FromFmt(uol.c_str(), i);
+        m_pCursorType[i] = CAnimationDisplayer::LoadLayer(reinterpret_cast<const wchar_t*>(uolFmt.c_str()), false,
+                                                          _x_com_ptr<IWzVector2D>(), 0,
+                                                          0, _x_com_ptr<IWzGr2DLayer>(), 0, 255, 0);
+        m_pCursorType[i]->Putoverlay(vtMissing);
+        m_pCursorType[i]->Putz(0x7FFFFFFF);
+        m_pCursorType[i]->Putcolor(0xFFFFFF);
+        m_pCursorType[i]->PutOrigin(m_pVectorCursor);
+    }
 }
 
 long CInputSystem::GetCursorState() const
@@ -557,7 +573,7 @@ int32_t CInputSystem::IsJoyBtnPressed(int32_t nBtn)
     // return __sub_0016FA90(this, nullptr, nBtn);
 }
 
-int32_t CInputSystem::GenerateAutoBtnDown(ISMSG *pISMsg)
+int32_t CInputSystem::GenerateAutoBtnDown(ISMSG* pISMsg)
 {
     auto dev = m_apDevice[2];
     if (!dev || !m_bSupportJoystick || !m_nLastJoyBtnDown)
@@ -721,7 +737,7 @@ void CInputSystem::UpdateJoystick()
     __sub_001713E0(this, nullptr);
 }
 
-int32_t __stdcall CInputSystem::EnumJoysticksCallback(const DIDEVICEINSTANCEA *pdidInstance, void *pContext)
+int32_t __stdcall CInputSystem::EnumJoysticksCallback(const DIDEVICEINSTANCEA* pdidInstance, void* pContext)
 {
     auto inp = CInputSystem::GetInstance();
     auto hr = inp->m_pDI->CreateDevice(pdidInstance->guidInstance, &inp->m_apDevice[2], nullptr);
@@ -735,7 +751,7 @@ int32_t __stdcall CInputSystem::EnumJoysticksCallback(const DIDEVICEINSTANCEA *p
     // return __sub_00170A50(pdidInstance, pContext);
 }
 
-int32_t __stdcall CInputSystem::EnumObjectsCallback(const DIDEVICEOBJECTINSTANCEA *pdidoi, void *pContext)
+int32_t __stdcall CInputSystem::EnumObjectsCallback(const DIDEVICEOBJECTINSTANCEA* pdidoi, void* pContext)
 {
     auto ty = pdidoi->dwType;
     auto inp = CInputSystem::GetInstance();
@@ -765,25 +781,25 @@ int32_t __stdcall CInputSystem::EnumObjectsCallback(const DIDEVICEOBJECTINSTANCE
     // return __sub_0016FB50(pdidoi, pContext);
 }
 
-CInputSystem &CInputSystem::operator=(const CInputSystem &arg0)
+CInputSystem& CInputSystem::operator=(const CInputSystem& arg0)
 {
     return _op_assign_44(this, arg0);
 }
 
-CInputSystem &CInputSystem::_op_assign_44(CInputSystem *pThis, const CInputSystem &arg0)
+CInputSystem& CInputSystem::_op_assign_44(CInputSystem* pThis, const CInputSystem& arg0)
 {
     // TODO: No module found for method
     UNIMPLEMENTED;
 }
 
-ISMSG::ISMSG(const ISMSG &arg0)
+ISMSG::ISMSG(const ISMSG& arg0)
 {
     this->message = arg0.message;
     this->wParam = arg0.wParam;
     this->lParam = arg0.lParam;
 }
 
-ISMSG &ISMSG::operator=(const ISMSG &arg0)
+ISMSG& ISMSG::operator=(const ISMSG& arg0)
 {
     if (this == &arg0)
     {

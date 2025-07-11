@@ -1,5 +1,8 @@
 // Stat.cpp
 #include "Stat.hpp"
+
+#include <skills_ids.h>
+
 #include "Stat/TwoState.hpp"
 #include "ItemInfo/ItemInfo.hpp"
 
@@ -14,16 +17,19 @@ static TwoStateTemporaryStat<long, greater_equal<long, 10000>, Expire<BaseOnLast
 static TwoStateTemporaryStat<long, not_equal<long, 0>, Expire<BaseOnLastUpdatedTime, DynamicTermSet>, Nothing<long>,
                              Nothing<long>> FAKE_TWOSTATE_STAT2;
 
+
+static MY_UINT128 _D_S_UFILTER__1{};
+static MY_UINT128 _D_S_UFILTER{};
+
 #include "Stat_regen.ipp"
 
 PassiveSkillData::~PassiveSkillData()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void PassiveSkillData::_dtor_0()
 {
-    UNIMPLEMENTED; // return __sub_00505D30(this, nullptr);
+    this->~PassiveSkillData();
 }
 
 PassiveSkillData::PassiveSkillData(const PassiveSkillData& arg0)
@@ -43,7 +49,7 @@ PassiveSkillData::PassiveSkillData()
 
 void PassiveSkillData::_ctor_0()
 {
-    UNIMPLEMENTED; // return __sub_00506BF0(this, nullptr);
+    new(this) PassiveSkillData();
 }
 
 void PassiveSkillData::ClearData()
@@ -95,22 +101,20 @@ int CalcDamage::ms_aanStandardPDD[6][201]{};
 
 SecondaryStatRateOption::SecondaryStatRateOption()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void SecondaryStatRateOption::_ctor_0()
 {
-    return __sub_00320840(this, nullptr);
+    new(this) SecondaryStatRateOption();
 }
 
 SecondaryStat::~SecondaryStat()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void SecondaryStat::_dtor_0()
 {
-    return __sub_00327790(this, nullptr);
+    this->~SecondaryStat();
 }
 
 SecondaryStat::SecondaryStat(const SecondaryStat& arg0)
@@ -133,13 +137,11 @@ SecondaryStat::SecondaryStat()
 
     for (const auto i : {1, 2, 6})
     {
-        aTemporaryStat[i] = new TwoStateTemporaryStat<long,not_equal<long,0>,Expire<BaseOnLastUpdatedTime,DynamicTermSet>,Nothing<long>,Nothing<long>>();
+        aTemporaryStat[i] = new TwoStateTemporaryStat<
+            long, not_equal<long, 0>, Expire<BaseOnLastUpdatedTime, DynamicTermSet>, Nothing<long>, Nothing<long>>();
     }
-
-    aTemporaryStat[3] = new TwoStateTemporaryStat<long,not_equal<long,0>,NoExpire,Nothing<long>,Nothing<long>>();
-
+    aTemporaryStat[3] = new TwoStateTemporaryStat<long, not_equal<long, 0>, NoExpire, Nothing<long>, Nothing<long>>();
     aTemporaryStat[4] = new TemporaryStat_PartyBooster();
-
     aTemporaryStat[5] = new TemporaryStat_GuidedBullet();
 
     Clear();
@@ -986,7 +988,22 @@ void SecondaryStat::Clear()
 
 int32_t __cdecl SecondaryStat::IsMovementAffectingStat(MY_UINT128 uFlag)
 {
-    return __sub_003208C0(CreateNakedParam(uFlag));
+    static MY_UINT128 FILTER = CTS_JUMP
+        | CTS_STUN
+        | CTS_WEAKNESS
+        | CTS_SLOW
+        | CTS_MORPH
+        | CTS_GHOST
+        | CTS_BASICSTATUP
+        | CTS_ATTRACT
+        | CTS_RIDE_VEHICLE
+        | CTS_DASH_SPEED
+        | CTS_DASH_JUMP
+        | CTS_FLYING
+        | CTS_FROZEN
+        | CTS_YELLOW_AURA;
+    return uFlag & FILTER;
+    //return __sub_003208C0(CreateNakedParam(uFlag));
 }
 
 /*const TemporaryStatBase<long>* SecondaryStat::operator[](int32_t index) {
@@ -994,12 +1011,12 @@ int32_t __cdecl SecondaryStat::IsMovementAffectingStat(MY_UINT128 uFlag)
 }*/
 const TemporaryStatBase<long>* SecondaryStat::_op_index_833(SecondaryStat* pThis, int32_t index)
 {
-    return __sub_0023A620(pThis, nullptr, index);
+    return pThis->aTemporaryStat[index].op_arrow();
 }
 
 TemporaryStatBase<long>* SecondaryStat::operator[](int32_t arg0)
 {
-    return _op_index_834(this, arg0);
+    return this->aTemporaryStat[arg0].op_arrow();
 }
 
 TemporaryStatBase<long>* SecondaryStat::_op_index_834(SecondaryStat* pThis, int32_t arg0)
@@ -1032,9 +1049,18 @@ long SecondaryStat::GetMDD(long nBaseMDD, const CharacterData& cd, long nPsdMDDR
     return __sub_00325F70(this, nullptr, nBaseMDD, cd, nPsdMDDR, pIncinOrg, bShieldEquiped);
 }
 
-long SecondaryStat::GetACC(const CharacterData& cd, long nPdsACCR, long nBaseACC, long* pIncinOrg)
+long SecondaryStat::GetACC(const CharacterData& cd, long nPdsACCR, long nBaseACC, long* pIncinOrg) const
 {
-    return __sub_003261D0(this, nullptr, cd, nPdsACCR, nBaseACC, pIncinOrg);
+    //return __sub_003261D0(this, nullptr, cd, nPdsACCR, nBaseACC, pIncinOrg);
+    auto acc = nBaseACC + _ZtlSecureGet_nACC() + GetIncACC(cd);;
+    auto itemAccR = nPdsACCR + _ZtlSecureGet_nItemACCR();
+    if (pIncinOrg)
+        *pIncinOrg = acc * itemAccR / 100;
+
+    if (itemAccR > 0)
+        acc += acc * itemAccR / 100;
+
+    return std::clamp<long>(acc, 0, 9999);
 }
 
 long SecondaryStat::GetEVA(const CharacterData& cd, long nPdsEVAR, long nBaseEVA, long* pIncinOrg)
@@ -1062,7 +1088,12 @@ long SecondaryStat::GetSpeed(long nPsdSpeed) const
 
 long SecondaryStat::GetJump(long nPsdJump)
 {
-    return __sub_00461680(this, nullptr, nPsdJump);
+    auto jmp = _ZtlSecureGet_nJump();
+    auto jmp_ = _ZtlSecureGet_nJump_();
+    auto jmpDash = aTemporaryStat[2]->GetValue();
+    if (jmpDash >= jmp_)
+        jmp_ = jmpDash;
+    return nPsdJump + jmp + jmp_;
 }
 
 long SecondaryStat::GetIncPAD(const CharacterData& cd)
@@ -1070,9 +1101,24 @@ long SecondaryStat::GetIncPAD(const CharacterData& cd)
     return __sub_003257A0(this, nullptr, cd);
 }
 
-long SecondaryStat::GetIncACC(const CharacterData& cd)
+long SecondaryStat::GetIncACC(const CharacterData& cd) const
 {
-    return __sub_00325850(this, nullptr, cd);
+    //return __sub_00325850(this, nullptr, cd);
+    auto acc = _ZtlSecureGet_nACC_();
+    if (!aTemporaryStat[0]->IsActivated())
+        return acc;
+
+    auto job = cd.characterStat._ZtlSecureGet_nJob();
+    const SKILLENTRY* pSkill;
+    auto slvl = CSkillInfo::GetInstance()->GetSkillLevel(cd,
+                                                         (job / 1000 != 1 ? MARAUDER_ENERGY_CHARGE : TB2_ENERGY_CHARGE),
+                                                         &pSkill);
+    if (!slvl)
+        return acc;
+
+    auto& lvlData = pSkill->GetLevelData(slvl);
+    auto incAcc = lvlData._ZtlSecureGet_nACC();
+    return std::max(incAcc, acc);
 }
 
 long SecondaryStat::GetIncEVA(const CharacterData& cd)
@@ -1087,7 +1133,12 @@ long SecondaryStat::GetIncEPAD(const CharacterData& cd)
 
 int32_t SecondaryStat::IsRidingVehicle()
 {
-    return __sub_004616F0(this, nullptr);
+    //return __sub_004616F0(this, nullptr);
+    auto& p = aTemporaryStat[3];
+    if (!p->IsActivated())
+        return false;
+
+    return is_vehicle(p->GetValue());
 }
 
 int32_t SecondaryStat::IsRidingSkillVehicle()
@@ -1101,8 +1152,11 @@ int32_t SecondaryStat::IsRidingSkillVehicle()
 
 int32_t SecondaryStat::IsRidingTamedMob()
 {
-    //TODO(game)
-    return false;
+    auto& vehicle = aTemporaryStat[3];
+    if (!vehicle->IsActivated())
+        return false;
+    ZFatalSectionGuard lock(vehicle->GetLock());
+    return vehicle->GetValue() / 10000 == 190;
 }
 
 int32_t SecondaryStat::IsRidingEvanDragon()
@@ -1113,30 +1167,46 @@ int32_t SecondaryStat::IsRidingEvanDragon()
 
 int32_t SecondaryStat::IsEventVehicle()
 {
-    return __sub_00461740(this, nullptr);
+    if (!IsRidingVehicle())
+        return false;
+    auto id = aTemporaryStat[3]->GetValue();
+    return is_event_vehicle_type1(id) || is_event_vehicle_type2(id);
 }
 
 int32_t SecondaryStat::IsMechanicVehicle()
 {
-    //TODO(game)
-    return 0;
+    if (!IsRidingSkillVehicle())
+        return false;
+    auto id = aTemporaryStat[3]->GetValue();
+    return id == 1932016;
 }
 
 int32_t SecondaryStat::IsWildhunterJaguarVehicle()
 {
-    //TODO(game)
-    return 0;
+    if (!IsRidingSkillVehicle())
+        return false;
+    auto id = aTemporaryStat[3]->GetValue();
+    return is_wildhunter_jaguar_vehicle(id);
 }
 
 long SecondaryStat::GetVechicleID()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    auto& vehicle = aTemporaryStat[3];
+    if (!vehicle->IsActivated())
+        return 0;
+    return vehicle->GetValue();
 }
 
 long SecondaryStat::GetJaguarRidingMaxHPUp(const CharacterData& c)
 {
-    return __sub_00329650(this, nullptr, c);
+    if (IsWildhunterJaguarVehicle())
+        return 0;
+    const SKILLENTRY* pSkill;
+    auto slvl = CSkillInfo::GetInstance()->GetSkillLevel(c, WH1_JAGUAR_RIDER, &pSkill);
+    if (!slvl)
+        return 0;
+
+    return pSkill->GetLevelData(slvl)._ZtlSecureGet_nZ();
 }
 
 void SecondaryStat::Reset(MY_UINT128 uFlagTemp)
@@ -1146,7 +1216,11 @@ void SecondaryStat::Reset(MY_UINT128 uFlagTemp)
 
 MY_UINT128 SecondaryStat::DecodeForLocal(CInPacket& tCur, ZMap<long, ZRef<SecondaryStat::VIEWELEM>, long>& uFlagTemp)
 {
-    return __sub_003350E0(this, nullptr, tCur, uFlagTemp);
+    _ZtlSecurePut_nDefenseAtt(0);
+    _ZtlSecurePut_nDefenseState(0);
+    MY_UINT128 stat;
+    __sub_003350E0(this, nullptr, &stat, tCur, uFlagTemp);
+    return stat;
 }
 
 MY_UINT128 SecondaryStat::DecodeForRemote(CInPacket& iPacket)
@@ -1197,10 +1271,7 @@ int32_t SecondaryStat::IsSetted(long nReason)
     return __sub_00324270(this, nullptr, nReason);
 }
 
-SecondaryStat& SecondaryStat::operator=(const SecondaryStat& arg0)
-{
-    return _op_assign_867(this, arg0);
-}
+SecondaryStat& SecondaryStat::operator=(const SecondaryStat& arg0) = default;
 
 SecondaryStat& SecondaryStat::_op_assign_867(SecondaryStat* pThis, const SecondaryStat& arg0)
 {
@@ -1210,13 +1281,11 @@ SecondaryStat& SecondaryStat::_op_assign_867(SecondaryStat* pThis, const Seconda
 
 SecondaryStat::VIEWELEM::~VIEWELEM()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void SecondaryStat::VIEWELEM::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~VIEWELEM();
 }
 
 SecondaryStat::VIEWELEM::VIEWELEM(const SecondaryStat::VIEWELEM& arg0)
@@ -1237,30 +1306,33 @@ SecondaryStat::VIEWELEM::VIEWELEM()
 void SecondaryStat::VIEWELEM::_ctor_0()
 {
     new(this) VIEWELEM();
-    //return __sub_00320860(this, nullptr);
 }
 
-SecondaryStat::VIEWELEM& SecondaryStat::VIEWELEM::operator=(const SecondaryStat::VIEWELEM& arg0)
-{
-    return _op_assign_3(this, arg0);
-}
+SecondaryStat::VIEWELEM& SecondaryStat::VIEWELEM::operator=(const SecondaryStat::VIEWELEM& arg0) = default;
 
 SecondaryStat::VIEWELEM&
 SecondaryStat::VIEWELEM::_op_assign_3(SecondaryStat::VIEWELEM* pThis, const SecondaryStat::VIEWELEM& arg0)
 {
-    // TODO: No module found for method
     UNIMPLEMENTED;
 }
 
 BasicStat::BasicStat()
 {
-    // TODO UNIMPLEMENTED; //_ctor_0();
+    _ZtlSecurePut_nGender(0);
+    _ZtlSecurePut_nLevel(0);
+    _ZtlSecurePut_nJob(0);
+    _ZtlSecurePut_nSTR(0);
+    _ZtlSecurePut_nDEX(0);
+    _ZtlSecurePut_nINT(0);
+    _ZtlSecurePut_nLUK(0);
+    _ZtlSecurePut_nPOP(0);
+    _ZtlSecurePut_nMHP(0);
+    _ZtlSecurePut_nMMP(0);
 }
 
 void BasicStat::_ctor_0()
 {
-    // TODO: No module found for method
-    // TODO: UNIMPLEMENTED;
+    new(this) BasicStat();
 }
 
 _ZTL_SEC_GETSETI(long, BasicStat, nGender)
@@ -1283,7 +1355,7 @@ _ZTL_SEC_GETSETI(long, BasicStat, nMHP)
 
 _ZTL_SEC_GETSETI(long, BasicStat, nMMP)
 
-long BasicStat::CalcBasePDD()
+long BasicStat::CalcBasePDD() const
 {
     //return __sub_00321A40(this, nullptr);
 
@@ -1292,9 +1364,9 @@ long BasicStat::CalcBasePDD()
     auto luk = _ZtlSecureGet_nLUK();
     auto int_ = _ZtlSecureGet_nINT();
     return (int)((double)int_ * 0.4
-               + 0.5 * (double)luk
-               + (double)dex * 0.5
-               + (double)str * 1.2);
+        + 0.5 * (double)luk
+        + (double)dex * 0.5
+        + (double)str * 1.2);
 }
 
 long BasicStat::CalcBaseMDD()
@@ -1304,13 +1376,13 @@ long BasicStat::CalcBaseMDD()
     auto dex = _ZtlSecureGet_nDEX();
     auto luk = _ZtlSecureGet_nLUK();
     auto int_ = _ZtlSecureGet_nINT();
-    return (int)((double)str * 0.4
-             + 0.5 * (double)dex
-             + (double)luk * 0.5
-             + (double)int_ * 1.2);
+    return (int)(str * 0.4
+        + 0.5 * dex
+        + luk * 0.5
+        + int_ * 1.2);
 }
 
-long BasicStat::CalcBasePACC()
+long BasicStat::CalcBasePACC() const
 {
     //return __sub_00321B60(this, nullptr);
 
@@ -1371,19 +1443,38 @@ void BasicStat::ApplySocketOptionR(long nSocketOptionID, long nLevel, BasicStatR
 
 void BasicStat::Clear()
 {
-    __sub_0007F6F0(this, nullptr);
+    _ZtlSecurePut_nGender(0);
+    _ZtlSecurePut_nLevel(0);
+    _ZtlSecurePut_nJob(0);
+    _ZtlSecurePut_nSTR(0);
+    _ZtlSecurePut_nDEX(0);
+    _ZtlSecurePut_nINT(0);
+    _ZtlSecurePut_nLUK(0);
+    _ZtlSecurePut_nPOP(0);
+    _ZtlSecurePut_nMHP(0);
+    _ZtlSecurePut_nMMP(0);
 }
 
 ForcedStat::ForcedStat()
 {
-    // TODO UNIMPLEMENTED;
-    //_ctor_0();
+    _ZtlSecurePut_nSTR(0);
+    _ZtlSecurePut_nDEX(0);
+    _ZtlSecurePut_nINT(0);
+    _ZtlSecurePut_nLUK(0);
+    _ZtlSecurePut_nPAD(0);
+    _ZtlSecurePut_nPDD(0);
+    _ZtlSecurePut_nMAD(0);
+    _ZtlSecurePut_nMDD(0);
+    _ZtlSecurePut_nACC(0);
+    _ZtlSecurePut_nEVA(0);
+    _ZtlSecurePut_nSpeed(0);
+    _ZtlSecurePut_nJump(0);
+    _ZtlSecurePut_nSpeedMax(0);
 }
 
 void ForcedStat::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) ForcedStat();
 }
 
 _ZTL_SEC_GETSETI(long, ForcedStat, nSTR)
@@ -1414,7 +1505,6 @@ _ZTL_SEC_GETSETI(long, ForcedStat, nSpeedMax)
 
 void ForcedStat::Clear()
 {
-    //__sub_00327540(this, nullptr);
     _ZtlSecurePut_nSTR(0);
     _ZtlSecurePut_nDEX(0);
     _ZtlSecurePut_nINT(0);
@@ -1455,28 +1545,78 @@ int32_t ForcedStat::IsForced()
 
 NEXTLEVEL::NEXTLEVEL()
 {
-    _ctor_0();
+    this->n[2] = 34;
+    this->n[3] = 57;
+    this->n[4] = 92;
+    this->n[5] = 135;
+    auto v1 = 15;
+    this->n[1] = 15;
+    this->n[6] = 372;
+    this->n[7] = 560;
+    this->n[8] = 840;
+    this->n[9] = 1242;
+    auto v2 = this->n[9];
+    this->n[10] = v2;
+    this->n[11] = v2;
+    this->n[12] = v2;
+    this->n[13] = v2;
+    this->n[14] = v2;
+    do
+    {
+        this->n[v1] = (this->n[v1 - 1] * 1.2 + 0.5);
+        ++v1;
+    }
+    while (v1 <= 29);
+    const auto v3 = this->n[29];
+    this->n[30] = v3;
+    this->n[31] = v3;
+    this->n[32] = v3;
+    this->n[33] = v3;
+    this->n[34] = v3;
+    for (auto i = 35; i <= 39; ++i)
+        this->n[i] = (this->n[i - 1] * 1.2 + 0.5);
+    for (auto j = 40; j <= 69; ++j)
+        this->n[j] = (this->n[j - 1] * 1.08 + 0.5);
+    auto v6 = this->n[69];
+    this->n[70] = v6;
+    this->n[71] = v6;
+    this->n[72] = v6;
+    this->n[73] = v6;
+    this->n[74] = v6;
+    for (auto k = 75; k <= 119; ++k)
+        this->n[k] = (this->n[k - 1] * 1.07 + 0.5);
+    auto v8 = this->n[119];
+    this->n[120] = v8;
+    this->n[121] = v8;
+    this->n[122] = v8;
+    this->n[123] = v8;
+    this->n[124] = v8;
+    for (auto m = 125; m <= 159; ++m)
+        this->n[m] = (this->n[m - 1] * 1.07 + 0.5);
+    for (auto n = 160; n <= 199; ++n)
+        this->n[n] = (this->n[n - 1] * 1.06 + 0.5);
+    this->n[200] = 0;
 }
 
 void NEXTLEVEL::_ctor_0()
 {
-    return __sub_00321360(this, nullptr);
+    new(this) NEXTLEVEL();
 }
 
 long NEXTLEVEL::GetNextLevelExp(long arg0)
 {
+    if (arg0 == 200)
+        return 0;
     return n[arg0 + 1];
 }
 
 CalcDamage::~CalcDamage()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CalcDamage::_dtor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    this->~CalcDamage();
 }
 
 CalcDamage::CalcDamage()
@@ -1518,22 +1658,147 @@ double __cdecl CalcDamage::GetMsateryConstByWT(long nWT)
     // return __sub_00321540(nWT);
 }
 
-double __cdecl CalcDamage::CalcDamageByWT(long arg0, const BasicStat& arg1, long arg2, long arg3)
+double __cdecl CalcDamage::CalcDamageByWT(long nWT, const BasicStat& bs, long nPAD, long nMAD)
 {
-    return __sub_00324DB0(arg0, arg1, arg2, arg3);
+    auto result = 0.;
+    auto str = bs._ZtlSecureGet_nSTR();
+    auto dex = bs._ZtlSecureGet_nDEX();
+    auto luk = bs._ZtlSecureGet_nLUK();
+    auto int_ = bs._ZtlSecureGet_nINT();
+    auto job = bs._ZtlSecureGet_nJob();
+    if (job == 1000 * (job / 1000) || job == 2001)
+    {
+        return _anon_calc_base_damage(str, dex, 0, nPAD, 1.2);
+    }
+    else
+    {
+        if (is_mage_job(job % 1000 / 100))
+        {
+            return _anon_calc_base_damage(int_, luk, 0, nMAD, 1.0);
+        }
+        else
+        {
+            switch (nWT)
+            {
+            case 30:
+            case 31:
+            case 32:
+                result = _anon_calc_base_damage(str, dex, 0, nPAD, 1.2);
+                break;
+            case 33:
+                result = _anon_calc_base_damage(luk, dex, str, nPAD, 1.3);
+                break;
+            case 39:
+                result = _anon_calc_base_damage(str, dex, 0, 1, 1.43);
+                break;
+            case 40:
+            case 41:
+            case 42:
+                result = _anon_calc_base_damage(str, dex, 0, nPAD, 1.32);
+                break;
+            case 43:
+            case 44:
+                result = _anon_calc_base_damage(str, dex, 0, nPAD, 1.49);
+                break;
+            case 45:
+                result = _anon_calc_base_damage(dex, str, 0, nPAD, 1.2);
+                break;
+            case 46:
+                result = _anon_calc_base_damage(dex, str, 0, nPAD, 1.35);
+                break;
+            case 47:
+                result = _anon_calc_base_damage(luk, dex, 0, nPAD, 1.75);
+                break;
+            case 48:
+                result = _anon_calc_base_damage(str, dex, 0, nPAD, 1.7);
+                break;
+            case 49:
+                result = _anon_calc_base_damage(dex, str, 0, nPAD, 1.5);
+                break;
+            default:
+                result = 0.0;
+                break;
+            }
+        }
+    }
+    return result;
 }
 
-long CalcDamage::PDamage(const MobStat& ms, const CharacterData& cd, const BasicStat& bs, const SecondaryStat& ss,
+long CalcDamage::PDamage(const MobStat& ms, const CharacterData& cd, const BasicStat& bs, SecondaryStat& ss,
                          MobAttackInfo* pInfo, uint32_t nRandForMissCheck, const ZRef<PassiveSkillData> pPsd,
                          long* pnReduce, unsigned long dwMobTemplateID, int32_t bShieldEquiped, long nDarkForcePddr)
 {
-    return __sub_0032E720(this, nullptr, ms, cd, bs, ss, pInfo, nRandForMissCheck, CreateNakedParam(pPsd), pnReduce,
-                          dwMobTemplateID, bShieldEquiped, nDarkForcePddr);
+    /*return __sub_0032E720(this, nullptr, ms, cd, bs, ss, pInfo, nRandForMissCheck, CreateNakedParam(pPsd), pnReduce,
+                          dwMobTemplateID, bShieldEquiped, nDarkForcePddr);*/
+    auto nEr = 0;
+    auto nPsdPDDR = 0;
+    auto nEVAr = 0;
+    auto nPsdPDR = 0;
+    if (pPsd)
+    {
+        nEr = pPsd->nEr;
+        nPsdPDDR = pPsd->nPDDr;
+        nEVAr = pPsd->nEVAr;
+        nPsdPDR = pPsd->nPDr;
+    }
+
+    if (CheckPDamageMiss(ms, cd, bs, ss, nRandForMissCheck, nEVAr, nEr))
+    {
+        return 0;
+    }
+
+    auto job = bs._ZtlSecureGet_nJob();
+    auto v18 = 0.;
+    if (ms.nPAD && ms.rPAD_ == 1201006 && dwMobTemplateID / 10000 != 882)
+    {
+        auto v17 = ms.nPAD_ / 100.0 + 1.0;
+        if (pInfo)
+            v18 = (v17 * pInfo->nPAD);
+        else
+            v18 = (v17 * ms.nPAD);
+    }
+    else
+    {
+        auto v19 = pInfo ? pInfo->nPAD : ms.nPAD;
+        v18 = ms.nPAD_ + v19;
+    }
+
+    auto v12 = v18;
+    if (v12 > 0 && v12 >= 29999)
+    {
+        if (v12 >= 29999)
+            v12 = 29999;
+    }
+
+    auto lvl = bs._ZtlSecureGet_nLevel();
+    auto rnd = m_RndGenForMob.Random();
+    auto dmg = _anon_calc_mob_base_damamge(v12, rnd);
+
+    auto pdd = ss.GetPDD(bs.CalcBasePDD(), cd, nPsdPDDR, nullptr, bShieldEquiped, nDarkForcePddr);
+    auto dmgB = _anon_adjust_base_depense(dmg, pdd, ms.nLevel, lvl, nPsdPDR);
+
+    auto invincible = ss._ZtlSecureGet_nInvincible_();
+    auto swallowDef = ss._ZtlSecureGet_nSwallowDefence_();
+
+    auto dmgC = dmgB - invincible * dmgB / 100.;
+    dmg = dmgC - swallowDef * dmgC / 100.;
+
+    if (ss._ZtlSecureGet_nMesoGuard_() && pnReduce)
+        *pnReduce = GetMesoGuardReduce(cd, dmg);
+
+
+    auto mobPowerUP = ms.nPowerUp_;
+    auto v23 = mobPowerUP ? mobPowerUP * dmg / 100 : dmg;
+
+    return std::clamp(v23, 1.0, 999999.0);
 }
 
 long CalcDamage::PDamage(const MobStat& msMobAttack, const MobStat& msMobTarget)
 {
-    return __sub_00326910(this, nullptr, msMobAttack, msMobTarget);
+    //return __sub_00326910(this, nullptr, msMobAttack, msMobTarget);
+    auto rnd = m_RndForMob.Random();
+    auto res = (_anon_calc_mob_base_damamge(msMobAttack.nPAD, rnd) * ((100.0 - msMobTarget.nPDR) / 100.0));
+    return res <= 0 ? 1. : res;
 }
 
 long CalcDamage::PDamage(const unsigned long dwMobID, const MobStat& ms, const CharacterData& cd, const BasicStat& bs,
@@ -1609,7 +1874,20 @@ int32_t
 CalcDamage::CheckPDamageMiss(const MobStat& ms, const CharacterData& cd, const BasicStat& bs, SecondaryStat& ss,
                              uint32_t nRandForMissCheck, long nPsdEVAR, long nPsdER)
 {
-    return __sub_00326720(this, nullptr, ms, cd, bs, ss, nRandForMissCheck, nPsdEVAR, nPsdER);
+    //return __sub_00326720(this, nullptr, ms, cd, bs, ss, nRandForMissCheck, nPsdEVAR, nPsdER);
+    if (ms.bCannotEvade)
+        return false;
+
+    if (ss._ZtlSecureGet_nBlessingArmor_() > 0)
+        return true;
+
+    auto luk = bs._ZtlSecureGet_nLUK();
+    auto dex = bs._ZtlSecureGet_nDEX();
+    auto eva = ss.GetEVA(cd, nPsdEVAR, dex + 2 * luk, nullptr);
+    auto mobAcc = std::clamp<long>(ms.nACC + ms.nACC_, 0, 9999);
+    auto lvl = bs._ZtlSecureGet_nLevel();
+    auto rnd = get_rand(nRandForMissCheck, 100., 0.);
+    return _anon_calc_evar(eva, mobAcc, lvl, ms.nLevel, nPsdER) >= rnd;
 }
 
 int32_t
@@ -1661,19 +1939,36 @@ uint32_t CalcDamage::GetMortalBlowRandom()
 
 int32_t CalcDamage::CalcMImmune(const MobStat& ms, const SecondaryStat& ss, long nRand)
 {
-    return __sub_00323020(this, nullptr, ms, ss, nRand);
+    UNIMPLEMENTED;
 }
 
-int32_t CalcDamage::CalcPImmune(const MobStat& ms, const SecondaryStat& ss, long nRand)
+int32_t CalcDamage::CalcPImmune(const MobStat& ms, const SecondaryStat& ss, long nRand) const
 {
-    return __sub_00323020(this, nullptr, ms, ss, nRand);
+    return ms.nPImmune_ && nRand > ss._ZtlSecureGet_nRespectPImmune_();
 }
 
 int32_t
 CalcDamage::IsCounterAttackHit(const MobStat& ms, const CharacterData& cd, const BasicStat& bs, const SecondaryStat& ss,
                                const ZRef<PassiveSkillData> pPsd, int32_t bInvincible, int32_t bMagicAttack)
 {
-    return __sub_0032E600(this, nullptr, ms, cd, bs, ss, CreateNakedParam(pPsd), bInvincible, bMagicAttack);
+    //return __sub_0032E600(this, nullptr, ms, cd, bs, ss, CreateNakedParam(pPsd), bInvincible, bMagicAttack);
+    if (bInvincible)
+    {
+        return false;
+    }
+
+    auto nACCr = 0;
+    auto nAR = 0;
+    if (pPsd)
+    {
+        nACCr = pPsd->nACCr;
+        nAR = pPsd->nAr;
+    }
+    auto pacc = bs.CalcBasePACC();
+    auto acc = ss.GetACC(cd, nACCr, pacc, nullptr);
+    auto eva = std::min<long>(ms.nEVA + ms.nEVA_, 9999);
+    auto lvl = bs._ZtlSecureGet_nLevel();
+    return _anon_calc_accr(acc, eva, lvl, ms.nLevel, nAR);
 }
 
 void __cdecl CalcDamage::LoadStandardPDD()
@@ -1689,7 +1984,51 @@ long __cdecl CalcDamage::GetStandardPDD(long arg0, long arg1)
 
 long CalcDamage::GetMesoGuardReduce(const CharacterData& cd, double damage)
 {
-    return __sub_003251D0(this, nullptr, cd, damage);
+    //return __sub_003251D0(this, nullptr, cd, damage);
+    const SKILLENTRY* pSkill{};
+    auto skillInfo = TSingleton<CSkillInfo>::ms_pInstance;
+    auto v3 = 1.0;
+    auto SkillLevel = skillInfo->GetSkillLevel(cd, CHIEFBANDIT_MESO_GUARD, &pSkill);
+    auto v5 = 0.;
+    if (damage <= 1.0 || (v3 = damage, v5 = 999999.0, damage < 999999.0))
+        v5 = v3;
+    auto nRealDamage = v5;
+    if (!pSkill || !SkillLevel)
+        return 0;
+    auto& LevelData = pSkill->GetLevelData(SkillLevel);
+    auto v7 = 50;
+    auto v8 = LevelData._ZtlSecureGet_nX();
+    const SKILLENTRY* pGridSkill{};
+    auto v9 = skillInfo->GetSkillLevel(cd, SHADOWER_MESO_MASTERY, &pGridSkill);
+    if (v9 > 0 && pGridSkill)
+    {
+        auto& v11 = pGridSkill->GetLevelData(v9);
+
+        auto v12 = v11._ZtlSecureGet_nV() + 50;
+        if (v12 >= 100)
+        {
+            v7 = 100;
+        }
+        else
+        {
+            v7 = v12;
+            if (v12 <= 50)
+                v7 = 50;
+        }
+        auto v14 = v8 - v11._ZtlSecureGet_nW();
+        auto v15 = v11._ZtlSecureGet_nX();
+        v8 = v14 <= 0 ? 0 : v14;
+        if (v8 >= v15)
+            v8 = v15;
+    }
+    auto money = cd.characterStat._ZtlSecureGet_nMoney();
+    auto v16 = nRealDamage * v7 / 100;
+    if (money >= v16 * v8 / 100)
+        return v16;
+    else
+        return 100
+            * money
+            / v8;
 }
 
 long CalcDamage::PDamageSummoned(const MobStat& ms, const CharacterData& cd, const BasicStat& bs,
@@ -1700,7 +2039,8 @@ long CalcDamage::PDamageSummoned(const MobStat& ms, const CharacterData& cd, con
 {
     /*return __sub_0032EC90(this, nullptr, ms, cd, bs, ss, pInfo, nRandForMissCheck, CreateNakedParam(pPsd), pnReduce,
                           dwMobTemplateID, bShieldEquiped, nDarkForcePddr);*/
-    return this->PDamage(ms, cd, bs, ss, pInfo, nRandForMissCheck, pPsd, pnReduce, dwMobTemplateID, bShieldEquiped,
+    return this->PDamage(ms, cd, bs, const_cast<SecondaryStat&>(ss), pInfo, nRandForMissCheck, pPsd, pnReduce,
+                         dwMobTemplateID, bShieldEquiped,
                          nDarkForcePddr);
 }
 
@@ -1747,12 +2087,11 @@ long __cdecl CalcDamage::GetCounterDamage(long nAT, MobStat* pMobStat, long tAtt
 
 MobStat::~MobStat()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void MobStat::_dtor_0()
 {
-    return __sub_00240930(this, nullptr);
+    return this->~MobStat();
 }
 
 MobStat::MobStat(const MobStat& arg0)
@@ -1768,13 +2107,11 @@ void MobStat::_ctor_1(const MobStat& arg0)
 
 MobStat::MobStat()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void MobStat::_ctor_0()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) MobStat();
 }
 
 void MobStat::AddBurnedInfo(long arg0, long arg1, long arg2, unsigned long arg3, long arg4, long arg5, long arg6,
@@ -1786,7 +2123,23 @@ void MobStat::AddBurnedInfo(long arg0, long arg1, long arg2, unsigned long arg3,
 
 void MobStat::SetFrom(const CMobTemplate* pTemplate)
 {
-    __sub_003249F0(this, nullptr, pTemplate);
+    //__sub_003249F0(this, nullptr, pTemplate);
+    memset(this, 0, sizeof(MobStat));
+    nLevel = pTemplate->_ZtlSecureGet_nLevel();
+    aDamagedElemAttr = pTemplate->aDamagedElemAttr;
+    nPAD = pTemplate->_ZtlSecureGet_nPAD();
+    nPDR = pTemplate->_ZtlSecureGet_nPDR();
+    nMAD = pTemplate->_ZtlSecureGet_nMAD();
+    nMDR = pTemplate->_ZtlSecureGet_nMDR();
+    nACC = pTemplate->_ZtlSecureGet_nACC();
+    nEVA = pTemplate->_ZtlSecureGet_nEVA();
+
+    nSpeed = pTemplate->_ZtlSecureGet_nMoveAbility() == 4
+                 ? pTemplate->_ZtlSecureGet_nFlySpeed()
+                 : pTemplate->_ZtlSecureGet_nSpeed();
+    nFs = pTemplate->nFs;
+    bInvincible = pTemplate->_ZtlSecureGet_bInvincible();
+    bCannotEvade = pTemplate->_ZtlSecureGet_bCannotEvade();
 }
 
 void MobStat::SetFromWhenDoom(const CMobTemplate* pTemplate)
@@ -1834,7 +2187,8 @@ void MobStat::AdjustDamagedElemAttr(long nSkillID, const long* aOriginalDamagedE
 
 void MobStat::ResetDamagedElemAttr(const long* aOriginalDamagedElemAttr)
 {
-    __sub_00321270(this, nullptr, aOriginalDamagedElemAttr);
+    //__sub_00321270(this, nullptr, aOriginalDamagedElemAttr);
+    std::copy_n(aOriginalDamagedElemAttr, 8, this->aDamagedElemAttr.begin());
 }
 
 int32_t __cdecl MobStat::IsMovementAffectingStat(MY_UINT128 uFlag)
@@ -1842,10 +2196,7 @@ int32_t __cdecl MobStat::IsMovementAffectingStat(MY_UINT128 uFlag)
     return __sub_00321290(CreateNakedParam(uFlag));
 }
 
-MobStat& MobStat::operator=(const MobStat& arg0)
-{
-    return _op_assign_14(this, arg0);
-}
+MobStat& MobStat::operator=(const MobStat& arg0) = default;
 
 MobStat& MobStat::_op_assign_14(MobStat* pThis, const MobStat& arg0)
 {
@@ -1938,7 +2289,25 @@ double __cdecl get_damage_adjusted_by_charged_elemAttr(double damage, const long
                                                        const SecondaryStat& ss,
                                                        const CharacterData& cd)
 {
-    return __sub_00323400(damage, aDamagedElemAttr, ss, cd);
+    //return __sub_00323400(damage, aDamagedElemAttr, ss, cd);
+    if (!ss._ZtlSecureGet_nWeaponCharge_())
+        return damage;
+    auto rCharge = ss._ZtlSecureGet_rWeaponCharge_();
+    auto elem = get_element_by_charged_skillid(rCharge);
+    if (!get_element_by_charged_skillid(rCharge))
+        return damage;
+
+    const SKILLENTRY* pSkill{};
+    auto slvl = CSkillInfo::GetInstance()->GetSkillLevel(cd, rCharge, &pSkill);
+    if (!slvl)
+        return damage;
+
+
+    auto& lvlData = pSkill->GetLevelData(slvl);
+    auto z = lvlData._ZtlSecureGet_nZ();
+    auto amp = lvlData._ZtlSecureGet_nDamage();
+
+    return get_damage_adjusted_by_elemAttr(amp * damage, aDamagedElemAttr[elem], z, 0.);
 }
 
 long __cdecl get_next_item_level_exp(ZRef<GW_ItemSlotBase> pItem)
@@ -1980,7 +2349,7 @@ void __cdecl _anon_ApplyGuidedBulletDamage(const CharacterData& cd, SecondarySta
         ZFatalSectionGuard guard(tmp->GetLock());
         if (tmp->GetValue() == dwMobID)
         {
-            auto levelData = skillEntry->GetLevelData(lvl);
+            auto& levelData = skillEntry->GetLevelData(lvl);
             auto x = levelData._ZtlSecureGet_nX();
             damage = static_cast<double>(x) * damage / 100.;
         }
@@ -2021,7 +2390,7 @@ int32_t __cdecl GetIdealStatUp(const BasicStat& bs, int32_t bWantToBeInfighter, 
     return __sub_0033DDB0(bs, bWantToBeInfighter, aStatUp);
 }
 
-double __cdecl _anon_calc_mob_base_damamge(long p1, long nRand, long nAttackLevel, long nTargetLevel)
+double __cdecl _anon_calc_mob_base_damamge(long p1, long nRand)
 {
     //return __sub_003266F0(p1, nRand, nAttackLevel, nTargetLevel);
     return get_rand(nRand, (double)p1, 0.85 * (double)p1);
@@ -2058,7 +2427,28 @@ double __cdecl _anon_adjust_base_depense(double damage, long nADD, long nAttackL
 
 int32_t __cdecl IsCalcDamageStat(MY_UINT128 uFlag)
 {
-    return __sub_003215A0(CreateNakedParam(uFlag));
+    //return __sub_003215A0(CreateNakedParam(uFlag));
+    static MY_UINT128 FILTER = CTS_MAD
+        | CTS_ACC
+        | CTS_EVA
+        | CTS_DARKNESS
+        | CTS_COMBO_COUNTER
+        | CTS_WEAPON_CHARGE
+        | CTS_BASICSTATUP
+        | CTS_SHARPEYES
+        | CTS_MAXLEVELBUFF
+        | CTS_ENERGY_CHARGED
+        | CTS_COMBO_ABILITY_BUFF
+        | CTS_ASSISTCHARGE
+        | CTS_SUDDEN_DEATH
+        | CTS_FINAL_CUT
+        | CTS_THORNSEFFECT
+        | CTS_EPAD
+        | CTS_DARK_AURA
+        | CTS_DAMR
+        | CTS_BLESSING_ARMOR;
+
+    return uFlag & FILTER;
 }
 
 double __cdecl get_damage_adjusted_by_elemAttr(double damage, const SKILLENTRY* pSkill, const long* aDamagedElemAttr,
@@ -2092,7 +2482,7 @@ double __cdecl get_damage_adjusted_by_elemAttr(double damage, const SKILLENTRY* 
         return get_damage_adjusted_by_elemAttr(damage, aDamagedElemAttr[pSkill->nAttackElemAttr], dAdjustByBuff,
                                                dBoost);
     }
-    auto LevelData = pSkill->GetLevelData(nSLV);
+    auto& LevelData = pSkill->GetLevelData(nSLV);
     auto v9 = LevelData._ZtlSecureGet_nX();
     return get_damage_adjusted_by_elemAttr(damage, aDamagedElemAttr[pSkill->nAttackElemAttr], v9 / 100.0, dBoost);
 }

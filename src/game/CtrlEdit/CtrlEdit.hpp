@@ -56,7 +56,7 @@ public:
 		int32_t bNumber{};
 
 	public:
-		ZXString<unsigned short> sEmptyImageUOL;
+		ZXString16 sEmptyImageUOL;
 		// Methods
 	public:
 		~CREATEPARAM();
@@ -77,6 +77,7 @@ public:
 
 	public:
 		void _ctor_0();
+
 
 	public:
 		CCtrlEdit::CREATEPARAM &operator=(const CCtrlEdit::CREATEPARAM &arg0);
@@ -373,12 +374,11 @@ public:
 
 public:
 	void _ctor_1(const CCtrlEdit &arg0);
+	void _ctor_0();
 
 public:
 	CCtrlEdit();
 
-public:
-	void _ctor_0();
 
 public:
 	ZXString<char> GetText();
@@ -396,7 +396,7 @@ public:
 	void MoveCaret(int32_t nCode);
 
 protected:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 protected:
 	virtual int32_t OnSetFocus(int32_t bFocus);

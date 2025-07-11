@@ -21,7 +21,6 @@ HRESULT __fastcall __QueryVecCtrlNpc(_x_com_ptr<IWzVector2D>* self, void* edx, C
 
 CNpc::~CNpc()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CNpc::_dtor_0()
@@ -94,6 +93,8 @@ void CNpc::Init(unsigned long dwNpcId, CInPacket& pkt)
     m_ptPosPrev.y = pkt.Decode2();
     m_ptPos = m_ptPosPrev;
 
+    spdlog::info("npc x: {}, y: {}", m_ptPos.x, m_ptPos.y);
+
 
     m_nMoveAction = pkt.Decode1();
     auto phy2d = CWvsPhysicalSpace2D::GetInstance();
@@ -132,7 +133,7 @@ void CNpc::Init(unsigned long dwNpcId, CInPacket& pkt)
     ctrl = CVecCtrlNpc::CreateInstance();
     ctrl->Init(this, m_pTemplate->bMove, &m_rgHorz);
     ctrl->SetActive(false, 0, 0, 0, 0, 0, nullptr);
-    m_pvc.Attach((IWzVector2D*)ctrl, true);
+    m_pvcActive.Attach((IWzVector2D*)ctrl, true);
 
 
     auto& gr = get_gr();
@@ -148,6 +149,12 @@ void CNpc::Init(unsigned long dwNpcId, CInPacket& pkt)
     }
 
     m_ptBalloonOffset = {0, 0};
+
+    if (m_pTemplate && m_pTemplate->dwTemplateID == 1300000)
+    {
+        this->m_ptBalloonOffset.x = 0;
+        this->m_ptBalloonOffset.y = -20;
+    }
 
     if (m_pTemplate->bHide)
     {
@@ -186,13 +193,11 @@ void CNpc::SetActive(int32_t bActive)
 
 unsigned long CNpc::GetTemplateID()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_pTemplate->dwTemplateID;
 }
 
 int32_t CNpc::IsQuestNpc()
 {
-    // TODO: No module found for method
     UNIMPLEMENTED;
 }
 
@@ -276,7 +281,17 @@ ZList<ZRef<CActionMan::NPCACTIONFRAMEENTRY>>& CNpc::GetActionFrameList(long nAct
 
 const tagRECT& CNpc::GetDCRange()
 {
-    return __sub_0026FD00(this, nullptr);
+    //return __sub_0026FD00(this, nullptr);
+    auto x = m_ptPos.x;
+    auto y = m_ptPos.y;
+    auto& rc = m_pTemplate->dcRange;
+    m_rcNPC.left = x + rc.left;
+    m_rcNPC.top = y + rc.top;
+    m_rcNPC.right = x + rc.right;
+    m_rcNPC.bottom = y + rc.bottom;
+
+
+    return m_rcNPC;
 }
 
 const tagRECT& CNpc::GetQuestDCRange()
@@ -286,7 +301,12 @@ const tagRECT& CNpc::GetQuestDCRange()
 
 void CNpc::SetShoeAttr()
 {
-    __sub_00271180(this, nullptr);
+    //__sub_00271180(this, nullptr);
+    m_pAttrShoe = new CAttrShoe(0);
+
+    auto speed = m_pTemplate->nSpeed;
+    speed = speed > 10 ? speed >= 140 ? 140 : speed : 10;
+    m_pAttrShoe->walkSpeed = (double)speed / 100.;
 }
 
 void CNpc::OnChat(Ztl_bstr_t bsText)
@@ -302,10 +322,11 @@ void CNpc::ShowQuestList()
 void CNpc::Update()
 {
     //__sub_00277B50(this, nullptr);
+
+
     if (m_pLayerEffect)
     {
-        auto animState = m_pLayerEffect->GetanimationState();
-        if (!animState)
+        if (const auto animState = m_pLayerEffect->GetanimationState(); !animState)
         {
             m_pLayerEffect = 0;
         }
@@ -323,10 +344,12 @@ void CNpc::Update()
     }
 
 
-    CVecCtrlNpc* vec = dynamic_cast<CVecCtrlNpc*>(m_pvc.op_arrow());
+    CVecCtrlNpc* vec = GetVecCtrlNpc();
+    auto* vecActive = dynamic_cast<CVecCtrl*>(m_pvcActive.op_arrow());
+    auto ma = vec->GetMoveAction();
     auto updated = vec->UpdatePassive(0, 0);
-    vec->SetMoveAction(m_nMoveAction);;
-    if (vec->IsActive())
+    SetMoveAction(ma, false);
+    if (vecActive->IsActive())
     {
         auto wait = m_tWaitTimeForNextActionOrChat;
         if (wait > 0)
@@ -350,7 +373,6 @@ void CNpc::Update()
                 GenerateMovePath(nAction, nChatIdx);
             }
         }
-
     }
 
 LABEL_29:
@@ -371,7 +393,6 @@ LABEL_29:
     }
 
 
-
     auto v17 = this->m_nMoveAction >> 1 == 2;
     auto v18 = this->m_pImitatedLook;
     auto v19 = v18 ? v18->GetOneTimeAction() > -1 : this->m_nOneTimeAction > -1;
@@ -382,10 +403,8 @@ LABEL_29:
 
     this->m_tFrameDelay -= 30;
 
-    if ( this->m_tFrameDelay > 0 )
+    if (this->m_tFrameDelay > 0)
         goto LABEL_60;
-
-
 
 
     if (IsOnPlayingOneTimeAction())
@@ -397,9 +416,8 @@ LABEL_29:
         LABEL_60:
             PrepareActionLayer();
 
+
             m_ptPosPrev = m_ptPos;
-
-
             vec->_GetSnapshot((int*)&m_ptPos.x, (int*)&m_ptPos.y, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                               vtMissing);
         }
@@ -417,9 +435,10 @@ LABEL_29:
     m_tFrameDelay = 16 + (*cur)->nDelay;
 }
 
-void CNpc::UpdateScript(_SYSTEMTIME st)
+void CNpc::UpdateScript(_SYSTEMTIME st) const
 {
-    __sub_0026FD50(this, nullptr, CreateNakedParam(st));
+    //__sub_0026FD50(this, nullptr, CreateNakedParam(st));
+    m_pTemplate->UpdateScript(st);
 }
 
 void CNpc::SetMapleTVMessage()
@@ -434,22 +453,37 @@ void CNpc::DrawMapleTVMessage()
 
 void CNpc::SetImitatedLook(AvatarLook& al)
 {
-    __sub_002729D0(this, nullptr, al);
+    //__sub_002729D0(this, nullptr, al);
+    m_pImitatedLook = new CAvatar();
+    m_pImitatedLook->Init(al, 5, m_pvc, {}, 0, 0, 0, 100, 0);
+    PrepareActionLayer();
+
+    MakeNameTag(m_pTemplate->sName.c_str(), m_pLayerAction, m_pvc, 1001, 0, 0, 0, 0, 0);
+    if (!m_pTemplate->sFuncName.IsEmpty())
+    {
+        MakeNameTag(m_pTemplate->sFuncName.c_str(), m_pLayerAction, m_pvc, 1002, 0, 0, 0, 0, 0);
+    }
+
+    SetLayerZ();
+    SetQuestList(true);
 }
 
-int32_t CNpc::IsImitated()
+int32_t CNpc::IsImitated() const
 {
-    return __sub_00270210(this, nullptr);
+    //return __sub_00270210(this, nullptr);
+    return static_cast<bool>(m_pImitatedLook);
 }
 
-int32_t CNpc::IsEnabled()
+int32_t CNpc::IsEnabled() const
 {
-    return __sub_00270210(this, nullptr);
+    //return __sub_00270210(this, nullptr);
+    return m_bEnabled;
 }
 
-int32_t CNpc::IsHideToLocalUser()
+int32_t CNpc::IsHideToLocalUser() const
 {
-    return __sub_00270210(this, nullptr);
+    //return __sub_00270210(this, nullptr);
+    return m_bHideToLocalUser;
 }
 
 void CNpc::RequestSpecialAction(ZXString<char> sAction)
@@ -459,7 +493,7 @@ void CNpc::RequestSpecialAction(ZXString<char> sAction)
 
 void CNpc::SetQuestList(int32_t bReload)
 {
-    __sub_00271980(this, nullptr, bReload);
+    //__sub_00271980(this, nullptr, bReload);
 }
 
 void CNpc::SetAcceptQuestOnlyOne(uint16_t usQuestID)
@@ -474,7 +508,8 @@ void CNpc::SetCompletedQuestOnlyOne(uint16_t usQuestID)
 
 long CNpc::GetType()
 {
-    return __sub_00270F60(this, nullptr);
+    //return __sub_00270F60(this, nullptr);
+    return 2;
 }
 
 long CNpc::OnResolveMoveAction(long nInputX, long nInputY, long nCurMoveAction, const CVecCtrl* pvc)
@@ -494,27 +529,33 @@ long CNpc::OnResolveMoveAction(long nInputX, long nInputY, long nCurMoveAction, 
 
 void CNpc::OnLayerZChanged(const CVecCtrl* pvc)
 {
-    __sub_0026FF90(this, nullptr, pvc);
+    //__sub_0026FF90(this, nullptr, pvc);
+    if (m_pvc.op_arrow() == pvc)
+        SetLayerZ();
 }
 
 const ZRef<CAttrShoe> CNpc::GetShoeAttr()
 {
-    return __sub_002712F0(this, nullptr);
+    //return __sub_002712F0(this, nullptr);
+    return m_pAttrShoe;
 }
 
 const tagPOINT CNpc::GetPos()
 {
-    return __sub_00270F70(this, nullptr);
+    //return __sub_00270F70(this, nullptr);
+    return m_ptPos;
 }
 
 const tagPOINT CNpc::GetPosPrev()
 {
-    return __sub_00270F90(this, nullptr);
+    //return __sub_00270F90(this, nullptr);
+    return m_ptPosPrev;
 }
 
 long CNpc::GetZMass()
 {
-    return __sub_00271000(this, nullptr);
+    //return __sub_00271000(this, nullptr);
+    return GetVecCtrlNpc()->GetZMass();
 }
 
 void CNpc::OnMove(CInPacket& iPacket)
@@ -589,7 +630,15 @@ void CNpc::PrepareActionLayer()
 
 void CNpc::SetLayerZ()
 {
-    __sub_0026FED0(this, nullptr);
+    //__sub_0026FED0(this, nullptr);
+    auto vec = GetVecCtrlNpc();
+    auto zmass = vec->GetZMass();
+    auto page = vec->GetPage();
+    m_pLayerAction->Putz(10 * (3000 * page - zmass) - 0x3FFF8AD5);
+    if (m_pImitatedLook)
+    {
+        m_pImitatedLook->SetLayerZ(m_pLayerAction->Getz());
+    }
 }
 
 long CNpc::MoveAction2RawAction(long arg0, long* arg1)
@@ -610,12 +659,52 @@ void CNpc::RestoreLayers()
 
 void CNpc::ViewOrHide(int32_t bView, int32_t bViewNameTag)
 {
-    __sub_0026FE00(this, nullptr, bView, bViewNameTag);
+    //__sub_0026FE00(this, nullptr, bView, bViewNameTag);
+    m_bHideToLocalUser = !bView;
+    m_pLayerAction->Putvisible(bView);
+    if (m_pLayerDcMark)
+    {
+        m_pLayerDcMark->Putvisible(bView);
+    }
+    if (m_pLayerQuestInfo)
+    {
+        m_pLayerQuestInfo->Putvisible(bView);
+    }
+
+    ShowNameTag(bViewNameTag);
 }
 
 void CNpc::SetClientActionByQuest()
 {
-    __sub_00271020(this, nullptr);
+    //__sub_00271020(this, nullptr);
+    auto clientActIx = this->m_nClientActionIdx;
+    this->m_nClientActionIdx_Old = clientActIx;
+    auto actId = m_pTemplate->CalcClientActionSetIdx(true);
+    this->m_nClientActionIdx = actId;
+    if (actId != this->m_nClientActionIdx_Old)
+    {
+        PrepareActionLayer();
+        if (this->m_nClientActionIdx < 0)
+        {
+            if (!this->m_pTemplate->bHide)
+            {
+                ViewOrHide(true, !m_pTemplate->bHideName);
+                return;
+            }
+        }
+        else if (!m_pTemplate->m_lClientActionSet.FindIndex(
+            m_nClientActionIdx)->bHide)
+        {
+            ViewOrHide(true, !m_pTemplate->bHideName);
+            return;
+        }
+        ViewOrHide(false, false);
+    }
+}
+
+CVecCtrlNpc* CNpc::GetVecCtrlNpc()
+{
+    return dynamic_cast<CVecCtrlNpc*>(m_pvc.op_arrow());
 }
 
 CNpc& CNpc::operator=(const CNpc& arg0)
@@ -631,5 +720,6 @@ CNpc& CNpc::_op_assign_55(CNpc* pThis, const CNpc& arg0)
 
 CNpc* __cdecl CreateNpc(CNpcTemplate* pNpcTemplate, unsigned long dwID)
 {
-    return __sub_002717B0(pNpcTemplate, dwID);
+    //return __sub_002717B0(pNpcTemplate, dwID);
+    return new CNpc(pNpcTemplate, dwID);
 }

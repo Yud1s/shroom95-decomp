@@ -34,7 +34,7 @@ __SUB_CLASS_THIS(003CF040, __thiscall, 54703,  CUIItem, void, long) {
 	_ASM_PLACEHOLDER(003CF040, 54703)
 }
 // CUIItem::_GetBackgroundUOL
-__SUB_CLASS_THIS0(003CCD90, __thiscall, 54714,  CUIItem, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(003CCD90, __thiscall, 54714,  CUIItem, ZXString16) {
 	_ASM_PLACEHOLDER(003CCD90, 54714)
 }
 // CUIItem::ShowItemReleaseEffect

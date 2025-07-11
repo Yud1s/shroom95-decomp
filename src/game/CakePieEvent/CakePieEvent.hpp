@@ -359,7 +359,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void Draw(const tagRECT *pRect);

@@ -10,7 +10,7 @@ __SUB_CLASS_THIS(00438360, __thiscall, 59324,  CUIRaiseWndBase, void, unsigned l
 	_ASM_PLACEHOLDER(00438360, 59324)
 }
 // CUIRaisePieceWnd::CUIRaisePieceWnd
-__SUB_CLASS_THIS(0043BBA0, __thiscall, 59381,  CUIRaisePieceWnd, void, long, long, long, ZXString<unsigned short>&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
+__SUB_CLASS_THIS(0043BBA0, __thiscall, 59381,  CUIRaisePieceWnd, void, long, long, long, ZXString16&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
 	_ASM_PLACEHOLDER(0043BBA0, 59381)
 }
 // CUIRaiseWndBase::OnButtonClicked
@@ -78,7 +78,7 @@ __SUB_CLASS_THIS(00437E30, __thiscall, 59317,  CUIRaiseWndBase, int32_t, long) {
 	_ASM_PLACEHOLDER(00437E30, 59317)
 }
 // CUIRaiseWndBase::CUIRaiseWndBase
-__SUB_CLASS_THIS(0043B7C0, __thiscall, 59306,  CUIRaiseWndBase, void, long, long, long, ZXString<unsigned short>&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
+__SUB_CLASS_THIS(0043B7C0, __thiscall, 59306,  CUIRaiseWndBase, void, long, long, long, ZXString16&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
 	_ASM_PLACEHOLDER(0043B7C0, 59306)
 }
 // CUIRaiseWndBase::OnSetFocus
@@ -166,7 +166,7 @@ __SUB_CLASS_THIS(00438D90, __thiscall, 59383,  CUIRaisePieceWnd, int32_t, long, 
 	_ASM_PLACEHOLDER(00438D90, 59383)
 }
 // CUIRaiseWnd::CUIRaiseWnd
-__SUB_CLASS_THIS(0043BAD0, __thiscall, 59359,  CUIRaiseWnd, void, long, long, long, long, ZXString<unsigned short>&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
+__SUB_CLASS_THIS(0043BAD0, __thiscall, 59359,  CUIRaiseWnd, void, long, long, long, long, ZXString16&, ZXString<char>&, ZArray<ZXString<char> >&, ZArray<long>&) {
 	_ASM_PLACEHOLDER(0043BAD0, 59359)
 }
 // CUIRaiseWnd::SendPutItem

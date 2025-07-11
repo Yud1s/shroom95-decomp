@@ -50,7 +50,7 @@ void CUIFindFriend::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long r
 int32_t CUIFindFriend::OnSetFocus(int32_t bFocus) {
 	return __sub_003B7C30(this, nullptr, bFocus);
 }
-void CUIFindFriend::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIFindFriend::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003B72B0(this, nullptr, wParam, lParam);
 }
 void CUIFindFriend::Draw(const tagRECT* pRect) {

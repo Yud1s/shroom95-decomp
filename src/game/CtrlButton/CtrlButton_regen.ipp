@@ -153,7 +153,7 @@ __asm {
  Block18:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block19:
@@ -3682,7 +3682,7 @@ __asm {
 }
 // CCtrlButton::SetButtonImage
 _SUB_EXCEPTION_HANDLER(D66D0)
-__SUB_CLASS_THIS(000D66D0, __thiscall, 6382,  CCtrlButton, void, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(000D66D0, __thiscall, 6382,  CCtrlButton, void, NakedParam<ZXString16>) {
 __asm {
 
  Block0:
@@ -4162,7 +4162,7 @@ __asm {
  Block59:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block60:
@@ -4273,7 +4273,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	pop ecx
 
  Block2:
@@ -4795,7 +4795,7 @@ __asm {
  Block7:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block8:
@@ -4907,7 +4907,7 @@ __asm {
 	mov dword ptr [ebp-0x28],esp
 	push eax
 	mov dword ptr [ecx],edi
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov ecx,esi
 	call CCtrlButton::SetButtonImage
 	add esi,0x6C
@@ -5556,7 +5556,7 @@ __asm {
  Block1:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block2:
@@ -5582,7 +5582,7 @@ __asm {
  Block3:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block4:
@@ -6060,7 +6060,7 @@ __asm {
 	lea edx,[esp+0x20]
 	push edx
 	mov byte ptr [esp+0xA4],0xD
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	mov eax,dword ptr [esp+0x30]
 	add esp,0xC
 	mov byte ptr [esp+0x98],0xC
@@ -6070,7 +6070,7 @@ __asm {
  Block69:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block70:
@@ -6279,7 +6279,7 @@ __asm {
  Block94:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block95:

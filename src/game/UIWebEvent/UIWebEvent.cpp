@@ -57,6 +57,6 @@ CUIWebEvent& CUIWebEvent::_op_assign_15(CUIWebEvent* pThis, const CUIWebEvent& a
 	UNIMPLEMENTED;
 }
 
-ZXString<unsigned short> __cdecl get_server_string() {
+ZXString16 __cdecl get_server_string() {
 	return __sub_004DCCB0();
 }

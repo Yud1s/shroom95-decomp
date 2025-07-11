@@ -115,7 +115,18 @@ public:
 
 		int32_t operator()(T& p)
 		{
-			return p->CallUpdate(m_tCur);
+			return p.CallUpdate(m_tCur);
+		}
+	};
+
+	struct OnRemovedFunc
+	{
+		OnRemovedFunc() {}
+
+		int32_t operator()(T& p)
+		{
+			p.OnRemoved();
+			return 0;
 		}
 	};
 
@@ -128,13 +139,15 @@ public:
 	}
 
 public:
-	void Insert(ZRef<CBullet>)
+	void Insert(ZRef<T> bullet)
 	{
+		m_lList.Insert(bullet);
 	}
 
 public:
 	void RemoveAll()
 	{
+		m_lList.RemoveAll();
 	}
 
 public:
@@ -146,20 +159,27 @@ public:
 	template <typename FN>
 	void CallUpdate(FN f)
 	{
+		auto cur = m_lList.GetHeadPosition();
+		while (cur)
+		{
+			auto p = m_lList.GetNext(cur);
+			if (f(*p->op_arrow()))
+				m_lList.RemoveAt(p);
+		}
 	}
 
 
 	// CallUpdate<BulletContainer<T>::CallUpdateFunc>
-	void CallUpdate_T(BulletContainer::CallUpdateFunc f)
+	void CallUpdate_T(CallUpdateFunc f)
 	{
-		CallUpdate<BulletContainer::CallUpdateFunc>(f);
+		CallUpdate<CallUpdateFunc>(f);
 	}
 
 	// CallUpdate<T::OnRemovedFunc>
 	// TODO T::OnRemovedFunc f
-	void CallUpdate_RemoveT()
+	void CallUpdate_RemoveT(OnRemovedFunc f)
 	{
-		//CallUpdate<T::OnRemovedFunc>(f);
+		CallUpdate<BulletContainer::OnRemovedFunc>(f);
 	}
 
 	// CallUpdate<T::ProcessAttackFunc>
@@ -260,3 +280,5 @@ public:
 	static CFadeoutBullet &_op_assign_6(CFadeoutBullet *pThis, const CFadeoutBullet &arg0);
 };
 STATIC_ASSERT_SIZE(CFadeoutBullet, 52);
+
+

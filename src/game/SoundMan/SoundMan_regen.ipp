@@ -109,7 +109,7 @@ __asm {
 
  Block8:
 	lea ecx,[esi+0x1C]
-	call ZMap<unsigned short const *, __POSITION *, Ztl_bstr_t>::RemoveAll
+	call ZMap<wchar_t const *, __POSITION *, Ztl_bstr_t>::RemoveAll
 	lea ecx,[esi+0x34]
 	call ZHeapBase<CSoundMan::SECACHEITEM, ZMinHeapCompare<CSoundMan::SECACHEITEM>>::RemoveAll
 	lea ecx,[esi+0x4C]
@@ -161,7 +161,7 @@ __asm {
  Block13:
 	add ecx,0xFFFFFFF4
 	push ecx
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	mov eax,dword ptr [esp+0x14]
 	add esp,4
 
@@ -256,7 +256,7 @@ __asm {
 	lea eax,[ebp+8]
 	lea ecx,[ebx+0x1C]
 	push eax
-	call ZMap<unsigned short const *, __POSITION *, Ztl_bstr_t>::GetAt
+	call ZMap<wchar_t const *, __POSITION *, Ztl_bstr_t>::GetAt
 	mov edi,eax
 	test edi,edi
 	je Block11
@@ -547,7 +547,7 @@ __asm {
 	lea edx,[ebp-0x20]
 	push edx
 	lea ecx,[edi+0x1C]
-	call ZMap<unsigned short const *, __POSITION *, Ztl_bstr_t>::Insert
+	call ZMap<wchar_t const *, __POSITION *, Ztl_bstr_t>::Insert
 	mov dword ptr [esi+4],eax
 	mov byte ptr [ebp-4],1
 	test ebx,ebx
@@ -894,11 +894,11 @@ __asm {
 	mov dword ptr [esi+0x14],0x64
 	mov dword ptr [esi+0x18],edi
 	push 0x64
-	int 3// TODO: 	mov dword ptr [ecx],offset ZMap<unsigned short const *, __POSITION *, Ztl_bstr_t>::`vftable'
+	int 3// TODO: 	mov dword ptr [ecx],offset ZMap<wchar_t const *, __POSITION *, Ztl_bstr_t>::`vftable'
 	mov dword ptr [ecx+4],edi
 	mov dword ptr [ecx+8],0x1F
 	mov dword ptr [ecx+0xC],edi
-	call ZMap<unsigned short const *, __POSITION *, Ztl_bstr_t>::_CalcAutoGrow
+	call ZMap<wchar_t const *, __POSITION *, Ztl_bstr_t>::_CalcAutoGrow
 	lea edx,[esp+0xF]
 	push edx
 	lea ecx,[esi+0x44]
@@ -1000,7 +1000,7 @@ __asm {
  Block6:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block7:
@@ -1058,7 +1058,7 @@ __asm {
  Block14:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	mov ecx,dword ptr [esp+0x18]
 	add esp,4
 
@@ -1310,7 +1310,7 @@ __asm {
 	lea eax,[esp+0x10]
 	push eax
 	lea ecx,[edi+0x1C]
-	call ZMap<unsigned short const *, __POSITION *, Ztl_bstr_t>::RemoveKey
+	call ZMap<wchar_t const *, __POSITION *, Ztl_bstr_t>::RemoveKey
 	lea ecx,[edi+0x34]
 	call ZHeapBase<CSoundMan::SECACHEITEM, ZMinHeapCompare<CSoundMan::SECACHEITEM>>::RemoveHead
 	cmp dword ptr [edi+0x40],esi
@@ -1589,7 +1589,7 @@ __asm {
  Block13:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block14:

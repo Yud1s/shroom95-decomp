@@ -1,5 +1,7 @@
 // Mob.hpp
 #pragma once
+#include <VecCtrlMob/VecCtrlMob.hpp>
+
 #include "util/base.h"
 #include "pcom/wz.h"
 
@@ -732,7 +734,7 @@ protected:
 	unsigned long m_uLayerStateCounter{};
 
 protected:
-	std::array<unsigned long, 2> _ZtlSecureTear_m_dwMobID;
+	std::array<unsigned long, 2> _ZtlSecureTear_m_dwMobID{};
 
 protected:
 	uint32_t _ZtlSecureTear_m_dwMobID_CS{};
@@ -1014,31 +1016,31 @@ public:
 	void ChaseTarget(int32_t bChase, IVecCtrlOwner *pTarget, int32_t bForced);
 
 public:
-	CMobTemplate *GetTemplate();
+	CMobTemplate *GetTemplate() const;
 
 public:
-	CMobTemplate *GetCurTemplate();
+	CMobTemplate *GetCurTemplate() const;
 
 public:
 	MobStat *GetMobStat();
 
 public:
-	long GetCalcDamageStatIndex();
+	long GetCalcDamageStatIndex() const;
 
 public:
-	unsigned long GetMobID();
+	unsigned long GetMobID() const;
 
 public:
-	int32_t IsBossMob();
+	int32_t IsBossMob() const;
 
 public:
-	long GetMoveAbility();
+	long GetMoveAbility() const;
 
 public:
-	const MobAttackInfo *GetAttackInfo(long nAction);
+	const MobAttackInfo *GetAttackInfo(long nAction) const;
 
 public:
-	long GetMoveAction();
+	long GetMoveAction() const;
 
 public:
 	void SetMoveAction(long nMA, int32_t bReload);
@@ -1171,6 +1173,10 @@ public:
 
 public:
 	_x_com_ptr<IWzVector2D> GetActiveVecCtrl();
+
+	CVecCtrlMob* GetVecCtrlMob();
+	CVecCtrlMob* GetActiveVecCtrlMob();
+
 
 public:
 	void SetShoeAttr();
@@ -1506,10 +1512,10 @@ protected:
 	void SetLayerZ();
 
 protected:
-	long MoveAction2RawAction(long nMA, long *pnDir);
+	long MoveAction2RawAction(long nMA, long *pnDir) const;
 
 protected:
-	long RawAction2MoveAction(long nAction);
+	long RawAction2MoveAction(long nAction) const;
 
 protected:
 	void SetFrameInfo(ZList<ZRef<CActionMan::MOBACTIONFRAMEENTRY>> &l, __POSITION *pos);

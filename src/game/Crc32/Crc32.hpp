@@ -22,6 +22,13 @@ public:
     static unsigned long
     __cdecl GetCrc32(const uint8_t *arg0, unsigned long arg1, unsigned long arg2, int32_t arg3, unsigned long *arg4, int32_t bPosSave);
 
+
+    template<typename T>
+    static unsigned long Get(const T& value, unsigned long cur)
+    {
+        return CCrc32::GetCrc32((const uint8_t*)&value, sizeof(T), cur, 0, nullptr, 0);
+    }
+
     static void Init();
 };
 
@@ -34,7 +41,7 @@ struct GETCRC32Helper {
 };
 
 struct GETCRC32HelperString {
-    static uint32_t call(ZXString<char> str, uint32_t init);
+    static uint32_t __cdecl call(ZXString<char> str, uint32_t init);
 };
 
 

@@ -171,6 +171,13 @@ DECLARE_INTERFACE_IID_(IWzCanvas, IUnknown, "7600dc6c-9328-4bff-9624-5b0f5c01179
         TESTHR_EX_T(hr, this);
         return result;
 	}
+
+
+	void PutMagLevel(int magLevel)
+    {
+    	auto hr = put_magLevel(magLevel);
+    	TESTHR_EX_T(hr, this);
+    }
 };
 
 

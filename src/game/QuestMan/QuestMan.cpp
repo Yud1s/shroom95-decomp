@@ -79,6 +79,7 @@ GradeEntity &GradeEntity::_op_assign_3(GradeEntity *pThis, const GradeEntity &ar
 }
 CQuestMan::~CQuestMan()
 {
+	ms_pInstance = nullptr;
 }
 void CQuestMan::_dtor_0()
 {
@@ -95,11 +96,11 @@ void CQuestMan::_ctor_1(const CQuestMan &arg0)
 }
 CQuestMan::CQuestMan()
 {
-	// UNIMPLEMENTED; //_ctor_0();
+	ms_pInstance = this;
 }
 void CQuestMan::_ctor_0()
 {
-	return __sub_002BAC30(this, nullptr);
+
 }
 int32_t CQuestMan::LoadDemand()
 {
@@ -107,15 +108,23 @@ int32_t CQuestMan::LoadDemand()
 }
 QuestDemand *CQuestMan::GetStartDemand(uint16_t usQuestID)
 {
-	return __sub_00270B50(this, nullptr, usQuestID);
+	ZRef<QuestDemand> pDemand;
+	if (m_mStartDemand.GetAt(usQuestID, &pDemand))
+		return pDemand.op_arrow();
+
+	return nullptr;
 }
 QuestDemand *CQuestMan::GetCompleteDemand(uint16_t usQuestID)
 {
 	return __sub_00270B50(this, nullptr, usQuestID);
 }
-int32_t CQuestMan::CheckStartDemand(uint16_t stNow, unsigned long pStart, const CharacterData &st, const SecondaryStat &bIsEnable, long ftStart, long i, int32_t ft, long ftEnd)
+int32_t CQuestMan::CheckStartDemand(uint16_t usQuestId, unsigned long pStart, const CharacterData &st, const SecondaryStat &bIsEnable, long ftStart, long i, int32_t ft, long ftEnd)
 {
-	return __sub_002BB6E0(this, nullptr, stNow, pStart, st, bIsEnable, ftStart, i, ft, ftEnd);
+	return __sub_002BB6E0(this, nullptr, usQuestId, pStart, st, bIsEnable, ftStart, i, ft, ftEnd);
+	/*if (!usQuestId || m_mBlockedQuest.GetAt(usQuestId, nullptr))
+		return 0;
+
+	GetStartDemand()*/
 }
 long CQuestMan::CheckCompleteDemand(uint16_t usQuestID, unsigned long dwNpcTemplateID, const CharacterData &cd, const SecondaryStat &ss)
 {
@@ -123,8 +132,7 @@ long CQuestMan::CheckCompleteDemand(uint16_t usQuestID, unsigned long dwNpcTempl
 }
 void CQuestMan::SetWorldID(long arg0)
 {
-	// TODO: No module found for method
-	UNIMPLEMENTED;
+	m_nWorldID = arg0;
 }
 void CQuestMan::SetQuestClear()
 {
@@ -544,7 +552,8 @@ CQuestMan::RankString &CQuestMan::RankString::_op_assign_3(CQuestMan::RankString
 
 int32_t __cdecl _anon__CheckEquippedItemByIndex(GW_ItemSlotBase *pItem, long nItemID)
 {
-	return __sub_002B8720(pItem, nItemID);
+	//return __sub_002B8720(pItem, nItemID);
+	return pItem && pItem->nItemID == nItemID;
 }
 void __cdecl AddQuestList(ZArray<unsigned short> &aQuestList, ZXString<char> &sList, const ZArray<unsigned short> &aQuest, long nQuestState)
 {

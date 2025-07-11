@@ -21,12 +21,14 @@ static ZRefCounted_AllocHelper<ZRefCountedDummy<SimpleMiniMap_FootHold>> FAKE_ZR
 
 CUIMiniMap::~CUIMiniMap()
 {
-    UNIMPLEMENTED; // _dtor_0();
+    DestroyMMWindow();
+    ms_pInstance = nullptr;
 }
 
 void CUIMiniMap::_dtor_0()
 {
-    return __sub_003F9550(this, nullptr);
+    //return __sub_003F9550(this, nullptr);
+    this->~CUIMiniMap();
 }
 
 CUIMiniMap::CUIMiniMap(const CUIMiniMap& arg0)
@@ -141,7 +143,38 @@ int32_t CUIMiniMap::ReloadMiniMap()
 
 void CUIMiniMap::CalculateScr()
 {
-    __sub_003F6790(this, nullptr);
+    //__sub_003F6790(this, nullptr);
+    int m_nMag; // ecx
+    int v3; // edi
+    int v4; // eax
+    int m_nReal_CX; // edx
+    int v6; // eax
+    int m_nReal_CY; // ebx
+    int v8; // edi
+    int v9; // eax
+    int v10; // eax
+
+    m_nMag = this->m_nMag;
+    v3 = this->m_nPane_W << m_nMag;
+    v4 = this->m_nLocal_X - v3 / 2;
+    m_nReal_CX = this->m_nReal_CX;
+    this->m_nScrOrig_X = v4;
+    if ( v4 < -m_nReal_CX )
+        this->m_nScrOrig_X = -m_nReal_CX;
+    v6 = this->m_nReal_W - m_nReal_CX - v3;
+    if ( this->m_nScrOrig_X > v6 )
+        this->m_nScrOrig_X = v6;
+    m_nReal_CY = this->m_nReal_CY;
+    v8 = this->m_nPane_H << m_nMag;
+    this->m_nScrOrig_X = (m_nReal_CX + this->m_nScrOrig_X) >> m_nMag;
+    v9 = this->m_nLocal_Y - v8 / 2;
+    this->m_nScrOrig_Y = v9;
+    if ( v9 < -m_nReal_CY )
+        this->m_nScrOrig_Y = -m_nReal_CY;
+    v10 = this->m_nReal_H - m_nReal_CY - v8;
+    if ( this->m_nScrOrig_Y > v10 )
+        this->m_nScrOrig_Y = v10;
+    this->m_nScrOrig_Y = (m_nReal_CY + this->m_nScrOrig_Y) >> m_nMag;
 }
 
 long CUIMiniMap::GetMiniMapWidth()
@@ -157,7 +190,11 @@ void CUIMiniMap::Update()
 
 int32_t CUIMiniMap::HitTest(long rx, long ry, CCtrlWnd** ppCtrl)
 {
-    return __sub_003F6AD0(this, nullptr, rx, ry, ppCtrl);
+    //return __sub_003F6AD0(this, nullptr, rx, ry, ppCtrl);
+    auto result = CWnd::HitTest(rx, ry, ppCtrl);
+    if ( result && (!ppCtrl || !*ppCtrl) )
+        return 1;
+    return result;
 }
 
 void CUIMiniMap::OnButtonClicked(uint32_t nId)

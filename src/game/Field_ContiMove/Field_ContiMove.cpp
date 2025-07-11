@@ -27,7 +27,7 @@ void CField_ContiMove::Init(void* pParam) {
 void CField_ContiMove::Update() {
 	__sub_0014BFF0(this, nullptr);
 }
-void CField_ContiMove::OnKey(uint32_t wParam, uint32_t lParam) {
+void CField_ContiMove::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0014C520(this, nullptr, wParam, lParam);
 }
 void CField_ContiMove::OnPacket(long nType, CInPacket& iPacket) {

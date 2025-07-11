@@ -8,7 +8,6 @@ static ZRef<CReactorTemplate::STATEINFO> FAKE_REF_CReactorTemplate_STATEINFO_{};
 
 REACTOR::~REACTOR()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void REACTOR::_dtor_0()
@@ -29,7 +28,6 @@ void REACTOR::_ctor_1(const REACTOR& arg0)
 
 REACTOR::REACTOR()
 {
-    UNIMPLEMENTED; //_ctor_0();
 }
 
 void REACTOR::_ctor_0()
@@ -51,7 +49,6 @@ REACTOR& REACTOR::_op_assign_3(REACTOR* pThis, const REACTOR& arg0)
 
 CReactorPool::~CReactorPool()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CReactorPool::_dtor_0()
@@ -91,7 +88,24 @@ void CReactorPool::LoadReactorLayer(ZRef<REACTOR> p)
 
 void CReactorPool::OnPacket(long nType, CInPacket& iPacket)
 {
-    __sub_002CF9B0(this, nullptr, nType, iPacket);
+    //__sub_002CF9B0(this, nullptr, nType, iPacket);
+    switch (nType)
+    {
+    case 334:
+        OnReactorChangeState(iPacket);
+        break;
+    case 335:
+        OnReactorMove(iPacket);
+        break;
+    case 336:
+        OnReactorEnterField(iPacket);
+        break;
+    case 337:
+        OnReactorLeaveField(iPacket);
+        break;
+    default:
+        break;
+    }
 }
 
 void CReactorPool::OnReactorChangeState(CInPacket& iPacket)
@@ -169,5 +183,52 @@ CReactorPool& CReactorPool::_op_assign_18(CReactorPool* pThis, const CReactorPoo
 
 long __cdecl get_hittype_priority_level(unsigned long dwOption, long nType)
 {
-    return __sub_002CC000(dwOption, nType);
+    int v2; // eax
+    int result; // eax
+
+    v2 = dwOption & 1;
+    if ((dwOption & 2) != 0)
+    {
+        if (nType)
+        {
+            if (nType == 1)
+            {
+                return -(v2 != 0);
+            }
+            else if (nType == 2)
+            {
+                return (v2 != 0) - 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    else
+    {
+        switch (nType)
+        {
+        case 0:
+            result = 2;
+            break;
+        case 1:
+            result = 2 * (v2 == 0) - 1;
+            break;
+        case 2:
+            result = 2 * (v2 != 0) - 1;
+            break;
+        case 3:
+            return -(v2 != 0);
+        case 4:
+            return (v2 != 0) - 1;
+        default:
+            return -1;
+        }
+    }
+    return result;
 }

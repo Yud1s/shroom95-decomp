@@ -224,12 +224,12 @@ CSnowMan& CSnowMan::_op_assign_7(CSnowMan* pThis, const CSnowMan& arg0)
 
 CField::~CField()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CField::_dtor_0()
 {
-    return __sub_0013CCB0(this, nullptr);
+    // return __sub_0013CCB0(this, nullptr);
+    this->~CField();
 }
 
 CField::CField(const CField& arg0)
@@ -250,7 +250,7 @@ CField::CField()
 
 void CField::_ctor_0()
 {
-    return __sub_0013C800(this, nullptr);
+    new(this) CField();
 }
 
 CField::PROPERTY __cdecl CField::GetFieldProp(unsigned long arg0)
@@ -328,7 +328,16 @@ void CField::Init(void* pParam)
 
 void CField::Close()
 {
-    __sub_0012D6A0(this, nullptr);
+    CAnimationDisplayer::GetInstance()->m_FootHold.RemoveAll();
+    m_lDynamicObjs.RemoveAll();
+    m_mDynamicObjs.RemoveAll();
+    if (m_pClock)
+        m_pClock->Destroy();
+
+    if (m_unWeatherSoundCookie)
+        CSoundMan::GetInstance()->StopSE(m_unWeatherSoundCookie, false);
+
+    CMapLoadable::Close();
 }
 
 void CField::Update()
@@ -405,29 +414,82 @@ void CField::Update()
     DrawFearEffect();
 }
 
-void CField::OnKey(uint32_t wParam, uint32_t lParam)
+void CField::OnKey(uint32_t wParam, int32_t lParam)
 {
-    __sub_0012A6B0(this, nullptr, wParam, lParam);
+    //__sub_0012A6B0(this, nullptr, wParam, lParam);
+    auto ctx = CWvsContext::GetInstance();
+    auto userLocal = CUserLocal::GetInstance();
+    if (ctx->ProcessBasicUIKey(wParam, lParam))
+        return;
+
+    if (CUniqueModeless::GetInstance())
+        return;
+
+    if (!userLocal)
+        return;
+
+
+    if (CanUseSpecialArts() && ctx->GetEnergy() >= 10000)
+        userLocal->OnKey(wParam, lParam);
+    else if (!userLocal->PreprocessOnKey(wParam, lParam))
+        userLocal->OnKey(wParam, lParam);
 }
 
 int32_t CField::OnSetFocus(int32_t bFocus)
 {
-    return __sub_0013CAC0(this, nullptr, bFocus);
+    return 1;
 }
 
 void CField::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry)
 {
-    __sub_0012A750(this, nullptr, msg, wParam, rx, ry);
+    if (CUniqueModeless::GetInstance())
+        if (auto user = CUserLocal::GetInstance())
+            user->OnMouseButton(msg, wParam, rx, ry);
 }
 
 int32_t CField::OnMouseMove(long rx, long ry)
 {
-    return __sub_0012B3D0(this, nullptr, rx, ry);
+    auto wndMan = CWndMan::GetInstance();
+    //return __sub_0012B3D0(this, nullptr, rx, ry);
+    if (m_pLayerHPTag)
+    {
+        auto org = wndMan->GetOrgWindow(CWnd::Origin_LT);
+        auto x = org->Getx();
+        auto y = org->Gety();
+
+        auto hpX = m_pLayerHPTag->Getx();
+        auto hpY = m_pLayerHPTag->Gety();
+
+        auto xRange = hpX - x + 3 > rx;
+        auto xRange2 = m_nMobIconWidth + x - hpX + 1 < rx;
+        auto yRange = hpY + m_nMobIconHeight - y + 5 < ry;
+        if (xRange || xRange2 || yRange)
+        {
+            m_uiTooltip.ClearToolTip();
+        }
+        else
+        {
+            m_uiTooltip.SetToolTip_String(
+                hpX + m_nMobIconWidth - x + 10,
+                ry,
+                m_sMobName.c_str()
+            );
+        }
+    }
+
+    if (auto user = CUserLocal::GetInstance())
+        user->OnMouseMove(rx, ry);
+
+    return 1;
 }
 
 void CField::OnJoystickButton(uint32_t wButton, unsigned long dwData)
 {
-    __sub_0012A880(this, nullptr, wButton, dwData);
+    if ( !TSingleton<CUniqueModeless>::ms_pInstance )
+    {
+        if ( auto user = TSingleton<CUserLocal>::ms_pInstance )
+            user->OnJoystickButton(wButton, dwData);
+    }
 }
 
 void CField::OnPacket(long nType, CInPacket& iPacket)
@@ -520,7 +582,7 @@ int32_t CField::BasicActionAttack()
 
 long CField::GetFieldType()
 {
-    return __sub_0013CAE0(this, nullptr);
+    return 0;
 }
 
 void CField::OnFieldSetVariable(ZXString<char> sKey, ZXString<char> sVal)
@@ -540,7 +602,29 @@ void CField::OnPartyValue(ZXString<char> sKey, ZXString<char> sVal)
 
 void CField::SendChatMsg(const ZXString<char>& sText, int32_t bOnlyBalloon)
 {
-    __sub_00134000(this, nullptr, sText, bOnlyBalloon);
+    //__sub_00134000(this, nullptr, sText, bOnlyBalloon);
+    if (sText.IsEmpty())
+        return;
+
+    auto& sp = StringPool::GetInstance();
+    if (auto dialog = CUniqueModeless::GetInstance())
+    {
+        if (auto statusBar = CUIStatusBar::GetInstance())
+        {
+            auto msg = sp.GetString(0x125);
+            statusBar->ChatLogAdd(msg.c_str(), 12, -1, bOnlyBalloon, {});
+        }
+        return;
+    }
+
+
+    COutPacket pkt(Cp::Userchat);
+    pkt.Encode4(get_update_time());
+    pkt.EncodeStr(sText);
+    pkt.Encode1(bOnlyBalloon);
+    SendPacket(pkt);
+
+
 }
 
 void CField::SendChatMsgSlash(const ZXString<char>& arg0)
@@ -748,7 +832,7 @@ int32_t CField::IsEventMap(int32_t bExceptETC)
     return __sub_0012F900(this, nullptr, bExceptETC);
 }
 
-ZXString<unsigned short> CField::GetMapSpecificEffectUOL()
+ZXString16 CField::GetMapSpecificEffectUOL()
 {
     //return __sub_004EAFC0(this, nullptr);
     return m_sMapSpecificEffectUOL;
@@ -789,10 +873,11 @@ int32_t CField::IsUnableToMigrate()
 
 int32_t CField::IsTown()
 {
-    return __sub_0023A040(this, nullptr);
+    //return __sub_0023A040(this, nullptr);
+    return m_bTown;
 }
 
-int32_t CField::IsSwimmingMap()
+int32_t CField::IsSwimmingMap() const
 {
     //return __sub_0023A040(this, nullptr);
     return m_bSwim;
@@ -806,32 +891,37 @@ int32_t CField::IsFlyingMap()
 
 int32_t CField::IsNeedSkillForFlying()
 {
-    return __sub_0023A040(this, nullptr);
+    //return __sub_0023A040(this, nullptr);
+    return m_bNeedSkillForFly;
 }
 
 int32_t CField::IsPersonalShopAvailable()
 {
-    return __sub_0023A040(this, nullptr);
+    //return __sub_0023A040(this, nullptr);
+    return m_bPersonalShopAvailable;
 }
 
 int32_t CField::IsUnableToOpenMiniGame()
 {
-    return __sub_0023A040(this, nullptr);
+    //return __sub_0023A040(this, nullptr);
+    UNIMPLEMENTED;
 }
 
 int32_t CField::IsUnableToUsePortalScroll()
 {
-    return __sub_0023A040(this, nullptr);
+    //return __sub_0023A040(this, nullptr);
+    UNIMPLEMENTED;
 }
 
 int32_t CField::IsUnableToUseSkill()
 {
-    return __sub_0023A040(this, nullptr);
+    return (this->m_dwOption >> 1) & 1;
 }
 
 int32_t CField::IsUnableToUseRocketBoost()
 {
-    return __sub_0023A040(this, nullptr);
+    //return __sub_0023A040(this, nullptr);
+    UNIMPLEMENTED;
 }
 
 int32_t CField::IsUnableToUseMysticDoor()
@@ -948,8 +1038,8 @@ long CField::GetMaxMapPhase()
 
 unsigned long CField::GetPhaseAlpha()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    //TODO verify
+    return m_nPhase;
 }
 
 long CField::GetPhaseAlphaBG(long arg0)
@@ -988,8 +1078,7 @@ _FILETIME CField::FileTimeSubtract(_FILETIME arg0, _FILETIME arg1)
 
 _FILETIME CField::GetRelTime()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_ftRel;
 }
 
 _SYSTEMTIME CField::GetCorrectTime()
@@ -999,7 +1088,7 @@ _SYSTEMTIME CField::GetCorrectTime()
 
 void CField::RestoreTownPortal(tagPOINT pt)
 {
-    __sub_0012E9C0(this, nullptr, CreateNakedParam(pt));
+    m_aTownPortal.Insert(pt);
 }
 
 void CField::SetIUDlg(CUIItemUpgrade* arg0)
@@ -1284,7 +1373,7 @@ void CField::OnItemUpgrade(long nType, CInPacket& iPacket)
     __sub_0012A430(this, nullptr, nType, iPacket);
 }
 
-void CField::ShowScreenEffect(ZXString<unsigned short> sName)
+void CField::ShowScreenEffect(ZXString16 sName)
 {
     __sub_001376D0(this, nullptr, CreateNakedParam(sName));
 }
@@ -1321,7 +1410,8 @@ void CField::OnVega(long nType, CInPacket& iPacket)
 
 int32_t CField::IsSkillForbiden(long nSkillID)
 {
-    return __sub_0012A320(this, nullptr, nSkillID);
+    //return this->m_siForbiddenSkill.IsSkill(nSkillID) != false;
+    return false; //TODO(game)
 }
 
 void CField::ApplyUserLook(CUser* pUser)
@@ -1396,7 +1486,7 @@ CField::PROPERTY::~PROPERTY()
 
 void CField::PROPERTY::_dtor_0()
 {
-    return __sub_0012A640(this, nullptr);
+    this->~PROPERTY();
 }
 
 CField::PROPERTY::PROPERTY(const CField::PROPERTY& __that)
@@ -1437,7 +1527,7 @@ CField::INITPARAM::~INITPARAM()
 
 void CField::INITPARAM::_dtor_0()
 {
-    return __sub_00319BA0(this, nullptr);
+    this->~INITPARAM();
 }
 
 CField::INITPARAM::INITPARAM(const CField::INITPARAM& arg0)

@@ -28,6 +28,13 @@ public:
 
 public:
     int32_t nY{};
+
+    EqSlotInfo() = default;
+
+    constexpr EqSlotInfo(int32_t x, int32_t y) : nX(x), nY(y)
+    {
+    }
+
     // Methods
 public:
     static long __cdecl GetX(long nXpt, long nType);
@@ -320,6 +327,8 @@ public:
 
 public:
     static CUIEquip& _op_assign_21(CUIEquip* pThis, const CUIEquip& arg0);
+
+    friend class CUIPetEquip;
 };
 
 STATIC_ASSERT_SIZE(CUIEquip, 2908);
@@ -452,4 +461,254 @@ STATIC_ASSERT_SIZE(CUIMechanicEquip, 2760);
 
 
 // 861458 400
-static std::array<EqSlotInfo, 400> _D_SEQSLOTINFO{};
+static std::array<EqSlotInfo, 0x32> _D_SEQSLOTINFO{
+    EqSlotInfo{
+        0x26,
+        0x23,
+    },
+
+    EqSlotInfo{
+        0x26,
+        0x44,
+    },
+
+    EqSlotInfo{
+        0x26,
+        0x65,
+    },
+
+    EqSlotInfo{
+        0x68,
+        0x65,
+    },
+
+    EqSlotInfo{
+        0x26,
+        0x86,
+    },
+
+    EqSlotInfo{
+        0x26,
+        0xa7,
+    },
+
+    EqSlotInfo{
+        0x47,
+        0xc8,
+    },
+
+    EqSlotInfo{
+        0x5,
+        0xa7,
+    },
+
+    EqSlotInfo{
+        0x5,
+        0x86,
+    },
+
+    EqSlotInfo{
+        0x89,
+        0x86,
+    },
+
+    EqSlotInfo{
+        0x68,
+        0x86,
+    },
+
+    EqSlotInfo{
+        0x68,
+        0xa7,
+    },
+
+    EqSlotInfo{
+        0x89,
+        0xa7,
+    },
+
+    EqSlotInfo{
+        0x70,
+        0x4d,
+    },
+
+    EqSlotInfo{
+        0x68,
+        0x44,
+    },
+
+    EqSlotInfo{
+        0x89,
+        0x44,
+    },
+
+    EqSlotInfo{
+        0x47,
+        0x86,
+    },
+
+    EqSlotInfo{
+        0x5,
+        0xe9,
+    },
+
+    EqSlotInfo{
+        0x26,
+        0xe9,
+    },
+
+    EqSlotInfo{
+        0x47,
+        0xe9,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x38,
+    },
+
+    EqSlotInfo{
+        0x2c,
+        0x38,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x17,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x17,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0x2c,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0x6e,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0x6e,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0x6e,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x38,
+    },
+
+    EqSlotInfo{
+        0x2c,
+        0x38,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0x2c,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0x6e,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0x6e,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x38,
+    },
+
+    EqSlotInfo{
+        0x2c,
+        0x38,
+    },
+
+    EqSlotInfo{
+        0x4d,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x7a,
+    },
+
+    EqSlotInfo{
+        0x2c,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0xb,
+        0x59,
+    },
+
+    EqSlotInfo{
+        0x5,
+        0x44,
+    },
+
+    EqSlotInfo{
+        0x47,
+        0xa7,
+    },
+};

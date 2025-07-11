@@ -5,6 +5,7 @@
 #include "pcom/wz.h"
 
 #include "DBBasic/DBBasic.hpp"
+#include "spdlog/spdlog.h"
 #include "Stat/Stat.hpp"
 //#include "ActionMan/ActionMan.hpp"
 
@@ -894,7 +895,7 @@ public:
     uint32_t _ZtlSecureTear_fT_CS{};
 
 public:
-    _FILETIME dateExpire;
+    _FILETIME dateExpire{};
 
 public:
     int32_t bLoaded{};
@@ -909,16 +910,19 @@ public:
     void _dtor_0();
 
 public:
-    SKILLLEVELDATA(const SKILLLEVELDATA &__that);
+    SKILLLEVELDATA(const SKILLLEVELDATA &__that) = default;
 
 public:
-    void _ctor_1(const SKILLLEVELDATA &__that);
+    void _ctor_0(const SKILLLEVELDATA &__that)
+    {
+        new(this) SKILLLEVELDATA(__that);
+    }
 
 public:
     SKILLLEVELDATA();
 
 public:
-    void _ctor_0();
+    void _ctor_1();
 
 public:
     long __fastcall _ZtlSecureGet_nHP() const;
@@ -1842,7 +1846,7 @@ public:
     void _ctor_0();
 
 public:
-    long GetMaxLevel();
+    long GetMaxLevel() const;
 
 public:
     const CHARLEVELDATA *GetCharLevelData(long nCharLevel);
@@ -1874,14 +1878,14 @@ public:
 public:
     _x_com_ptr<IWzCanvas> GetIconCanvas(long nIconNumber) const;
 
-    _x_com_ptr<IWzCanvas> GetIconCanvas_0(long nIconNumber) {
+    _x_com_ptr<IWzCanvas> GetIconCanvas_1(long nIconNumber) {
         return GetIconCanvas(nIconNumber);
     }
 
 public:
     _x_com_ptr<IWzCanvas> GetIconCanvas() const;
 
-    _x_com_ptr<IWzCanvas> GetIconCanvas_1() {
+    _x_com_ptr<IWzCanvas> GetIconCanvas_0() {
         return GetIconCanvas();
     }
 
@@ -1889,22 +1893,22 @@ public:
     Ztl_bstr_t GetEffectUOL(unsigned char nCharLevel);
 
 public:
-    Ztl_bstr_t GetScreenEffectUOL();
+    Ztl_bstr_t GetScreenEffectUOL() const;
 
 public:
-    Ztl_bstr_t GetAffectedUOL();
+    Ztl_bstr_t GetAffectedUOL() const;
 
 public:
-    Ztl_bstr_t GetSpecialAffectedUOL();
+    Ztl_bstr_t GetSpecialAffectedUOL() const;
 
 public:
-    Ztl_bstr_t GetMobUOL();
+    Ztl_bstr_t GetMobUOL() const;
 
 public:
-    Ztl_bstr_t GetTileUOL();
+    Ztl_bstr_t GetTileUOL() const;
 
 public:
-    Ztl_bstr_t GetPrepareUOL();
+    Ztl_bstr_t GetPrepareUOL() const;
 
 public:
     Ztl_bstr_t GetSpecialUOL(long nCharLevel);
@@ -1919,22 +1923,22 @@ public:
     Ztl_bstr_t GetHitUOLByIndex(unsigned char nCharLevel, long nSLV, long nIndex);
 
 public:
-    const ZArray<Ztl_bstr_t> &GetHitUOL(unsigned char arg0, long arg1);
+    const ZArray<Ztl_bstr_t> &GetHitUOL(unsigned char nCharLevel, long nSLV);
 
 public:
     Ztl_bstr_t GetBallUOL(long nSLV, unsigned char nCharLevel, int32_t bFlip);
 
 public:
-    long GetRandomAppointedAction(long nSLV, uint32_t nRandNumber);
+    long GetRandomAppointedAction(long nSLV, uint32_t nRandNumber) const;
 
 public:
-    int32_t IsActionAppointed(long nSLV);
+    int32_t IsActionAppointed(long nSLV) const;
 
 public:
-    int32_t IsCorrectAppointedAction(long nSLV, long nAction);
+    int32_t IsCorrectAppointedAction(long nSLV, long nAction) const;
 
 public:
-    int32_t IsCorrectWeaponType(long nWT, long nSubWT);
+    int32_t IsCorrectWeaponType(long nWT, long nSubWT) const;
 
 public:
     unsigned long GetCrc();
@@ -2039,7 +2043,7 @@ public:
     long GetPureSkillLevel(const CharacterData &c, long nSkillID, const SKILLENTRY **ppSkillEntry);
 
 public:
-    long GetSkillLevel(const CharacterData &c, const SecondaryStat &ss, long nSkillID, const SKILLENTRY **ppSkillEntry);
+    long GetSkillLevel(const CharacterData &c, const SecondaryStat &ss, long nSkillID, const SKILLENTRY **ppSkillEntry = nullptr);
 
     long
     GetSkillLevel_1(const CharacterData &c, const SecondaryStat &ss, long nSkillID, const SKILLENTRY **ppSkillEntry) {
@@ -2073,10 +2077,10 @@ public:
     const MCSKILLENTRY *GetMCRandomSkill();
 
 public:
-    const MCGUARDIANENTRY *GetMCGuardian(long nSkillID);
+    const MCGUARDIANENTRY *GetMCGuardian(long nSkillID) const;
 
 public:
-    const ITEMSKILLENTRY *GetItemSkill(long nSkillID);
+    const ITEMSKILLENTRY *GetItemSkill(long nSkillID) const;
 
 public:
     const ITEMOPTIONSKILLENTRY *GetItemOptionSkill(long nSkillID);
@@ -2276,15 +2280,9 @@ int32_t __cdecl __get_element_attribute();
 int32_t __cdecl get_element_attribute_list(const wchar_t *sAttr, long *p);
 int32_t __cdecl __get_element_attribute_list();
 
-static bool is_correct_shoot_attack(int32_t nAttackActionType, int32_t nWT, int32_t nAction, SKILLENTRY const* pSkill, int32_t nSLV) {
-    //TODO 0x70b9b0
-    return false;
-}
+bool is_correct_shoot_attack(int32_t nAttackActionType, int32_t nWT, int32_t nAction, SKILLENTRY const* pSkill, int32_t nSLV);
 
-static bool is_correct_normal_attack(int32_t nAttackActionType,
+bool is_correct_normal_attack(int32_t nAttackActionType,
                                      int32_t nWT, int32_t nAction,
                                      SKILLENTRY const *pSkill,
-                                     int32_t nSLV) {
-    return is_correct_melee_attack(nAttackActionType, nWT, nAction, pSkill, nSLV)
-           || is_correct_shoot_attack(nAttackActionType, nWT, nAction, pSkill, nSLV);
-}
+                                     int32_t nSLV);

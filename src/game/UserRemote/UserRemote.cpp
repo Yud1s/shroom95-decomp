@@ -230,7 +230,8 @@ void CUserRemote::LoadCompletely()
 
 int32_t CUserRemote::CanUseBareHand()
 {
-    return __sub_00554490(this, nullptr);
+    //return __sub_00554490(this, nullptr);
+    return GetJobCode() % 1000 / 100 == 5;
 }
 
 void CUserRemote::SetLevel(unsigned char arg0)

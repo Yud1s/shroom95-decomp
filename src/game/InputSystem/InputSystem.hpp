@@ -239,6 +239,7 @@ public:
 
 public:
     int32_t GetCursorPos(tagPOINT *lpPoint);
+    tagPOINT GetCursorPotPt();
 
 public:
     int32_t SetCursorPos(long x, long y);

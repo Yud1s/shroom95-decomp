@@ -84,7 +84,7 @@ void CCSWnd_Tab::OnCreate(void* pData) {
 void CCSWnd_Tab::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {
 	__sub_000C6EE0(this, nullptr, msg, wParam, rx, ry);
 }
-void CCSWnd_Tab::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCSWnd_Tab::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_000C8310(this, nullptr, wParam, lParam);
 }
 void CCSWnd_Tab::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {
@@ -96,7 +96,7 @@ void CCSWnd_Tab::Draw(const tagRECT* pRect) {
 int32_t CCSWnd_Tab::OnSetFocus(int32_t bFocus) {
 	return __sub_000C62B0(this, nullptr, bFocus);
 }
-int32_t CCSWnd_Tab::OnKeyRet(uint32_t wParam, uint32_t lParam) {
+int32_t CCSWnd_Tab::OnKeyRet(uint32_t wParam, int32_t lParam) {
 	return __sub_000C6FB0(this, nullptr, wParam, lParam);
 }
 void CCSWnd_Tab::ChangeCategory() {
@@ -144,7 +144,7 @@ void CCSWnd_Status::OnButtonClicked(uint32_t nId) {
 void CCSWnd_Status::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {
 	__sub_000C6510(this, nullptr, msg, wParam, rx, ry);
 }
-void CCSWnd_Status::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCSWnd_Status::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_000CD610(this, nullptr, wParam, lParam);
 }
 void CCSWnd_Status::Draw(const tagRECT* pRect) {
@@ -153,7 +153,7 @@ void CCSWnd_Status::Draw(const tagRECT* pRect) {
 int32_t CCSWnd_Status::OnSetFocus(int32_t bFocus) {
 	return __sub_000C6500(this, nullptr, bFocus);
 }
-int32_t CCSWnd_Status::OnKeyRet(uint32_t wParam, uint32_t lParam) {
+int32_t CCSWnd_Status::OnKeyRet(uint32_t wParam, int32_t lParam) {
 	return __sub_000CC430(this, nullptr, wParam, lParam);
 }
 CCSWnd_Status& CCSWnd_Status::operator=(const CCSWnd_Status& arg0) {
@@ -255,7 +255,7 @@ void CCSWnd_List::OnMouseEnter(int32_t bEnter) {
 int32_t CCSWnd_List::OnMouseWheel(long rx, long ry, long nWheel) {
 	return __sub_000C6550(this, nullptr, rx, ry, nWheel);
 }
-void CCSWnd_List::OnKey(uint32_t wParam, uint32_t lParam) {
+void CCSWnd_List::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_000CCF40(this, nullptr, wParam, lParam);
 }
 void CCSWnd_List::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {
@@ -276,7 +276,7 @@ int32_t CCSWnd_List::OnSetFocus(int32_t bFocus) {
 void CCSWnd_List::ClearToolTip() {
 	__sub_00092B40(this, nullptr);
 }
-int32_t CCSWnd_List::OnKeyRet(uint32_t wParam, uint32_t lParam) {
+int32_t CCSWnd_List::OnKeyRet(uint32_t wParam, int32_t lParam) {
 	return __sub_000C9460(this, nullptr, wParam, lParam);
 }
 void CCSWnd_List::SetCursorToPlate(long nPlate) {

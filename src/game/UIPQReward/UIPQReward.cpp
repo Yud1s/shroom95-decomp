@@ -33,7 +33,7 @@ void CUIPQReward::Draw(const tagRECT* pRect) {
 void CUIPQReward::OnButtonClicked(uint32_t nId) {
 	__sub_0041CC70(this, nullptr, nId);
 }
-void CUIPQReward::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIPQReward::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0041E090(this, nullptr, wParam, lParam);
 }
 void CUIPQReward::Update() {

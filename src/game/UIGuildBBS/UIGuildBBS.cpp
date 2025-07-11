@@ -27,7 +27,7 @@ void CUIGuildBBS::OnCreate(void* pData) {
 void CUIGuildBBS::OnDestroy() {
 	__sub_003C2FC0(this, nullptr);
 }
-void CUIGuildBBS::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIGuildBBS::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_003C2E30(this, nullptr, wParam, lParam);
 }
 void CUIGuildBBS::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {

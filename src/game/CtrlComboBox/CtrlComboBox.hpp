@@ -67,7 +67,7 @@ public:
 	virtual void OnCreate(void *pData);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
@@ -173,16 +173,16 @@ public:
 		unsigned long Id_ScrollBar{};
 
 	public:
-		FONT_TYPE fType;
+		FONT_TYPE fType{};
 
 	public:
-		FONT_TYPE fTypeFocused;
+		FONT_TYPE fTypeFocused{};
 
 	public:
-		FONT_TYPE fTypeSelect;
+		FONT_TYPE fTypeSelect{};
 
 	public:
-		FONT_TYPE fTypeSelectFocused;
+		FONT_TYPE fTypeSelectFocused{};
 
 	public:
 		int32_t bButtonOnLeft{};
@@ -290,16 +290,16 @@ protected:
 	long m_nBorderColor{};
 
 protected:
-	FONT_TYPE m_fType;
+	FONT_TYPE m_fType{};
 
 protected:
-	FONT_TYPE m_fTypeFocused;
+	FONT_TYPE m_fTypeFocused{};
 
 protected:
-	FONT_TYPE m_fTypeSelect;
+	FONT_TYPE m_fTypeSelect{};
 
 protected:
-	FONT_TYPE m_fTypeSelectFocused;
+	FONT_TYPE m_fTypeSelectFocused{};
 
 protected:
 	long m_nBoxPosX{};
@@ -410,7 +410,7 @@ public:
 	virtual void OnMouseEnter(int32_t bEnter);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual int32_t HitTest(long rx, long ry);

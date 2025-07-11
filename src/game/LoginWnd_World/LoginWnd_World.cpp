@@ -78,7 +78,7 @@ void CUIChannelSelect::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, lon
     __sub_00203620(this, nullptr, msg, wParam, rx, ry);
 }
 
-void CUIChannelSelect::OnKey(const uint32_t wParam, const uint32_t lParam)
+void CUIChannelSelect::OnKey(const uint32_t wParam, const int32_t lParam)
 {
     __sub_002036B0(this, nullptr, wParam, lParam);
 }
@@ -505,7 +505,7 @@ void CUIWorldSelect::OnButtonClicked(uint32_t nId)
     //__sub_002025E0(this, nullptr, nId);
 }
 
-void CUIWorldSelect::OnKey(const uint32_t wParam, const uint32_t lParam)
+void CUIWorldSelect::OnKey(const uint32_t wParam, const int32_t lParam)
 {
     __sub_00202670(this, nullptr, wParam, lParam);
 }
@@ -569,7 +569,7 @@ void CUIWorldSelect::DrawWorldItems()
         {
             m_pBtWS[i] = new CCtrlButton();
             CCtrlButton::CREATEPARAM cp;
-            cp.sUOL = reinterpret_cast<const unsigned short*>(btnE);
+            cp.sUOL = btnE;
             cp.bDrawBack = true;
             cp.bAnimateOnce = true;
 
@@ -583,8 +583,8 @@ void CUIWorldSelect::DrawWorldItems()
             continue;
         }
 
-        auto uol = ZXString<unsigned short>::FromFmt(
-            reinterpret_cast<const uint16_t*>(btnFD),
+        auto uol = ZXString16::FromFmt(
+            btnFD,
             i + 1);
 
         m_pBtWS[i] = new CCtrlButton();

@@ -84,7 +84,7 @@ void CUIBattleRecord::CInputDlg::_ctor_0(long nX, long nY, int32_t bNum) {
 void CUIBattleRecord::CInputDlg::OnCreate(void* pData) {
 	__sub_00375B80(this, nullptr, pData);
 }
-void CUIBattleRecord::CInputDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIBattleRecord::CInputDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00373C00(this, nullptr, wParam, lParam);
 }
 long CUIBattleRecord::CInputDlg::GetSetNum() {

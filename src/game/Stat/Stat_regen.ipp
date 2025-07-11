@@ -182,7 +182,7 @@ __asm {
 	push eax
 	mov ecx,edi
 	call CInPacket::DecodeBuffer
-	push offset _D_CTS_SPEED__2
+	push offset CTS_SPEED
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -201,7 +201,7 @@ __asm {
 	mov dword ptr [esi+0x1AC],eax
 
  Block2:
-	push offset _D_CTS_COMBOCOUNTER__2
+	push offset CTS_COMBO_COUNTER
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -220,7 +220,7 @@ __asm {
 	mov dword ptr [esi+0x3EC],eax
 
  Block4:
-	push offset _D_CTS_WEAPONCHARGE__1
+	push offset CTS_WEAPON_CHARGE
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -243,7 +243,7 @@ __asm {
 	mov dword ptr [esi+0x428],eax
 
  Block6:
-	push offset _D_CTS_STUN__1
+	push offset CTS_STUN
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -266,7 +266,7 @@ __asm {
 	mov dword ptr [esi+0x368],eax
 
  Block8:
-	push offset _D_CTS_DARKNESS__1
+	push offset CTS_DARKNESS
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -289,7 +289,7 @@ __asm {
 	mov dword ptr [esi+0x3D4],eax
 
  Block10:
-	push offset _D_CTS_SEAL__1
+	push offset CTS_SEAL
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -312,7 +312,7 @@ __asm {
 	mov dword ptr [esi+0x3B0],eax
 
  Block12:
-	push offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAKNESS
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -335,7 +335,7 @@ __asm {
 	mov dword ptr [esi+0x548],eax
 
  Block14:
-	push offset _D_CTS_CURSE__1
+	push offset CTS_CURSE
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -358,7 +358,7 @@ __asm {
 	mov dword ptr [esi+0x56C],eax
 
  Block16:
-	push offset _D_CTS_POISON__1
+	push offset CTS_POISON
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -377,7 +377,7 @@ __asm {
 	mov dword ptr [esi+0x380],eax
 
  Block18:
-	push offset _D_CTS_POISON__1
+	push offset CTS_POISON
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -400,7 +400,7 @@ __asm {
 	mov dword ptr [esi+0x38C],eax
 
  Block20:
-	push offset _D_CTS_SHADOWPARTNE__2
+	push offset CTS_SHADOW_PARTNER
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -423,7 +423,7 @@ __asm {
 	mov dword ptr [esi+0x4B8],eax
 
  Block22:
-	push offset _D_CTS_SHADOWPARTNE__2
+	push offset CTS_SHADOW_PARTNER
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -440,7 +440,7 @@ __asm {
 	mov dword ptr [esi+0x4AC],eax
 
  Block24:
-	push offset _D_CTS_DARKSIGHT__1
+	push offset CTS_DARK_SIGHT
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -457,7 +457,7 @@ __asm {
 	mov dword ptr [esi+0x224],eax
 
  Block26:
-	push offset _D_CTS_SOULARROW__1
+	push offset CTS_SOUL_ARROW
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -474,7 +474,7 @@ __asm {
 	mov dword ptr [esi+0x338],eax
 
  Block28:
-	push offset _D_CTS_MORPH__2
+	push offset CTS_MORPH
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -493,7 +493,7 @@ __asm {
 	mov dword ptr [esi+0x5A8],eax
 
  Block30:
-	push offset _D_CTS_GHOST__2
+	push offset CTS_GHOST
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -512,7 +512,7 @@ __asm {
 	mov dword ptr [esi+0x5CC],eax
 
  Block32:
-	push offset _D_CTS_ATTRACT__1
+	push offset CTS_ATTRACT
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -535,7 +535,7 @@ __asm {
 	mov dword ptr [esi+0x6BC],eax
 
  Block34:
-	push offset _D_CTS_SPIRITJAVELI__1
+	push offset CTS_SPIRIT_JAVELIN
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -554,7 +554,7 @@ __asm {
 	mov dword ptr [esi+0x6D4],eax
 
  Block36:
-	push offset _D_CTS_BANMAP__1
+	push offset CTS_BAN_MAP
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -577,7 +577,7 @@ __asm {
 	mov dword ptr [esi+0x7D0],eax
 
  Block38:
-	push offset _D_CTS_BARRIER__3
+	push offset CTS_BARRIER
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -600,7 +600,7 @@ __asm {
 	mov dword ptr [esi+0x914],eax
 
  Block40:
-	push offset _D_CTS_DOJANGSHIELD__1
+	push offset CTS_DOJANG_SHIELD
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -623,7 +623,7 @@ __asm {
 	mov dword ptr [esi+0x938],eax
 
  Block42:
-	push offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_REVERSE_INPUT
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -646,7 +646,7 @@ __asm {
 	mov dword ptr [esi+0x950],eax
 
  Block44:
-	push offset _D_CTS_RESPECTPIMMU__1
+	push offset CTS_RESPECT_P_IMMUNE
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -665,7 +665,7 @@ __asm {
 	mov dword ptr [esi+0xA28],eax
 
  Block46:
-	push offset _D_CTS_RESPECTMIMMU__1
+	push offset CTS_RESPECT_M_IMMUNE
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -684,7 +684,7 @@ __asm {
 	mov dword ptr [esi+0xA58],eax
 
  Block48:
-	push offset _D_CTS_DEFENSEATT__1
+	push offset CTS_DEFENSE_ATT
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -703,7 +703,7 @@ __asm {
 	mov dword ptr [esi+0xA84],eax
 
  Block50:
-	push offset _D_CTS_DEFENSESTATE__1
+	push offset CTS_DEFENSE_STATE
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -722,7 +722,7 @@ __asm {
 	mov dword ptr [esi+0xAB0],eax
 
  Block52:
-	push offset _D_CTS_DOJANGBERSER__1
+	push offset CTS_DOJANG_BERSERK
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -739,7 +739,7 @@ __asm {
 	mov dword ptr [esi+0x968],eax
 
  Block54:
-	push offset _D_CTS_DOJANGINVINC__1
+	push offset CTS_DOJANG_INVINCIBLE
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -756,7 +756,7 @@ __asm {
 	mov dword ptr [esi+0x98C],eax
 
  Block56:
-	push offset _D_CTS_WINDWALK__1
+	push offset CTS_WIND_WALK
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -773,7 +773,7 @@ __asm {
 	mov dword ptr [esi+0xBC4],eax
 
  Block58:
-	push offset _D_CTS_REPEATEFFECT__1
+	push offset CTS_REPEAT_EFFECT
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -796,7 +796,7 @@ __asm {
 	mov dword ptr [esi+0xCCC],eax
 
  Block60:
-	push offset _D_CTS_STOPPORTION__1
+	push offset CTS_STOP_PORTION
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -819,7 +819,7 @@ __asm {
 	mov dword ptr [esi+0xD14],eax
 
  Block62:
-	push offset _D_CTS_STOPMOTION__1
+	push offset CTS_STOP_MOTION
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -842,7 +842,7 @@ __asm {
 	mov dword ptr [esi+0xD38],eax
 
  Block64:
-	push offset _D_CTS_FEAR__1
+	push offset CTS_FEAR
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -865,7 +865,7 @@ __asm {
 	mov dword ptr [esi+0xD5C],eax
 
  Block66:
-	push offset _D_CTS_MAGICSHIELD__1
+	push offset CTS_MAGIC_SHIELD
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -884,7 +884,7 @@ __asm {
 	mov dword ptr [esi+0xD98],eax
 
  Block68:
-	push offset _D_CTS_FLYING__2
+	push offset CTS_FLYING
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -901,7 +901,7 @@ __asm {
 	mov dword ptr [esi+0xE10],eax
 
  Block70:
-	push offset _D_CTS_FROZEN__1
+	push offset CTS_FROZEN
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -924,7 +924,7 @@ __asm {
 	mov dword ptr [esi+0xE40],eax
 
  Block72:
-	push offset _D_CTS_SUDDENDEATH__1
+	push offset CTS_SUDDEN_DEATH
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -947,7 +947,7 @@ __asm {
 	mov dword ptr [esi+0xEAC],eax
 
  Block74:
-	push offset _D_CTS_FINALCUT__1
+	push offset CTS_FINAL_CUT
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -970,7 +970,7 @@ __asm {
 	mov dword ptr [esi+0xF00],eax
 
  Block76:
-	push offset _D_CTS_CYCLONE__1
+	push offset CTS_CYCLONE
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -989,7 +989,7 @@ __asm {
 	mov dword ptr [esi+0x1104],eax
 
  Block78:
-	push offset _D_CTS_SNEAK__1
+	push offset CTS_SNEAK
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -1006,7 +1006,7 @@ __asm {
 	mov dword ptr [esi+0x120C],eax
 
  Block80:
-	push offset _D_CTS_MOREWILDDAMA__1
+	push offset CTS_MOREWILD_DAMAGE_UP
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -1023,7 +1023,7 @@ __asm {
 	mov dword ptr [esi+0xF60],eax
 
  Block82:
-	push offset _D_CTS_MECHANIC__1
+	push offset CTS_MECHANIC
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -1046,7 +1046,7 @@ __asm {
 	mov dword ptr [esi+0x2B4],eax
 
  Block84:
-	push offset _D_CTS_DARKAURA__1
+	push offset CTS_DARK_AURA
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -1069,7 +1069,7 @@ __asm {
 	mov dword ptr [esi+0x878],eax
 
  Block86:
-	push offset _D_CTS_BLUEAURA__1
+	push offset CTS_BLUE_AURA
 	lea edx,[esp+0x20]
 	push edx
 	lea ecx,[esp+0x14]
@@ -1092,7 +1092,7 @@ __asm {
 	mov dword ptr [esi+0x8A8],eax
 
  Block88:
-	push offset _D_CTS_YELLOWAURA__1
+	push offset CTS_YELLOW_AURA
 	lea eax,[esp+0x20]
 	push eax
 	lea ecx,[esp+0x14]
@@ -1115,7 +1115,7 @@ __asm {
 	mov dword ptr [esi+0x8D8],eax
 
  Block90:
-	push offset _D_CTS_BLESSINGARMO__1
+	push offset CTS_BLESSING_ARMOR
 	lea ecx,[esp+0x20]
 	push ecx
 	lea ecx,[esp+0x14]
@@ -4325,35 +4325,35 @@ __asm {
 	jle Block7
 
  Block2:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_STUN__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_STUN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block7
 
  Block3:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_STUN__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_STUN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block7
 
  Block4:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_STUN__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_STUN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block7
 
  Block5:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_STUN__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_STUN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block7
 
  Block6:
-	push offset _D_CTS_STUN__1
+	push offset CTS_STUN
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4380,35 +4380,35 @@ __asm {
 	jle Block14
 
  Block9:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_POISON__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_POISON
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block14
 
  Block10:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_POISON__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_POISON
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block14
 
  Block11:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_POISON__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_POISON
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block14
 
  Block12:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_POISON__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_POISON
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block14
 
  Block13:
-	push offset _D_CTS_POISON__1
+	push offset CTS_POISON
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4435,35 +4435,35 @@ __asm {
 	jle Block21
 
  Block16:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_SEAL__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_SEAL
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block21
 
  Block17:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_SEAL__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_SEAL
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block21
 
  Block18:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_SEAL__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_SEAL
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block21
 
  Block19:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_SEAL__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_SEAL
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block21
 
  Block20:
-	push offset _D_CTS_SEAL__1
+	push offset CTS_SEAL
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4490,35 +4490,35 @@ __asm {
 	jle Block28
 
  Block23:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_DARKNESS__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_DARKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block28
 
  Block24:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_DARKNESS__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_DARKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block28
 
  Block25:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_DARKNESS__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_DARKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block28
 
  Block26:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_DARKNESS__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_DARKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block28
 
  Block27:
-	push offset _D_CTS_DARKNESS__1
+	push offset CTS_DARKNESS
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4545,35 +4545,35 @@ __asm {
 	jle Block35
 
  Block30:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_WEAKNESS__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_WEAKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block35
 
  Block31:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_WEAKNESS__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_WEAKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block35
 
  Block32:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_WEAKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block35
 
  Block33:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_WEAKNESS__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_WEAKNESS
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block35
 
  Block34:
-	push offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAKNESS
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4600,35 +4600,35 @@ __asm {
 	jle Block42
 
  Block37:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_CURSE__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_CURSE
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block42
 
  Block38:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_CURSE__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_CURSE
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block42
 
  Block39:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_CURSE__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_CURSE
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block42
 
  Block40:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_CURSE__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_CURSE
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block42
 
  Block41:
-	push offset _D_CTS_CURSE__1
+	push offset CTS_CURSE
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4655,35 +4655,35 @@ __asm {
 	jle Block49
 
  Block44:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_SLOW__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_SLOW
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block49
 
  Block45:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_SLOW__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_SLOW
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block49
 
  Block46:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_SLOW__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_SLOW
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block49
 
  Block47:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_SLOW__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_SLOW
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block49
 
  Block48:
-	push offset _D_CTS_SLOW__1
+	push offset CTS_SLOW
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4710,35 +4710,35 @@ __asm {
 	jle Block56
 
  Block51:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_ATTRACT__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_ATTRACT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block56
 
  Block52:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_ATTRACT__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_ATTRACT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block56
 
  Block53:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_ATTRACT__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_ATTRACT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block56
 
  Block54:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_ATTRACT__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_ATTRACT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block56
 
  Block55:
-	push offset _D_CTS_ATTRACT__1
+	push offset CTS_ATTRACT
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4765,35 +4765,35 @@ __asm {
 	jle Block63
 
  Block58:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_REVERSE_INPUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block63
 
  Block59:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_REVERSE_INPUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block63
 
  Block60:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_REVERSE_INPUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block63
 
  Block61:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_REVERSE_INPUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block63
 
  Block62:
-	push offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_REVERSE_INPUT
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4820,35 +4820,35 @@ __asm {
 	jle Block70
 
  Block65:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_BANMAP__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_BAN_MAP
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block70
 
  Block66:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_BANMAP__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_BAN_MAP
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block70
 
  Block67:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_BANMAP__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_BAN_MAP
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block70
 
  Block68:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_BANMAP__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_BAN_MAP
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block70
 
  Block69:
-	push offset _D_CTS_BANMAP__1
+	push offset CTS_BAN_MAP
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4875,35 +4875,35 @@ __asm {
 	jle Block77
 
  Block72:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_STOPPORTION__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_STOP_PORTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block77
 
  Block73:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_STOPPORTION__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_STOP_PORTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block77
 
  Block74:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_STOPPORTION__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_STOP_PORTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block77
 
  Block75:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_STOPPORTION__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_STOP_PORTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block77
 
  Block76:
-	push offset _D_CTS_STOPPORTION__1
+	push offset CTS_STOP_PORTION
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4930,35 +4930,35 @@ __asm {
 	jle Block84
 
  Block79:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_STOPMOTION__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_STOP_MOTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block84
 
  Block80:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_STOPMOTION__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_STOP_MOTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block84
 
  Block81:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_STOPMOTION__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_STOP_MOTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block84
 
  Block82:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_STOPMOTION__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_STOP_MOTION
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block84
 
  Block83:
-	push offset _D_CTS_STOPMOTION__1
+	push offset CTS_STOP_MOTION
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -4985,35 +4985,35 @@ __asm {
 	jle Block91
 
  Block86:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_FEAR__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_FEAR
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block91
 
  Block87:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_FEAR__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_FEAR
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block91
 
  Block88:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_FEAR__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_FEAR
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block91
 
  Block89:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_FEAR__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_FEAR
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block91
 
  Block90:
-	push offset _D_CTS_FEAR__1
+	push offset CTS_FEAR
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -5040,35 +5040,35 @@ __asm {
 	jle Block98
 
  Block93:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_FROZEN__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_FROZEN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block98
 
  Block94:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_FROZEN__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_FROZEN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block98
 
  Block95:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_FROZEN__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_FROZEN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block98
 
  Block96:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_FROZEN__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_FROZEN
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block98
 
  Block97:
-	push offset _D_CTS_FROZEN__1
+	push offset CTS_FROZEN
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -5095,35 +5095,35 @@ __asm {
 	jle Block105
 
  Block100:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_NOT_DAMAGED
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block105
 
  Block101:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_FLYING
+	mov ecx,offset CTS_NOT_DAMAGED
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block105
 
  Block102:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_NOT_DAMAGED
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block105
 
  Block103:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_NOT_DAMAGED
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block105
 
  Block104:
-	push offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_NOT_DAMAGED
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -5150,35 +5150,35 @@ __asm {
 	jle Block112
 
  Block107:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_FINALCUT__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_FINAL_CUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block112
 
  Block108:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_FINALCUT__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_FINAL_CUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block112
 
  Block109:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_FINALCUT__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_FINAL_CUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block112
 
  Block110:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_FINALCUT__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_FINAL_CUT
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block112
 
  Block111:
-	push offset _D_CTS_FINALCUT__1
+	push offset CTS_FINAL_CUT
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -5204,35 +5204,35 @@ __asm {
 	jle Block119
 
  Block114:
-	push offset _D_CTS_COMBOABILITY__2
-	mov ecx,offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_COMBO_ABILITY_BUFF
+	mov ecx,offset CTS_SUMMON_BOMB
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block119
 
  Block115:
-	push offset _D_CTS_FLYING__2
-	mov ecx,offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_FLYING
+	mov ecx,offset CTS_SUMMON_BOMB
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block119
 
  Block116:
-	push offset _D_CTS_WEAPONCHARGE__1
-	mov ecx,offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_WEAPON_CHARGE
+	mov ecx,offset CTS_SUMMON_BOMB
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block119
 
  Block117:
-	push offset _D_CTS_SUDDENDEATH__1
-	mov ecx,offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_SUDDEN_DEATH
+	mov ecx,offset CTS_SUMMON_BOMB
 	call MY_UINT128::compareTo_0
 	test eax,eax
 	je Block119
 
  Block118:
-	push offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_SUMMON_BOMB
 	lea ecx,[esp+0xC]
 	call MY_UINT128::operator|=
 
@@ -9575,7 +9575,7 @@ __asm {
 	sub esp,0x30
 	push esi
 	push edi
-	push offset _D_CTS_PAD__1
+	push offset CTS_PAD
 	lea eax,[esp+0xC]
 	mov esi,ecx
 	push eax
@@ -9597,7 +9597,7 @@ __asm {
 	mov dword ptr [esi+0x20],eax
 
  Block2:
-	push offset _D_CTS_PDD__1
+	push offset CTS_PDD
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9618,7 +9618,7 @@ __asm {
 	mov dword ptr [esi+0x5C],eax
 
  Block4:
-	push offset _D_CTS_MAD__1
+	push offset CTS_MAD
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -9639,7 +9639,7 @@ __asm {
 	mov dword ptr [esi+0x98],eax
 
  Block6:
-	push offset _D_CTS_MDD__1
+	push offset CTS_MDD
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -9660,7 +9660,7 @@ __asm {
 	mov dword ptr [esi+0xD4],eax
 
  Block8:
-	push offset _D_CTS_ACC__1
+	push offset CTS_ACC
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9681,7 +9681,7 @@ __asm {
 	mov dword ptr [esi+0x110],eax
 
  Block10:
-	push offset _D_CTS_EVA__1
+	push offset CTS_EVA
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -9702,7 +9702,7 @@ __asm {
 	mov dword ptr [esi+0x14C],eax
 
  Block12:
-	push offset _D_CTS_CRAFT__1
+	push offset CTS_CRAFT
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -9723,7 +9723,7 @@ __asm {
 	mov dword ptr [esi+0x188],eax
 
  Block14:
-	push offset _D_CTS_SPEED__2
+	push offset CTS_SPEED
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9744,7 +9744,7 @@ __asm {
 	mov dword ptr [esi+0x1B8],eax
 
  Block16:
-	push offset _D_CTS_JUMP__1
+	push offset CTS_JUMP
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -9765,7 +9765,7 @@ __asm {
 	mov dword ptr [esi+0x1E8],eax
 
  Block18:
-	push offset _D_CTS_EMHP__1
+	push offset CTS_EMHP
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -9786,7 +9786,7 @@ __asm {
 	mov dword ptr [esi+0xF9C],eax
 
  Block20:
-	push offset _D_CTS_EMMP__1
+	push offset CTS_EMMP
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9807,7 +9807,7 @@ __asm {
 	mov dword ptr [esi+0xFCC],eax
 
  Block22:
-	push offset _D_CTS_EPAD__1
+	push offset CTS_EPAD
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -9828,7 +9828,7 @@ __asm {
 	mov dword ptr [esi+0xFFC],eax
 
  Block24:
-	push offset _D_CTS_EPDD__1
+	push offset CTS_EPDD
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -9849,7 +9849,7 @@ __asm {
 	mov dword ptr [esi+0x102C],eax
 
  Block26:
-	push offset _D_CTS_EMDD__1
+	push offset CTS_EMDD
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9870,7 +9870,7 @@ __asm {
 	mov dword ptr [esi+0x105C],eax
 
  Block28:
-	push offset _D_CTS_MAGICGUARD__1
+	push offset CTS_MAGICGUARD
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -9891,7 +9891,7 @@ __asm {
 	mov dword ptr [esi+0x20C],eax
 
  Block30:
-	push offset _D_CTS_DARKSIGHT__1
+	push offset CTS_DARK_SIGHT
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -9912,7 +9912,7 @@ __asm {
 	mov dword ptr [esi+0x230],eax
 
  Block32:
-	push offset _D_CTS_BOOSTER__1
+	push offset CTS_BOOSTER
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9933,7 +9933,7 @@ __asm {
 	mov dword ptr [esi+0x26C],eax
 
  Block34:
-	push offset _D_CTS_POWERGUARD__1
+	push offset CTS_POWERGUARD
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -9954,7 +9954,7 @@ __asm {
 	mov dword ptr [esi+0x290],eax
 
  Block36:
-	push offset _D_CTS_GUARD__1
+	push offset CTS_GUARD
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -9975,7 +9975,7 @@ __asm {
 	mov dword ptr [esi+0x1080],eax
 
  Block38:
-	push offset _D_CTS_SAFETYDAMAGE__1
+	push offset CTS_SAFETY_DAMAGE
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -9996,7 +9996,7 @@ __asm {
 	mov dword ptr [esi+0x10C8],eax
 
  Block40:
-	push offset _D_CTS_SAFETYABSORB__1
+	push offset CTS_SAFETY_ABSORB
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10017,7 +10017,7 @@ __asm {
 	mov dword ptr [esi+0x10EC],eax
 
  Block42:
-	push offset _D_CTS_MAXHP__2
+	push offset CTS_MAXHP
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10038,7 +10038,7 @@ __asm {
 	mov dword ptr [esi+0x2D8],eax
 
  Block44:
-	push offset _D_CTS_MAXMP__1
+	push offset CTS_MAXMP
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10059,7 +10059,7 @@ __asm {
 	mov dword ptr [esi+0x2FC],eax
 
  Block46:
-	push offset _D_CTS_INVINCIBLE__1
+	push offset CTS_INVINCIBLE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10080,7 +10080,7 @@ __asm {
 	mov dword ptr [esi+0x320],eax
 
  Block48:
-	push offset _D_CTS_SOULARROW__1
+	push offset CTS_SOUL_ARROW
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10101,7 +10101,7 @@ __asm {
 	mov dword ptr [esi+0x344],eax
 
  Block50:
-	push offset _D_CTS_STUN__1
+	push offset CTS_STUN
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10122,7 +10122,7 @@ __asm {
 	mov dword ptr [esi+0x368],eax
 
  Block52:
-	push offset _D_CTS_POISON__1
+	push offset CTS_POISON
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10143,7 +10143,7 @@ __asm {
 	mov dword ptr [esi+0x38C],eax
 
  Block54:
-	push offset _D_CTS_SEAL__1
+	push offset CTS_SEAL
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10164,7 +10164,7 @@ __asm {
 	mov dword ptr [esi+0x3B0],eax
 
  Block56:
-	push offset _D_CTS_DARKNESS__1
+	push offset CTS_DARKNESS
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10185,7 +10185,7 @@ __asm {
 	mov dword ptr [esi+0x3D4],eax
 
  Block58:
-	push offset _D_CTS_COMBOCOUNTER__2
+	push offset CTS_COMBO_COUNTER
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10206,7 +10206,7 @@ __asm {
 	mov dword ptr [esi+0x3F8],eax
 
  Block60:
-	push offset _D_CTS_WEAPONCHARGE__1
+	push offset CTS_WEAPON_CHARGE
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10227,7 +10227,7 @@ __asm {
 	mov dword ptr [esi+0x428],eax
 
  Block62:
-	push offset _D_CTS_DRAGONBLOOD__1
+	push offset CTS_DRAGONBLOOD
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10248,7 +10248,7 @@ __asm {
 	mov dword ptr [esi+0x44C],eax
 
  Block64:
-	push offset _D_CTS_HOLYSYMBOL__1
+	push offset CTS_HOLYSYMBOL
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10269,7 +10269,7 @@ __asm {
 	mov dword ptr [esi+0x470],eax
 
  Block66:
-	push offset _D_CTS_MESOUP__1
+	push offset CTS_MESOUP
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10290,7 +10290,7 @@ __asm {
 	mov dword ptr [esi+0x494],eax
 
  Block68:
-	push offset _D_CTS_SHADOWPARTNE__2
+	push offset CTS_SHADOW_PARTNER
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10311,7 +10311,7 @@ __asm {
 	mov dword ptr [esi+0x4B8],eax
 
  Block70:
-	push offset _D_CTS_PICKPOCKET__1
+	push offset CTS_PICKPOCKET
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10332,7 +10332,7 @@ __asm {
 	mov dword ptr [esi+0x4DC],eax
 
  Block72:
-	push offset _D_CTS_MESOGUARD__1
+	push offset CTS_MESOGUARD
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10353,7 +10353,7 @@ __asm {
 	mov dword ptr [esi+0x500],eax
 
  Block74:
-	push offset _D_CTS_THAW__1
+	push offset CTS_THAW
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10374,7 +10374,7 @@ __asm {
 	mov dword ptr [esi+0x524],eax
 
  Block76:
-	push offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAKNESS
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10395,7 +10395,7 @@ __asm {
 	mov dword ptr [esi+0x548],eax
 
  Block78:
-	push offset _D_CTS_CURSE__1
+	push offset CTS_CURSE
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10416,7 +10416,7 @@ __asm {
 	mov dword ptr [esi+0x56C],eax
 
  Block80:
-	push offset _D_CTS_SLOW__1
+	push offset CTS_SLOW
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10437,7 +10437,7 @@ __asm {
 	mov dword ptr [esi+0x590],eax
 
  Block82:
-	push offset _D_CTS_MORPH__2
+	push offset CTS_MORPH
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10458,7 +10458,7 @@ __asm {
 	mov dword ptr [esi+0x5B4],eax
 
  Block84:
-	push offset _D_CTS_GHOST__2
+	push offset CTS_GHOST
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10479,7 +10479,7 @@ __asm {
 	mov dword ptr [esi+0x5D8],eax
 
  Block86:
-	push offset _D_CTS_REGEN__1
+	push offset CTS_REGEN
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10500,7 +10500,7 @@ __asm {
 	mov dword ptr [esi+0x5FC],eax
 
  Block88:
-	push offset _D_CTS_BASICSTATUP__1
+	push offset CTS_BASICSTATUP
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10521,7 +10521,7 @@ __asm {
 	mov dword ptr [esi+0x620],eax
 
  Block90:
-	push offset _D_CTS_STANCE__1
+	push offset CTS_STANCE
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10542,7 +10542,7 @@ __asm {
 	mov dword ptr [esi+0x644],eax
 
  Block92:
-	push offset _D_CTS_SHARPEYES__1
+	push offset CTS_SHARPEYES
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10563,7 +10563,7 @@ __asm {
 	mov dword ptr [esi+0x668],eax
 
  Block94:
-	push offset _D_CTS_MANAREFLECTI__1
+	push offset CTS_MANA_REFLECTION
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10584,7 +10584,7 @@ __asm {
 	mov dword ptr [esi+0x698],eax
 
  Block96:
-	push offset _D_CTS_ATTRACT__1
+	push offset CTS_ATTRACT
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10605,7 +10605,7 @@ __asm {
 	mov dword ptr [esi+0x6BC],eax
 
  Block98:
-	push offset _D_CTS_SPIRITJAVELI__1
+	push offset CTS_SPIRIT_JAVELIN
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10626,7 +10626,7 @@ __asm {
 	mov dword ptr [esi+0x6E0],eax
 
  Block100:
-	push offset _D_CTS_INFINITY__1
+	push offset CTS_INFINITY
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10647,7 +10647,7 @@ __asm {
 	mov dword ptr [esi+0x710],eax
 
  Block102:
-	push offset _D_CTS_HOLYSHIELD__1
+	push offset CTS_HOLYSHIELD
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10668,7 +10668,7 @@ __asm {
 	mov dword ptr [esi+0x740],eax
 
  Block104:
-	push offset _D_CTS_HAMSTRING__1
+	push offset CTS_HAMSTRING
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10689,7 +10689,7 @@ __asm {
 	mov dword ptr [esi+0x764],eax
 
  Block106:
-	push offset _D_CTS_BLIND__1
+	push offset CTS_BLIND
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10710,7 +10710,7 @@ __asm {
 	mov dword ptr [esi+0x788],eax
 
  Block108:
-	push offset _D_CTS_CONCENTRATIO__1
+	push offset CTS_CONCENTRATION
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10731,7 +10731,7 @@ __asm {
 	mov dword ptr [esi+0x7AC],eax
 
  Block110:
-	push offset _D_CTS_BANMAP__1
+	push offset CTS_BAN_MAP
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10752,7 +10752,7 @@ __asm {
 	mov dword ptr [esi+0x7D0],eax
 
  Block112:
-	push offset _D_CTS_MAXLEVELBUFF__1
+	push offset CTS_MAXLEVELBUFF
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10773,7 +10773,7 @@ __asm {
 	mov dword ptr [esi+0x800],eax
 
  Block114:
-	push offset _D_CTS_BARRIER__3
+	push offset CTS_BARRIER
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10794,7 +10794,7 @@ __asm {
 	mov dword ptr [esi+0x914],eax
 
  Block116:
-	push offset _D_CTS_DOJANGSHIELD__1
+	push offset CTS_DOJANG_SHIELD
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10815,7 +10815,7 @@ __asm {
 	mov dword ptr [esi+0x938],eax
 
  Block118:
-	push offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_REVERSE_INPUT
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10836,7 +10836,7 @@ __asm {
 	mov dword ptr [esi+0x950],eax
 
  Block120:
-	push offset _D_CTS_MESOUPBYITEM__1
+	push offset CTS_MESOUPBYITEM
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10857,7 +10857,7 @@ __asm {
 	mov dword ptr [esi+0x9C8],eax
 
  Block122:
-	push offset _D_CTS_ITEMUPBYITEM__1
+	push offset CTS_ITEMUPBYITEM
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10878,7 +10878,7 @@ __asm {
 	mov dword ptr [esi+0x9F8],eax
 
  Block124:
-	push offset _D_CTS_RESPECTPIMMU__1
+	push offset CTS_RESPECT_P_IMMUNE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10899,7 +10899,7 @@ __asm {
 	mov dword ptr [esi+0xA34],eax
 
  Block126:
-	push offset _D_CTS_RESPECTMIMMU__1
+	push offset CTS_RESPECT_M_IMMUNE
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10920,7 +10920,7 @@ __asm {
 	mov dword ptr [esi+0xA64],eax
 
  Block128:
-	push offset _D_CTS_DEFENSEATT__1
+	push offset CTS_DEFENSE_ATT
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -10941,7 +10941,7 @@ __asm {
 	mov dword ptr [esi+0xA90],eax
 
  Block130:
-	push offset _D_CTS_DEFENSESTATE__1
+	push offset CTS_DEFENSE_STATE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -10962,7 +10962,7 @@ __asm {
 	mov dword ptr [esi+0xABC],eax
 
  Block132:
-	push offset _D_CTS_DOJANGBERSER__1
+	push offset CTS_DOJANG_BERSERK
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -10983,7 +10983,7 @@ __asm {
 	mov dword ptr [esi+0x974],eax
 
  Block134:
-	push offset _D_CTS_DOJANGINVINC__1
+	push offset CTS_DOJANG_INVINCIBLE
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11004,7 +11004,7 @@ __asm {
 	mov dword ptr [esi+0x998],eax
 
  Block136:
-	push offset _D_CTS_SPARK__1
+	push offset CTS_SPARK
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11025,7 +11025,7 @@ __asm {
 	mov dword ptr [esi+0xB40],eax
 
  Block138:
-	push offset _D_CTS_SOULMASTERFI__1
+	push offset CTS_SOUL_MASTER_FINAL
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11046,7 +11046,7 @@ __asm {
 	mov dword ptr [esi+0xB64],eax
 
  Block140:
-	push offset _D_CTS_WINDBREAKERF__1
+	push offset CTS_WIND_BREAKER_FINAL
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11067,7 +11067,7 @@ __asm {
 	mov dword ptr [esi+0xB88],eax
 
  Block142:
-	push offset _D_CTS_ELEMENTALRES__1
+	push offset CTS_ELEMENTAL_RESET
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11088,7 +11088,7 @@ __asm {
 	mov dword ptr [esi+0xBAC],eax
 
  Block144:
-	push offset _D_CTS_WINDWALK__1
+	push offset CTS_WIND_WALK
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11109,7 +11109,7 @@ __asm {
 	mov dword ptr [esi+0xBD0],eax
 
  Block146:
-	push offset _D_CTS_EVENTRATE__1
+	push offset CTS_EVENTRATE
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11130,7 +11130,7 @@ __asm {
 	mov dword ptr [esi+0xBF4],eax
 
  Block148:
-	push offset _D_CTS_COMBOABILITY__2
+	push offset CTS_COMBO_ABILITY_BUFF
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11151,7 +11151,7 @@ __asm {
 	mov dword ptr [esi+0xC18],eax
 
  Block150:
-	push offset _D_CTS_COMBODRAIN__1
+	push offset CTS_COMBODRAIN
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11172,7 +11172,7 @@ __asm {
 	mov dword ptr [esi+0xC3C],eax
 
  Block152:
-	push offset _D_CTS_COMBOBARRIER__1
+	push offset CTS_COMBOBARRIER
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11193,7 +11193,7 @@ __asm {
 	mov dword ptr [esi+0xC60],eax
 
  Block154:
-	push offset _D_CTS_BODYPRESSURE__1
+	push offset CTS_BODYPRESSURE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11214,7 +11214,7 @@ __asm {
 	mov dword ptr [esi+0xC84],eax
 
  Block156:
-	push offset _D_CTS_SMARTKNOCKBA__1
+	push offset CTS_SMART_KNOCKBACK
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11235,7 +11235,7 @@ __asm {
 	mov dword ptr [esi+0xCA8],eax
 
  Block158:
-	push offset _D_CTS_REPEATEFFECT__1
+	push offset CTS_REPEAT_EFFECT
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11256,7 +11256,7 @@ __asm {
 	mov dword ptr [esi+0xCCC],eax
 
  Block160:
-	push offset _D_CTS_EXPBUFFRATE__1
+	push offset CTS_EXPBUFFRATE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11277,7 +11277,7 @@ __asm {
 	mov dword ptr [esi+0xCF0],eax
 
  Block162:
-	push offset _D_CTS_INCEFFECTHPP__1
+	push offset CTS_INC_EFFECT_HP_POTION
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11298,7 +11298,7 @@ __asm {
 	mov dword ptr [esi+0xAEC],eax
 
  Block164:
-	push offset _D_CTS_INCEFFECTMPP__1
+	push offset CTS_INC_EFFECT_MP_POTION
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11319,7 +11319,7 @@ __asm {
 	mov dword ptr [esi+0xB1C],eax
 
  Block166:
-	push offset _D_CTS_STOPPORTION__1
+	push offset CTS_STOP_PORTION
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11340,7 +11340,7 @@ __asm {
 	mov dword ptr [esi+0xD14],eax
 
  Block168:
-	push offset _D_CTS_STOPMOTION__1
+	push offset CTS_STOP_MOTION
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11361,7 +11361,7 @@ __asm {
 	mov dword ptr [esi+0xD38],eax
 
  Block170:
-	push offset _D_CTS_FEAR__1
+	push offset CTS_FEAR
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11382,7 +11382,7 @@ __asm {
 	mov dword ptr [esi+0xD5C],eax
 
  Block172:
-	push offset _D_CTS_EVANSLOW__1
+	push offset CTS_EVANSLOW
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11403,7 +11403,7 @@ __asm {
 	mov dword ptr [esi+0xD80],eax
 
  Block174:
-	push offset _D_CTS_MAGICSHIELD__1
+	push offset CTS_MAGIC_SHIELD
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11424,7 +11424,7 @@ __asm {
 	mov dword ptr [esi+0xDA4],eax
 
  Block176:
-	push offset _D_CTS_MAGICRESISTA__1
+	push offset CTS_MAGIC_RESISTANCE
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11445,7 +11445,7 @@ __asm {
 	mov dword ptr [esi+0xDD4],eax
 
  Block178:
-	push offset _D_CTS_SOULSTONE__1
+	push offset CTS_SOULSTONE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11466,7 +11466,7 @@ __asm {
 	mov dword ptr [esi+0xDF8],eax
 
  Block180:
-	push offset _D_CTS_FLYING__2
+	push offset CTS_FLYING
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11487,7 +11487,7 @@ __asm {
 	mov dword ptr [esi+0xE1C],eax
 
  Block182:
-	push offset _D_CTS_FROZEN__1
+	push offset CTS_FROZEN
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11508,7 +11508,7 @@ __asm {
 	mov dword ptr [esi+0xE40],eax
 
  Block184:
-	push offset _D_CTS_ASSISTCHARGE__1
+	push offset CTS_ASSISTCHARGE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11529,7 +11529,7 @@ __asm {
 	mov dword ptr [esi+0xE64],eax
 
  Block186:
-	push offset _D_CTS_ENRAGE__1
+	push offset CTS_ENRAGE
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11550,7 +11550,7 @@ __asm {
 	mov dword ptr [esi+0xE88],eax
 
  Block188:
-	push offset _D_CTS_SUDDENDEATH__1
+	push offset CTS_SUDDEN_DEATH
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11571,7 +11571,7 @@ __asm {
 	mov dword ptr [esi+0xEAC],eax
 
  Block190:
-	push offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_NOT_DAMAGED
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11592,7 +11592,7 @@ __asm {
 	mov dword ptr [esi+0xEDC],eax
 
  Block192:
-	push offset _D_CTS_FINALCUT__1
+	push offset CTS_FINAL_CUT
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11613,7 +11613,7 @@ __asm {
 	mov dword ptr [esi+0xF00],eax
 
  Block194:
-	push offset _D_CTS_THORNSEFFECT__1
+	push offset CTS_THORNSEFFECT
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11634,7 +11634,7 @@ __asm {
 	mov dword ptr [esi+0xF24],eax
 
  Block196:
-	push offset _D_CTS_SWALLOWATTAC__1
+	push offset CTS_SWALLOW_ATTACK_DAMAGE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11655,7 +11655,7 @@ __asm {
 	mov dword ptr [esi+0xF48],eax
 
  Block198:
-	push offset _D_CTS_MOREWILDDAMA__1
+	push offset CTS_MOREWILD_DAMAGE_UP
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11676,7 +11676,7 @@ __asm {
 	mov dword ptr [esi+0xF6C],eax
 
  Block200:
-	push offset _D_CTS_MINE__1
+	push offset CTS_MINE
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11697,7 +11697,7 @@ __asm {
 	mov dword ptr [esi+0x10A4],eax
 
  Block202:
-	push offset _D_CTS_CYCLONE__1
+	push offset CTS_CYCLONE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11718,7 +11718,7 @@ __asm {
 	mov dword ptr [esi+0x1110],eax
 
  Block204:
-	push offset _D_CTS_SWALLOWCRITI__1
+	push offset CTS_SWALLOW_CRITICAL
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11739,7 +11739,7 @@ __asm {
 	mov dword ptr [esi+0x1134],eax
 
  Block206:
-	push offset _D_CTS_SWALLOWMAXMP__1
+	push offset CTS_SWALLOW_MAX_MP
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11760,7 +11760,7 @@ __asm {
 	mov dword ptr [esi+0x1158],eax
 
  Block208:
-	push offset _D_CTS_SWALLOWDEFEN__1
+	push offset CTS_SWALLOW_DEFENCE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11781,7 +11781,7 @@ __asm {
 	mov dword ptr [esi+0x117C],eax
 
  Block210:
-	push offset _D_CTS_SWALLOWEVASI__1
+	push offset CTS_SWALLOW_EVASION
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11802,7 +11802,7 @@ __asm {
 	mov dword ptr [esi+0x11A0],eax
 
  Block212:
-	push offset _D_CTS_CONVERSION__1
+	push offset CTS_CONVERSION
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11823,7 +11823,7 @@ __asm {
 	mov dword ptr [esi+0x11D0],eax
 
  Block214:
-	push offset _D_CTS_REVIVE__1
+	push offset CTS_REVIVE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11844,7 +11844,7 @@ __asm {
 	mov dword ptr [esi+0x11F4],eax
 
  Block216:
-	push offset _D_CTS_SNEAK__1
+	push offset CTS_SNEAK
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11865,7 +11865,7 @@ __asm {
 	mov dword ptr [esi+0x1218],eax
 
  Block218:
-	push offset _D_CTS_MECHANIC__1
+	push offset CTS_MECHANIC
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11886,7 +11886,7 @@ __asm {
 	mov dword ptr [esi+0x2B4],eax
 
  Block220:
-	push offset _D_CTS_AURA__2
+	push offset CTS_AURA
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11907,7 +11907,7 @@ __asm {
 	mov dword ptr [esi+0x824],eax
 
  Block222:
-	push offset _D_CTS_DARKAURA__1
+	push offset CTS_DARK_AURA
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11928,7 +11928,7 @@ __asm {
 	mov dword ptr [esi+0x878],eax
 
  Block224:
-	push offset _D_CTS_BLUEAURA__1
+	push offset CTS_BLUE_AURA
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -11949,7 +11949,7 @@ __asm {
 	mov dword ptr [esi+0x8A8],eax
 
  Block226:
-	push offset _D_CTS_YELLOWAURA__1
+	push offset CTS_YELLOW_AURA
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -11970,7 +11970,7 @@ __asm {
 	mov dword ptr [esi+0x8D8],eax
 
  Block228:
-	push offset _D_CTS_SUPERBODY__1
+	push offset CTS_SUPERBODY
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -11991,7 +11991,7 @@ __asm {
 	mov dword ptr [esi+0x854],eax
 
  Block230:
-	push offset _D_CTS_MOREWILDMAXH__1
+	push offset CTS_MOREWILD_MAX_HP
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -12012,7 +12012,7 @@ __asm {
 	mov dword ptr [esi+0x123C],eax
 
  Block232:
-	push offset _D_CTS_DICE__1
+	push offset CTS_DICE
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -12033,7 +12033,7 @@ __asm {
 	mov dword ptr [esi+0x1260],eax
 
  Block234:
-	push offset _D_CTS_BLESSINGARMO__1
+	push offset CTS_BLESSING_ARMOR
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -12054,7 +12054,7 @@ __asm {
 	mov dword ptr [esi+0x12DC],eax
 
  Block236:
-	push offset _D_CTS_DAMR__1
+	push offset CTS_DAMR
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -12075,7 +12075,7 @@ __asm {
 	mov dword ptr [esi+0x130C],eax
 
  Block238:
-	push offset _D_CTS_TELEPORTMAST__1
+	push offset CTS_TELEPORT_MASTERY_ON
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -12096,7 +12096,7 @@ __asm {
 	mov dword ptr [esi+0x1330],eax
 
  Block240:
-	push offset _D_CTS_COMBATORDERS__1
+	push offset CTS_COMBATORDERS
 	lea eax,[esp+0xC]
 	push eax
 	lea ecx,[esp+0x44]
@@ -12117,7 +12117,7 @@ __asm {
 	mov dword ptr [esi+0x1354],eax
 
  Block242:
-	push offset _D_CTS_BEHOLDER__1
+	push offset CTS_BEHOLDER
 	lea ecx,[esp+0xC]
 	push ecx
 	lea ecx,[esp+0x44]
@@ -12138,7 +12138,7 @@ __asm {
 	mov dword ptr [esi+0x1378],eax
 
  Block244:
-	push offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_SUMMON_BOMB
 	lea edx,[esp+0xC]
 	push edx
 	lea ecx,[esp+0x44]
@@ -19926,7 +19926,7 @@ __asm {
 	xor ebx,ebx
 	push 0x64
 	lea ecx,[esp+0xB0]
-	int 3// TODO: 	mov dword ptr [esp+0xB0],offset ZMap<long, EQUIPPED_SETITEM, long>::`vftable'
+	mov dword ptr [esp+0xB0],0
 	mov dword ptr [esp+0xB4],ebx
 	mov dword ptr [esp+0xB8],0x1F
 	mov dword ptr [esp+0xBC],ebx
@@ -21932,7 +21932,7 @@ __asm {
  Block264:
 	lea ecx,[esp+0xAC]
 	mov dword ptr [esp+0xD0],0xFFFFFFFF
-	int 3// TODO: 	mov dword ptr [esp+0xAC],offset ZMap<long, EQUIPPED_SETITEM, long>::`vftable'
+	mov dword ptr [esp+0xAC],0
 	call ZMap<long, EQUIPPED_SETITEM, long>::RemoveAll
 	mov ecx,dword ptr [esp+0xC8]
 	mov dword ptr fs:[0],ecx
@@ -24492,64 +24492,64 @@ __asm {
 
  Block0:
 	sub esp,0x140
-	push offset _D_CTS_BLESSINGARMO__1
+	push offset CTS_BLESSING_ARMOR
 	lea eax,[esp+0xA4]
 	push eax
-	push offset _D_CTS_DAMR__1
+	push offset CTS_DAMR
 	lea ecx,[esp+0x2C]
 	push ecx
-	push offset _D_CTS_DARKAURA__1
+	push offset CTS_DARK_AURA
 	lea edx,[esp+0x134]
 	push edx
-	push offset _D_CTS_EPAD__1
+	push offset CTS_EPAD
 	lea eax,[esp+0x5C]
 	push eax
-	push offset _D_CTS_THORNSEFFECT__1
+	push offset CTS_THORNSEFFECT
 	lea ecx,[esp+0xE4]
 	push ecx
-	push offset _D_CTS_FINALCUT__1
+	push offset CTS_FINAL_CUT
 	lea edx,[esp+0x8C]
 	push edx
-	push offset _D_CTS_SUDDENDEATH__1
+	push offset CTS_SUDDEN_DEATH
 	lea eax,[esp+0x134]
 	push eax
-	push offset _D_CTS_ASSISTCHARGE__1
+	push offset CTS_ASSISTCHARGE
 	lea ecx,[esp+0xBC]
 	push ecx
-	push offset _D_CTS_COMBOABILITY__2
+	push offset CTS_COMBO_ABILITY_BUFF
 	lea edx,[esp+0x124]
 	push edx
-	push offset _D_CTS_ENERGYCHARGE__3
+	push offset CTS_ENERGY_CHARGED
 	lea eax,[esp+0x4C]
 	push eax
-	push offset _D_CTS_MAXLEVELBUFF__1
+	push offset CTS_MAXLEVELBUFF
 	lea ecx,[esp+0x64]
 	push ecx
-	push offset _D_CTS_SHARPEYES__1
+	push offset CTS_SHARPEYES
 	lea edx,[esp+0x8C]
 	push edx
-	push offset _D_CTS_BASICSTATUP__1
+	push offset CTS_BASICSTATUP
 	lea eax,[esp+0xB4]
 	push eax
-	push offset _D_CTS_WEAPONCHARGE__1
+	push offset CTS_WEAPON_CHARGE
 	lea ecx,[esp+0xDC]
 	push ecx
-	push offset _D_CTS_COMBOCOUNTER__2
+	push offset CTS_COMBO_COUNTER
 	lea edx,[esp+0x104]
 	push edx
-	push offset _D_CTS_DARKNESS__1
+	push offset CTS_DARKNESS
 	lea eax,[esp+0x12C]
 	push eax
-	push offset _D_CTS_EVA__1
+	push offset CTS_EVA
 	lea ecx,[esp+0x154]
 	push ecx
-	push offset _D_CTS_ACC__1
+	push offset CTS_ACC
 	lea edx,[esp+0x17C]
 	push edx
-	push offset _D_CTS_MAD__1
+	push offset CTS_MAD
 	lea eax,[esp+0x1A4]
 	push eax
-	mov ecx,offset _D_CTS_PAD__1
+	mov ecx,offset CTS_PAD
 	call MY_UINT128::operator|
 	mov ecx,eax
 	call MY_UINT128::operator|
@@ -26447,49 +26447,49 @@ __asm {
  Block1:
 	or dword ptr [_D__S3__7],eax
 	push 0x80
-	push offset _D_CTS_YELLOWAURA__1
+	push offset CTS_YELLOW_AURA
 	lea eax,[esp+0xAC]
 	push eax
-	push offset _D_CTS_FROZEN__1
+	push offset CTS_FROZEN
 	lea ecx,[esp+0xE4]
 	push ecx
-	push offset _D_CTS_FLYING__2
+	push offset CTS_FLYING
 	lea edx,[esp+0x9C]
 	push edx
-	push offset _D_CTS_DASH_JUMP__1
+	push offset CTS_DASH_JUMP
 	lea eax,[esp+0x64]
 	push eax
-	push offset _D_CTS_DASH_SPEED__1
+	push offset CTS_DASH_SPEED
 	lea ecx,[esp+0xEC]
 	push ecx
-	push offset _D_CTS_RIDEVEHICLE__3
+	push offset CTS_RIDE_VEHICLE
 	lea edx,[esp+0x94]
 	push edx
-	push offset _D_CTS_ATTRACT__1
+	push offset CTS_ATTRACT
 	lea eax,[esp+0x4C]
 	push eax
-	push offset _D_CTS_BASICSTATUP__1
+	push offset CTS_BASICSTATUP
 	lea ecx,[esp+0x64]
 	push ecx
-	push offset _D_CTS_GHOST__2
+	push offset CTS_GHOST
 	lea edx,[esp+0x7C]
 	push edx
-	push offset _D_CTS_MORPH__2
+	push offset CTS_MORPH
 	lea eax,[esp+0xA4]
 	push eax
-	push offset _D_CTS_SLOW__1
+	push offset CTS_SLOW
 	lea ecx,[esp+0xCC]
 	push ecx
-	push offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAKNESS
 	lea edx,[esp+0xF4]
 	push edx
-	push offset _D_CTS_STUN__1
+	push offset CTS_STUN
 	lea eax,[esp+0x11C]
 	push eax
-	push offset _D_CTS_JUMP__1
+	push offset CTS_JUMP
 	lea ecx,[esp+0x74]
 	push ecx
-	mov ecx,offset _D_CTS_SPEED__2
+	mov ecx,offset CTS_SPEED
 	mov dword ptr [esp+0x160],0
 	call MY_UINT128::operator|
 	mov ecx,eax
@@ -26561,7 +26561,7 @@ __asm {
 
 // SecondaryStat::DecodeForLocal
 _SUB_EXCEPTION_HANDLER(3350E0)
-__SUB_CLASS_THIS(003350E0, __thiscall, 7679, SecondaryStat, MY_UINT128, CInPacket &, ZMap<long, ZRef<SecondaryStat::VIEWELEM>, long> &) {
+__SUB_CLASS_THIS(003350E0, __thiscall, 7679, SecondaryStat, MY_UINT128*, MY_UINT128*, CInPacket &, ZMap<long, ZRef<SecondaryStat::VIEWELEM>, long> &) {
 __asm {
 
  Block0:
@@ -26591,7 +26591,7 @@ __asm {
 	mov ecx,edi
 	call CInPacket::DecodeBuffer
 	call dword ptr [ZImports::_timeGetTime]
-	push offset _D_CTS_PAD__1
+	push offset CTS_PAD
 	lea ecx,[esp+0x428]
 	push ecx
 	lea ecx,[esp+0x30]
@@ -26670,7 +26670,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_PAD__1
+	push offset CTS_PAD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -26678,7 +26678,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block7:
-	push offset _D_CTS_PDD__1
+	push offset CTS_PDD
 	lea edx,[esp+0x88]
 	push edx
 	lea ecx,[esp+0x30]
@@ -26754,7 +26754,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_PDD__1
+	push offset CTS_PDD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -26762,7 +26762,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block14:
-	push offset _D_CTS_MAD__1
+	push offset CTS_MAD
 	lea edx,[esp+0x488]
 	push edx
 	lea ecx,[esp+0x30]
@@ -26838,7 +26838,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAD__1
+	push offset CTS_MAD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -26846,7 +26846,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block21:
-	push offset _D_CTS_MDD__1
+	push offset CTS_MDD
 	lea edx,[esp+0xA8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -26922,7 +26922,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MDD__1
+	push offset CTS_MDD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -26930,7 +26930,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block28:
-	push offset _D_CTS_ACC__1
+	push offset CTS_ACC
 	lea edx,[esp+0x688]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27006,7 +27006,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_ACC__1
+	push offset CTS_ACC
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27014,7 +27014,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block35:
-	push offset _D_CTS_EVA__1
+	push offset CTS_EVA
 	lea edx,[esp+0xC8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27090,7 +27090,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EVA__1
+	push offset CTS_EVA
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27098,7 +27098,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block42:
-	push offset _D_CTS_CRAFT__1
+	push offset CTS_CRAFT
 	lea edx,[esp+0x4A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27174,7 +27174,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_CRAFT__1
+	push offset CTS_CRAFT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27182,7 +27182,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block49:
-	push offset _D_CTS_SPEED__2
+	push offset CTS_SPEED
 	lea edx,[esp+0xE8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27258,7 +27258,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SPEED__2
+	push offset CTS_SPEED
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27266,7 +27266,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block56:
-	push offset _D_CTS_JUMP__1
+	push offset CTS_JUMP
 	lea edx,[esp+0x788]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27342,7 +27342,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_JUMP__1
+	push offset CTS_JUMP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27350,7 +27350,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block63:
-	push offset _D_CTS_EMHP__1
+	push offset CTS_EMHP
 	lea edx,[esp+0x108]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27426,7 +27426,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EMHP__1
+	push offset CTS_EMHP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27434,7 +27434,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block70:
-	push offset _D_CTS_EMMP__1
+	push offset CTS_EMMP
 	lea edx,[esp+0x4C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27510,7 +27510,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EMMP__1
+	push offset CTS_EMMP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27518,7 +27518,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block77:
-	push offset _D_CTS_EPAD__1
+	push offset CTS_EPAD
 	lea edx,[esp+0x128]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27594,7 +27594,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EPAD__1
+	push offset CTS_EPAD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27602,7 +27602,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block84:
-	push offset _D_CTS_EPDD__1
+	push offset CTS_EPDD
 	lea edx,[esp+0x6A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27678,7 +27678,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EPDD__1
+	push offset CTS_EPDD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27686,7 +27686,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block91:
-	push offset _D_CTS_EMDD__1
+	push offset CTS_EMDD
 	lea edx,[esp+0x148]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27762,7 +27762,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EMDD__1
+	push offset CTS_EMDD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27770,7 +27770,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block98:
-	push offset _D_CTS_MAGICGUARD__1
+	push offset CTS_MAGICGUARD
 	lea edx,[esp+0x4E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27846,7 +27846,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAGICGUARD__1
+	push offset CTS_MAGICGUARD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27854,7 +27854,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block105:
-	push offset _D_CTS_DARKSIGHT__1
+	push offset CTS_DARK_SIGHT
 	lea edx,[esp+0x168]
 	push edx
 	lea ecx,[esp+0x30]
@@ -27930,7 +27930,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DARKSIGHT__1
+	push offset CTS_DARK_SIGHT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -27938,7 +27938,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block112:
-	push offset _D_CTS_BOOSTER__1
+	push offset CTS_BOOSTER
 	lea edx,[esp+0x808]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28014,7 +28014,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BOOSTER__1
+	push offset CTS_BOOSTER
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28022,7 +28022,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block119:
-	push offset _D_CTS_POWERGUARD__1
+	push offset CTS_POWERGUARD
 	lea edx,[esp+0x188]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28098,7 +28098,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_POWERGUARD__1
+	push offset CTS_POWERGUARD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28106,7 +28106,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block126:
-	push offset _D_CTS_GUARD__1
+	push offset CTS_GUARD
 	lea edx,[esp+0x508]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28182,7 +28182,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_GUARD__1
+	push offset CTS_GUARD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28190,7 +28190,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block133:
-	push offset _D_CTS_SAFETYDAMAGE__1
+	push offset CTS_SAFETY_DAMAGE
 	lea edx,[esp+0x1A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28266,7 +28266,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SAFETYDAMAGE__1
+	push offset CTS_SAFETY_DAMAGE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28274,7 +28274,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block140:
-	push offset _D_CTS_SAFETYABSORB__1
+	push offset CTS_SAFETY_ABSORB
 	lea edx,[esp+0x6C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28350,7 +28350,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SAFETYABSORB__1
+	push offset CTS_SAFETY_ABSORB
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28358,7 +28358,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block147:
-	push offset _D_CTS_MAXHP__2
+	push offset CTS_MAXHP
 	lea edx,[esp+0x1C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28434,7 +28434,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAXHP__2
+	push offset CTS_MAXHP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28442,7 +28442,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block154:
-	push offset _D_CTS_MAXMP__1
+	push offset CTS_MAXMP
 	lea edx,[esp+0x528]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28518,7 +28518,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAXMP__1
+	push offset CTS_MAXMP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28526,7 +28526,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block161:
-	push offset _D_CTS_INVINCIBLE__1
+	push offset CTS_INVINCIBLE
 	lea edx,[esp+0x1E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28602,7 +28602,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_INVINCIBLE__1
+	push offset CTS_INVINCIBLE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28610,7 +28610,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block168:
-	push offset _D_CTS_SOULARROW__1
+	push offset CTS_SOUL_ARROW
 	lea edx,[esp+0x7A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28686,7 +28686,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SOULARROW__1
+	push offset CTS_SOUL_ARROW
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28694,7 +28694,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block175:
-	push offset _D_CTS_STUN__1
+	push offset CTS_STUN
 	lea edx,[esp+0x208]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28770,7 +28770,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_STUN__1
+	push offset CTS_STUN
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28778,7 +28778,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block182:
-	push offset _D_CTS_POISON__1
+	push offset CTS_POISON
 	lea edx,[esp+0x548]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28854,7 +28854,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_POISON__1
+	push offset CTS_POISON
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28862,7 +28862,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block189:
-	push offset _D_CTS_SEAL__1
+	push offset CTS_SEAL
 	lea edx,[esp+0x228]
 	push edx
 	lea ecx,[esp+0x30]
@@ -28938,7 +28938,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SEAL__1
+	push offset CTS_SEAL
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -28946,7 +28946,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block196:
-	push offset _D_CTS_DARKNESS__1
+	push offset CTS_DARKNESS
 	lea edx,[esp+0x6E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29022,7 +29022,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DARKNESS__1
+	push offset CTS_DARKNESS
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29030,7 +29030,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block203:
-	push offset _D_CTS_COMBOCOUNTER__2
+	push offset CTS_COMBO_COUNTER
 	lea edx,[esp+0x248]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29106,7 +29106,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_COMBOCOUNTER__2
+	push offset CTS_COMBO_COUNTER
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29114,7 +29114,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block210:
-	push offset _D_CTS_WEAPONCHARGE__1
+	push offset CTS_WEAPON_CHARGE
 	lea edx,[esp+0x568]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29190,7 +29190,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_WEAPONCHARGE__1
+	push offset CTS_WEAPON_CHARGE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29198,7 +29198,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block217:
-	push offset _D_CTS_DRAGONBLOOD__1
+	push offset CTS_DRAGONBLOOD
 	lea edx,[esp+0x268]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29274,7 +29274,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DRAGONBLOOD__1
+	push offset CTS_DRAGONBLOOD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29282,7 +29282,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block224:
-	push offset _D_CTS_HOLYSYMBOL__1
+	push offset CTS_HOLYSYMBOL
 	lea edx,[esp+0x848]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29358,7 +29358,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_HOLYSYMBOL__1
+	push offset CTS_HOLYSYMBOL
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29366,7 +29366,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block231:
-	push offset _D_CTS_MESOUP__1
+	push offset CTS_MESOUP
 	lea edx,[esp+0x288]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29442,7 +29442,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MESOUP__1
+	push offset CTS_MESOUP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29450,7 +29450,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block238:
-	push offset _D_CTS_SHADOWPARTNE__2
+	push offset CTS_SHADOW_PARTNER
 	lea edx,[esp+0x588]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29526,7 +29526,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SHADOWPARTNE__2
+	push offset CTS_SHADOW_PARTNER
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29534,7 +29534,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block245:
-	push offset _D_CTS_PICKPOCKET__1
+	push offset CTS_PICKPOCKET
 	lea edx,[esp+0x2A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29610,7 +29610,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_PICKPOCKET__1
+	push offset CTS_PICKPOCKET
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29618,7 +29618,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block252:
-	push offset _D_CTS_MESOGUARD__1
+	push offset CTS_MESOGUARD
 	lea edx,[esp+0x708]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29694,7 +29694,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MESOGUARD__1
+	push offset CTS_MESOGUARD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29702,7 +29702,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block259:
-	push offset _D_CTS_THAW__1
+	push offset CTS_THAW
 	lea edx,[esp+0x2C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29778,7 +29778,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_THAW__1
+	push offset CTS_THAW
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29786,7 +29786,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block266:
-	push offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAKNESS
 	lea edx,[esp+0x5A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29862,7 +29862,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_WEAKNESS__1
+	push offset CTS_WEAKNESS
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29870,7 +29870,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block273:
-	push offset _D_CTS_CURSE__1
+	push offset CTS_CURSE
 	lea edx,[esp+0x2E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -29946,7 +29946,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_CURSE__1
+	push offset CTS_CURSE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -29954,7 +29954,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block280:
-	push offset _D_CTS_SLOW__1
+	push offset CTS_SLOW
 	lea edx,[esp+0x7C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30030,7 +30030,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SLOW__1
+	push offset CTS_SLOW
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30038,7 +30038,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block287:
-	push offset _D_CTS_MORPH__2
+	push offset CTS_MORPH
 	lea edx,[esp+0x308]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30114,7 +30114,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MORPH__2
+	push offset CTS_MORPH
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30122,7 +30122,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block294:
-	push offset _D_CTS_GHOST__2
+	push offset CTS_GHOST
 	lea edx,[esp+0x5C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30198,7 +30198,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_GHOST__2
+	push offset CTS_GHOST
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30206,7 +30206,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block301:
-	push offset _D_CTS_REGEN__1
+	push offset CTS_REGEN
 	lea edx,[esp+0x328]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30282,7 +30282,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_REGEN__1
+	push offset CTS_REGEN
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30290,7 +30290,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block308:
-	push offset _D_CTS_BASICSTATUP__1
+	push offset CTS_BASICSTATUP
 	lea edx,[esp+0x728]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30366,7 +30366,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BASICSTATUP__1
+	push offset CTS_BASICSTATUP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30374,7 +30374,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block315:
-	push offset _D_CTS_STANCE__1
+	push offset CTS_STANCE
 	lea edx,[esp+0x348]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30450,7 +30450,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_STANCE__1
+	push offset CTS_STANCE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30458,7 +30458,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block322:
-	push offset _D_CTS_SHARPEYES__1
+	push offset CTS_SHARPEYES
 	lea edx,[esp+0x5E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30534,7 +30534,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SHARPEYES__1
+	push offset CTS_SHARPEYES
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30542,7 +30542,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block329:
-	push offset _D_CTS_MANAREFLECTI__1
+	push offset CTS_MANA_REFLECTION
 	lea edx,[esp+0x368]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30618,7 +30618,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MANAREFLECTI__1
+	push offset CTS_MANA_REFLECTION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30626,7 +30626,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block336:
-	push offset _D_CTS_ATTRACT__1
+	push offset CTS_ATTRACT
 	lea edx,[esp+0x828]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30702,7 +30702,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_ATTRACT__1
+	push offset CTS_ATTRACT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30710,7 +30710,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block343:
-	push offset _D_CTS_SPIRITJAVELI__1
+	push offset CTS_SPIRIT_JAVELIN
 	lea edx,[esp+0x388]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30786,7 +30786,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SPIRITJAVELI__1
+	push offset CTS_SPIRIT_JAVELIN
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30794,7 +30794,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block350:
-	push offset _D_CTS_INFINITY__1
+	push offset CTS_INFINITY
 	lea edx,[esp+0x608]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30870,7 +30870,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_INFINITY__1
+	push offset CTS_INFINITY
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30878,7 +30878,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block357:
-	push offset _D_CTS_HOLYSHIELD__1
+	push offset CTS_HOLYSHIELD
 	lea edx,[esp+0x3A8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -30954,7 +30954,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_HOLYSHIELD__1
+	push offset CTS_HOLYSHIELD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -30962,7 +30962,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block364:
-	push offset _D_CTS_HAMSTRING__1
+	push offset CTS_HAMSTRING
 	lea edx,[esp+0x748]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31038,7 +31038,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_HAMSTRING__1
+	push offset CTS_HAMSTRING
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31046,7 +31046,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block371:
-	push offset _D_CTS_BLIND__1
+	push offset CTS_BLIND
 	lea edx,[esp+0x3C8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31122,7 +31122,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BLIND__1
+	push offset CTS_BLIND
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31130,7 +31130,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block378:
-	push offset _D_CTS_CONCENTRATIO__1
+	push offset CTS_CONCENTRATION
 	lea edx,[esp+0x628]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31206,7 +31206,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_CONCENTRATIO__1
+	push offset CTS_CONCENTRATION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31214,7 +31214,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block385:
-	push offset _D_CTS_BANMAP__1
+	push offset CTS_BAN_MAP
 	lea edx,[esp+0x3E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31290,7 +31290,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BANMAP__1
+	push offset CTS_BAN_MAP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31298,7 +31298,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block392:
-	push offset _D_CTS_MAXLEVELBUFF__1
+	push offset CTS_MAXLEVELBUFF
 	lea edx,[esp+0x7E8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31374,7 +31374,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAXLEVELBUFF__1
+	push offset CTS_MAXLEVELBUFF
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31382,7 +31382,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block399:
-	push offset _D_CTS_BARRIER__3
+	push offset CTS_BARRIER
 	lea edx,[esp+0x408]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31458,7 +31458,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BARRIER__3
+	push offset CTS_BARRIER
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31466,7 +31466,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block406:
-	push offset _D_CTS_DOJANGSHIELD__1
+	push offset CTS_DOJANG_SHIELD
 	lea edx,[esp+0x648]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31542,7 +31542,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DOJANGSHIELD__1
+	push offset CTS_DOJANG_SHIELD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31550,7 +31550,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block413:
-	push offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_REVERSE_INPUT
 	lea edx,[esp+0x68]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31626,7 +31626,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_REVERSEINPUT__1
+	push offset CTS_REVERSE_INPUT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31634,7 +31634,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block420:
-	push offset _D_CTS_MESOUPBYITEM__1
+	push offset CTS_MESOUPBYITEM
 	lea edx,[esp+0x768]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31710,7 +31710,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MESOUPBYITEM__1
+	push offset CTS_MESOUPBYITEM
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31718,7 +31718,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block427:
-	push offset _D_CTS_ITEMUPBYITEM__1
+	push offset CTS_ITEMUPBYITEM
 	lea edx,[esp+0x448]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31794,7 +31794,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_ITEMUPBYITEM__1
+	push offset CTS_ITEMUPBYITEM
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31802,7 +31802,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block434:
-	push offset _D_CTS_RESPECTPIMMU__1
+	push offset CTS_RESPECT_P_IMMUNE
 	lea edx,[esp+0x668]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31878,7 +31878,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_RESPECTPIMMU__1
+	push offset CTS_RESPECT_P_IMMUNE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31886,7 +31886,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block441:
-	push offset _D_CTS_RESPECTMIMMU__1
+	push offset CTS_RESPECT_M_IMMUNE
 	lea edx,[esp+0x468]
 	push edx
 	lea ecx,[esp+0x30]
@@ -31962,7 +31962,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_RESPECTMIMMU__1
+	push offset CTS_RESPECT_M_IMMUNE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -31970,7 +31970,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block448:
-	push offset _D_CTS_DEFENSEATT__1
+	push offset CTS_DEFENSE_ATT
 	lea edx,[esp+0x868]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32046,7 +32046,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DEFENSEATT__1
+	push offset CTS_DEFENSE_ATT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32054,7 +32054,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block455:
-	push offset _D_CTS_DEFENSESTATE__1
+	push offset CTS_DEFENSE_STATE
 	lea edx,[esp+0x78]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32130,7 +32130,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DEFENSESTATE__1
+	push offset CTS_DEFENSE_STATE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32138,7 +32138,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block462:
-	push offset _D_CTS_DOJANGBERSER__1
+	push offset CTS_DOJANG_BERSERK
 	lea edx,[esp+0x98]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32214,7 +32214,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DOJANGBERSER__1
+	push offset CTS_DOJANG_BERSERK
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32222,7 +32222,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block469:
-	push offset _D_CTS_DOJANGINVINC__1
+	push offset CTS_DOJANG_INVINCIBLE
 	lea edx,[esp+0xB8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32298,7 +32298,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DOJANGINVINC__1
+	push offset CTS_DOJANG_INVINCIBLE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32306,7 +32306,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block476:
-	push offset _D_CTS_SPARK__1
+	push offset CTS_SPARK
 	lea edx,[esp+0xD8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32382,7 +32382,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SPARK__1
+	push offset CTS_SPARK
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32390,7 +32390,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block483:
-	push offset _D_CTS_SOULMASTERFI__1
+	push offset CTS_SOUL_MASTER_FINAL
 	lea edx,[esp+0xF8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32466,7 +32466,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SOULMASTERFI__1
+	push offset CTS_SOUL_MASTER_FINAL
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32474,7 +32474,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block490:
-	push offset _D_CTS_WINDBREAKERF__1
+	push offset CTS_WIND_BREAKER_FINAL
 	lea edx,[esp+0x118]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32550,7 +32550,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_WINDBREAKERF__1
+	push offset CTS_WIND_BREAKER_FINAL
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32558,7 +32558,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block497:
-	push offset _D_CTS_ELEMENTALRES__1
+	push offset CTS_ELEMENTAL_RESET
 	lea edx,[esp+0x138]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32634,7 +32634,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_ELEMENTALRES__1
+	push offset CTS_ELEMENTAL_RESET
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32642,7 +32642,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block504:
-	push offset _D_CTS_WINDWALK__1
+	push offset CTS_WIND_WALK
 	lea edx,[esp+0x158]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32718,7 +32718,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_WINDWALK__1
+	push offset CTS_WIND_WALK
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32726,7 +32726,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block511:
-	push offset _D_CTS_EVENTRATE__1
+	push offset CTS_EVENTRATE
 	lea edx,[esp+0x178]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32802,7 +32802,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EVENTRATE__1
+	push offset CTS_EVENTRATE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32810,7 +32810,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block518:
-	push offset _D_CTS_COMBOABILITY__2
+	push offset CTS_COMBO_ABILITY_BUFF
 	lea edx,[esp+0x198]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32886,7 +32886,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_COMBOABILITY__2
+	push offset CTS_COMBO_ABILITY_BUFF
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32894,7 +32894,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block525:
-	push offset _D_CTS_COMBODRAIN__1
+	push offset CTS_COMBODRAIN
 	lea edx,[esp+0x1B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -32970,7 +32970,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_COMBODRAIN__1
+	push offset CTS_COMBODRAIN
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -32978,7 +32978,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block532:
-	push offset _D_CTS_COMBOBARRIER__1
+	push offset CTS_COMBOBARRIER
 	lea edx,[esp+0x1D8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33054,7 +33054,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_COMBOBARRIER__1
+	push offset CTS_COMBOBARRIER
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33062,7 +33062,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block539:
-	push offset _D_CTS_BODYPRESSURE__1
+	push offset CTS_BODYPRESSURE
 	lea edx,[esp+0x1F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33138,7 +33138,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BODYPRESSURE__1
+	push offset CTS_BODYPRESSURE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33146,7 +33146,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block546:
-	push offset _D_CTS_SMARTKNOCKBA__1
+	push offset CTS_SMART_KNOCKBACK
 	lea edx,[esp+0x218]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33222,7 +33222,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SMARTKNOCKBA__1
+	push offset CTS_SMART_KNOCKBACK
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33230,7 +33230,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block553:
-	push offset _D_CTS_REPEATEFFECT__1
+	push offset CTS_REPEAT_EFFECT
 	lea edx,[esp+0x238]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33306,7 +33306,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_REPEATEFFECT__1
+	push offset CTS_REPEAT_EFFECT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33314,7 +33314,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block560:
-	push offset _D_CTS_EXPBUFFRATE__1
+	push offset CTS_EXPBUFFRATE
 	lea edx,[esp+0x258]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33390,7 +33390,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EXPBUFFRATE__1
+	push offset CTS_EXPBUFFRATE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33398,7 +33398,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block567:
-	push offset _D_CTS_INCEFFECTHPP__1
+	push offset CTS_INC_EFFECT_HP_POTION
 	lea edx,[esp+0x278]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33474,7 +33474,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_INCEFFECTHPP__1
+	push offset CTS_INC_EFFECT_HP_POTION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33482,7 +33482,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block574:
-	push offset _D_CTS_INCEFFECTMPP__1
+	push offset CTS_INC_EFFECT_MP_POTION
 	lea edx,[esp+0x298]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33558,7 +33558,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_INCEFFECTMPP__1
+	push offset CTS_INC_EFFECT_MP_POTION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33566,7 +33566,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block581:
-	push offset _D_CTS_STOPPORTION__1
+	push offset CTS_STOP_PORTION
 	lea edx,[esp+0x2B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33642,7 +33642,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_STOPPORTION__1
+	push offset CTS_STOP_PORTION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33650,7 +33650,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block588:
-	push offset _D_CTS_STOPMOTION__1
+	push offset CTS_STOP_MOTION
 	lea edx,[esp+0x2D8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33726,7 +33726,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_STOPMOTION__1
+	push offset CTS_STOP_MOTION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33734,7 +33734,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block595:
-	push offset _D_CTS_FEAR__1
+	push offset CTS_FEAR
 	lea edx,[esp+0x2F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33810,7 +33810,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_FEAR__1
+	push offset CTS_FEAR
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33818,7 +33818,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block602:
-	push offset _D_CTS_EVANSLOW__1
+	push offset CTS_EVANSLOW
 	lea edx,[esp+0x318]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33894,7 +33894,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_EVANSLOW__1
+	push offset CTS_EVANSLOW
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33902,7 +33902,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block609:
-	push offset _D_CTS_MAGICSHIELD__1
+	push offset CTS_MAGIC_SHIELD
 	lea edx,[esp+0x338]
 	push edx
 	lea ecx,[esp+0x30]
@@ -33978,7 +33978,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAGICSHIELD__1
+	push offset CTS_MAGIC_SHIELD
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -33986,7 +33986,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block616:
-	push offset _D_CTS_MAGICRESISTA__1
+	push offset CTS_MAGIC_RESISTANCE
 	lea edx,[esp+0x358]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34062,7 +34062,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MAGICRESISTA__1
+	push offset CTS_MAGIC_RESISTANCE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34070,7 +34070,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block623:
-	push offset _D_CTS_SOULSTONE__1
+	push offset CTS_SOULSTONE
 	lea edx,[esp+0x378]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34146,7 +34146,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SOULSTONE__1
+	push offset CTS_SOULSTONE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34154,7 +34154,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block630:
-	push offset _D_CTS_FLYING__2
+	push offset CTS_FLYING
 	lea edx,[esp+0x398]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34230,7 +34230,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_FLYING__2
+	push offset CTS_FLYING
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34238,7 +34238,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block637:
-	push offset _D_CTS_FROZEN__1
+	push offset CTS_FROZEN
 	lea edx,[esp+0x3B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34314,7 +34314,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_FROZEN__1
+	push offset CTS_FROZEN
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34322,7 +34322,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block644:
-	push offset _D_CTS_ASSISTCHARGE__1
+	push offset CTS_ASSISTCHARGE
 	lea edx,[esp+0x3D8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34398,7 +34398,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_ASSISTCHARGE__1
+	push offset CTS_ASSISTCHARGE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34406,7 +34406,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block651:
-	push offset _D_CTS_ENRAGE__1
+	push offset CTS_ENRAGE
 	lea edx,[esp+0x3F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34482,7 +34482,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_ENRAGE__1
+	push offset CTS_ENRAGE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34490,7 +34490,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block658:
-	push offset _D_CTS_SUDDENDEATH__1
+	push offset CTS_SUDDEN_DEATH
 	lea edx,[esp+0x418]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34566,7 +34566,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SUDDENDEATH__1
+	push offset CTS_SUDDEN_DEATH
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34574,7 +34574,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block665:
-	push offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_NOT_DAMAGED
 	lea edx,[esp+0x438]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34650,7 +34650,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_NOTDAMAGED__2
+	push offset CTS_NOT_DAMAGED
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34658,7 +34658,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block672:
-	push offset _D_CTS_FINALCUT__1
+	push offset CTS_FINAL_CUT
 	lea edx,[esp+0x458]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34734,7 +34734,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_FINALCUT__1
+	push offset CTS_FINAL_CUT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34742,7 +34742,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block679:
-	push offset _D_CTS_THORNSEFFECT__1
+	push offset CTS_THORNSEFFECT
 	lea edx,[esp+0x478]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34818,7 +34818,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_THORNSEFFECT__1
+	push offset CTS_THORNSEFFECT
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34826,7 +34826,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block686:
-	push offset _D_CTS_SWALLOWATTAC__1
+	push offset CTS_SWALLOW_ATTACK_DAMAGE
 	lea edx,[esp+0x498]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34902,7 +34902,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SWALLOWATTAC__1
+	push offset CTS_SWALLOW_ATTACK_DAMAGE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34910,7 +34910,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block693:
-	push offset _D_CTS_MOREWILDDAMA__1
+	push offset CTS_MOREWILD_DAMAGE_UP
 	lea edx,[esp+0x4B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -34986,7 +34986,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MOREWILDDAMA__1
+	push offset CTS_MOREWILD_DAMAGE_UP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -34994,7 +34994,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block700:
-	push offset _D_CTS_MINE__1
+	push offset CTS_MINE
 	lea edx,[esp+0x4D8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35070,7 +35070,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MINE__1
+	push offset CTS_MINE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35078,7 +35078,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block707:
-	push offset _D_CTS_CYCLONE__1
+	push offset CTS_CYCLONE
 	lea edx,[esp+0x4F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35154,7 +35154,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_CYCLONE__1
+	push offset CTS_CYCLONE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35162,7 +35162,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block714:
-	push offset _D_CTS_SWALLOWCRITI__1
+	push offset CTS_SWALLOW_CRITICAL
 	lea edx,[esp+0x518]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35238,7 +35238,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SWALLOWCRITI__1
+	push offset CTS_SWALLOW_CRITICAL
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35246,7 +35246,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block721:
-	push offset _D_CTS_SWALLOWMAXMP__1
+	push offset CTS_SWALLOW_MAX_MP
 	lea edx,[esp+0x538]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35322,7 +35322,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SWALLOWMAXMP__1
+	push offset CTS_SWALLOW_MAX_MP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35330,7 +35330,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block728:
-	push offset _D_CTS_SWALLOWDEFEN__1
+	push offset CTS_SWALLOW_DEFENCE
 	lea edx,[esp+0x558]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35406,7 +35406,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SWALLOWDEFEN__1
+	push offset CTS_SWALLOW_DEFENCE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35414,7 +35414,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block735:
-	push offset _D_CTS_SWALLOWEVASI__1
+	push offset CTS_SWALLOW_EVASION
 	lea edx,[esp+0x578]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35490,7 +35490,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SWALLOWEVASI__1
+	push offset CTS_SWALLOW_EVASION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35498,7 +35498,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block742:
-	push offset _D_CTS_CONVERSION__1
+	push offset CTS_CONVERSION
 	lea edx,[esp+0x598]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35574,7 +35574,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_CONVERSION__1
+	push offset CTS_CONVERSION
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35582,7 +35582,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block749:
-	push offset _D_CTS_REVIVE__1
+	push offset CTS_REVIVE
 	lea edx,[esp+0x5B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35658,7 +35658,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_REVIVE__1
+	push offset CTS_REVIVE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35666,7 +35666,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block756:
-	push offset _D_CTS_SNEAK__1
+	push offset CTS_SNEAK
 	lea edx,[esp+0x5D8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35742,7 +35742,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SNEAK__1
+	push offset CTS_SNEAK
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35750,7 +35750,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block763:
-	push offset _D_CTS_MECHANIC__1
+	push offset CTS_MECHANIC
 	lea edx,[esp+0x5F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35826,7 +35826,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MECHANIC__1
+	push offset CTS_MECHANIC
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35834,7 +35834,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block770:
-	push offset _D_CTS_AURA__2
+	push offset CTS_AURA
 	lea edx,[esp+0x618]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35910,7 +35910,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_AURA__2
+	push offset CTS_AURA
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -35918,7 +35918,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block777:
-	push offset _D_CTS_DARKAURA__1
+	push offset CTS_DARK_AURA
 	lea edx,[esp+0x638]
 	push edx
 	lea ecx,[esp+0x30]
@@ -35994,7 +35994,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DARKAURA__1
+	push offset CTS_DARK_AURA
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36002,7 +36002,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block784:
-	push offset _D_CTS_BLUEAURA__1
+	push offset CTS_BLUE_AURA
 	lea edx,[esp+0x658]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36078,7 +36078,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BLUEAURA__1
+	push offset CTS_BLUE_AURA
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36086,7 +36086,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block791:
-	push offset _D_CTS_YELLOWAURA__1
+	push offset CTS_YELLOW_AURA
 	lea edx,[esp+0x678]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36162,7 +36162,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_YELLOWAURA__1
+	push offset CTS_YELLOW_AURA
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36170,7 +36170,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block798:
-	push offset _D_CTS_SUPERBODY__1
+	push offset CTS_SUPERBODY
 	lea edx,[esp+0x698]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36246,7 +36246,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SUPERBODY__1
+	push offset CTS_SUPERBODY
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36254,7 +36254,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block805:
-	push offset _D_CTS_MOREWILDMAXH__1
+	push offset CTS_MOREWILD_MAX_HP
 	lea edx,[esp+0x6B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36330,7 +36330,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_MOREWILDMAXH__1
+	push offset CTS_MOREWILD_MAX_HP
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36338,7 +36338,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block812:
-	push offset _D_CTS_DICE__1
+	push offset CTS_DICE
 	lea edx,[esp+0x6D8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36414,7 +36414,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DICE__1
+	push offset CTS_DICE
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36422,7 +36422,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block819:
-	push offset _D_CTS_BLESSINGARMO__1
+	push offset CTS_BLESSING_ARMOR
 	lea edx,[esp+0x6F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36498,7 +36498,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BLESSINGARMO__1
+	push offset CTS_BLESSING_ARMOR
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36506,7 +36506,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block826:
-	push offset _D_CTS_DAMR__1
+	push offset CTS_DAMR
 	lea edx,[esp+0x718]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36582,7 +36582,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_DAMR__1
+	push offset CTS_DAMR
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36590,7 +36590,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block833:
-	push offset _D_CTS_TELEPORTMAST__1
+	push offset CTS_TELEPORT_MASTERY_ON
 	lea edx,[esp+0x738]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36666,7 +36666,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_TELEPORTMAST__1
+	push offset CTS_TELEPORT_MASTERY_ON
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36674,7 +36674,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block840:
-	push offset _D_CTS_COMBATORDERS__1
+	push offset CTS_COMBATORDERS
 	lea edx,[esp+0x758]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36750,7 +36750,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_COMBATORDERS__1
+	push offset CTS_COMBATORDERS
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36758,7 +36758,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block847:
-	push offset _D_CTS_BEHOLDER__1
+	push offset CTS_BEHOLDER
 	lea edx,[esp+0x778]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36834,7 +36834,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_BEHOLDER__1
+	push offset CTS_BEHOLDER
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36842,7 +36842,7 @@ __asm {
 	call ZRef<SecondaryStat::VIEWELEM>::~ZRef<SecondaryStat::VIEWELEM>
 
  Block854:
-	push offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_SUMMON_BOMB
 	lea edx,[esp+0x798]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36850,7 +36850,7 @@ __asm {
 	mov ecx,eax
 	call MY_UINT128::op_bool
 	test al,al
-	je Block861
+	jz Block861
 
  Block855:
 	mov ecx,edi
@@ -36918,7 +36918,7 @@ __asm {
 	mov eax,dword ptr [esp+0x14]
 	mov ecx,dword ptr [esp+0x1C]
 	mov dword ptr [eax+0x1C],ecx
-	push offset _D_CTS_SUMMONBOMB__1
+	push offset CTS_SUMMON_BOMB
 	lea ecx,[eax+0xC]
 	call MY_UINT128::operator|=
 	lea ecx,[esp+0x10]
@@ -36937,7 +36937,7 @@ __asm {
 	lea edx,[esi+0xAA0]
 	mov cl,al
 	call _ZtlSecureTearHelper<char>::call
-	push offset _D_CTS_SWALLOWBUFF__1
+	push offset CTS_SWALLOWBUFF
 	lea edx,[esp+0x7B8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -36957,7 +36957,7 @@ __asm {
 	mov dword ptr [esi+0x11B8],eax
 
  Block863:
-	push offset _D_CTS_DICE__1
+	push offset CTS_DICE
 	lea eax,[esp+0x7D8]
 	push eax
 	lea ecx,[esp+0x30]
@@ -36984,7 +36984,7 @@ __asm {
 	jne Block865
 
  Block866:
-	push offset _D_CTS_BLESSINGARMO__1
+	push offset CTS_BLESSING_ARMOR
 	lea edx,[esp+0x7F8]
 	push edx
 	lea ecx,[esp+0x30]
@@ -37136,7 +37136,7 @@ __asm {
 	jne Block869
 
  Block880:
-	push offset _D_CTS_DARKSIGHT__1
+	push offset CTS_DARK_SIGHT
 	lea eax,[esp+0x878]
 	push eax
 	lea ecx,[esp+0x30]

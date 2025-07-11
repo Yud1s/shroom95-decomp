@@ -115,7 +115,7 @@ __asm {
 	push offset _S_UISTATUSBAR2IMGM__47
 	lea ecx,[esp+0x40]
 	mov dword ptr [esp+0x6C],ebp
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -179,7 +179,7 @@ __asm {
 	call edx
 	push offset _S_UISTATUSBAR2IMGM__46
 	lea ecx,[esp+0x40]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -246,7 +246,7 @@ __asm {
 	call edx
 	push offset _S_UISTATUSBAR2IMGM__45
 	lea ecx,[esp+0x40]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -313,7 +313,7 @@ __asm {
 	call edx
 	push offset _S_UISTATUSBAR2IMGM__44
 	lea ecx,[esp+0x40]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -387,7 +387,7 @@ __asm {
 	push eax
 	lea ecx,[esp+0x40]
 	mov byte ptr [esp+0x6C],5
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	mov eax,dword ptr [esp+0x14]
 	mov byte ptr [esp+0x68],0
 	cmp eax,ebp
@@ -396,7 +396,7 @@ __asm {
  Block40:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block41:
@@ -466,7 +466,7 @@ __asm {
 	call edx
 	push offset _S_UISTATUSBAR2IMGM__43
 	lea ecx,[esp+0x40]
-	call ZXString<unsigned short>::AssignCStr
+	call ZXString16::AssignCStr
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -861,7 +861,7 @@ __asm {
  Block107:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block108:
@@ -1556,13 +1556,13 @@ __asm {
 	push 0x25
 	lea ecx,[esp+0x58]
 	mov dword ptr [esp+0x58],esi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x25
 	lea ecx,[esp+0x4C]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x4C
 	push offset _S_UISTATUSBAR2IMGM__53
 	push esi
@@ -1570,13 +1570,13 @@ __asm {
 	lea ecx,[esp+0x5C]
 	mov dword ptr [esp+0x7C],esi
 	mov dword ptr [esp+0x5C],esi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x26
 	lea ecx,[esp+0x50]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x4A
 	push offset _S_UISTATUSBAR2IMGM__52
 	push esi
@@ -1584,13 +1584,13 @@ __asm {
 	lea ecx,[esp+0x60]
 	mov byte ptr [esp+0x7C],1
 	mov dword ptr [esp+0x60],esi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x25
 	lea ecx,[esp+0x54]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x4C
 	push offset _S_UISTATUSBAR2IMGM__51
 	push esi
@@ -1598,13 +1598,13 @@ __asm {
 	lea ecx,[esp+0x64]
 	mov byte ptr [esp+0x7C],2
 	mov dword ptr [esp+0x64],esi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x26
 	lea ecx,[esp+0x58]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x54
 	push offset _S_UISTATUSBAR2IMGM__50
 	push esi
@@ -1612,13 +1612,13 @@ __asm {
 	lea ecx,[esp+0x68]
 	mov byte ptr [esp+0x7C],3
 	mov dword ptr [esp+0x68],esi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x2A
 	lea ecx,[esp+0x5C]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x4C
 	push offset _S_UISTATUSBAR2IMGM__49
 	push esi
@@ -1626,13 +1626,13 @@ __asm {
 	mov dword ptr [esp+0x68],esi
 	push 0x26
 	lea ecx,[esp+0x6C]
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x26
 	lea ecx,[esp+0x60]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0x48
 	push offset _S_UISTATUSBAR2IMGM__48
 	push esi
@@ -1640,13 +1640,13 @@ __asm {
 	lea ecx,[esp+0x70]
 	mov byte ptr [esp+0x7C],5
 	mov dword ptr [esp+0x70],esi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x24
 	lea ecx,[esp+0x64]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	lea eax,[esp+0x48]
 	mov dword ptr [esp+0x6C],6
 	mov dword ptr [esp+0x14],esi
@@ -1663,7 +1663,7 @@ __asm {
 	push ecx
 	lea ecx,[esp+0x48]
 	mov byte ptr [esp+0x70],7
-	call ZXString<unsigned short>::op_assign
+	call ZXString16::op_assign
 	push 0xADC
 	mov ecx,offset ZAllocEx<ZAllocAnonSelector>::_s_alloc
 	call ZAllocEx<ZAllocAnonSelector>::Alloc
@@ -1751,7 +1751,7 @@ __asm {
  Block13:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block14:
@@ -2141,7 +2141,7 @@ __asm {
 	call dword ptr [ZImports::_VariantClear]
 
  Block64:
-	push offset ZXString<unsigned short>::~ZXString<unsigned short>
+	push offset ZXString16::~ZXString<wchar_t>
 	push 7
 	push 4
 	lea eax,[esp+0x54]

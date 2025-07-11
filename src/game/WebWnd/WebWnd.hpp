@@ -34,7 +34,7 @@ public:
 		long nType{};
 
 	public:
-		ZXString<unsigned short> url;
+		ZXString16 url;
 		// Methods
 	public:
 		~BrowserRequest();
@@ -160,7 +160,7 @@ public:
 	void _ctor_0(int32_t nUIType, long nLeftMargin, long nTopMargin, long nRightMargin, long nBottomMargin, int32_t closeType, int32_t closeX, int32_t closeY);
 
 public:
-	virtual void OnCreate(void *pData, ZXString<unsigned short> sUOL);
+	virtual void OnCreate(void *pData, ZXString16 sUOL);
 
 public:
 	virtual void Draw(const tagRECT *pRect);

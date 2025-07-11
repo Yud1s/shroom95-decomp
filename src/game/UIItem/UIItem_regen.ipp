@@ -2621,7 +2621,7 @@ je Block14
 }
 }
 // CUIItem::_GetBackgroundUOL
-__SUB_CLASS_THIS0(003CCD90, __thiscall, 54714,  CUIItem, ZXString<unsigned short>) {
+__SUB_CLASS_THIS0(003CCD90, __thiscall, 54714,  CUIItem, ZXString16) {
 __asm {
 
  Block0:
@@ -2662,13 +2662,13 @@ __asm {
 	push 0
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push esi
 	mov ecx,edi
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	pop esi
 
  Block6:
@@ -2710,13 +2710,13 @@ __asm {
 	push 0x27
 	lea ecx,[esp+0x20]
 	mov dword ptr [esp+0x20],0
-	call ZXString<unsigned short>::GetBuffer
+	call ZXString16::GetBuffer
 	push eax
 	call _memcpy
 	add esp,0xC
 	push 0x27
 	lea ecx,[esp+0x14]
-	call ZXString<unsigned short>::ReleaseBuffer
+	call ZXString16::ReleaseBuffer
 	push 0
 	push 0xFF
 	push 1
@@ -2921,7 +2921,7 @@ __asm {
  Block25:
 	add ebp,0xFFFFFFF4
 	push ebp
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block26:
@@ -4305,7 +4305,7 @@ __asm {
  Block23:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block24:

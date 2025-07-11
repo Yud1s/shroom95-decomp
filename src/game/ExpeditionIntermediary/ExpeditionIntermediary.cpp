@@ -250,8 +250,7 @@ void ExpeditionIntermediary::OnPacket(long nRetCode, CInPacket& iPacket)
 
 EXPEDITION* ExpeditionIntermediary::GetExpedition()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return m_pExpedition;
 }
 
 int32_t ExpeditionIntermediary::AmIMaster()

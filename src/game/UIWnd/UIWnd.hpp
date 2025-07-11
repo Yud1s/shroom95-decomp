@@ -76,7 +76,7 @@ protected:
 
 // TODO
 public:
-	ZXString<unsigned short> m_sBackgrndUOL;
+	ZXString16 m_sBackgrndUOL;
 	// Methods
 public:
 	CUIWnd()
@@ -115,8 +115,8 @@ public:
 	void CreateUIWndPosForced(long smallL, long smallT, long largeL, long largeT, long w, long h, long z);
 
 public:
-	virtual void OnCreate(void *pData, ZXString<unsigned short> sUOL, int32_t bMultiBg);
-	void OnCreate_1(void *pData, ZXString<unsigned short> sUOL, int32_t bMultiBg) {
+	virtual void OnCreate(void *pData, ZXString16 sUOL, int32_t bMultiBg);
+	void OnCreate_1(void *pData, ZXString16 sUOL, int32_t bMultiBg) {
 		this->OnCreate(pData, sUOL, bMultiBg);
 	}
 
@@ -137,7 +137,7 @@ public:
 	virtual int32_t OnSetFocus(int32_t bFocus);
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnButtonClicked(uint32_t nId);
@@ -155,7 +155,7 @@ public:
 	virtual void SetScreenMode(bool bIsLarge, bool bNeedInvalidateTabs);
 
 protected:
-	ZXString<unsigned short> GetResName();
+	ZXString16 GetResName();
 
 CLASS_RTTI_(CUIWnd, CWnd);
 

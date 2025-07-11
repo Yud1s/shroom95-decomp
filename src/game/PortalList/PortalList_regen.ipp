@@ -2403,7 +2403,7 @@ __asm {
 
  Block25:
 	push 0
-	call ZRefCounted_AllocHelper<ZRefCountedDummy<PORTAL>>::call
+	call AllocPortal //TODO(game) ZRefCounted_AllocHelper<ZRefCountedDummy<PORTAL>>::call
 	lea edi,[eax+0x10]
 	add esp,4
 	mov dword ptr [eax+4],1

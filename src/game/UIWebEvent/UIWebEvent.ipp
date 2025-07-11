@@ -6,7 +6,7 @@ __SUB_CLASS_THIS0(004DC920, __thiscall, 70911,  CUIWebEvent, const CRTTI*) {
 	_ASM_PLACEHOLDER(004DC920, 70911)
 }
 // get_server_string
-__SUB0(004DCCB0, __cdecl, 83043,  ZXString<unsigned short>) {
+__SUB0(004DCCB0, __cdecl, 83043,  ZXString16) {
 	_ASM_PLACEHOLDER(004DCCB0, 83043)
 }
 // CUIWebEvent::OnCreate

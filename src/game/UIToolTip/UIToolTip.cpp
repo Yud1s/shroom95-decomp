@@ -16,12 +16,12 @@ FAKE_ZRefCounted_AllocHelper_ZRefCountedDummy_ToolTip_SetItemList{};
 
 CToolTipHelper::~CToolTipHelper()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CToolTipHelper::_dtor_0()
 {
-    return __sub_0013C770(this, nullptr);
+    //return __sub_0013C770(this, nullptr);
+    this->~CToolTipHelper();
 }
 
 CToolTipHelper::CToolTipHelper(const CToolTipHelper& arg0)
@@ -96,18 +96,15 @@ CToolTipHelper& CToolTipHelper::_op_assign_8(CToolTipHelper* pThis, const CToolT
 
 CToolTipHelper::TTH_INFO::~TTH_INFO()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CToolTipHelper::TTH_INFO::_dtor_0()
 {
-    return __sub_0012E430(this, nullptr);
+    //return __sub_0012E430(this, nullptr);
+    this->~TTH_INFO();
 }
 
-CToolTipHelper::TTH_INFO::TTH_INFO(const CToolTipHelper::TTH_INFO& arg0)
-{
-    _ctor_1(arg0);
-}
+CToolTipHelper::TTH_INFO::TTH_INFO(const CToolTipHelper::TTH_INFO& arg0) = default;
 
 void CToolTipHelper::TTH_INFO::_ctor_1(const CToolTipHelper::TTH_INFO& arg0)
 {
@@ -185,13 +182,10 @@ CUIToolTip::~CUIToolTip()
 
 void CUIToolTip::_dtor_0()
 {
-    return __sub_00482F30(this, nullptr);
+    this->~CUIToolTip();
 }
 
-CUIToolTip::CUIToolTip(const CUIToolTip& arg0)
-{
-    _ctor_1(arg0);
-}
+CUIToolTip::CUIToolTip(const CUIToolTip& arg0) = default;
 
 void CUIToolTip::_ctor_1(const CUIToolTip& arg0)
 {
@@ -348,7 +342,8 @@ CUIToolTip::CUIToolTip()
         0xFFFF0066,
         styleGen);
 
-    PcCreate_IWzFont(L"Canvas#Font", m_pFontH_White);
+
+    m_pFontH_White = G_PCOM.CreateWzFont();
     m_pFontH_White->Create(
         arial,
         12,
@@ -356,8 +351,83 @@ CUIToolTip::CUIToolTip()
         styleGen);
 
     m_pFontStan_Prp = G_PCOM.CreateWzFont();
+    m_pFontStan_Prp->Create(
+        arial,
+        9,
+        0xFFFAE8CB,
+        styleGen);
     m_pFontStan_Dsc = G_PCOM.CreateWzFont();
+    m_pFontStan_Dsc->Create(
+        arial,
+        9,
+        0xFFFFFFFF,
+        styleGen);
     m_pFontStan_Num = G_PCOM.CreateWzFont();
+    m_pFontStan_Num->Create(
+        arial,
+        9,
+        0xFFFFFFFF,
+        styleGen);
+
+
+    m_pFontSkill_Prp = G_PCOM.CreateWzFont();
+    m_pFontSkill_Dsc = G_PCOM.CreateWzFont();
+    m_pFontSkill_Prp->Create(
+        arial,
+        11,
+        0xFFFAE8CB,
+        styleGen);
+    m_pFontSkill_Dsc->Create(
+        arial,
+        11,
+        0xFFFFFFFF,
+        styleGen);
+
+
+    auto& sp = StringPool::GetInstance();
+    m_pNumberCan = get_rm()->GetObjectT<IWzProperty>(sp.GetBSTR(2052));
+    m_pNumberCannot = get_rm()->GetObjectT<IWzProperty>(sp.GetBSTR(2053));
+    for (auto i = 0; i < 6; i++)
+    {
+        m_pCanvasEquip_ReqItem[i][0] = m_pNumberCan->GetItemT<IWzCanvas>(sp.GetBSTR(2056 + i));;
+        m_pCanvasEquip_ReqItem[i][1] = m_pNumberCannot->GetItemT<IWzCanvas>(sp.GetBSTR(2056 + i));;
+    }
+
+    for (auto i = 0; i < 6; i++)
+    {
+        m_pCanvasEquip_JobItem[i][0] = m_pNumberCan->GetItemT<IWzCanvas>(sp.GetBSTR(718 + i));;
+        m_pCanvasEquip_JobItem[i][1] = m_pNumberCannot->GetItemT<IWzCanvas>(sp.GetBSTR(718 + i));;
+    }
+
+    auto equipDot = get_rm()->GetObjectT<IWzProperty>(sp.GetBSTR(717));
+    for (auto i = 0; i < m_pCanvasDot.size(); ++i)
+    {
+        wchar_t key[32]{};
+        _itow_s(i, key, 10);
+        m_pCanvasDot[i] = equipDot->GetItemT<IWzCanvas>(key);
+    }
+
+
+    m_pNumberGrowthEnable = get_rm()->GetObjectT<IWzProperty>(L"UI/UIWindow.img/ToolTip/Equip/GrowthEnabled");
+    m_pNumberGrowthDisable = get_rm()->GetObjectT<IWzProperty>(L"UI/UIWindow.img/ToolTip/Equip/GrowthDisabled");
+
+
+    m_pCanvasEquip_GrowthItem[0][0] = m_pNumberGrowthEnable->GetItemT<IWzCanvas>(L"itemLEV");
+    m_pCanvasEquip_GrowthItem[1][0] = m_pNumberGrowthEnable->GetItemT<IWzCanvas>(L"itemEXP");
+    m_pCanvasEquip_GrowthItem[2][0] = m_pNumberGrowthEnable->GetItemT<IWzCanvas>(sp.GetBSTR(1495));
+    m_pCanvasEquip_GrowthItem[3][0] = m_pNumberGrowthEnable->GetItemT<IWzCanvas>(L"percent");
+
+    m_pCanvasEquip_GrowthItem[0][1] = m_pNumberGrowthDisable->GetItemT<IWzCanvas>(L"itemLEV");
+    m_pCanvasEquip_GrowthItem[1][1] = m_pNumberGrowthDisable->GetItemT<IWzCanvas>(L"itemEXP");
+    m_pCanvasEquip_GrowthItem[2][1] = m_pNumberGrowthDisable->GetItemT<IWzCanvas>(sp.GetBSTR(1495));
+    m_pCanvasEquip_GrowthItem[3][1] = m_pNumberGrowthDisable->GetItemT<IWzCanvas>(L"percent");
+
+
+    m_pCanvasEquip_Durability[0][0] = m_pNumberCan->GetItemT<IWzCanvas>(L"durability");
+    m_pCanvasEquip_Durability[1][0] = m_pNumberCan->GetItemT<IWzCanvas>(L"percent");
+    m_pCanvasEquip_Durability[0][1] = m_pNumberCannot->GetItemT<IWzCanvas>(L"durability");
+    m_pCanvasEquip_Durability[1][1] = m_pNumberCannot->GetItemT<IWzCanvas>(L"percent");
+
 
     // TODO
     //_ctor_0();
@@ -371,7 +441,19 @@ void CUIToolTip::_ctor_0()
 
 void CUIToolTip::ClearToolTip()
 {
-    __sub_00480F20(this, nullptr);
+    //__sub_00480F20(this, nullptr);
+    this->m_nToolTipType = 0;
+    this->m_nHeight = 0;
+    this->m_nWidth = 0;
+    m_pLayer = 0;
+    m_pLayerAdditional = 0;
+    this->m_nLineNo = 0;
+    this->m_nOptionLineNo = 0;
+
+    for (auto& line : m_aLineInfo)
+    {
+        line.Clear();
+    }
 }
 
 void CUIToolTip::SetBasicInfo(long nToolTipType, long nWidth, long nHeight, long nLineSeparate)
@@ -384,9 +466,9 @@ void CUIToolTip::SetToolTip_String(long x, long y, const char* sToolTip)
     __sub_00487140(this, nullptr, x, y, sToolTip);
 }
 
-void CUIToolTip::SetToolTip_String_MultiLine(long x, long y, ZXString<char> sToolTip, long nWidth, int32_t bTrimLeft)
+void CUIToolTip::SetToolTip_String_MultiLine(long x, long y, ZXString<char> sToolTip, long nTy, int32_t bTrimLeft)
 {
-    __sub_00495250(this, nullptr, x, y, CreateNakedParam(sToolTip), nWidth, bTrimLeft);
+    __sub_00495250(this, nullptr, x, y, CreateNakedParam(sToolTip), nTy, bTrimLeft);
 }
 
 void CUIToolTip::SetToolTip_String2(long x, long y, ZXString<char> sToolTipTitle, ZXString<char> sToolTipDesc,
@@ -550,9 +632,61 @@ _x_com_ptr<IWzCanvas> CUIToolTip::MakeLayer(long nLeft, long nTop, int32_t bDoub
 
 _x_com_ptr<IWzFont> CUIToolTip::GetFontByType(long nType)
 {
-    _x_com_ptr<IWzFont> font;
-    // TODO write switch ase
-    return *__sub_00481D40(this, nullptr, &font, nType);
+    switch (nType)
+    {
+    case 1:
+        return m_pFontHL_White;
+    case 2:
+        return m_pFontHL_Gold;
+    case 3:
+        return m_pFontHL_Orange;
+    case 4:
+        return m_pFontHL_Gray;
+    case 5:
+        return m_pFontHL_Blue;
+    case 6:
+        return m_pFontHL_Violet;
+    case 7:
+        return m_pFontHL_Green2;
+    case 8:
+        return m_pFontHL_Excellent;
+    case 9:
+        return m_pFontHL_Special;
+    case 10:
+        return m_pFontGen_White;
+    case 11:
+        return m_pFontGen_Gray;
+    case 12:
+        return m_pFontGen_Gray2;
+    case 13:
+        return m_pFontGen_Red;
+    case 14:
+        return m_pFontGen_Orange;
+    case 15:
+        return m_pFontGen_Purple;
+    case 16:
+        return m_pFontGen_Green;
+    case 17:
+        return m_pFontGen_Yellow;
+    case 18:
+        return m_pFontGen_Blue;
+    case 19:
+        return m_pFontGen_Unknown;
+    case 20:
+        return m_pFontH_White;
+    case 21:
+        return m_pFontStan_Prp;
+    case 22:
+        return m_pFontStan_Dsc;
+    case 23:
+        return m_pFontStan_Num;
+    case 24:
+        return m_pFontSkill_Prp;
+    case 25:
+        return m_pFontSkill_Dsc;
+    default:
+        return {};
+    }
 }
 
 void CUIToolTip::AddInfo(long nType, ZXString<char> sContext, int32_t bUseDot, long nAlign, int32_t bMulti)
@@ -725,10 +859,7 @@ void CUIToolTip::CLineInfo::_dtor_0()
     return __sub_00482EC0(this, nullptr);
 }
 
-CUIToolTip::CLineInfo::CLineInfo(const CUIToolTip::CLineInfo& arg0)
-{
-    _ctor_1(arg0);
-}
+CUIToolTip::CLineInfo::CLineInfo(const CUIToolTip::CLineInfo& arg0) = default;
 
 void CUIToolTip::CLineInfo::_ctor_1(const CUIToolTip::CLineInfo& arg0)
 {
@@ -748,7 +879,15 @@ void CUIToolTip::CLineInfo::_ctor_0()
 
 void CUIToolTip::CLineInfo::Clear()
 {
-    __sub_00482EC0(this, nullptr);
+    m_bMulti = false;
+    m_nAlign = 0;
+    m_nWidth = 0;
+    m_nHeight = 0;
+    m_sSubContext.Clear();
+    m_sContext.Clear();
+    m_nType = 0;
+    m_nSubType = 0;
+    m_bUseDotImage = false;
 }
 
 CUIToolTip::CLineInfo& CUIToolTip::CLineInfo::operator=(const CUIToolTip::CLineInfo& arg0)
@@ -765,7 +904,6 @@ CUIToolTip::CLineInfo& CUIToolTip::CLineInfo::_op_assign_4(CUIToolTip::CLineInfo
 
 CUIToolTip::ItemToolTipParam::~ItemToolTipParam()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CUIToolTip::ItemToolTipParam::_dtor_0()
@@ -786,7 +924,7 @@ void CUIToolTip::ItemToolTipParam::_ctor_1(const CUIToolTip::ItemToolTipParam& a
 
 CUIToolTip::ItemToolTipParam::ItemToolTipParam()
 {
-    UNIMPLEMENTED; //_ctor_0();
+    ftITCDateExpired = _D_DB_DATE_19000101;;
 }
 
 void CUIToolTip::ItemToolTipParam::_ctor_0()

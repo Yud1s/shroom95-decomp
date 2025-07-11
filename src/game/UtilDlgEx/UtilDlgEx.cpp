@@ -13,7 +13,6 @@ ZList<CUtilDlgEx*> CUtilDlgEx::ms_lDialog{};
 
 CTextAnalyzer::~CTextAnalyzer()
 {
-    UNIMPLEMENTED; // _dtor_0();
 }
 
 void CTextAnalyzer::_dtor_0()
@@ -42,39 +41,159 @@ CTextAnalyzer::CTextAnalyzer(long margin, long width)
 
 void CTextAnalyzer::_ctor_0(long arg0, long arg1)
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    new(this) CTextAnalyzer(arg0, arg1);
 }
 
 long CTextAnalyzer::AnalyzeText(ZXString<char> arg0, ZArray<CT_INFO>& arg1, ZArray<_x_com_ptr<IWzFont>>& arg2,
-                                int32_t arg3, uint16_t arg4, int32_t arg5)
+                                int32_t bWhiteBased, uint16_t usQuestId, int32_t bSkipListIcon)
 {
-    return __sub_00587CC0(this, nullptr, CreateNakedParam(arg0), arg1, arg2, arg3, arg4, arg5);
+    return __sub_00587CC0(this, nullptr, CreateNakedParam(arg0), arg1, arg2, bWhiteBased, usQuestId, bSkipListIcon);
 }
 
 long CTextAnalyzer::GetParameterNo(ZXString<char> sPhrase)
 {
-    return __sub_0057D620(this, nullptr, CreateNakedParam(sPhrase));
+    //return __sub_0057D620(this, nullptr, CreateNakedParam(sPhrase));
+    auto num = sPhrase.ToInt();
+    return num.value_or(0);
 }
 
 void CTextAnalyzer::GetPhrase(ZXString<char>& sText, ZXString<char>& sPhrase)
 {
     __sub_00585850(this, nullptr, sText, sPhrase);
+    //sPhrase = _S_;
+    //GetCharacter(sText, sPhrase, false);
+
+    //if (sPh)
 }
 
 void CTextAnalyzer::GetCharacter(ZXString<char>& sText, ZXString<char>& sChar, int32_t bRemove)
 {
-    __sub_00583590(this, nullptr, sText, sChar, bRemove);
+    //__sub_00583590(this, nullptr, sText, sChar, bRemove);
+    sChar = _S_;
+    if (sText.IsEmpty())
+        return;
+
+    auto pStr = sText.c_str();
+    auto next = CharNextA(pStr);
+    if (pStr == next)
+        return;
+
+    char temp[128];
+    auto len = next - pStr;
+    memcpy(&temp, pStr, len);
+    temp[len] = '\0';
+    sChar = temp;
+
+    if (bRemove)
+    {
+        sText = sText.Mid(sChar.GetLength());
+    }
 }
 
 void CTextAnalyzer::GetPhrase_Sharp(ZXString<char>& sText, ZXString<char>& sPhrase)
 {
     __sub_005836B0(this, nullptr, sText, sPhrase);
+    //TODO(game)
+    /* ZXString<char> sChar;
+     GetCharacter(sText, sChar, true);
+
+
+     switch (sChar[0])
+     {
+     case '#':
+         return;
+     case '@':
+     case 'B':
+     case 'F':
+     case 'L':
+     case 'M':
+     case '_':
+     case 'a':
+     case 'c':
+     case 'f':
+     case 'h':
+     case 'i':
+     case 'm':
+     case 'o':
+     case 'p':
+     case 'q':
+     case 's':
+     case 't':
+     case 'u':
+     case 'v':
+     case 'x':
+     case 'y':
+     case 'z':
+         sPhrase._Cat(sChar.c_str(), sChar.GetLength());
+         GetCharacter(sText, sChar, true);
+
+
+         v6 = sPhrase;
+         ZXString<char>::_Cat(sPhrase, sChar._m_pStr, *(sChar._m_pStr - 1));
+         CTextAnalyzer::GetCharacter(this, v4, &sChar, 1);
+         while (sChar._m_pStr)
+         {
+             v7 = *sChar._m_pStr;
+             if (!*sChar._m_pStr || v7 == 13 || v7 == 35 || v7 == 92)
+                 break;
+             ZXString<char>::_Cat(v6, sChar._m_pStr, *(sChar._m_pStr - 1));
+             CTextAnalyzer::GetCharacter(this, v4, &sChar, 1);
+         }
+         v14 = -1;
+         if (sChar._m_pStr)
+             ZXString<char>::_Release(sChar._m_pStr - 1);
+         return;
+     case 'D':
+     case 'Q':
+     case 'R':
+     case 'W':
+     case 'j':
+         v8 = sPhrase;
+         ZXString<char>::_Cat(sPhrase, sChar._m_pStr, *(sChar._m_pStr - 1));
+         v9 = ZXString<char>::Find(v4, "#", 0, 0);
+         if (v9 >= 0)
+         {
+             v10 = v9 + 1;
+             v11 = ZXString<char>::Left(v4, &sPhrase, v9 + 1);
+             LOBYTE(v14) = 1;
+             ZXString<char>::operator+=(v8, v11);
+             LOBYTE(v14) = 0;
+             if (sPhrase)
+                 ZXString<char>::_Release(&sPhrase[-3]);
+             v12 = ZXString<char>::Mid(v4, &sText, v10, -1);
+             LOBYTE(v14) = 2;
+             ZXString<char>::operator=(v4, v12);
+             LOBYTE(v14) = 0;
+             if (sText)
+                 ZXString<char>::_Release(&sText[-3]);
+         }
+         return;
+     default:
+         ZXString<char>::_Cat(sPhrase, sChar._m_pStr, *(sChar._m_pStr - 1));
+         return;
+     }*/
 }
 
 void CTextAnalyzer::GetPhrase_Gen(ZXString<char>& sText, ZXString<char>& sPhrase)
 {
-    __sub_005838B0(this, nullptr, sText, sPhrase);
+    //__sub_005838B0(this, nullptr, sText, sPhrase);
+    ZXString<char> sChar;
+    GetCharacter(sText, sChar, false);
+    while (true)
+    {
+        if (sChar.IsEmpty())
+            break;
+
+        auto c = sChar[0];
+        if (c == '\r' || c == '#' || c == '\\')
+            break;
+
+
+        sPhrase._Cat(sChar.c_str(), sChar.GetLength());
+        sText = sText.Mid(sChar.GetLength());
+        GetCharacter(sText, sChar, false);
+
+    }
 }
 
 void CTextAnalyzer::SeparateLineText(long nIdx, ZXString<char> sCur, ZXString<char> sNext, ZArray<CT_INFO>& aCT)
@@ -89,27 +208,228 @@ void CTextAnalyzer::SeparateLineIcon(long nIdx, ZArray<CT_INFO>& aCT)
 
 void CTextAnalyzer::GetLine(long nLine, long& nStart, long& nEnd, long& nHeightMax, ZArray<CT_INFO>& aCT)
 {
-    __sub_0057B5A0(this, nullptr, nLine, nStart, nEnd, nHeightMax, aCT);
+    //__sub_0057B5A0(this, nullptr, nLine, nStart, nEnd, nHeightMax, aCT);
+    nHeightMax = 0;
+    auto nMin = 0x7FFFFFFF;
+    auto nMax = 0x80000000;
+
+    if (aCT.IsEmpty())
+    {
+        nStart = -1;
+        nEnd = -1;
+        return;
+    }
+
+
+    auto i = 0;
+    for (auto& ct : aCT)
+    {
+        if (ct.nLine == nLine)
+        {
+            if (nMin >= i)
+                nMin = i;
+            if (nMax <= i)
+                nMax = i;
+            if (ct.nHeight > nHeightMax)
+                nHeightMax = ct.nHeight;
+        }
+        ++i;
+    }
+    if (nMin == 0x7FFFFFFF || nMax == 0x80000000)
+    {
+        nStart = -1;
+        nEnd = -1;
+    }
+    else
+    {
+        nStart = nMin;
+        nEnd = nMax;
+        if (nHeightMax < 16)
+            nHeightMax = 16;
+    }
 }
 
 void CTextAnalyzer::AdjustHeight(long nStart, long nEnd, long nTop, long nHeightMax, ZArray<CT_INFO>& aCT)
 {
-    __sub_0057B310(this, nullptr, nStart, nEnd, nTop, nHeightMax, aCT);
+    //__sub_0057B310(this, nullptr, nStart, nEnd, nTop, nHeightMax, aCT);
+    if (nStart <= nEnd)
+    {
+        auto v6 = nStart;
+        auto v7 = nEnd - nStart + 1;
+        do
+        {
+            auto nHeight = aCT[v6].nHeight;
+            auto v9 = &aCT[v6++];
+            --v7;
+            v9->nTop = nHeightMax + nTop + (v9->nSelect != -1 ? 0xA : 0) - nHeight;
+            v9->nUnderLine = nHeight + 1;
+        }
+        while (v7);
+    }
 }
 
 int32_t CTextAnalyzer::IsDilimiter(ZXString<char> target)
 {
-    return __sub_0057D1F0(this, nullptr, CreateNakedParam(target));
+    //return __sub_0057D1F0(this, nullptr, CreateNakedParam(target));
+    auto len = target.GetLength();
+    if (target.FindReverse(' ') > 0 && len > target.FindReverse(' '))
+        len = target.FindReverse(' ');
+    if (target.FindReverse('-') > 0 && len > target.FindReverse('-'))
+        len = target.FindReverse('-');
+    if (target.FindReverse('(') > 0 && len > target.FindReverse('('))
+        len = target.FindReverse('(');
+
+    auto n = target.GetLength();
+    if (len >= n || len < 0)
+        return 0;
+
+    return len;
 }
 
 int32_t CTextAnalyzer::IsSuffix(ZXString<char> target)
 {
-    return __sub_0057D320(this, nullptr, CreateNakedParam(target));
+    //return __sub_0057D320(this, nullptr, CreateNakedParam(target));
+
+    auto len = target.GetLength();
+    int result = 0;
+
+    if (len < 1)
+    {
+        return 0;
+    }
+
+    switch (target[0])
+    {
+    case '!':
+    case ',':
+    case '-':
+    case '.':
+    case '?':
+        if (len != 1 && target[1] != ' ')
+            return 0;
+        return 1;
+    case '\'':
+        return target.Find(' ', false);
+    case 'e':
+        if (len <= 1 || target[1] != 's')
+            return 0;
+        if (len < 3)
+        {
+            return 2;
+        }
+        else
+        {
+            switch (target[2])
+            {
+            case ' ':
+                return 2;
+            case '!':
+            case ',':
+            case '.':
+            case '?':
+                if (len != 3 && target[3] != ' ')
+                    return 0;
+                result = 3;
+                break;
+            default:
+                return 0;
+            }
+        }
+        return result;
+    case 's':
+        if (len >= 2)
+        {
+            switch (target[1])
+            {
+            case ' ':
+                break;
+            case '!':
+            case ',':
+            case '.':
+            case '?':
+                if (len == 2 || target[2] == ' ')
+                    return 2;
+                return 0;
+            default:
+                return 0;
+            }
+        }
+        return 1;
+    default:
+        return 0;
+    }
+    return result;
 }
 
 long CTextAnalyzer::GetPhraseType(ZXString<char> sPhrase)
 {
-    return __sub_0057D650(this, nullptr, CreateNakedParam(sPhrase));
+    //return __sub_0057D650(this, nullptr, CreateNakedParam(sPhrase));
+    if (sPhrase[0] != '#')
+        return 0;
+
+    auto result = 0;
+    switch (sPhrase[1])
+    {
+    case 'E':
+        result = 2;
+        break;
+    case 'I':
+        result = 3;
+        break;
+    case 'K':
+        result = 5;
+        break;
+    case 'S':
+        result = 4;
+        break;
+    case 'w':
+        result = 6;
+        break;
+    default:
+        if (sPhrase.GetLength() <= 2)
+            return 0;
+        switch (sPhrase[1])
+        {
+        case 'B':
+            result = 13;
+            break;
+        case 'D':
+            result = 16;
+            break;
+        case 'F':
+        case 'f':
+            result = 11;
+            break;
+        case 'L':
+            result = 1;
+            break;
+        case 'Q':
+            result = 15;
+            break;
+        case 'W':
+            result = 17;
+            break;
+        case 'e':
+            result = 9;
+            break;
+        case 'i':
+        case 'v':
+            result = 7;
+            break;
+        case 'j':
+            result = 14;
+            break;
+        case 's':
+            result = 10;
+            break;
+        default:
+            result = 18;
+            break;
+        }
+        break;
+    }
+
+    return result;
 }
 
 _x_com_ptr<IWzCanvas> CTextAnalyzer::GetOutlineCanvas(_x_com_ptr<IWzCanvas> pIcon)
@@ -120,7 +440,10 @@ _x_com_ptr<IWzCanvas> CTextAnalyzer::GetOutlineCanvas(_x_com_ptr<IWzCanvas> pIco
 
 long CTextAnalyzer::CheckSecretItemID(long nParam)
 {
-    return __sub_0057B370(this, nullptr, nParam);
+    //return __sub_0057B370(this, nullptr, nParam);
+    auto ctx = CWvsContext::GetInstance();
+    auto quest = ctx->GetQuestItemID(nParam / 10, nParam % 10);
+    return ctx->IsExist(quest) ? quest : 3800088;
 }
 
 CTextAnalyzer& CTextAnalyzer::operator=(const CTextAnalyzer& arg0)
@@ -190,7 +513,7 @@ void CUtilDlgEx::OnMouseEnter(int32_t bEnter)
     __sub_0057AF90(this, nullptr, bEnter);
 }
 
-void CUtilDlgEx::OnKey(uint32_t wParam, uint32_t lParam)
+void CUtilDlgEx::OnKey(uint32_t wParam, int32_t lParam)
 {
     __sub_0057B9C0(this, nullptr, wParam, lParam);
 }
@@ -227,7 +550,8 @@ void CUtilDlgEx::ClearToolTip()
 
 void CUtilDlgEx::CreateUtilDlgEx()
 {
-    __sub_0057AF20(this, nullptr);
+    //__sub_0057AF20(this, nullptr);
+    CreateDlg(m_wndWidth, m_wndHeight, true, nullptr);
 }
 
 void CUtilDlgEx::SetUtilDlgEx(long dlgType, long nTemplateID, ZXString<char> sText, int32_t bNoNpc, int32_t bQuest)
@@ -573,7 +897,7 @@ void CUtilDlgEx::MakeInnerBorder(long arg0, long arg1, long arg2, long arg3)
     UNIMPLEMENTED;
 }
 
-const wchar_t* CUtilDlgEx::MakeUOLByUIType(ZXString<unsigned short>& sOut, const wchar_t* sUOL, const wchar_t* sUOL2)
+const wchar_t* CUtilDlgEx::MakeUOLByUIType(ZXString16& sOut, const wchar_t* sUOL, const wchar_t* sUOL2)
 {
     return __sub_0057DD70(this, nullptr, sOut, sUOL, sUOL2);
 }

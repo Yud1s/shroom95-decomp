@@ -93,7 +93,7 @@ int32_t CUINewYearCardSenderDlg::OnMouseMove(long rx, long ry) {
 int32_t CUINewYearCardSenderDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 	return __sub_0061CE50(this, nullptr, rx, ry, ppCtrl);
 }
-void CUINewYearCardSenderDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUINewYearCardSenderDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_0061CC00(this, nullptr, wParam, lParam);
 }
 void CUINewYearCardSenderDlg::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2) {

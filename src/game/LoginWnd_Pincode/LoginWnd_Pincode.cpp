@@ -73,12 +73,12 @@ long __cdecl CPinCodeDlg::EnterPinCode(ZRef<CDialog> *ppDialog, long nMsg, long 
 {
 	return __sub_001FE1A0(ppDialog, nMsg, nPinCode);
 }
-void __cdecl CPinCodeDlg::ScrollNotice(ZXString<unsigned short> arg0)
+void __cdecl CPinCodeDlg::ScrollNotice(ZXString16 arg0)
 {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
 }
-void CPinCodeDlg::Init_(long arg0, ZXString<unsigned short> arg1)
+void CPinCodeDlg::Init_(long arg0, ZXString16 arg1)
 {
 	// TODO: No module found for method
 	UNIMPLEMENTED;
@@ -104,7 +104,7 @@ void CPinCodeDlg::OnButtonClicked(uint32_t nId)
 {
 	__sub_001FE800(this, nullptr, nId);
 }
-void CPinCodeDlg::OnKey(uint32_t wParam, uint32_t lParam)
+void CPinCodeDlg::OnKey(uint32_t wParam, int32_t lParam)
 {
 	__sub_001FE900(this, nullptr, wParam, lParam);
 }

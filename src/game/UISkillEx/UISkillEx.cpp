@@ -41,7 +41,7 @@ void CUIMacroSysEx::OnMouseButton(uint32_t arg0, uint32_t arg1, long arg2, long 
 int32_t CUIMacroSysEx::OnMouseMove(long rx, long ry) {
 	return __sub_00459C20(this, nullptr, rx, ry);
 }
-void CUIMacroSysEx::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUIMacroSysEx::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_004590D0(this, nullptr, wParam, lParam);
 }
 void CUIMacroSysEx::OnButtonClicked(uint32_t nId) {

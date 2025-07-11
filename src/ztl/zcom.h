@@ -6,6 +6,7 @@
 #include "xcomutil.h"
 #include "zexception.h"
 
+class Ztl_bstr_t;
 class Ztl_variant_t : public xvariant_t
 {
 public:
@@ -13,6 +14,7 @@ public:
     Ztl_variant_t(const _xbstr_t& bstrSrc);
     Ztl_variant_t(long lSrc, VARTYPE vtSrc = VT_I4);
     Ztl_variant_t(int lSrc, VARTYPE vtSrc = VT_I4);
+    Ztl_variant_t(uint32_t lSrc, VARTYPE vtSrc = VT_UI4);
     Ztl_variant_t(const Ztl_variant_t& other);
     Ztl_variant_t(const variant_t& other);
     explicit Ztl_variant_t(IUnknown* pSrc, bool addRef = true);
@@ -21,6 +23,11 @@ public:
     ~Ztl_variant_t();
     explicit operator const xvariant_t*() const;
     explicit operator xvariant_t*();
+
+
+    float GetFloat(float def = 0.) const;
+    int32_t GetInt32(int32_t def = 0) const;
+    Ztl_bstr_t GetStr();
 
 
     [[nodiscard]] IUnknown* GetUnknown(bool addRef = false, bool tryChangeType = false) const;
@@ -50,6 +57,8 @@ public:
     Ztl_bstr_t();
 
     ~Ztl_bstr_t();
+
+    int32_t ToInt();
 
     bool operator==(wchar_t const* s) const;
 
@@ -82,9 +91,9 @@ public:
 
     bool op_eq(const wchar_t* s);
 
-    _xbstr_t op_add_0(const wchar_t* s);
+    _xbstr_t op_add_1(const wchar_t* s);
 
-    _xbstr_t op_add_1(const Ztl_bstr_t& other);
+    _xbstr_t op_add_0(const Ztl_bstr_t& other);
 };
 
 

@@ -90,7 +90,7 @@ protected:
 	CChatBalloon m_chatBalloon;
 
 protected:
-	std::array<_x_com_ptr<IWzGr2DLayer>, 3> m_pLayerNameTag;
+	std::array<_x_com_ptr<IWzGr2DLayer>, 3> m_pLayerNameTag{};
 	// Methods
 public:
 	virtual ~CLife();

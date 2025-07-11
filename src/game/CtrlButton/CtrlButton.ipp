@@ -134,7 +134,7 @@ __SUB_CLASS_THIS(000D5B60, __thiscall, 6377,  CCtrlButton, void, NakedParam<ZXSt
 	_ASM_PLACEHOLDER(000D5B60, 6377)
 }
 // CCtrlButton::SetButtonImage
-__SUB_CLASS_THIS(000D66D0, __thiscall, 6382,  CCtrlButton, void, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(000D66D0, __thiscall, 6382,  CCtrlButton, void, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(000D66D0, 6382)
 }
 // CCtrlButtonWithAniState::GetRTTI

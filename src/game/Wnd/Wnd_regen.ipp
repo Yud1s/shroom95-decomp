@@ -457,7 +457,7 @@ __asm {
  Block48:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block49:
@@ -3709,7 +3709,7 @@ __asm {
  Block25:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block26:
@@ -6684,7 +6684,7 @@ __asm {
 }
 // CWnd::CoverBackgrnd
 _SUB_EXCEPTION_HANDLER(5B0FD0)
-__SUB_CLASS_THIS(005B0FD0, __thiscall, 5006,  CWnd, void, NakedParam<ZXString<unsigned short>>, long, long, int32_t) {
+__SUB_CLASS_THIS(005B0FD0, __thiscall, 5006,  CWnd, void, NakedParam<ZXString16>, long, long, int32_t) {
 __asm {
 
  Block0:
@@ -7022,7 +7022,7 @@ __asm {
 	lea eax,[ebp+0x40]
 	push eax
 	lea ecx,[ebp+0x70]
-	call ZXString<unsigned short>::op_add_0
+	call ZXString16::op_add_0
 	mov eax,dword ptr [eax]
 	push ecx
 	mov dword ptr [ebp-0x30],esp
@@ -7086,7 +7086,7 @@ __asm {
  Block51:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block52:
@@ -7267,7 +7267,7 @@ __asm {
  Block79:
 	add eax,0xFFFFFFF4
 	push eax
-	call ZXString<unsigned short>::_Release
+	call ZXString16::_Release
 	add esp,4
 
  Block80:

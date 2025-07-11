@@ -3,7 +3,6 @@
 #include "Rand32_regen.ipp"
 
  CRand32::~CRand32() {
-	 UNIMPLEMENTED; // _dtor_0();
 }
 void CRand32::_dtor_0() {
 	// TODO: No module found for method

@@ -190,7 +190,7 @@ void CUICakePieEventItemInfo::_ctor_0() {
 void CUICakePieEventItemInfo::OnCreate(void* pData) {
 	__sub_0007A3C0(this, nullptr, pData);
 }
-void CUICakePieEventItemInfo::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUICakePieEventItemInfo::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00078A30(this, nullptr, wParam, lParam);
 }
 void CUICakePieEventItemInfo::Draw(const tagRECT* pRect) {

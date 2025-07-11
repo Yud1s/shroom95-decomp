@@ -617,6 +617,19 @@ public:
         node->data = data;
     }
 
+    void Retain(std::function<bool(T&)> f)
+    {
+        auto cur = GetHeadPosition();
+        while (cur)
+        {
+            auto val = GetNext(cur);
+            if (!f(*val))
+            {
+                RemoveAt(val);
+            }
+        }
+    }
+
 private:
     Node *NewNode()
     {

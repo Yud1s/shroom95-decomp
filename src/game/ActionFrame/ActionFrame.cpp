@@ -1,6 +1,8 @@
 // ActionFrame.cpp
 #include "ActionFrame.hpp"
 
+#include "spdlog/spdlog.h"
+
 static ZList<CActionFrame::MAPINFO> FAKE_ZList_CActionFrame_MAPINFO{};
 
 #include "ActionFrame_regen.ipp"
@@ -55,20 +57,17 @@ _x_com_ptr<IWzProperty> __cdecl CActionFrame::GetSMapper()
 
 long __cdecl CActionFrame::GetFaceZ()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return s_nFaceZ;
 }
 
 long __cdecl CActionFrame::GetCharacterStartZ()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+    return s_nCharacterStartZ;
 }
 
 long __cdecl CActionFrame::GetCharacterEndZ()
 {
-    // TODO: No module found for method
-    UNIMPLEMENTED;
+   return s_nCharacterEndZ;
 }
 
 void __cdecl CActionFrame::UnlinkMappers()
@@ -193,6 +192,9 @@ void CActionFrame::SetExclusiveVSlot(Ztl_bstr_t arg0)
 void CActionFrame::Draw(_x_com_ptr<IWzCanvas>& pCanvasUnder, _x_com_ptr<IWzCanvas>& pCanvasOver, tagPOINT& ptNavel,
                         tagPOINT& ptHead, tagPOINT& ptBrow, tagPOINT& ptMuzzle, int32_t bTamingMob)
 {
+    spdlog::info("Drawing with char: {}", CActionFrame::s_nCharacterStartZ);
+
+
     __sub_00003D60(this, nullptr, pCanvasUnder, pCanvasOver, ptNavel, ptHead, ptBrow, ptMuzzle, bTamingMob);
 }
 

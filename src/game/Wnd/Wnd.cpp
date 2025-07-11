@@ -41,7 +41,7 @@ void CWnd::_ctor_0()
     //return __sub_005AED30(this, nullptr);
 }
 
-void CWnd::OnKey(uint32_t wParam, uint32_t lParam)
+void CWnd::OnKey(uint32_t wParam, int32_t lParam)
 {
 }
 
@@ -267,6 +267,53 @@ void CWnd::OnDestroy()
 void CWnd::OnMoveWnd(long l, long t)
 {
     __sub_005AEE10(this, nullptr, l, t);
+    /*return;
+    if ( !TSingleton<CUIStatusBar>::ms_pInstance || l == 0x80000000 && t == 0x80000000 )
+        return;
+
+
+
+    auto cursorPos = CWndMan::GetInstance()->GetCursorPosPt(false);
+
+    auto l = GetAbsLeft();
+    auto t = GetAbsTop();
+
+    if (m_ptCursorRel.x.GetData() == -1 && m_ptCursorRel.y.GetData() == -1)
+    {
+        m_ptCursorRel = cursorPos;
+    }
+
+    auto w = GetLayer()->Getwidth();
+    //TODO might be width
+    auto h = GetLayer()->Getheight();
+
+    tagRECT rc{};
+    SetRect(&rc, l, t, l + w, t + h);
+
+    tagRECT icRC{};
+    CWnd* icWnd = nullptr;
+    for (auto& wnd: CWndMan::ms_lpWindow)
+    {
+        if (wnd != this && IsMyAddon(wnd) && CUIStatusBar::GetInstance() != wnd && (CUIEquip::GetInstance() != this || CUIPetEquip::GetInstance() != wnd))
+        {
+            tagRECT wndRC{};
+            auto l = wnd->GetAbsLeft();
+            auto t = wnd->GetAbsTop();
+            SetRect(&wndRC, l, t, l + wnd->GetWidth(), t + wnd->GetHeight());
+            if (IntersectRect(&icRC, &rc, &wndRC))
+            {
+                icWnd = wnd;
+                break;
+            }
+        }
+    }
+
+    if (icWnd)
+    {
+        au
+    }*/
+
+
 }
 
 void CWnd::OnEndMoveWnd()
@@ -282,12 +329,10 @@ void CWnd::OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2)
     {
         OnButtonClicked(nId);
     }
-    //__sub_00029260(this, nullptr, nId, param1, param2);
 }
 
 void CWnd::OnButtonClicked(uint32_t nId)
 {
-    //__sub_00029280(this, nullptr, nId);
 }
 
 int32_t CWnd::HitTest(long rx, long ry, CCtrlWnd** ppCtrl)
@@ -331,7 +376,6 @@ int32_t CWnd::OnActivate(const int32_t bActive)
         CWndMan::UpdateWindowPosition(this);
     }
     return 1;
-    //return __sub_005AD350(this, nullptr, bActive);
 }
 
 unsigned long CWnd::GetWndKey() const
@@ -410,17 +454,13 @@ void CWnd::SetFocusChild(CCtrlWnd* pCtrl)
 
 int32_t CWnd::IsFocused() const
 {
-    const auto wndMan = CWndMan::ms_pInstance;
-    // TODO this might require a this == nullptr check
-    //auto msgHandler = dynamic_cast<IUIMsgHandler *>(this);
+    const auto wndMan = CWndMan::GetInstance();
     return wndMan->GetFocus() == this;
-    // return __sub_005AD440(this, nullptr);
 }
 
 int32_t CWnd::IsActive() const
 {
     return 1;
-    //TODO return __sub_005AD440(this, nullptr);
 }
 
 long CWnd::GetWidth() const
@@ -503,7 +543,7 @@ void CWnd::RemoveChild(CCtrlWnd* pCtrl)
     //__sub_005AECC0(this, nullptr, pCtrl);
 }
 
-void CWnd::CoverBackgrnd(ZXString<unsigned short> arg0, const long arg1, const long arg2, const int32_t arg3)
+void CWnd::CoverBackgrnd(ZXString16 arg0, const long arg1, const long arg2, const int32_t arg3)
 {
     __sub_005B0FD0(this, nullptr, CreateNakedParam(arg0), arg1, arg2, arg3);
 }

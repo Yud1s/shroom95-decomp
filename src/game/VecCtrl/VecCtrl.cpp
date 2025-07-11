@@ -57,7 +57,7 @@ void RelPos::SetFromAbsPos(AbsPos& ap, CStaticFoothold* pFh)
     auto uvx = pFh->GetUVX();
     auto uvy = pFh->GetUVY();
     auto v = fabs(uvx) <= 0.5
-                 ? (ap._ZtlSecureGet_y() - pFh->GetY1()) / pFh->GetUVY()
+                 ? (ap._ZtlSecureGet_y() - pFh->GetY1()) / uvy
                  : (ap._ZtlSecureGet_x() - pFh->GetX1()) / uvx;
 
     _ZtlSecurePut_v(v);
@@ -68,14 +68,9 @@ void RelPos::SetFromAbsPos(AbsPos& ap, CStaticFoothold* pFh)
 
     auto pos = _ZtlSecureGet_pos();
     auto len = pFh->GetLen();
-    if (pos < 0.)
-    {
-        pos = 0.;
-    }
-    else if (len < pos)
-    {
-        pos = len;
-    }
+    auto pos_ = 0.0;
+    if ( pos < 0.0 || (pos_ = len, len < pos) )
+        pos = pos_;
 
     _ZtlSecurePut_pos(pos);
 }
@@ -148,16 +143,14 @@ void CVecCtrl::_ctor_0()
 void CVecCtrl::Init(IVecCtrlOwner* pOwner)
 {
     m_pOwner = pOwner;
-
-    auto w2d = CWvsPhysicalSpace2D::ms_pInstance;
-    m_rcBound = w2d->GetMBR();
+    m_rcBound = CWvsPhysicalSpace2D::ms_pInstance->GetMBR();
     //__sub_00590A00(this, nullptr, pOwner);
 }
 
 void CVecCtrl::SetActive(int32_t bActive, long x, long y, long vx, long vy, long nMoveAction, CStaticFoothold* pFh)
 {
-    //__sub_005918B0(this, nullptr, bActive, x, y, vx, vy, nMoveAction, pFh);
-    m_bActive = bActive;
+    __sub_005918B0(this, nullptr, bActive, x, y, vx, vy, nMoveAction, pFh);
+    /*m_bActive = bActive;
     auto right = this->m_rcBound.right;
     if (x >= this->m_rcBound.left)
     {
@@ -207,13 +200,8 @@ void CVecCtrl::SetActive(int32_t bActive, long x, long y, long vx, long vy, long
         nMoveAction = this->m_pOwner->OnResolveMoveAction(0, 0, nMoveAction & 1, this);
     m_nMoveAction = nMoveAction;
 
-    auto ty = m_pOwner->GetType();
-    //TODO might need to set short update before
-    auto shortUpdate = false;
-    if (!ty || ty == 3 || ty == 4 || ty == 8)
-    {
-        shortUpdate = true;
-    }
+    const auto ty = m_pOwner->GetType();
+    auto shortUpdate = ty == 0 || ty == 3 || ty == 4 || ty == 8;
 
     vx = m_ap._ZtlSecureGet_vx();
     vy = m_ap._ZtlSecureGet_vy();
@@ -221,17 +209,19 @@ void CVecCtrl::SetActive(int32_t bActive, long x, long y, long vx, long vy, long
     y = m_ap._ZtlSecureGet_y();
 
     m_path.Init(bActive, shortUpdate, x, y, vx, vy, nMoveAction, pFh, nullptr);
-    m_pAttrField = 0;
+    _ZtlSecurePut_m_nInputX(0);
+    _ZtlSecurePut_m_nInputY(0);
+    m_pAttrField = nullptr;
     m_pCurAttrShoe = 0;
 
     if (bActive)
     {
         m_pAttrField = CWvsPhysicalSpace2D::GetInstance()->GetFieldAttr();
         m_pCurAttrShoe = m_pOwner->GetShoeAttr();
-    }
+    }*/
 }
 
-int32_t CVecCtrl::IsActive()
+int32_t CVecCtrl::IsActive() const
 {
     return m_bActive;
     //return __sub_00591570(this, nullptr);
@@ -280,145 +270,143 @@ int32_t CVecCtrl::IsDragon()
     return dynamic_cast<CVecCtrlDragon*>(this) != nullptr;
 }
 
-int32_t CVecCtrl::IsOnFoothold()
+int32_t CVecCtrl::IsOnFoothold() const
 {
     return m_pfh != nullptr;
     //return __sub_00591570(this, nullptr);
 }
 
-int32_t CVecCtrl::IsOnLadder()
+int32_t CVecCtrl::IsOnLadder() const
 {
     auto ladder = GetLadderOrRope();
     return ladder && ladder->bLadder;
 }
 
-int32_t CVecCtrl::IsOnRope()
+int32_t CVecCtrl::IsOnRope() const
 {
     const auto ladder = GetLadderOrRope();
     return ladder && !ladder->bLadder;
 }
 
-int32_t CVecCtrl::IsStopped()
+int32_t CVecCtrl::IsStopped() const
 {
-    auto vx = GetAbsPos()._ZtlSecureGet_vx();
-    auto vy = GetAbsPos()._ZtlSecureGet_vy();
-    return vx == 0 && vy == 0;
+    const auto vx = GetAbsPos()._ZtlSecureGet_vx();
+    const auto vy = GetAbsPos()._ZtlSecureGet_vy();
+    return vx == 0. && vy == 0.;
 }
 
-int32_t CVecCtrl::IsFalling()
+int32_t CVecCtrl::IsFalling() const
 {
-    auto vy = GetAbsPos()._ZtlSecureGet_vy();
+    const auto vy = GetAbsPos()._ZtlSecureGet_vy();
     return !m_pfh && vy > 0;
 }
 
 int32_t CVecCtrl::IsDoingWings()
 {
-    return __sub_00591570(this, nullptr);
+    //TODO(vecctrl)
+    return m_bWingsNow;
 }
 
 int32_t CVecCtrl::IsLandingWings()
 {
-    return __sub_00591570(this, nullptr);
+    //TODO(vecctrl)
+    return 0;
 }
 
-int32_t CVecCtrl::_IsSwimmingMap()
+int32_t CVecCtrl::_IsSwimmingMap() const
 {
-    auto field = this->m_pAttrField;
-    return field && field->nMapType == CAttrField::UnnamedEnum16431::SWIM;
+    const auto attr = this->m_pAttrField;
+    return attr && attr->IsSwimMap();
 }
 
-int32_t CVecCtrl::_IsUserFlyMap()
+int32_t CVecCtrl::_IsUserFlyMap() const
 {
-    auto field = this->m_pAttrField;
-    //TODO fly?
-    return field && field->nMapType == CAttrField::UnnamedEnum16431::USERFLY;
+    const auto attr = this->m_pAttrField;
+    return attr && attr->IsUserFlyMap();
 }
 
 int32_t CVecCtrl::_IsNeedSkillForFly()
 {
-    return __sub_00591570(this, nullptr);
+    //return __sub_00591570(this, nullptr);
+    const auto attr = this->m_pAttrField;
+    return attr && attr->bNeedSkillForFlying;
 }
 
-int32_t CVecCtrl::IsUserFlying()
+int32_t CVecCtrl::IsUserFlying() const
 {
     return 0;
 }
 
-int32_t CVecCtrl::IsSwimming()
+int32_t CVecCtrl::IsSwimming() const
 {
-    auto x = GetAbsPos()._ZtlSecureGet_x();
-    auto y = GetAbsPos()._ZtlSecureGet_y();
+    const auto* attr = this->m_pAttrField;
+    if (!attr)
+        return false;
 
-    return this->m_pAttrField->icSwimArea.IsInArea(x, y);
+    const auto x = GetAbsPos()._ZtlSecureGet_x();
+    const auto y = GetAbsPos()._ZtlSecureGet_y();
+
+    return attr->IsSwimMap() || attr->icSwimArea.IsInArea(x, y);
 }
 
 int32_t CVecCtrl::IsFreeFalling()
 {
-    if (m_pfh)
-    {
-        return false;
-    }
-
-    if (IsSwimming() || IsUserFlying())
-    {
-        return false;
-    }
-
-    return this->m_pCurAttrShoe->flyAcc <= 0.;
+    return !m_pfh && !IsSwimming() && !IsUserFlying() && this->m_pCurAttrShoe->flyAcc <= 0.;
 }
 
 int32_t CVecCtrl::IsFloating()
 {
-    return __sub_00591570(this, nullptr);
+    //return __sub_00591570(this, nullptr);
+    UNIMPLEMENTED; //TODO(vecctrl)
 }
 
-long CVecCtrl::GetPage()
+long CVecCtrl::GetPage() const
 {
     return m_lPage;
 }
 
-long CVecCtrl::GetZMass()
+long CVecCtrl::GetZMass() const
 {
     return m_lZMass;
 }
 
-CStaticFoothold* CVecCtrl::GetFoothold()
+CStaticFoothold* CVecCtrl::GetFoothold() const
 {
     return m_pfh;
     //return __sub_00239F20(this, nullptr);
 }
 
-const CLadderOrRope* CVecCtrl::GetLadderOrRope()
+const CLadderOrRope* CVecCtrl::GetLadderOrRope() const
 {
     return _ZtlSecureGet_m_pLadderOrRope();
     //return __sub_000BBE80(this, nullptr);
 }
 
-const AbsPos& CVecCtrl::GetAbsPos()
+const AbsPos& CVecCtrl::GetAbsPos() const
 {
     return m_ap;
 }
 
-long CVecCtrl::GetMoveAction()
+long CVecCtrl::GetMoveAction() const
 {
     return m_nMoveAction;
 }
 
-void CVecCtrl::SetMoveAction(long arg0)
+void CVecCtrl::SetMoveAction(long moveAction)
 {
-    m_nMoveAction = arg0;
+    m_nMoveAction = moveAction;
 }
 
 void CVecCtrl::ResolveMoveAction()
 {
-    auto x = _ZtlSecureGet_m_nInputX();
-    auto y = _ZtlSecureGet_m_nInputY();
+    const auto x = _ZtlSecureGet_m_nInputX();
+    const auto y = _ZtlSecureGet_m_nInputY();
     m_nMoveAction = m_pOwner->OnResolveMoveAction(x, y, m_nMoveAction, this);
 }
 
-void CVecCtrl::SetAlternateVector2D(_x_com_ptr<IWzVector2D> arg0)
+void CVecCtrl::SetAlternateVector2D(_x_com_ptr<IWzVector2D> vec)
 {
-    m_pVecAlternate = arg0;
+    m_pVecAlternate = vec;
 }
 
 _x_com_ptr<IWzVector2D> CVecCtrl::GetAlternateVector2D()
@@ -428,18 +416,16 @@ _x_com_ptr<IWzVector2D> CVecCtrl::GetAlternateVector2D()
 
 void CVecCtrl::UpdateActive()
 {
-    auto rpl = BeginUpdateActive();
-    if (!rpl)
+    if (const auto rpl = BeginUpdateActive())
     {
-        return;
+        m_bBeginUpdateActivePassed = true;
+        InspectUpdateActive();
+        if (WorkUpdateActive(rpl))
+        {
+            EndUpdateActive();
+        }
     }
 
-    m_bBeginUpdateActivePassed = true;
-    InspectUpdateActive();
-    if (WorkUpdateActive(rpl))
-    {
-        EndUpdateActive();
-    }
 
     //__sub_00590980(this, nullptr);
 }
@@ -723,14 +709,14 @@ int32_t CVecCtrl::CollisionDetectFloat(const AbsPos& p1, long& tElapse, int32_t 
     return true;*/
 }
 
-void CVecCtrl::GetInput(long& nInputX, long& nInputY)
+void CVecCtrl::GetInput(long& nInputX, long& nInputY) const
 {
     nInputX = _ZtlSecureGet_m_nInputX();
     nInputY = _ZtlSecureGet_m_nInputY();
     //__sub_005049C0(this, nullptr, nInputX, nInputY);
 }
 
-void CVecCtrl::SetInput(long nInputX, long nInputY)
+void CVecCtrl::SetInput(const long nInputX, const long nInputY)
 {
     _ZtlSecurePut_m_nInputX(nInputX);
     _ZtlSecurePut_m_nInputY(nInputY);
@@ -828,11 +814,11 @@ void CVecCtrl::SetMovePathAttribute(long nAttr)
         pfhStart = m_falldownNext.pfhFallStart;
     }
 
-    auto vx = (long)m_ap._ZtlSecureGet_vx();
-    auto vy = (long)m_ap._ZtlSecureGet_vy();
-    auto x = (long)m_ap._ZtlSecureGet_x();
-    auto y = (long)m_ap._ZtlSecureGet_y();
-    auto pLR = GetLadderOrRope();
+    const auto vx = (long)m_ap._ZtlSecureGet_vx();
+    const auto vy = (long)m_ap._ZtlSecureGet_vy();
+    const auto x = (long)m_ap._ZtlSecureGet_x();
+    const auto y = (long)m_ap._ZtlSecureGet_y();
+    const auto pLR = GetLadderOrRope();
 
     m_path.MakeMovePath(
         nAttr,
@@ -848,8 +834,6 @@ void CVecCtrl::SetMovePathAttribute(long nAttr)
         0,
         0
     );
-    // TODO: No module found for method
-    //UNIMPLEMENTED;
 }
 
 void CVecCtrl::SetWingsParam(long arg0)
@@ -892,14 +876,16 @@ void CVecCtrl::DetachFromFoothold()
     }
 }
 
-int64_t CVecCtrl::UpdatePassive(const long* pFixedX, const long* pFixedY)
+int CVecCtrl::UpdatePassive(const long* pFixedX, const long* pFixedY)
 {
-    if (!BeginUpdatePassive())
+    if (BeginUpdatePassive())
     {
-        return 0;
+        //TODO make the timestep variable a global
+        return WorkUpdatePassive(0x1e, pFixedX, pFixedY);
     }
-    //TODO make the timestep variable a global
-    return WorkUpdatePassive(0x1e, pFixedX, pFixedY);
+
+    return 0;
+
     //return __sub_00590930(this, nullptr, pFixedX, pFixedY);
 }
 
@@ -914,7 +900,7 @@ CVecCtrl*__cdecl CVecCtrl::CreateInstance()
     return new CVecCtrl();
 }
 
-CWvsPhysicalSpace2D* CVecCtrl::GetPhysicalSpace2D()
+CWvsPhysicalSpace2D* CVecCtrl::GetPhysicalSpace2D() const
 {
     return CWvsPhysicalSpace2D::GetInstance();
 }
@@ -922,50 +908,50 @@ CWvsPhysicalSpace2D* CVecCtrl::GetPhysicalSpace2D()
 void CVecCtrl::OnAttachedObjectChanged(CStaticFoothold* pfhNew, CLadderOrRope* pLadderOrRopeNew, long tElapse)
 {
     __sub_005929E0(this, nullptr, pfhNew, pLadderOrRopeNew, tElapse);
-
-    MakeContinuousMovePath(tElapse);
-    auto page = m_lPage;
-    auto zMass = m_lZMass;
-    if (pfhNew)
-    {
-        page = pfhNew->GetPage();
-        zMass = pfhNew->GetZMass();
-
-
-        m_pfhLast = pfhNew;
-        m_pfhFallStart = nullptr;
-        m_pfhLandingNext = 0;
-        m_bWingsNow = false;
-    }
-    else if (pLadderOrRopeNew)
-    {
-        m_pfhFallStart = nullptr;
-        page = pLadderOrRopeNew->nPage;
-        zMass = 0;
-        m_bSetLayerZNext = true;
-        m_bWingsNow = false;
-    }
+    /*
+        MakeContinuousMovePath(tElapse);
+        auto page = m_lPage;
+        auto zMass = m_lZMass;
+        if (pfhNew)
+        {
+            page = pfhNew->GetPage();
+            zMass = pfhNew->GetZMass();
 
 
-    if (m_lZMass != zMass || m_lPage != page)
-    {
-        m_lPage = page;
-        m_lZMass = zMass;
-        m_pOwner->OnLayerZChanged(this);
-    }
+            m_pfhLast = pfhNew;
+            m_pfhFallStart = nullptr;
+            m_pfhLandingNext = 0;
+            m_bWingsNow = false;
+        }
+        else if (pLadderOrRopeNew)
+        {
+            m_pfhFallStart = nullptr;
+            page = pLadderOrRopeNew->nPage;
+            zMass = 0;
+            m_bSetLayerZNext = true;
+            m_bWingsNow = false;
+        }
 
-    m_pfh = pfhNew;
-    _ZtlSecurePut_m_pLadderOrRope(pLadderOrRopeNew);
 
-    long inpX = 0, inpY = 0;
-    GetInput(inpX, inpY);
-    m_nMoveAction = m_pOwner->OnResolveMoveAction(inpX, inpY, m_nMoveAction, this);
-    MakeNewMovePathElem();
+        if (m_lZMass != zMass || m_lPage != page)
+        {
+            m_lPage = page;
+            m_lZMass = zMass;
+            m_pOwner->OnLayerZChanged(this);
+        }
+
+        m_pfh = pfhNew;
+        _ZtlSecurePut_m_pLadderOrRope(pLadderOrRopeNew);
+
+        long inpX = 0, inpY = 0;
+        GetInput(inpX, inpY);
+        m_nMoveAction = m_pOwner->OnResolveMoveAction(inpX, inpY, m_nMoveAction, this);
+        MakeNewMovePathElem();*/
 }
 
-void CVecCtrl::SetAttachedObjectChanged(int32_t arg0)
+void CVecCtrl::SetAttachedObjectChanged(const int32_t attachedObj)
 {
-    m_bAttachedObjectChanged = arg0;
+    m_bAttachedObjectChanged = attachedObj;
 }
 
 int32_t CVecCtrl::IsAttachedObjectChanged() const
@@ -973,9 +959,8 @@ int32_t CVecCtrl::IsAttachedObjectChanged() const
     return m_bAttachedObjectChanged;
 }
 
-long CVecCtrl::GetMPA()
+long CVecCtrl::GetMPA() const
 {
-    //return __sub_00591F90(this, nullptr);
     UNIMPLEMENTED;
 }
 
@@ -1018,17 +1003,44 @@ void CVecCtrl::MakeNewMovePathElem()
 
 void CVecCtrl::SaveFloatStateBeforeCollision()
 {
-    //__sub_00591580(this, nullptr);
 }
 
 void CVecCtrl::SaveFloatStateAfterCollision()
 {
-    //__sub_00591590(this, nullptr);
 }
 
-long CVecCtrl::BoundPosMapRange(const RelPos& d0, long tElapseMax)
+long CVecCtrl::BoundPosMapRange(const RelPos& rp, long tElapse)
 {
-    return __sub_005910C0(this, nullptr, d0, tElapseMax);
+    return __sub_005910C0(this, nullptr, rp, tElapse);
+    /*const auto rpos = m_rp._ZtlSecureGet_pos();
+    const auto pos = rp._ZtlSecureGet_pos();
+    const auto dpos = rpos - pos;
+    auto result = 0;
+
+    const auto isLeft = m_rcBound.left > rpos;
+    const auto isRight = m_rcBound.right < rpos;
+    if (!isLeft && !isRight)
+        return tElapse;
+
+    const double bound = isLeft ? m_rcBound.left : m_rcBound.right;
+    const auto newPos = (bound - this->m_pfh->GetX1()) / this->m_pfh->GetUVX();
+    m_rp._ZtlSecurePut_pos(newPos);
+    m_rp._ZtlSecurePut_v(0.);
+    if (0.0 == dpos)
+    {
+        result = tElapse;
+    }
+    else
+    {
+        result = (newPos - pos)
+            / dpos
+            * static_cast<double>(tElapse);
+    }
+    if (result < 0)
+        return 0;
+    if (result > tElapse)
+        return tElapse;
+    return result;*/
 }
 
 long CVecCtrl::BoundPosMapRange(const AbsPos& dx0, long dy0)
@@ -1044,10 +1056,10 @@ long CVecCtrl::BeginUpdateActive()
 {
     //return __sub_00591F90(this, nullptr);
     m_apl = m_ap;
-    auto phys2d = CWvsPhysicalSpace2D::GetInstance();
-    m_pAttrField = phys2d->GetFieldAttr();
+    m_pAttrField = GetPhysicalSpace2D()->GetFieldAttr();
     m_pCurAttrShoe = m_pOwner->GetShoeAttr();
 
+    //TODO timestemp
     return 30;
 }
 
@@ -1058,24 +1070,21 @@ int32_t CVecCtrl::WorkUpdateActive(long rpl)
 
 void CVecCtrl::EndUpdateActive()
 {
-    //__sub_005915A0(this, nullptr);
 }
 
 int32_t CVecCtrl::BeginUpdatePassive()
 {
-    //return __sub_00590960(this, nullptr);
     m_apl = m_ap;
     return true;
 }
 
-int64_t CVecCtrl::WorkUpdatePassive(long fh, const long* nAttr, const long* apOffsetY)
+int CVecCtrl::WorkUpdatePassive(long tElapse, const long* pFixedX, const long* pFixedY)
 {
-    return __sub_00591BE0(this, nullptr, fh, nAttr, apOffsetY);
+    return __sub_00591BE0(this, nullptr, tElapse, pFixedX, pFixedY);
 }
 
 void CVecCtrl::InspectUpdateActive()
 {
-    //__sub_005909C0(this, nullptr);
 }
 
 void CVecCtrl::SetSlide(long arg0, double arg1)
@@ -1091,7 +1100,6 @@ int32_t CVecCtrl::JustJump()
 
 void CVecCtrl::Jump()
 {
-    //__sub_00594430(this, nullptr);
     m_bJumpNext = false;
     m_bTryJumpedInFly = true;
     if (JustJump())
@@ -1102,7 +1110,6 @@ void CVecCtrl::Jump()
 
 void CVecCtrl::Wings()
 {
-    //__sub_00594400(this, nullptr);
     m_bWingsNext = false;
     if (JustJump())
     {
@@ -1149,7 +1156,7 @@ unsigned long __stdcall CVecCtrl::AddRef()
 unsigned long __stdcall CVecCtrl::Release()
 {
     auto res = InterlockedDecrement(&m_cRef);
-    if (res == 0)
+    if (!res)
     {
         delete this;
     }
@@ -1174,13 +1181,13 @@ HRESULT __stdcall CVecCtrl::put_value(tagVARIANT vKey, tagVARIANT vVal)
 HRESULT __stdcall CVecCtrl::get_persistentUOL(wchar_t** pVal)
 {
     //return __sub_005953E0(this, pVal);
-    return 2 * (pVal != 0) - 0x7FFFBFFD;
+    return 2 * (pVal != nullptr) - 0x7FFFBFFD;
 }
 
 HRESULT __stdcall CVecCtrl::raw_Serialize(IWzArchive* pArchive)
 {
     //return __sub_00595400(this, pArchive);
-    return 2 * (pArchive != 0) - 0x7FFFBFFD;
+    return 2 * (pArchive != nullptr) - 0x7FFFBFFD;
 }
 
 HRESULT __stdcall CVecCtrl::get_item(tagVARIANT vIndex, tagVARIANT* pvValue)
@@ -1195,7 +1202,7 @@ HRESULT __stdcall CVecCtrl::get_item(tagVARIANT vIndex, tagVARIANT* pvValue)
 HRESULT __stdcall CVecCtrl::get__NewEnum(IUnknown** pVal)
 {
     //return __sub_00595440(this, pVal);
-    return 2 * (pVal != 0) - 0x7FFFBFFD;
+    return 2 * (pVal != nullptr) - 0x7FFFBFFD;
 }
 
 HRESULT __stdcall CVecCtrl::get_count(unsigned int* pVal)
@@ -1212,7 +1219,7 @@ HRESULT __stdcall CVecCtrl::get_x(int* pVal)
     //return __sub_00595480(this, (long*)pVal);
     if (!pVal)
         return 0x80004003;
-    return m_pVecAlternate->raw__GetSnapshot(pVal, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+    return raw__GetSnapshot(pVal, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                                              vtMissing);
 }
 
@@ -1221,7 +1228,7 @@ HRESULT __stdcall CVecCtrl::get_y(int* pVal)
     //return __sub_00595510(this, (long*)pVal);
     if (!pVal)
         return 0x80004003;
-    return m_pVecAlternate->raw__GetSnapshot(nullptr, pVal, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+    return raw__GetSnapshot(nullptr, pVal, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                                              vtMissing);
 }
 
@@ -1263,16 +1270,15 @@ HRESULT __stdcall CVecCtrl::put_y2(int newVal)
 
 HRESULT __stdcall CVecCtrl::raw_Move(int x, int y)
 {
-    //return __sub_00595CD0(this, arg0, arg1);
-
+    m_pfh = nullptr;
     _ZtlSecurePut_m_pLadderOrRope(nullptr);
     m_apl._ZtlSecurePut_x(x);
-    m_ap._ZtlSecurePut_x(x);
     m_apl._ZtlSecurePut_y(y);
-    m_ap._ZtlSecurePut_y(y);
-
     m_apl._ZtlSecurePut_vx(0.);
     m_apl._ZtlSecurePut_vy(0.);
+
+    m_ap._ZtlSecurePut_x(x);
+    m_ap._ZtlSecurePut_y(y);
     m_ap._ZtlSecurePut_vx(0.);
     m_ap._ZtlSecurePut_vy(0.);
 
@@ -1351,7 +1357,7 @@ HRESULT __stdcall CVecCtrl::get_rx(int* pnX)
     //return __sub_00595670(this, (long*)pnX);
     if (!pnX)
         return 0x80004003;
-    return m_pVecAlternate->raw__GetSnapshot(nullptr, nullptr, pnX, nullptr, nullptr, nullptr, nullptr, nullptr,
+    return raw__GetSnapshot(nullptr, nullptr, pnX, nullptr, nullptr, nullptr, nullptr, nullptr,
                                              vtMissing);
 }
 
@@ -1361,7 +1367,7 @@ HRESULT __stdcall CVecCtrl::get_ry(int* pnY)
 
     if (!pnY)
         return 0x80004003;
-    return m_pVecAlternate->raw__GetSnapshot(nullptr, nullptr, pnY, nullptr, nullptr, nullptr, nullptr, nullptr,
+    return raw__GetSnapshot(nullptr, nullptr, nullptr, pnY, nullptr, nullptr, nullptr, nullptr,
                                              vtMissing);
 }
 
@@ -1434,9 +1440,8 @@ HRESULT __stdcall CVecCtrl::put_flipX(int nFlipX)
 
 int calcPos(double x, double vx, double t)
 {
-    auto a = x + (vx - x) * t;
-    auto b = a < 0. ? a - 0.499999999 : a + 5.;
-    return static_cast<int>(b);
+    return static_cast<int>(tolong(x + (vx - x) * t));
+    //return tolong(x);
 }
 
 HRESULT
@@ -1446,55 +1451,45 @@ __stdcall CVecCtrl::raw__GetSnapshot(int* px, int* py, int* prx, int* pry, int* 
     /*return __sub_00595A50(this, (long*)t, (long*)arg1, (long*)arg2, (long*)arg3, (long*)arg4, (long*)arg5, arg6, arg7,
                           CreateNakedParam(arg8));*/
 
+    auto result = S_OK;
     if (m_pVecAlternate)
     {
-        auto res = m_pVecAlternate->raw__GetSnapshot(px, py, prx, pry, pxOrg, pyOrg, pa, paOrg, vTime);
-        if (res < 0)
+        result = m_pVecAlternate->raw__GetSnapshot(px, py, prx, pry, pxOrg, pyOrg, pa, paOrg, vTime);
+        if (result < 0)
         {
-            return res;
+            return result;
+        }
+    }
+    else
+    {
+        const auto t = CWvsApp::GetInstance()->GetTimeGap() / 30.;
+        if (px)
+        {
+            auto x = m_ap._ZtlSecureGet_x();
+            auto vx = m_apl._ZtlSecureGet_x();
+            *px = calcPos(x, vx, t);
         }
 
-        if (pyOrg)
-            *pyOrg = 0;
-        if (pxOrg)
-            *pxOrg = 0;
-        if (pa)
-            *pa = 0.;
-        if (paOrg)
-            *paOrg = 0.;
+        if (py)
+        {
+            auto y = m_ap._ZtlSecureGet_y();
+            auto vy = m_apl._ZtlSecureGet_y();
+            *py = calcPos(y, vy, t);
+        }
 
-        return 0;
-    }
+        if (prx)
+        {
+            auto x = m_ap._ZtlSecureGet_x();
+            auto vx = m_apl._ZtlSecureGet_x();
+            *prx = calcPos(x, vx, t);
+        }
 
-    auto t = CWvsApp::GetInstance()->GetTimeGap() / 30.;
-
-
-    if (px)
-    {
-        auto x = m_ap._ZtlSecureGet_x();
-        auto vx = m_ap._ZtlSecureGet_vx();
-        *px = calcPos(x, vx, t);
-    }
-
-    if (py)
-    {
-        auto y = m_ap._ZtlSecureGet_y();
-        auto vy = m_ap._ZtlSecureGet_vy();
-        *py = calcPos(y, vy, t);
-    }
-
-    if (prx)
-    {
-        auto x = m_apl._ZtlSecureGet_x();
-        auto vx = m_apl._ZtlSecureGet_vx();
-        *px = calcPos(x, vx, t);
-    }
-
-    if (pry)
-    {
-        auto y = m_apl._ZtlSecureGet_y();
-        auto vy = m_apl._ZtlSecureGet_vy();
-        *py = calcPos(y, vy, t);
+        if (pry)
+        {
+            auto y = m_ap._ZtlSecureGet_y();
+            auto vy = m_apl._ZtlSecureGet_y();
+            *pry = calcPos(y, vy, t);
+        }
     }
 
     if (pyOrg)
@@ -1506,7 +1501,7 @@ __stdcall CVecCtrl::raw__GetSnapshot(int* px, int* py, int* prx, int* pry, int* 
     if (paOrg)
         *paOrg = 0.;
 
-    return S_OK;
+    return result;
 }
 
 HRESULT __stdcall CVecCtrl::raw_RelMove(int nX, int nY, tagVARIANT nTime, tagVARIANT nType)
@@ -1591,7 +1586,7 @@ double __cdecl max_walk_speed(CStaticFoothold* pfh, const CAttrShoe* pas, long d
     //return __sub_00592B20(pfh, pas, dir);
     auto& phy = CWvsPhysicalSpace2D::GetInstance()->m_constants;;
     double walk = pfh->GetAttribute()->walk;
-    double walkSpeed = pas->walkSpeed;
+    double walkSpeed = pas->walkSpeed.GetData();
     auto result = walkSpeed * (phy->dWalkSpeed * walk);
     if (dir)
         return result * (pfh->GetUVY() * pfh->GetUVY() * (double)dir + 1.0);

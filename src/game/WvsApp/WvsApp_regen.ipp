@@ -203,13 +203,13 @@ __asm {
 	call get_gr
 	push eax
 	mov ecx,dword ptr [ebp-0xD4]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzGr2D
 	add esp,0xC
 	mov byte ptr [ebp-4],0
 	lea ecx,[ebp-0x3C]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	mov eax,dword ptr [ebp-0xC8]
 	mov byte ptr [eax+0x78],1
 	jmp Block2
@@ -8067,13 +8067,13 @@ __asm {
 	call get_rm
 	push eax
 	mov ecx,dword ptr [ebp-0x2F0]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzResMan
 	add esp,0xC
 	mov dword ptr [ebp-4],0xFFFFFFFF
 	lea ecx,[ebp-0x1BC]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	push 0xFFFFFFFF
 	push 0xFFFFFFFF
 	push 0x11
@@ -8096,13 +8096,13 @@ __asm {
 	call get_root
 	push eax
 	mov ecx,dword ptr [ebp-0x2F8]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzNameSpace
 	add esp,0xC
 	mov dword ptr [ebp-4],0xFFFFFFFF
 	lea ecx,[ebp-0x1C0]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	call get_root
 	mov ecx,eax
 	call _x_com_ptr<IWzNameSpace>::op_star
@@ -8126,13 +8126,13 @@ __asm {
 	lea eax,[ebp-0x14]
 	push eax
 	mov ecx,dword ptr [ebp-0x300]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzFileSystem
 	add esp,0xC
 	mov byte ptr [ebp-4],2
 	lea ecx,[ebp-0x1C4]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	mov dword ptr [ebp-0x18],0
 	mov byte ptr [ebp-4],4
 	push 0x104
@@ -8182,13 +8182,13 @@ __asm {
 	lea eax,[ebp-0x68]
 	push eax
 	mov ecx,dword ptr [ebp-0x318]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzPackage
 	add esp,0xC
 	mov byte ptr [ebp-4],6
 	lea ecx,[ebp-0x1CC]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	push 0
 	push 0
 	push ecx
@@ -8280,7 +8280,7 @@ __asm {
 	push 0x64
 	push 0x1F
 	lea ecx,[ebp-0x84]
-	call ZMap<ZXString<unsigned short>, ZXString<unsigned short>, ZXString<unsigned short>>::_ctor_ii
+	call ZMap<ZXString16, ZXString16, ZXString16>::_ctor_ii
 	mov byte ptr [ebp-4],0xF
 	call get_root
 	mov ecx,eax
@@ -8351,13 +8351,13 @@ __asm {
 	lea eax,[ebp-0x1A0]
 	push eax
 	mov ecx,dword ptr [ebp-0x374]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzPackage
 	add esp,0xC
 	mov byte ptr [ebp-4],0x14
 	lea ecx,[ebp-0x1F4]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	push 0
 	push 0
 	push 0xFFFFFFFF
@@ -8365,13 +8365,13 @@ __asm {
 	mov edx,dword ptr [ebp+ecx*4-0x64]
 	push edx
 	lea ecx,[ebp-0x200]
-	call ZXString<unsigned short>::CreateFromCharStr
+	call ZXString16::CreateFromCharStr
 	mov dword ptr [ebp-0x378],eax
 	mov eax,dword ptr [ebp-0x378]
 	mov dword ptr [ebp-0x37C],eax
 	mov byte ptr [ebp-4],0x16
 	lea ecx,[ebp-0x1FC]
-	call ZXString<unsigned short>::_ctor_default
+	call ZXString16::_ctor_default
 	mov dword ptr [ebp-0x380],eax
 	mov ecx,dword ptr [ebp-0x380]
 	mov dword ptr [ebp-0x384],ecx
@@ -8382,11 +8382,11 @@ __asm {
 	push offset _S_SWZ
 	mov ecx,dword ptr [ebp-0x384]
 	push ecx
-	call ZXString<unsigned short>::Format
+	call ZXString16::Format
 	add esp,0xC
 	mov dword ptr [ebp-0x388],eax
 	mov ecx,dword ptr [ebp-0x388]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push ecx
 	mov ecx,esp
 	mov dword ptr [ebp-0x1F8],esp
@@ -8421,10 +8421,10 @@ __asm {
 	call Ztl_variant_t::~Ztl_variant_t
 	mov byte ptr [ebp-4],0x1C
 	lea ecx,[ebp-0x1FC]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	mov byte ptr [ebp-4],0x1D
 	lea ecx,[ebp-0x200]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	push 0
 	push 0
 	push ecx
@@ -8477,7 +8477,7 @@ __asm {
 	add esp,8
 	push eax
 	lea ecx,[ebp-0x1A8]
-	call ZXString<unsigned short>::CreateFromCStr
+	call ZXString16::CreateFromCStr
 	mov dword ptr [ebp-0x3C4],eax
 	mov byte ptr [ebp-4],0x20
 	push 0xFFFFFFFF
@@ -8485,7 +8485,7 @@ __asm {
 	mov ecx,dword ptr [ebp+eax*4-0x64]
 	push ecx
 	lea ecx,[ebp-0x22C]
-	call ZXString<unsigned short>::CreateFromCharStr
+	call ZXString16::CreateFromCharStr
 	mov dword ptr [ebp-0x3C8],eax
 	mov byte ptr [ebp-4],0x21
 	lea edx,[ebp-0x1A8]
@@ -8493,10 +8493,10 @@ __asm {
 	lea eax,[ebp-0x22C]
 	push eax
 	lea ecx,[ebp-0x84]
-	call ZMap<ZXString<unsigned short>, ZXString<unsigned short>, ZXString<unsigned short>>::GetAt
+	call ZMap<ZXString16, ZXString16, ZXString16>::GetAt
 	mov byte ptr [ebp-4],0x20
 	lea ecx,[ebp-0x22C]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	lea ecx,[ebp-0x1AC]
 	call _x_com_ptr<IWzSeekableArchive>::op_star
 	push eax
@@ -8512,7 +8512,7 @@ __asm {
 	mov dword ptr [ebp-0x3D0],ecx
 	mov byte ptr [ebp-4],0x22
 	lea ecx,[ebp-0x1A8]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push ecx
 	mov ecx,esp
 	mov dword ptr [ebp-0x234],esp
@@ -8546,13 +8546,13 @@ __asm {
 	lea edx,[ebp-0x1A4]
 	push edx
 	mov ecx,dword ptr [ebp-0x3E8]
-	call ZXString<unsigned short>::op_c_str
+	call ZXString16::op_c_str
 	push eax
 	call PcCreate_IWzNameSpace
 	add esp,0xC
 	mov byte ptr [ebp-4],0x24
 	lea ecx,[ebp-0x238]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	push 0
 	lea ecx,[ebp-0x1A0]
 	call _x_com_ptr<IWzPackage>::op_star
@@ -8600,7 +8600,7 @@ __asm {
 	call _x_com_ptr<IWzNameSpace>::~_x_com_ptr<IWzNameSpace>
 	mov byte ptr [ebp-4],0x1D
 	lea ecx,[ebp-0x1A8]
-	call ZXString<unsigned short>::~ZXString<unsigned short>
+	call ZXString16::~ZXString<wchar_t>
 	mov byte ptr [ebp-4],0x14
 	lea ecx,[ebp-0x1AC]
 	call _x_com_ptr<IWzSeekableArchive>::~_x_com_ptr<IWzSeekableArchive>
@@ -8618,7 +8618,7 @@ __asm {
 	call _x_com_ptr<IEnumVARIANT>::~_x_com_ptr<IEnumVARIANT>
 	mov byte ptr [ebp-4],0xB
 	lea ecx,[ebp-0x84]
-	call ZMap<ZXString<unsigned short>, ZXString<unsigned short>, ZXString<unsigned short>>::~ZMap<ZXString<unsigned short>, ZXString<unsigned short>, ZXString<unsigned short>>
+	call ZMap<ZXString16, ZXString16, ZXString16>::~ZMap<ZXString16, ZXString16, ZXString16>
 	mov byte ptr [ebp-4],6
 	lea ecx,[ebp-0x6C]
 	call _x_com_ptr<IWzSeekableArchive>::~_x_com_ptr<IWzSeekableArchive>

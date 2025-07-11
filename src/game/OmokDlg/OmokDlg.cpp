@@ -57,7 +57,7 @@ void COmokDlg::OnCreate(void* pData) {
 int32_t COmokDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {
 	return __sub_0027F850(this, nullptr, rx, ry, ppCtrl);
 }
-void COmokDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void COmokDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00281800(this, nullptr, wParam, lParam);
 }
 void COmokDlg::OnMouseButton(uint32_t msg, uint32_t wParam, long rx, long ry) {

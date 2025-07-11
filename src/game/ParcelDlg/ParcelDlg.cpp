@@ -216,7 +216,7 @@ int32_t CParcelDlg::OnMouseMove(long rx, long ry) {
 void CParcelDlg::Update() {
 	__sub_0028D910(this, nullptr);
 }
-void CParcelDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CParcelDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00290D60(this, nullptr, wParam, lParam);
 }
 int32_t CParcelDlg::HitTest(long rx, long ry, CCtrlWnd** ppCtrl) {

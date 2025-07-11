@@ -66,6 +66,6 @@ __SUB_CLASS_THIS(0020EFA0, __thiscall, 52622,  CMacroSysMan, ZXString<char>*, ZX
 	_ASM_PLACEHOLDER(0020EFA0, 52622)
 }
 // CMacroSysMan::CanItShow
-__SUB_CLASS_THIS(0020F0E0, __thiscall, 52630,  CMacroSysMan, int32_t, NakedParam<ZXString<unsigned short>>) {
+__SUB_CLASS_THIS(0020F0E0, __thiscall, 52630,  CMacroSysMan, int32_t, NakedParam<ZXString16>) {
 	_ASM_PLACEHOLDER(0020F0E0, 52630)
 }

@@ -109,7 +109,7 @@ int32_t CUICharacterSaleDlg::ClearWindow() {
 int32_t CUICharacterSaleDlg::ClearCurrentStep(long nStep) {
 	return __sub_0037A8D0(this, nullptr, nStep);
 }
-void CUICharacterSaleDlg::OnKey(uint32_t wParam, uint32_t lParam) {
+void CUICharacterSaleDlg::OnKey(uint32_t wParam, int32_t lParam) {
 	__sub_00377710(this, nullptr, wParam, lParam);
 }
 void CUICharacterSaleDlg::GetSelectedAL_1(AvatarLook& al) {

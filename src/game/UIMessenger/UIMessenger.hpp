@@ -23,7 +23,7 @@ public:
 		// Nested
 		// Fields
 	public:
-		ZXString<unsigned short> sChatText;
+		ZXString16 sChatText;
 
 	public:
 		FONT_TYPE ftColor;
@@ -225,7 +225,7 @@ public:
 	virtual void OnDestroy();
 
 public:
-	virtual void OnKey(uint32_t wParam, uint32_t lParam);
+	virtual void OnKey(uint32_t wParam, int32_t lParam);
 
 public:
 	virtual void OnChildNotify(uint32_t nId, uint32_t param1, uint32_t param2);
@@ -327,7 +327,7 @@ protected:
 	void StartBlink(int32_t bStart);
 
 protected:
-	void AddChatText(ZXString<unsigned short> sText, long nIdx);
+	void AddChatText(ZXString16 sText, long nIdx);
 
 protected:
 	void SendClaim();
