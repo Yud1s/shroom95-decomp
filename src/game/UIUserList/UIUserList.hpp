@@ -1149,8 +1149,6 @@ public:
         static CTabGuild::SectionData& _op_assign_9(CTabGuild::SectionData* pThis, const CTabGuild::SectionData& arg0);
     };
 
-public:
-    enum CTabGuild::ORDER;
 
 public:
     enum O

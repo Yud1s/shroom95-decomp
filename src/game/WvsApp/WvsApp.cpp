@@ -1181,46 +1181,36 @@ void CWvsApp::CreateWndManager() const
     //__sub_005C2060(this, nullptr);
 }
 
-void CWvsApp::InitializeResMan() const
-{
-    auto& sp = StringPool::GetInstance();
-
-    auto resManUol = sp.GetStringW(1766);
-    auto rm = G_PCOM.CreateObjectPtr<IWzResMan>(reinterpret_cast<const wchar_t*>(resManUol.c_str()), nullptr);
+void CWvsApp::InitializeResMan() const {
+    auto rm = G_PCOM.CreateObjectPtr<IWzResMan>(L"ResMan", nullptr);
     _D_G_RM = rm;
     Z_CHECK_HR(rm->SetResManParam(static_cast<RESMAN_PARAM>(RC_AUTO_SERIALIZE | RC_AUTO_REPARSE), -1, -1));
 
-    auto namespaceUol = sp.GetStringW(1768);
-    auto root = G_PCOM.CreateObjectPtr<IWzNameSpace>(reinterpret_cast<const wchar_t*>(namespaceUol.c_str()), nullptr);
+    auto root = G_PCOM.CreateObjectPtr<IWzNameSpace>(L"NameSpace", nullptr);
     _D_G_ROOT = root;
     Z_CHECK_HR(G_PCOM.SetRootNameSpace(root));
 
-    auto namespaceFsUol = sp.GetStringW(1769);
-    auto pFs = G_PCOM.CreateObjectPtr<IWzFileSystem>(reinterpret_cast<const wchar_t*>(namespaceFsUol.c_str()), nullptr);
+    auto pFs = G_PCOM.CreateObjectPtr<IWzFileSystem>(L"NameSpace#FileSystem", nullptr);
 
-    /*char path[MAX_PATH + 1];
+    char path[MAX_PATH + 1];
     GetModuleFileNameA(nullptr, path, MAX_PATH);
     Dir_BackSlashToSlash(path);
-    Dir_upDir(path);*/
+    Dir_upDir(path);
 
-    Z_CHECK_HR(pFs->Init(WZ_PATH));
+    Z_CHECK_HR(pFs->Init(Ztl_bstr_t(path)));
     pFs->AddRef();
 
-    auto nsPkgUol = sp.GetStringW(2334);
-    auto pPkg = G_PCOM.CreateObjectPtr<IWzPackage>(reinterpret_cast<const wchar_t*>(nsPkgUol.c_str()), nullptr);
-    //PcCreate_IWzPackage(reinterpret_cast<const wchar_t*>(nsPkgUol.c_str()), pPkg, nullptr);
-
+    auto pPkg = G_PCOM.CreateObjectPtr<IWzPackage>(L"NameSpace#Package", nullptr);
     auto base = pFs->Getitem(Ztl_bstr_t(L"Base.wz"));
-    _x_com_ptr<IWzSeekableArchive> pArchive(base.GetUnknown(false, false));
+    _x_com_ptr<IWzSeekableArchive> pArchive(base.GetUnknown());
 
-    Ztl_bstr_t version(L"95");
-    Ztl_bstr_t uol;
-    Z_CHECK_HR(pPkg->Init(version, uol, pArchive));
+    Z_CHECK_HR(pPkg->Init(L"95", L"", pArchive));
 
     // Mount root
-    Z_CHECK_HR(_D_G_ROOT->Mount(Ztl_bstr_t(L"/"), pPkg, 0));
+    pPkg->AddRef();
+    Z_CHECK_HR(root->Mount(L"/", pPkg, 0));
 
-    std::array<wchar_t const*, 0xf> ITEMS{
+    std::array<wchar_t const *, 0xf> ITEMS{
         L"Character",
         L"Mob",
         L"Skill",
@@ -1239,23 +1229,23 @@ void CWvsApp::InitializeResMan() const
     };
 
     wchar_t fmt[0x100]{};
-
-    for (auto i = 0; i < ITEMS.size(); ++i)
-    {
-        auto& item = ITEMS[i];
+    for (auto i = 0; i < ITEMS.size(); ++i) {
+        auto &item = ITEMS[i];
         swprintf_s(fmt, L"%s.wz", item);
 
-        auto pkg = G_PCOM.CreateObjectPtr<IWzPackage>(reinterpret_cast<const wchar_t*>(nsPkgUol.c_str()), nullptr);
+        auto pkg = G_PCOM.CreateObjectPtr<IWzPackage>(L"NameSpace#Package", nullptr);
         auto vArchive = pFs->Getitem(fmt);
-        _x_com_ptr<IWzSeekableArchive> pCurArchive(vArchive.GetUnknown(false, false));
+        _x_com_ptr<IWzSeekableArchive> pCurArchive(vArchive.GetUnknown());
+
+
         auto vSubNs = root->Getitem(item);
-        _x_com_ptr<IWzNameSpace> subNs(vSubNs.GetUnknown(false, false));
+        _x_com_ptr<IWzNameSpace> subNs(vSubNs.GetUnknown());
         get_sub(i) = subNs;
 
-        Z_CHECK_HR(pkg->Init(version, item, pCurArchive.GetInterfacePtr()));
+        Z_CHECK_HR(pkg->Init(L"95", item, pCurArchive.GetInterfacePtr()));
 
         auto sub = get_sub(i);
-        auto pkgNs = G_PCOM.CreateObjectPtr<IWzNameSpace>(reinterpret_cast<const wchar_t*>(namespaceUol.c_str()),
+        auto pkgNs = G_PCOM.CreateObjectPtr<IWzNameSpace>(L"NameSpace",
                                                           nullptr);
         Z_CHECK_HR(pkgNs->Mount(Ztl_bstr_t(L"/"), pkg, 0));
         Z_CHECK_HR(sub->Mount(Ztl_bstr_t(L"/"), pkgNs, 1));

@@ -121,7 +121,7 @@ int32_t CClientSocket::OnConnect(int32_t bSuccess)
             else
             {
                 // Throw terminate exception
-                UNIMPLEMENTED;
+                //UNIMPLEMENTED;
             }
         }
 

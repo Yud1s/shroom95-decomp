@@ -4,3 +4,6 @@
 [submodule "THST"]
 	path = THST
 	url = https://github.com/tuxalin/THST
+[submodule "lib/THST"]
+	path = lib/THST
+	url = https://github.com/tuxalin/THST

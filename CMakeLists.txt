@@ -46,7 +46,7 @@ add_subdirectory(tests)
 #todo dinput
 
 add_definitions(-DNOMINMAX)
-include_directories(THST/include)
+include_directories(lib/THST/include)
 
 if (WIN32)
     target_link_libraries(game95 wsock32 ws2_32 winmm Imm32 Wininet Iphlpapi Netapi32 version Shell32 dinput8 dxguid ztl spdlog::spdlog)
